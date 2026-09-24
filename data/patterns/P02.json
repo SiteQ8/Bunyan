@@ -2,7 +2,10 @@
   "id": "P02",
   "slug": "identity-control-plane",
   "domain": "identity",
-  "title": { "en": "Identity as the control plane", "ar": "الهوية مستوى تحكم" },
+  "title": {
+    "en": "Identity as the control plane",
+    "ar": "الهوية مستوى تحكم"
+  },
   "summary": {
     "en": "Make one identity provider the authority for every person, and make phishing-resistant authentication the normal way in, because identity is the perimeter that attackers test first.",
     "ar": "اجعل مزود هوية واحدًا المرجع لكل شخص، واجعل التحقق المقاوم للتصيد الطريقة المعتادة للدخول، لأن الهوية هي المحيط الذي يختبره المهاجمون أولًا."
@@ -12,9 +15,18 @@
     "ar": "تتوزع الحسابات على أدلة كثيرة وحسابات محلية وحسابات مشتركة وبروتوكولات قديمة، فتفتح للمهاجمين أبوابًا كثيرة يكفي معها غالبًا اصطياد كلمة مرور واحدة أو تخمينها بالرش، كما تبقى الصلاحيات قائمة بعد زوال الحاجة إليها بوقت طويل حين تُدار حالات الانضمام والتنقل والمغادرة عبر البريد الإلكتروني."
   },
   "useWhen": [
-    { "en": "People sign in to many applications with different accounts or passwords.", "ar": "يدخل الناس إلى تطبيقات كثيرة بحسابات أو كلمات مرور مختلفة." },
-    { "en": "Passwords, SMS codes, or push approvals are still the main authentication methods.", "ar": "ما زالت كلمات المرور أو الرموز النصية أو الموافقة عبر الإشعارات هي طرق التحقق الرئيسية." },
-    { "en": "Access is granted and removed by hand, without a link to HR records.", "ar": "تُمنح الصلاحيات وتُسحب يدويًا دون ربط بسجلات الموارد البشرية." }
+    {
+      "en": "People sign in to many applications with different accounts or passwords.",
+      "ar": "يدخل الناس إلى تطبيقات كثيرة بحسابات أو كلمات مرور مختلفة."
+    },
+    {
+      "en": "Passwords, SMS codes, or push approvals are still the main authentication methods.",
+      "ar": "ما زالت كلمات المرور أو الرموز النصية أو الموافقة عبر الإشعارات هي طرق التحقق الرئيسية."
+    },
+    {
+      "en": "Access is granted and removed by hand, without a link to HR records.",
+      "ar": "تُمنح الصلاحيات وتُسحب يدويًا دون ربط بسجلات الموارد البشرية."
+    }
   ],
   "design": [
     {
@@ -29,86 +41,300 @@
   "controls": [
     {
       "level": "foundation",
-      "name": { "en": "Federate every application to one identity provider", "ar": "اربط كل تطبيق بمزود هوية واحد" },
-      "detail": { "en": "Connect workforce applications to the identity provider with single sign-on, and keep a list of the ones that cannot be connected yet, with a plan for each.", "ar": "اربط تطبيقات الموظفين بمزود الهوية عبر الدخول الموحد، واحتفظ بقائمة التطبيقات التي يتعذر ربطها حتى الآن مع خطة لكل منها." },
-      "nist": ["IA-2", "AC-2"], "cis": ["5.6", "6.6", "6.7"], "iso": ["5.16", "8.5"]
+      "name": {
+        "en": "Federate every application to one identity provider",
+        "ar": "اربط كل تطبيق بمزود هوية واحد"
+      },
+      "detail": {
+        "en": "Connect workforce applications to the identity provider with single sign-on, and keep a list of the ones that cannot be connected yet, with a plan for each.",
+        "ar": "اربط تطبيقات الموظفين بمزود الهوية عبر الدخول الموحد، واحتفظ بقائمة التطبيقات التي يتعذر ربطها حتى الآن مع خطة لكل منها."
+      },
+      "nist": [
+        "IA-2",
+        "AC-2"
+      ],
+      "cis": [
+        "5.6",
+        "6.6",
+        "6.7"
+      ],
+      "iso": [
+        "5.16",
+        "8.5"
+      ]
     },
     {
       "level": "foundation",
-      "name": { "en": "Require MFA everywhere, starting with administrators", "ar": "اشترط التحقق متعدد العناصر في كل مكان بدءًا بالمسؤولين" },
-      "detail": { "en": "Require multi-factor authentication for all users, with phishing-resistant methods for administrators and for externally exposed applications first.", "ar": "اشترط التحقق من الهوية متعدد العناصر على جميع المستخدمين، مع البدء بوسائل مقاومة للتصيد للمسؤولين وللتطبيقات المكشوفة خارجيًا." },
-      "nist": ["IA-2(1)", "IA-2(2)"], "cis": ["6.3", "6.4", "6.5"], "iso": ["8.5"]
+      "name": {
+        "en": "Require MFA everywhere, starting with administrators",
+        "ar": "اشترط التحقق متعدد العناصر في كل مكان بدءًا بالمسؤولين"
+      },
+      "detail": {
+        "en": "Require multi-factor authentication for all users, with phishing-resistant methods for administrators and for externally exposed applications first.",
+        "ar": "اشترط التحقق من الهوية متعدد العناصر على جميع المستخدمين، مع البدء بوسائل مقاومة للتصيد للمسؤولين وللتطبيقات المكشوفة خارجيًا."
+      },
+      "nist": [
+        "IA-2(1)",
+        "IA-2(2)"
+      ],
+      "cis": [
+        "6.3",
+        "6.4",
+        "6.5"
+      ],
+      "iso": [
+        "8.5"
+      ]
     },
     {
       "level": "foundation",
-      "name": { "en": "Block legacy authentication", "ar": "امنع بروتوكولات التحقق القديمة" },
-      "detail": { "en": "Disable protocols that bypass multi-factor authentication, such as basic authentication for mail and old directory binds, and alert on any attempt to use them.", "ar": "عطّل البروتوكولات التي تتجاوز التحقق متعدد العناصر، مثل التحقق الأساسي في البريد الإلكتروني والاتصالات القديمة بالدليل، وأطلق تنبيهًا عند أي محاولة لاستخدامها." },
-      "nist": ["IA-2", "CM-7"], "cis": ["4.8"], "iso": ["8.5"]
+      "name": {
+        "en": "Block legacy authentication",
+        "ar": "امنع بروتوكولات التحقق القديمة"
+      },
+      "detail": {
+        "en": "Disable protocols that bypass multi-factor authentication, such as basic authentication for mail and old directory binds, and alert on any attempt to use them.",
+        "ar": "عطّل البروتوكولات التي تتجاوز التحقق متعدد العناصر، مثل التحقق الأساسي في البريد الإلكتروني والاتصالات القديمة بالدليل، وأطلق تنبيهًا عند أي محاولة لاستخدامها."
+      },
+      "nist": [
+        "IA-2",
+        "CM-7"
+      ],
+      "cis": [
+        "4.8"
+      ],
+      "iso": [
+        "8.5"
+      ]
     },
     {
       "level": "foundation",
-      "name": { "en": "Automate joiners, movers, and leavers", "ar": "أتمت الانضمام والتنقل والمغادرة" },
-      "detail": { "en": "Create, change, and disable accounts from HR events, and disable dormant accounts after a defined period.", "ar": "أنشئ الحسابات وعدّلها وعطّلها انطلاقًا من أحداث الموارد البشرية، وعطّل الحسابات الخاملة بعد مدة محددة." },
-      "nist": ["AC-2", "AC-2(3)"], "cis": ["5.3", "6.1", "6.2"], "iso": ["5.16", "5.18"]
+      "name": {
+        "en": "Automate joiners, movers, and leavers",
+        "ar": "أتمت الانضمام والتنقل والمغادرة"
+      },
+      "detail": {
+        "en": "Create, change, and disable accounts from HR events, and disable dormant accounts after a defined period.",
+        "ar": "أنشئ الحسابات وعدّلها وعطّلها انطلاقًا من أحداث الموارد البشرية، وعطّل الحسابات الخاملة بعد مدة محددة."
+      },
+      "nist": [
+        "AC-2",
+        "AC-2(3)"
+      ],
+      "cis": [
+        "5.3",
+        "6.1",
+        "6.2"
+      ],
+      "iso": [
+        "5.16",
+        "5.18"
+      ]
     },
     {
       "level": "enhanced",
-      "name": { "en": "Use conditional access", "ar": "استخدم الوصول المشروط" },
-      "detail": { "en": "Decide access from user risk, device state, location, and application sensitivity, and require stronger authentication when the risk is higher.", "ar": "قرّر الوصول بناءً على مخاطر المستخدم وحالة الجهاز والموقع وحساسية التطبيق، واشترط تحققًا أقوى كلما ارتفعت المخاطر." },
-      "nist": ["AC-3", "IA-2"], "cis": ["6.7"], "iso": ["5.15", "8.5"]
+      "name": {
+        "en": "Use conditional access",
+        "ar": "استخدم الوصول المشروط"
+      },
+      "detail": {
+        "en": "Decide access from user risk, device state, location, and application sensitivity, and require stronger authentication when the risk is higher.",
+        "ar": "قرّر الوصول بناءً على مخاطر المستخدم وحالة الجهاز والموقع وحساسية التطبيق، واشترط تحققًا أقوى كلما ارتفعت المخاطر."
+      },
+      "nist": [
+        "AC-3",
+        "IA-2"
+      ],
+      "cis": [
+        "6.7"
+      ],
+      "iso": [
+        "5.15",
+        "8.5"
+      ]
     },
     {
       "level": "enhanced",
-      "name": { "en": "Govern service accounts", "ar": "أحكم إدارة حسابات الخدمة" },
-      "detail": { "en": "Keep an inventory of service accounts with an owner and a purpose for each, block interactive sign-in for them, and rotate or replace their credentials.", "ar": "احتفظ بسجل حصر لحسابات الخدمة مع مالك وغرض لكل منها، وامنع الدخول التفاعلي بها، ودوّر بيانات اعتمادها أو استبدلها." },
-      "nist": ["AC-2", "IA-5"], "cis": ["5.5"], "iso": ["5.16", "5.17"]
+      "name": {
+        "en": "Govern service accounts",
+        "ar": "أحكم إدارة حسابات الخدمة"
+      },
+      "detail": {
+        "en": "Keep an inventory of service accounts with an owner and a purpose for each, block interactive sign-in for them, and rotate or replace their credentials.",
+        "ar": "احتفظ بسجل حصر لحسابات الخدمة مع مالك وغرض لكل منها، وامنع الدخول التفاعلي بها، ودوّر بيانات اعتمادها أو استبدلها."
+      },
+      "nist": [
+        "AC-2",
+        "IA-5"
+      ],
+      "cis": [
+        "5.5"
+      ],
+      "iso": [
+        "5.16",
+        "5.17"
+      ]
     },
     {
       "level": "enhanced",
-      "name": { "en": "Review access on a schedule", "ar": "راجع الصلاحيات وفق جدول زمني" },
-      "detail": { "en": "Have owners confirm access to sensitive applications on a fixed schedule, and remove anything they do not confirm.", "ar": "اطلب من المالكين تأكيد صلاحيات الوصول إلى التطبيقات الحساسة وفق جدول ثابت، وأزل كل صلاحية لا يؤكدونها." },
-      "nist": ["AC-2"], "cis": ["6.2"], "iso": ["5.18"]
+      "name": {
+        "en": "Review access on a schedule",
+        "ar": "راجع الصلاحيات وفق جدول زمني"
+      },
+      "detail": {
+        "en": "Have owners confirm access to sensitive applications on a fixed schedule, and remove anything they do not confirm.",
+        "ar": "اطلب من المالكين تأكيد صلاحيات الوصول إلى التطبيقات الحساسة وفق جدول ثابت، وأزل كل صلاحية لا يؤكدونها."
+      },
+      "nist": [
+        "AC-2"
+      ],
+      "cis": [
+        "6.2"
+      ],
+      "iso": [
+        "5.18"
+      ]
     },
     {
       "level": "advanced",
-      "name": { "en": "Go passwordless", "ar": "استغنِ عن كلمات المرور" },
-      "detail": { "en": "Move users to passkeys or security keys as their only authenticator, and remove passwords from accounts that no longer need them.", "ar": "انقل المستخدمين إلى مفاتيح المرور أو مفاتيح الأمان وسيلةَ تحقق وحيدة، وأزل كلمات المرور من الحسابات التي لم تعد تحتاجها." },
-      "nist": ["IA-2", "IA-5"], "cis": [], "iso": ["8.5"]
+      "name": {
+        "en": "Go passwordless",
+        "ar": "استغنِ عن كلمات المرور"
+      },
+      "detail": {
+        "en": "Move users to passkeys or security keys as their only authenticator, and remove passwords from accounts that no longer need them.",
+        "ar": "انقل المستخدمين إلى مفاتيح المرور أو مفاتيح الأمان وسيلةَ تحقق وحيدة، وأزل كلمات المرور من الحسابات التي لم تعد تحتاجها."
+      },
+      "nist": [
+        "IA-2",
+        "IA-5"
+      ],
+      "cis": [],
+      "iso": [
+        "8.5"
+      ]
     },
     {
       "level": "advanced",
-      "name": { "en": "Protect the identity provider as tier zero", "ar": "احمِ مزود الهوية بوصفه من الطبقة الصفرية" },
-      "detail": { "en": "Administer the identity provider only from privileged access workstations, watch its configuration for changes, and alert on new federation trusts or token signing keys.", "ar": "لا تُدر مزود الهوية إلا من محطات عمل مخصصة للصلاحيات الهامة، وراقب أي تغيير في إعداداته، وأطلق تنبيهًا عند إضافة علاقة ثقة اتحادية جديدة أو مفتاح جديد لتوقيع الرموز." },
-      "nist": ["AC-6(5)", "CM-3", "SI-4"], "cis": ["5.4", "12.8"], "iso": ["8.2", "8.9"]
+      "name": {
+        "en": "Protect the identity provider as tier zero",
+        "ar": "احمِ مزود الهوية بوصفه من الطبقة الصفرية"
+      },
+      "detail": {
+        "en": "Administer the identity provider only from privileged access workstations, watch its configuration for changes, and alert on new federation trusts or token signing keys.",
+        "ar": "لا تُدر مزود الهوية إلا من محطات عمل مخصصة للصلاحيات الهامة، وراقب أي تغيير في إعداداته، وأطلق تنبيهًا عند إضافة علاقة ثقة اتحادية جديدة أو مفتاح جديد لتوقيع الرموز."
+      },
+      "nist": [
+        "AC-6(5)",
+        "CM-3",
+        "SI-4"
+      ],
+      "cis": [
+        "5.4",
+        "12.8"
+      ],
+      "iso": [
+        "8.2",
+        "8.9"
+      ]
     }
   ],
   "decisions": [
-    { "en": "Which identity provider is authoritative, and how do other directories synchronise with it?", "ar": "ما مزود الهوية المعتمد مرجعًا، وكيف تتزامن معه الأدلة الأخرى؟" },
-    { "en": "Which authenticators are allowed for which users, and what is the recovery process when one is lost?", "ar": "ما وسائل التحقق المسموح بها لكل فئة من المستخدمين، وما إجراء الاستعادة عند فقدان إحداها؟" },
-    { "en": "Which applications cannot federate, and what compensating controls apply to them?", "ar": "ما التطبيقات التي يتعذر ربطها بمزود الهوية، وما الضوابط البديلة التي تُطبق عليها؟" }
+    {
+      "en": "Which identity provider is authoritative, and how do other directories synchronise with it?",
+      "ar": "ما مزود الهوية المعتمد مرجعًا، وكيف تتزامن معه الأدلة الأخرى؟"
+    },
+    {
+      "en": "Which authenticators are allowed for which users, and what is the recovery process when one is lost?",
+      "ar": "ما وسائل التحقق المسموح بها لكل فئة من المستخدمين، وما إجراء الاستعادة عند فقدان إحداها؟"
+    },
+    {
+      "en": "Which applications cannot federate, and what compensating controls apply to them?",
+      "ar": "ما التطبيقات التي يتعذر ربطها بمزود الهوية، وما الضوابط البديلة التي تُطبق عليها؟"
+    }
   ],
   "tradeoffs": [
-    { "en": "A single identity provider concentrates risk, since an outage or compromise affects everything, so it needs its own resilience plan and the strongest administrative protection.", "ar": "يركّز مزود الهوية الواحد المخاطر، إذ يؤثر تعطله أو اختراقه في كل شيء، لذلك يحتاج إلى خطة صمود خاصة به وإلى أقوى حماية إدارية." },
-    { "en": "Phishing-resistant authenticators cost money and training, and recovery flows must be as strong as the authenticator or attackers will target them instead.", "ar": "تتطلب وسائل التحقق المقاومة للتصيد تكلفة وتدريبًا، ويجب أن تكون إجراءات الاستعادة بقوة وسيلة التحقق نفسها، وإلا استهدفها المهاجمون بدلًا منها." },
-    { "en": "An automated lifecycle depends on accurate HR data, so errors in HR become access errors.", "ar": "تعتمد أتمتة دورة حياة الحسابات على دقة بيانات الموارد البشرية، فتتحول أخطاؤها إلى أخطاء في الصلاحيات." }
+    {
+      "en": "A single identity provider concentrates risk, since an outage or compromise affects everything, so it needs its own resilience plan and the strongest administrative protection.",
+      "ar": "يركّز مزود الهوية الواحد المخاطر، إذ يؤثر تعطله أو اختراقه في كل شيء، لذلك يحتاج إلى خطة صمود خاصة به وإلى أقوى حماية إدارية."
+    },
+    {
+      "en": "Phishing-resistant authenticators cost money and training, and recovery flows must be as strong as the authenticator or attackers will target them instead.",
+      "ar": "تتطلب وسائل التحقق المقاومة للتصيد تكلفة وتدريبًا، ويجب أن تكون إجراءات الاستعادة بقوة وسيلة التحقق نفسها، وإلا استهدفها المهاجمون بدلًا منها."
+    },
+    {
+      "en": "An automated lifecycle depends on accurate HR data, so errors in HR become access errors.",
+      "ar": "تعتمد أتمتة دورة حياة الحسابات على دقة بيانات الموارد البشرية، فتتحول أخطاؤها إلى أخطاء في الصلاحيات."
+    }
   ],
   "antipatterns": [
-    { "en": "SMS codes or simple push approvals as the only second factor for administrators.", "ar": "الاعتماد على الرموز النصية أو الموافقة البسيطة عبر الإشعارات عاملًا ثانيًا وحيدًا للمسؤولين." },
-    { "en": "Shared accounts for teams, vendors, or the service desk.", "ar": "الحسابات المشتركة بين الفرق أو الموردين أو مكتب الدعم." },
-    { "en": "A service desk that resets MFA on a phone call without verifying the caller.", "ar": "مكتب دعم يعيد ضبط التحقق متعدد العناصر بمكالمة هاتفية دون التحقق من هوية المتصل." }
+    {
+      "en": "SMS codes or simple push approvals as the only second factor for administrators.",
+      "ar": "الاعتماد على الرموز النصية أو الموافقة البسيطة عبر الإشعارات عاملًا ثانيًا وحيدًا للمسؤولين."
+    },
+    {
+      "en": "Shared accounts for teams, vendors, or the service desk.",
+      "ar": "الحسابات المشتركة بين الفرق أو الموردين أو مكتب الدعم."
+    },
+    {
+      "en": "A service desk that resets MFA on a phone call without verifying the caller.",
+      "ar": "مكتب دعم يعيد ضبط التحقق متعدد العناصر بمكالمة هاتفية دون التحقق من هوية المتصل."
+    }
   ],
   "verify": [
-    { "en": "List all applications and confirm each one uses single sign-on or has a documented exception.", "ar": "اعرض قائمة جميع التطبيقات وتأكد أن كلًا منها يستخدم الدخول الموحد أو له استثناء موثق." },
-    { "en": "Attempt a sign-in over a legacy protocol and confirm it is blocked and alerted.", "ar": "جرّب الدخول عبر بروتوكول قديم وتأكد أنه يُمنع ويُطلق تنبيهًا." },
-    { "en": "Mark a test employee as leaving in HR and measure how long it takes until every account is disabled.", "ar": "سجّل موظفًا تجريبيًا على أنه مغادر في نظام الموارد البشرية وقِس الوقت حتى تتعطل جميع حساباته." },
-    { "en": "Run a phishing exercise against administrators and confirm that their authenticators cannot be relayed.", "ar": "نفّذ تمرين تصيد يستهدف المسؤولين وتأكد أن وسائل تحققهم لا يمكن تمريرها عبر وسيط." }
+    {
+      "en": "List all applications and confirm each one uses single sign-on or has a documented exception.",
+      "ar": "اعرض قائمة جميع التطبيقات وتأكد أن كلًا منها يستخدم الدخول الموحد أو له استثناء موثق."
+    },
+    {
+      "en": "Attempt a sign-in over a legacy protocol and confirm it is blocked and alerted.",
+      "ar": "جرّب الدخول عبر بروتوكول قديم وتأكد أنه يُمنع ويُطلق تنبيهًا."
+    },
+    {
+      "en": "Mark a test employee as leaving in HR and measure how long it takes until every account is disabled.",
+      "ar": "سجّل موظفًا تجريبيًا على أنه مغادر في نظام الموارد البشرية وقِس الوقت حتى تتعطل جميع حساباته."
+    },
+    {
+      "en": "Run a phishing exercise against administrators and confirm that their authenticators cannot be relayed.",
+      "ar": "نفّذ تمرين تصيد يستهدف المسؤولين وتأكد أن وسائل تحققهم لا يمكن تمريرها عبر وسيط."
+    }
   ],
-  "attack": ["T1078", "T1110.003", "T1110.004", "T1566", "T1621", "T1556"],
+  "attack": [
+    "T1078",
+    "T1110.003",
+    "T1110.004",
+    "T1566",
+    "T1621",
+    "T1556"
+  ],
   "owasp": [],
-  "related": ["P01", "P03", "P10"],
+  "related": [
+    "P01",
+    "P03",
+    "P10",
+    "P17"
+  ],
   "references": [
-    { "title": { "en": "NIST SP 800-63-4, Digital Identity Guidelines", "ar": "إرشادات الهوية الرقمية NIST SP 800-63-4" }, "url": "https://pages.nist.gov/800-63-4/" },
-    { "title": { "en": "CISA, implementing phishing-resistant MFA", "ar": "إرشادات CISA لتطبيق التحقق متعدد العناصر المقاوم للتصيد" }, "url": "https://www.cisa.gov/sites/default/files/publications/fact-sheet-implementing-phishing-resistant-mfa-508c.pdf" },
-    { "title": { "en": "FIDO Alliance, passkeys", "ar": "مفاتيح المرور من تحالف FIDO" }, "url": "https://fidoalliance.org/passkeys/" }
+    {
+      "title": {
+        "en": "NIST SP 800-63-4, Digital Identity Guidelines",
+        "ar": "إرشادات الهوية الرقمية NIST SP 800-63-4"
+      },
+      "url": "https://pages.nist.gov/800-63-4/"
+    },
+    {
+      "title": {
+        "en": "CISA, implementing phishing-resistant MFA",
+        "ar": "إرشادات CISA لتطبيق التحقق متعدد العناصر المقاوم للتصيد"
+      },
+      "url": "https://www.cisa.gov/sites/default/files/publications/fact-sheet-implementing-phishing-resistant-mfa-508c.pdf"
+    },
+    {
+      "title": {
+        "en": "FIDO Alliance, passkeys",
+        "ar": "مفاتيح المرور من تحالف FIDO"
+      },
+      "url": "https://fidoalliance.org/passkeys/"
+    }
   ]
 }

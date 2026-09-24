@@ -1,0 +1,10 @@
+flowchart LR
+  C["Customer and device"] --> APP["Web or mobile app"]
+  APP --> CIAM["Customer identity service<br/>passkeys first"]
+  CIAM -- "sign-in and action signals" --> RISK["Risk engine"]
+  RISK -- "allow, step up, or block" --> CIAM
+  BP["Breached password checks"] --> CIAM
+  REC["Recovery and contact changes<br/>strongest factor and a hold"] --> CIAM
+  CIAM --> TOK["Short sessions<br/>bound to the device"]
+  TOK --> API["Account and payment APIs"]
+  CIAM -- "identity events" --> FRAUD["Fraud monitoring<br/>and the SIEM"]

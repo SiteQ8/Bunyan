@@ -1,0 +1,11 @@
+flowchart LR
+  SYS["Systems, endpoints,<br/>cloud workloads"] -- "logs with synchronised clocks" --> PIPE["Log pipeline"]
+  PIPE --> EVI["Evidence store<br/>separate account, write once"]
+  PIPE --> SIEM["SIEM and detection"]
+  SIEM -- "incident" --> IR["Incident response team"]
+  IR --> CAP["Memory, disk,<br/>and cloud snapshots"]
+  CAP --> EVI
+  IR --> OOB["Out-of-band channel"]
+  IR --> EXT["Forensic and legal retainers"]
+  IR --> REGU["Regulator notification<br/>within the deadline"]
+  IR -- "lessons" --> DES["Design and controls"]

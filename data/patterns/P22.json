@@ -1,0 +1,292 @@
+{
+  "id": "P22",
+  "slug": "resilient-availability",
+  "domain": "operations",
+  "title": {
+    "en": "Resilient availability across sites",
+    "ar": "توافرية صامدة عبر مواقع متعددة"
+  },
+  "summary": {
+    "en": "Tier your services by how long the business can live without them, run the critical ones across independent sites or regions with tested failover, and remove the single points of failure in identity, DNS, and connectivity that would take every site down at once.",
+    "ar": "صنّف خدماتك حسب المدة التي تحتملها الأعمال دونها، وشغّل الحرجة منها عبر مواقع أو مناطق مستقلة مع تحويل تلقائي مُختبَر، وأزل نقاط الإخفاق الوحيدة في الهوية وأسماء النطاقات والاتصال التي قد توقف كل المواقع دفعة واحدة."
+  },
+  "problem": {
+    "en": "A second data centre or cloud region is often in the plan but not in practice: failover has never been run from end to end, the standby depends on the same identity provider, DNS, or network link as the primary, and replication copies corruption and ransomware as faithfully as good data. Regulators now expect critical services to stay within tolerances for disruption, and to show evidence that they can.",
+    "ar": "يوجد مركز بيانات ثانٍ أو منطقة سحابية ثانية في الخطة كثيرًا لكن لا وجود لهما عمليًا، إذ لم يُنفَّذ التحويل كاملًا من طرف إلى طرف أبدًا، ويعتمد الموقع الاحتياطي على مزود الهوية أو خدمة أسماء النطاقات أو وصلة الشبكة نفسها التي يعتمد عليها الموقع الرئيسي، بينما ينسخ التكرار الفساد وبرامج الفدية بالأمانة نفسها التي ينسخ بها البيانات السليمة، وتتوقع الجهات الرقابية اليوم أن تبقى الخدمات الحرجة ضمن حدود احتمال التعطل وأن تقدم دليلًا على قدرتها على ذلك."
+  },
+  "useWhen": [
+    {
+      "en": "The business stops, or customers are harmed, within minutes or hours of an outage.",
+      "ar": "تتوقف الأعمال أو يتضرر العملاء خلال دقائق أو ساعات من التعطل."
+    },
+    {
+      "en": "A regulator sets tolerances for disruption, or expects tested continuity plans.",
+      "ar": "تحدد جهة رقابية حدودًا لاحتمال التعطل، أو تتوقع خطط استمرارية مُختبَرة."
+    },
+    {
+      "en": "The service runs in one site, one region, or on one provider.",
+      "ar": "تعمل الخدمة في موقع واحد أو منطقة واحدة أو لدى مزود واحد."
+    }
+  ],
+  "design": [
+    {
+      "en": "Agree recovery time and recovery point objectives with the business for each service, and design to them: active-active across two sites or regions for the most critical, warm standby for the next tier, and restore from backup for the rest. Keep the sites independent, with their own power, network paths, and capacity, and make sure that identity, DNS, key management, and monitoring survive the loss of either site.",
+      "ar": "اتفق مع إدارة الأعمال على وقت الاستعادة المستهدف ونقطة الاستعادة المستهدفة لكل خدمة، وصمّم وفقهما، أي تشغيلًا نشطًا في موقعين أو منطقتين للخدمات الأكثر حرجًا، وموقعًا احتياطيًا جاهزًا للفئة التالية، والاستعادة من النسخ الاحتياطية للبقية، ثم اجعل المواقع مستقلة بطاقتها ومسارات شبكتها وسعتها الخاصة، وتأكد من أن الهوية وخدمة أسماء النطاقات وإدارة المفاتيح والمراقبة تصمد عند فقدان أي من الموقعين."
+    },
+    {
+      "en": "Protect replication from the failures it would spread: add delayed or point-in-time copies so that corruption and ransomware can be rolled back, and keep one copy outside the replicated set. Test failover and failback on a schedule, in production where possible, measure the real recovery times against the objectives, and keep capacity and DDoS protection sized for the whole load arriving at one site.",
+      "ar": "احمِ التكرار من الإخفاقات التي قد ينشرها، فأضف نسخًا مؤخرة أو في نقاط زمنية حتى يمكن التراجع عن الفساد وبرامج الفدية، واحتفظ بنسخة واحدة خارج مجموعة التكرار، ثم اختبر التحويل والعودة وفق جدول وفي بيئة الإنتاج حيثما أمكن، وقِس أزمنة الاستعادة الفعلية مقابل الأهداف، وأبقِ السعة والحماية من هجمات تعطيل الخدمة كافيتين لوصول الحمل كله إلى موقع واحد."
+    }
+  ],
+  "controls": [
+    {
+      "level": "foundation",
+      "name": {
+        "en": "Tier services by recovery objectives",
+        "ar": "صنّف الخدمات حسب أهداف الاستعادة"
+      },
+      "detail": {
+        "en": "Agree recovery time and point objectives with the business for each service, and record them in the continuity plan.",
+        "ar": "اتفق مع إدارة الأعمال على وقت الاستعادة ونقطة الاستعادة المستهدفين لكل خدمة، ووثّقهما في خطة الاستمرارية."
+      },
+      "nist": [
+        "CP-2",
+        "RA-9"
+      ],
+      "cis": [
+        "11.1"
+      ],
+      "iso": [
+        "5.30"
+      ]
+    },
+    {
+      "level": "foundation",
+      "name": {
+        "en": "Remove shared single points of failure",
+        "ar": "أزل نقاط الإخفاق الوحيدة المشتركة"
+      },
+      "detail": {
+        "en": "Make identity, DNS, key management, and network links redundant, so that no one of them can stop every site.",
+        "ar": "اجعل الهوية وخدمة أسماء النطاقات وإدارة المفاتيح ووصلات الشبكة مكررة، حتى لا يستطيع أي منها إيقاف كل المواقع."
+      },
+      "nist": [
+        "CP-8",
+        "SC-36"
+      ],
+      "cis": [],
+      "iso": [
+        "8.14"
+      ]
+    },
+    {
+      "level": "foundation",
+      "name": {
+        "en": "Protect against denial of service",
+        "ar": "احمِ من هجمات تعطيل الخدمة"
+      },
+      "detail": {
+        "en": "Use upstream DDoS protection sized for your peak, and rate limits in front of every public service.",
+        "ar": "استخدم حماية من هجمات تعطيل الخدمة لدى المزود تتسع لذروة حركتك، وحدودًا للمعدل أمام كل خدمة عامة."
+      },
+      "nist": [
+        "SC-5"
+      ],
+      "cis": [],
+      "iso": [
+        "8.20"
+      ]
+    },
+    {
+      "level": "enhanced",
+      "name": {
+        "en": "Run critical services in two sites or regions",
+        "ar": "شغّل الخدمات الحرجة في موقعين أو منطقتين"
+      },
+      "detail": {
+        "en": "Run the most critical services active-active, or with a warm standby, in an independent site or region.",
+        "ar": "شغّل الخدمات الأكثر حرجًا تشغيلًا نشطًا مزدوجًا أو مع موقع احتياطي جاهز في موقع أو منطقة مستقلة."
+      },
+      "nist": [
+        "CP-7",
+        "CP-6"
+      ],
+      "cis": [],
+      "iso": [
+        "8.14"
+      ]
+    },
+    {
+      "level": "enhanced",
+      "name": {
+        "en": "Protect replication from corruption",
+        "ar": "احمِ التكرار من الفساد"
+      },
+      "detail": {
+        "en": "Keep delayed or point-in-time copies alongside replication, so that corruption and ransomware can be rolled back.",
+        "ar": "احتفظ بنسخ مؤخرة أو في نقاط زمنية إلى جانب التكرار، حتى يمكن التراجع عن الفساد وبرامج الفدية."
+      },
+      "nist": [
+        "CP-9",
+        "CP-10"
+      ],
+      "cis": [
+        "11.2"
+      ],
+      "iso": [
+        "8.13"
+      ]
+    },
+    {
+      "level": "enhanced",
+      "name": {
+        "en": "Test failover and failback",
+        "ar": "اختبر التحويل والعودة"
+      },
+      "detail": {
+        "en": "Fail over and fail back on a schedule, measure the real recovery times, and fix what missed the objectives.",
+        "ar": "نفّذ التحويل والعودة وفق جدول، وقِس أزمنة الاستعادة الفعلية، وأصلح ما لم يبلغ الأهداف."
+      },
+      "nist": [
+        "CP-4"
+      ],
+      "cis": [
+        "11.5"
+      ],
+      "iso": [
+        "5.30"
+      ]
+    },
+    {
+      "level": "advanced",
+      "name": {
+        "en": "Survive the loss of a provider",
+        "ar": "اصمد أمام فقدان مزود"
+      },
+      "detail": {
+        "en": "For services that must not stop, remove the dependency on a single provider for hosting, DNS, or connectivity.",
+        "ar": "أزل للخدمات التي يجب ألا تتوقف الاعتماد على مزود واحد للاستضافة أو أسماء النطاقات أو الاتصال."
+      },
+      "nist": [
+        "SC-36",
+        "CP-8"
+      ],
+      "cis": [],
+      "iso": [
+        "5.30",
+        "8.14"
+      ]
+    },
+    {
+      "level": "advanced",
+      "name": {
+        "en": "Rehearse severe but plausible scenarios",
+        "ar": "تدرّب على سيناريوهات شديدة لكنها ممكنة"
+      },
+      "detail": {
+        "en": "Exercise scenarios such as the loss of a site together with a cyber attack, and report the results against your tolerances.",
+        "ar": "تدرّب على سيناريوهات مثل فقدان موقع بالتزامن مع هجوم سيبراني، وأبلغ عن النتائج مقابل حدود الاحتمال لديك."
+      },
+      "nist": [
+        "CP-4",
+        "IR-3"
+      ],
+      "cis": [
+        "17.7"
+      ],
+      "iso": [
+        "5.29"
+      ]
+    }
+  ],
+  "decisions": [
+    {
+      "en": "Which services need active-active, which need a warm standby, and which can wait for a restore?",
+      "ar": "ما الخدمات التي تحتاج إلى تشغيل نشط مزدوج، وما التي تحتاج إلى موقع احتياطي جاهز، وما التي تحتمل انتظار الاستعادة؟"
+    },
+    {
+      "en": "How far apart must the sites be, and do they share any provider, link, or dependency?",
+      "ar": "ما المسافة المطلوبة بين المواقع، وهل تتشارك أي مزود أو وصلة أو اعتمادية؟"
+    },
+    {
+      "en": "How will you fail back after a failover, and who decides to do it?",
+      "ar": "كيف ستعود بعد التحويل، ومن يقرر ذلك؟"
+    }
+  ],
+  "tradeoffs": [
+    {
+      "en": "Active-active costs roughly twice as much and complicates data consistency, so keep it for the services that truly need it.",
+      "ar": "يكلّف التشغيل النشط المزدوج ما يقارب الضعف ويعقّد اتساق البيانات، لذا احصره في الخدمات التي تحتاجه فعلًا."
+    },
+    {
+      "en": "Synchronous replication protects every transaction but limits distance and adds latency.",
+      "ar": "يحمي التكرار المتزامن كل معاملة، لكنه يحد المسافة ويضيف تأخيرًا."
+    },
+    {
+      "en": "Testing in production proves the design but carries the risk of the outage it rehearses.",
+      "ar": "يثبت الاختبار في بيئة الإنتاج صحة التصميم، لكنه يحمل مخاطر التعطل الذي يتدرب عليه."
+    }
+  ],
+  "antipatterns": [
+    {
+      "en": "A standby site that has never taken real traffic.",
+      "ar": "موقع احتياطي لم يستقبل حركة حقيقية أبدًا."
+    },
+    {
+      "en": "Both sites depending on one identity provider or one DNS provider.",
+      "ar": "موقعان يعتمدان على مزود هوية واحد أو مزود واحد لأسماء النطاقات."
+    },
+    {
+      "en": "Replication treated as a backup.",
+      "ar": "معاملة التكرار بوصفه نسخة احتياطية."
+    }
+  ],
+  "verify": [
+    {
+      "en": "Fail a critical service over to the second site in business hours, and measure the time until customers are served again.",
+      "ar": "حوّل خدمة حرجة إلى الموقع الثاني في ساعات العمل، وقِس الزمن حتى تعود الخدمة إلى العملاء."
+    },
+    {
+      "en": "Switch off the primary identity provider in a test, and confirm that sign-in still works.",
+      "ar": "أوقف مزود الهوية الرئيسي في اختبار، وتأكد من أن الدخول ما زال يعمل."
+    },
+    {
+      "en": "Restore a point-in-time copy from before a simulated corruption, and confirm that the data is clean.",
+      "ar": "استعد نسخة من نقطة زمنية تسبق فسادًا محاكى، وتأكد من سلامة البيانات."
+    }
+  ],
+  "attack": [
+    "T1498",
+    "T1499",
+    "T1485"
+  ],
+  "owasp": [],
+  "related": [
+    "P12",
+    "P05",
+    "P04"
+  ],
+  "references": [
+    {
+      "title": {
+        "en": "NIST SP 800-34 Rev 1, Contingency Planning Guide for Federal Information Systems",
+        "ar": "دليل NIST SP 800-34 Rev 1 لتخطيط الطوارئ لأنظمة المعلومات"
+      },
+      "url": "https://csrc.nist.gov/pubs/sp/800/34/r1/upd1/final"
+    },
+    {
+      "title": {
+        "en": "NIST SP 800-160 Vol 2 Rev 1, Developing Cyber-Resilient Systems",
+        "ar": "دليل NIST SP 800-160 Vol 2 Rev 1 لتطوير أنظمة صامدة سيبرانيًا"
+      },
+      "url": "https://csrc.nist.gov/pubs/sp/800/160/v2/r1/final"
+    },
+    {
+      "title": {
+        "en": "ISO 22301, Business continuity management systems",
+        "ar": "المعيار ISO 22301 لأنظمة إدارة استمرارية الأعمال"
+      },
+      "url": "https://www.iso.org/standard/75106.html"
+    }
+  ]
+}

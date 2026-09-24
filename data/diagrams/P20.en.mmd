@@ -1,0 +1,11 @@
+flowchart LR
+  U["Users anywhere<br/>on managed devices"] --> AG["Edge agent"]
+  AG --> SSE["Security service edge"]
+  SSE --> SWG["Secure web gateway<br/>filtering and downloads"]
+  SSE --> CASB["CASB<br/>sanctioned SaaS only"]
+  SSE --> DLP["One set of data loss rules<br/>uploads, forms, AI prompts"]
+  SSE --> ZTNA["Private application access"]
+  SWG --> WEB["The web"]
+  CASB --> SAAS["SaaS services"]
+  ZTNA --> PRIV["Private applications"]
+  SSE -- "logs" --> SOC["SOC"]

@@ -1,0 +1,10 @@
+flowchart LR
+  USERS["Customers"] --> GTM["Global traffic management<br/>and DDoS protection"]
+  GTM --> A["Site A<br/>active"]
+  GTM --> B["Site B<br/>active or warm standby"]
+  A -- "replication" --> B
+  A --> PIT["Point-in-time copies<br/>outside the replica set"]
+  B --> PIT
+  SHARED["Identity, DNS, and keys<br/>redundant in both sites"] --> A
+  SHARED --> B
+  TEST["Scheduled failover<br/>and failback tests"] --> B

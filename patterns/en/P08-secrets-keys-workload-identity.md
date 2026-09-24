@@ -8,7 +8,7 @@
 
 | Domain | Related patterns |
 | --- | --- |
-| Platform | [P06 Cloud landing zone with guardrails](P06-cloud-landing-zone.md), [P09 Data-centric protection](P09-data-centric-protection.md), [P11 Trusted software supply chain](P11-software-supply-chain.md), [P16 Container platform guardrails](P16-container-platform-guardrails.md) |
+| Platform | [P06 Cloud landing zone with guardrails](P06-cloud-landing-zone.md), [P09 Data-centric protection](P09-data-centric-protection.md), [P11 Trusted software supply chain](P11-software-supply-chain.md), [P16 Container platform guardrails](P16-container-platform-guardrails.md), [P23 Cryptographic agility and post-quantum readiness](P23-crypto-agility.md) |
 
 ## The problem
 

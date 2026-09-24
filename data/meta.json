@@ -18,7 +18,7 @@
       "en": "Ali AlEnezi",
       "ar": "علي العنزي"
     },
-    "version": "0.3.0"
+    "version": "0.4.0"
   },
   "domains": {
     "identity": {
@@ -52,6 +52,10 @@
     "ai": {
       "en": "AI",
       "ar": "الذكاء الاصطناعي"
+    },
+    "workplace": {
+      "en": "Workplace",
+      "ar": "بيئة العمل"
     }
   },
   "levels": {
@@ -453,8 +457,8 @@
       "ar": "فهرس الأنماط"
     },
     "patternsIntro": {
-      "en": "Sixteen patterns, each with the problem it solves, the design, controls at three levels, and how to verify it.",
-      "ar": "ستة عشر نمطًا، يضم كل منها المشكلة التي يحلها والتصميم والضوابط على ثلاثة مستويات وطريقة التحقق منه."
+      "en": "Twenty-four patterns, each with the problem it solves, the design, controls at three levels, and how to verify it.",
+      "ar": "أربعة وعشرون نمطًا، يضم كل منها المشكلة التي يحلها والتصميم والضوابط على ثلاثة مستويات وطريقة التحقق منه."
     },
     "colNumber": {
       "en": "No.",

@@ -1,0 +1,11 @@
+flowchart LR
+  DISC["Outside-in discovery<br/>domains, certificates, addresses"] --> INV["Asset inventory<br/>with owners"]
+  REG["Registered assets"] --> INV
+  INV --> SCAN["Continuous scanning<br/>hosts, cloud, code"]
+  SCAN --> PRI["Prioritisation"]
+  KEV["Known exploited list"] --> PRI
+  EPSS["Exploit likelihood"] --> PRI
+  PRI -- "deadlines in days" --> FIX["Fix or mitigate"]
+  FIX --> VER["Rescan or targeted test"]
+  VER -- "still open" --> PRI
+  VER --> MET["Trend report<br/>for leadership"]

@@ -8,7 +8,7 @@
 
 | Domain | Related patterns |
 | --- | --- |
-| Operations | [P01 Zero trust access](P01-zero-trust-access.md), [P02 Identity as the control plane](P02-identity-control-plane.md), [P03 Tiered privileged access](P03-tiered-privileged-access.md), [P12 Ransomware-resilient recovery](P12-resilient-recovery.md) |
+| Operations | [P01 Zero trust access](P01-zero-trust-access.md), [P02 Identity as the control plane](P02-identity-control-plane.md), [P03 Tiered privileged access](P03-tiered-privileged-access.md), [P12 Ransomware-resilient recovery](P12-resilient-recovery.md), [P24 Forensic readiness and incident response](P24-forensic-readiness.md) |
 
 ## The problem
 

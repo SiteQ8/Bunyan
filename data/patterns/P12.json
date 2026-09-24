@@ -2,7 +2,10 @@
   "id": "P12",
   "slug": "resilient-recovery",
   "domain": "operations",
-  "title": { "en": "Ransomware-resilient recovery", "ar": "استعادة صامدة أمام برامج الفدية" },
+  "title": {
+    "en": "Ransomware-resilient recovery",
+    "ar": "استعادة صامدة أمام برامج الفدية"
+  },
   "summary": {
     "en": "Design recovery for the day your main environment and its administrators are compromised: keep immutable, isolated copies that production administrators cannot delete, and prove regularly that you can rebuild from them in the time the business needs.",
     "ar": "صمّم الاستعادة ليوم تكون فيه بيئتك الرئيسية ومسؤولوها مخترقين، فاحتفظ بنسخ غير قابلة للتعديل ومعزولة لا يستطيع مسؤولو الإنتاج حذفها، وأثبت بانتظام أنك تستطيع إعادة البناء منها خلال الوقت الذي تحتاجه الأعمال."
@@ -12,9 +15,18 @@
     "ar": "يبحث مشغلو برامج الفدية عن النسخ الاحتياطية أولًا، فإذا تشاركت خوادم النسخ الاحتياطي مع بيئة الإنتاج في النطاق وبيانات الاعتماد والشبكة حذفها المهاجم أو شفّرها قبل تشفير كل شيء آخر، كما تفشل خطط الاستعادة التي لم تُختبر قط حين تشتد الحاجة إليها."
   },
   "useWhen": [
-    { "en": "The business cannot run for long without its systems.", "ar": "لا تستطيع الأعمال الاستمرار طويلًا دون أنظمتها." },
-    { "en": "Backups are administered with the same accounts as production.", "ar": "تُدار النسخ الاحتياطية بالحسابات نفسها التي تُدار بها بيئة الإنتاج." },
-    { "en": "Nobody has restored a complete system from backup in the last year.", "ar": "لم يستعد أحد نظامًا كاملًا من النسخ الاحتياطية خلال العام الماضي." }
+    {
+      "en": "The business cannot run for long without its systems.",
+      "ar": "لا تستطيع الأعمال الاستمرار طويلًا دون أنظمتها."
+    },
+    {
+      "en": "Backups are administered with the same accounts as production.",
+      "ar": "تُدار النسخ الاحتياطية بالحسابات نفسها التي تُدار بها بيئة الإنتاج."
+    },
+    {
+      "en": "Nobody has restored a complete system from backup in the last year.",
+      "ar": "لم يستعد أحد نظامًا كاملًا من النسخ الاحتياطية خلال العام الماضي."
+    }
   ],
   "design": [
     {
@@ -29,79 +41,264 @@
   "controls": [
     {
       "level": "foundation",
-      "name": { "en": "Back up what the business needs", "ar": "انسخ احتياطيًا ما تحتاجه الأعمال" },
-      "detail": { "en": "Back up critical systems and data automatically, including identity systems, configurations, and infrastructure code, not only file shares and databases.", "ar": "انسخ الأنظمة والبيانات الحرجة احتياطيًا بصورة آلية، بما في ذلك أنظمة الهوية والإعدادات وشيفرة البنية التحتية، لا مجلدات الملفات المشتركة وقواعد البيانات فقط." },
-      "nist": ["CP-9"], "cis": ["11.1", "11.2"], "iso": ["8.13"]
+      "name": {
+        "en": "Back up what the business needs",
+        "ar": "انسخ احتياطيًا ما تحتاجه الأعمال"
+      },
+      "detail": {
+        "en": "Back up critical systems and data automatically, including identity systems, configurations, and infrastructure code, not only file shares and databases.",
+        "ar": "انسخ الأنظمة والبيانات الحرجة احتياطيًا بصورة آلية، بما في ذلك أنظمة الهوية والإعدادات وشيفرة البنية التحتية، لا مجلدات الملفات المشتركة وقواعد البيانات فقط."
+      },
+      "nist": [
+        "CP-9"
+      ],
+      "cis": [
+        "11.1",
+        "11.2"
+      ],
+      "iso": [
+        "8.13"
+      ]
     },
     {
       "level": "foundation",
-      "name": { "en": "Keep an immutable or offline copy", "ar": "احتفظ بنسخة غير قابلة للتعديل أو غير متصلة" },
-      "detail": { "en": "Keep at least one copy that cannot be changed or deleted before its retention ends, even by backup administrators.", "ar": "احتفظ بنسخة واحدة على الأقل لا يمكن تعديلها أو حذفها قبل انتهاء مدة الاحتفاظ بها، ولو بأيدي مسؤولي النسخ الاحتياطي." },
-      "nist": ["CP-9", "CP-6"], "cis": ["11.3", "11.4"], "iso": ["8.13"]
+      "name": {
+        "en": "Keep an immutable or offline copy",
+        "ar": "احتفظ بنسخة غير قابلة للتعديل أو غير متصلة"
+      },
+      "detail": {
+        "en": "Keep at least one copy that cannot be changed or deleted before its retention ends, even by backup administrators.",
+        "ar": "احتفظ بنسخة واحدة على الأقل لا يمكن تعديلها أو حذفها قبل انتهاء مدة الاحتفاظ بها، ولو بأيدي مسؤولي النسخ الاحتياطي."
+      },
+      "nist": [
+        "CP-9",
+        "CP-6"
+      ],
+      "cis": [
+        "11.3",
+        "11.4"
+      ],
+      "iso": [
+        "8.13"
+      ]
     },
     {
       "level": "foundation",
-      "name": { "en": "Test restores", "ar": "اختبر الاستعادة" },
-      "detail": { "en": "Restore complete systems on a schedule, record how long it took, and compare the result with the recovery objectives.", "ar": "استعد أنظمة كاملة وفق جدول زمني، وسجّل الوقت الذي استغرقته، وقارن النتيجة بأهداف الاستعادة." },
-      "nist": ["CP-4"], "cis": ["11.5"], "iso": ["8.13", "5.30"]
+      "name": {
+        "en": "Test restores",
+        "ar": "اختبر الاستعادة"
+      },
+      "detail": {
+        "en": "Restore complete systems on a schedule, record how long it took, and compare the result with the recovery objectives.",
+        "ar": "استعد أنظمة كاملة وفق جدول زمني، وسجّل الوقت الذي استغرقته، وقارن النتيجة بأهداف الاستعادة."
+      },
+      "nist": [
+        "CP-4"
+      ],
+      "cis": [
+        "11.5"
+      ],
+      "iso": [
+        "8.13",
+        "5.30"
+      ]
     },
     {
       "level": "enhanced",
-      "name": { "en": "Separate the backup trust domain", "ar": "افصل نطاق الثقة الخاص بالنسخ الاحتياطي" },
-      "detail": { "en": "Run the backup infrastructure with its own identities and administration path, not joined to the production directory, with phishing-resistant MFA for every administrator.", "ar": "شغّل البنية التحتية للنسخ الاحتياطي بهويات ومسار إدارة خاصة بها دون ضمها إلى دليل بيئة الإنتاج، مع تحقق متعدد العناصر مقاوم للتصيد لكل مسؤول." },
-      "nist": ["AC-6", "CP-9", "IA-2(1)"], "cis": ["11.3", "5.4"], "iso": ["8.13", "8.2"]
+      "name": {
+        "en": "Separate the backup trust domain",
+        "ar": "افصل نطاق الثقة الخاص بالنسخ الاحتياطي"
+      },
+      "detail": {
+        "en": "Run the backup infrastructure with its own identities and administration path, not joined to the production directory, with phishing-resistant MFA for every administrator.",
+        "ar": "شغّل البنية التحتية للنسخ الاحتياطي بهويات ومسار إدارة خاصة بها دون ضمها إلى دليل بيئة الإنتاج، مع تحقق متعدد العناصر مقاوم للتصيد لكل مسؤول."
+      },
+      "nist": [
+        "AC-6",
+        "CP-9",
+        "IA-2(1)"
+      ],
+      "cis": [
+        "11.3",
+        "5.4"
+      ],
+      "iso": [
+        "8.13",
+        "8.2"
+      ]
     },
     {
       "level": "enhanced",
-      "name": { "en": "Set recovery objectives and order", "ar": "حدّد أهداف الاستعادة وترتيبها" },
-      "detail": { "en": "Agree recovery time and point objectives for each system with the business, and write down the order in which systems must come back.", "ar": "اتفق مع إدارة الأعمال على وقت الاستعادة المستهدف ونقطتها لكل نظام، ودوّن الترتيب الذي يجب أن تعود به الأنظمة." },
-      "nist": ["CP-2", "CP-10", "RA-9"], "cis": ["11.1"], "iso": ["5.30", "5.29"]
+      "name": {
+        "en": "Set recovery objectives and order",
+        "ar": "حدّد أهداف الاستعادة وترتيبها"
+      },
+      "detail": {
+        "en": "Agree recovery time and point objectives for each system with the business, and write down the order in which systems must come back.",
+        "ar": "اتفق مع إدارة الأعمال على وقت الاستعادة المستهدف ونقطتها لكل نظام، ودوّن الترتيب الذي يجب أن تعود به الأنظمة."
+      },
+      "nist": [
+        "CP-2",
+        "CP-10",
+        "RA-9"
+      ],
+      "cis": [
+        "11.1"
+      ],
+      "iso": [
+        "5.30",
+        "5.29"
+      ]
     },
     {
       "level": "enhanced",
-      "name": { "en": "Alert on backup tampering", "ar": "أطلق تنبيهًا عند العبث بالنسخ الاحتياطية" },
-      "detail": { "en": "Detect deleted backup jobs, changes to retention, and attempts at mass deletion, and treat them as incidents.", "ar": "اكشف حذف مهام النسخ الاحتياطي وتغيير مدد الاحتفاظ ومحاولات الحذف الجماعي، وتعامل معها بوصفها حوادث." },
-      "nist": ["SI-4"], "cis": [], "iso": ["8.16"]
+      "name": {
+        "en": "Alert on backup tampering",
+        "ar": "أطلق تنبيهًا عند العبث بالنسخ الاحتياطية"
+      },
+      "detail": {
+        "en": "Detect deleted backup jobs, changes to retention, and attempts at mass deletion, and treat them as incidents.",
+        "ar": "اكشف حذف مهام النسخ الاحتياطي وتغيير مدد الاحتفاظ ومحاولات الحذف الجماعي، وتعامل معها بوصفها حوادث."
+      },
+      "nist": [
+        "SI-4"
+      ],
+      "cis": [],
+      "iso": [
+        "8.16"
+      ]
     },
     {
       "level": "advanced",
-      "name": { "en": "Keep a clean recovery environment", "ar": "احتفظ ببيئة استعادة نظيفة" },
-      "detail": { "en": "Keep an isolated environment with trusted tooling and gold images, where systems can be rebuilt and checked for persistence before they return.", "ar": "احتفظ ببيئة معزولة فيها أدوات موثوقة وصور مرجعية نظيفة، يمكن فيها إعادة بناء الأنظمة وفحصها من آثار بقاء المهاجم قبل إعادتها." },
-      "nist": ["CP-10"], "cis": [], "iso": ["5.30"]
+      "name": {
+        "en": "Keep a clean recovery environment",
+        "ar": "احتفظ ببيئة استعادة نظيفة"
+      },
+      "detail": {
+        "en": "Keep an isolated environment with trusted tooling and gold images, where systems can be rebuilt and checked for persistence before they return.",
+        "ar": "احتفظ ببيئة معزولة فيها أدوات موثوقة وصور مرجعية نظيفة، يمكن فيها إعادة بناء الأنظمة وفحصها من آثار بقاء المهاجم قبل إعادتها."
+      },
+      "nist": [
+        "CP-10"
+      ],
+      "cis": [],
+      "iso": [
+        "5.30"
+      ]
     },
     {
       "level": "advanced",
-      "name": { "en": "Exercise a full ransomware recovery", "ar": "تمرّن على استعادة كاملة بعد هجوم فدية" },
-      "detail": { "en": "Run an exercise that assumes production and its directory are lost, and rebuild core services from the isolated copies.", "ar": "نفّذ تمرينًا يفترض فقدان بيئة الإنتاج ودليلها، وأعد بناء الخدمات الأساسية من النسخ المعزولة." },
-      "nist": ["CP-4", "IR-3"], "cis": ["11.5", "17.7"], "iso": ["5.30", "5.24"]
+      "name": {
+        "en": "Exercise a full ransomware recovery",
+        "ar": "تمرّن على استعادة كاملة بعد هجوم فدية"
+      },
+      "detail": {
+        "en": "Run an exercise that assumes production and its directory are lost, and rebuild core services from the isolated copies.",
+        "ar": "نفّذ تمرينًا يفترض فقدان بيئة الإنتاج ودليلها، وأعد بناء الخدمات الأساسية من النسخ المعزولة."
+      },
+      "nist": [
+        "CP-4",
+        "IR-3"
+      ],
+      "cis": [
+        "11.5",
+        "17.7"
+      ],
+      "iso": [
+        "5.30",
+        "5.24"
+      ]
     }
   ],
   "decisions": [
-    { "en": "What are the recovery time and point objectives for each critical system, and has the business signed them off?", "ar": "ما وقت الاستعادة المستهدف ونقطتها لكل نظام حرج، وهل اعتمدتها إدارة الأعمال؟" },
-    { "en": "How is the backup system isolated from production identity and networks?", "ar": "كيف يُعزل نظام النسخ الاحتياطي عن هوية بيئة الإنتاج وشبكاتها؟" },
-    { "en": "In what order are systems restored, and who decides during an incident?", "ar": "بأي ترتيب تُستعاد الأنظمة، ومن يقرر ذلك أثناء الحادثة؟" }
+    {
+      "en": "What are the recovery time and point objectives for each critical system, and has the business signed them off?",
+      "ar": "ما وقت الاستعادة المستهدف ونقطتها لكل نظام حرج، وهل اعتمدتها إدارة الأعمال؟"
+    },
+    {
+      "en": "How is the backup system isolated from production identity and networks?",
+      "ar": "كيف يُعزل نظام النسخ الاحتياطي عن هوية بيئة الإنتاج وشبكاتها؟"
+    },
+    {
+      "en": "In what order are systems restored, and who decides during an incident?",
+      "ar": "بأي ترتيب تُستعاد الأنظمة، ومن يقرر ذلك أثناء الحادثة؟"
+    }
   ],
   "tradeoffs": [
-    { "en": "Immutability makes mistakes immutable too, so data kept too long or backed up by mistake cannot be removed early.", "ar": "تجعل خاصية عدم القابلية للتعديل الأخطاء أيضًا غير قابلة للتعديل، فالبيانات المحفوظة مدة أطول من اللازم أو المنسوخة خطأً لا يمكن إزالتها مبكرًا." },
-    { "en": "Separate identity and tooling for backups add cost and operational effort.", "ar": "تضيف الهوية والأدوات المنفصلة للنسخ الاحتياطية تكلفة وجهدًا تشغيليًا." },
-    { "en": "Short recovery objectives need more infrastructure and practice, so reserve them for the systems that truly need them.", "ar": "تحتاج أهداف الاستعادة القصيرة إلى بنية تحتية وتمرين أكثر، لذا خصّصها للأنظمة التي تحتاجها فعلًا." }
+    {
+      "en": "Immutability makes mistakes immutable too, so data kept too long or backed up by mistake cannot be removed early.",
+      "ar": "تجعل خاصية عدم القابلية للتعديل الأخطاء أيضًا غير قابلة للتعديل، فالبيانات المحفوظة مدة أطول من اللازم أو المنسوخة خطأً لا يمكن إزالتها مبكرًا."
+    },
+    {
+      "en": "Separate identity and tooling for backups add cost and operational effort.",
+      "ar": "تضيف الهوية والأدوات المنفصلة للنسخ الاحتياطية تكلفة وجهدًا تشغيليًا."
+    },
+    {
+      "en": "Short recovery objectives need more infrastructure and practice, so reserve them for the systems that truly need them.",
+      "ar": "تحتاج أهداف الاستعادة القصيرة إلى بنية تحتية وتمرين أكثر، لذا خصّصها للأنظمة التي تحتاجها فعلًا."
+    }
   ],
   "antipatterns": [
-    { "en": "Backup servers joined to the production domain and administered with domain admin rights.", "ar": "خوادم نسخ احتياطي منضمة إلى نطاق الإنتاج وتُدار بصلاحيات مسؤول النطاق." },
-    { "en": "Snapshots kept only on the same storage array as production.", "ar": "لقطات لا تُحفظ إلا على مصفوفة التخزين نفسها التي تحفظ بيئة الإنتاج." },
-    { "en": "A recovery plan that assumes the directory and the network still work.", "ar": "خطة استعادة تفترض أن الدليل والشبكة ما زالا يعملان." }
+    {
+      "en": "Backup servers joined to the production domain and administered with domain admin rights.",
+      "ar": "خوادم نسخ احتياطي منضمة إلى نطاق الإنتاج وتُدار بصلاحيات مسؤول النطاق."
+    },
+    {
+      "en": "Snapshots kept only on the same storage array as production.",
+      "ar": "لقطات لا تُحفظ إلا على مصفوفة التخزين نفسها التي تحفظ بيئة الإنتاج."
+    },
+    {
+      "en": "A recovery plan that assumes the directory and the network still work.",
+      "ar": "خطة استعادة تفترض أن الدليل والشبكة ما زالا يعملان."
+    }
   ],
   "verify": [
-    { "en": "As a backup administrator, try to delete an immutable copy or shorten its retention, and confirm the attempt is refused.", "ar": "حاول بصفتك مسؤولًا عن النسخ الاحتياطية حذف نسخة غير قابلة للتعديل أو تقصير مدة احتفاظها، وتأكد أن المحاولة تُرفض." },
-    { "en": "Restore a critical application end to end in the clean environment, and time it against its objective.", "ar": "استعد تطبيقًا حرجًا بالكامل في البيئة النظيفة، وقِس الوقت المستغرق مقارنة بهدفه." },
-    { "en": "Confirm that no production account, including domain administrators, can sign in to the backup system.", "ar": "تأكد أنه لا يستطيع أي حساب من بيئة الإنتاج، بما فيها حسابات مسؤولي النطاق، الدخول إلى نظام النسخ الاحتياطي." }
+    {
+      "en": "As a backup administrator, try to delete an immutable copy or shorten its retention, and confirm the attempt is refused.",
+      "ar": "حاول بصفتك مسؤولًا عن النسخ الاحتياطية حذف نسخة غير قابلة للتعديل أو تقصير مدة احتفاظها، وتأكد أن المحاولة تُرفض."
+    },
+    {
+      "en": "Restore a critical application end to end in the clean environment, and time it against its objective.",
+      "ar": "استعد تطبيقًا حرجًا بالكامل في البيئة النظيفة، وقِس الوقت المستغرق مقارنة بهدفه."
+    },
+    {
+      "en": "Confirm that no production account, including domain administrators, can sign in to the backup system.",
+      "ar": "تأكد أنه لا يستطيع أي حساب من بيئة الإنتاج، بما فيها حسابات مسؤولي النطاق، الدخول إلى نظام النسخ الاحتياطي."
+    }
   ],
-  "attack": ["T1486", "T1490", "T1485"],
+  "attack": [
+    "T1486",
+    "T1490",
+    "T1485"
+  ],
   "owasp": [],
-  "related": ["P03", "P04", "P10"],
+  "related": [
+    "P03",
+    "P04",
+    "P10",
+    "P22"
+  ],
   "references": [
-    { "title": { "en": "CISA #StopRansomware guide", "ar": "دليل CISA لمواجهة برامج الفدية" }, "url": "https://www.cisa.gov/stopransomware/ransomware-guide" },
-    { "title": { "en": "NIST SP 800-34 Rev 1, contingency planning guide", "ar": "دليل التخطيط للطوارئ NIST SP 800-34 Rev 1" }, "url": "https://csrc.nist.gov/pubs/sp/800/34/r1/upd1/final" },
-    { "title": { "en": "NIST SP 800-160 Vol 2 Rev 1, developing cyber-resilient systems", "ar": "تطوير أنظمة صامدة سيبرانيًا NIST SP 800-160 Vol 2 Rev 1" }, "url": "https://csrc.nist.gov/pubs/sp/800/160/v2/r1/final" }
+    {
+      "title": {
+        "en": "CISA #StopRansomware guide",
+        "ar": "دليل CISA لمواجهة برامج الفدية"
+      },
+      "url": "https://www.cisa.gov/stopransomware/ransomware-guide"
+    },
+    {
+      "title": {
+        "en": "NIST SP 800-34 Rev 1, contingency planning guide",
+        "ar": "دليل التخطيط للطوارئ NIST SP 800-34 Rev 1"
+      },
+      "url": "https://csrc.nist.gov/pubs/sp/800/34/r1/upd1/final"
+    },
+    {
+      "title": {
+        "en": "NIST SP 800-160 Vol 2 Rev 1, developing cyber-resilient systems",
+        "ar": "تطوير أنظمة صامدة سيبرانيًا NIST SP 800-160 Vol 2 Rev 1"
+      },
+      "url": "https://csrc.nist.gov/pubs/sp/800/160/v2/r1/final"
+    }
   ]
 }

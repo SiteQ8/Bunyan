@@ -31,7 +31,7 @@ Answer nine questions about your system at [bunyan.3li.info](https://bunyan.3li.
 | Part | What it gives you |
 | --- | --- |
 | [Handbook](handbook/en/01-what-security-architecture-is.md) | Seven chapters, from what the discipline is to a learning path |
-| [Patterns](patterns/en/README.md) | Sixteen patterns with controls at three levels, mapped to NIST SP 800-53 Rev 5, CIS Controls v8.1, and ISO/IEC 27001:2022 |
+| [Patterns](patterns/en/README.md) | Twenty-four patterns with controls at three levels, mapped to NIST SP 800-53 Rev 5, CIS Controls v8.1, and ISO/IEC 27001:2022 |
 | [Design exercises](katas/en/K01-mobile-banking.md) | Three realistic briefs with worked answers |
 | [Templates](templates/en/security-architecture-document.md) | An architecture document, a threat model worksheet, a decision record, and a review checklist |
 | [Glossary](glossary/en.md) | Short definitions of the terms used across the project |
@@ -66,6 +66,14 @@ Answer nine questions about your system at [bunyan.3li.info](https://bunyan.3li.
 | P14 | [Guardrails for LLM applications and agents](patterns/en/P14-llm-application-guardrails.md) | AI |
 | P15 | [Regulated enclave](patterns/en/P15-regulated-enclave.md) | Data |
 | P16 | [Container platform guardrails](patterns/en/P16-container-platform-guardrails.md) | Platform |
+| P17 | [Customer identity and account protection](patterns/en/P17-customer-identity.md) | Identity |
+| P18 | [Email and collaboration protection](patterns/en/P18-email-and-collaboration.md) | Workplace |
+| P19 | [Managed and hardened endpoints](patterns/en/P19-managed-endpoints.md) | Workplace |
+| P20 | [Security service edge for users anywhere](patterns/en/P20-security-service-edge.md) | Workplace |
+| P21 | [Continuous exposure management](patterns/en/P21-exposure-management.md) | Operations |
+| P22 | [Resilient availability across sites](patterns/en/P22-resilient-availability.md) | Operations |
+| P23 | [Cryptographic agility and post-quantum readiness](patterns/en/P23-crypto-agility.md) | Data |
+| P24 | [Forensic readiness and incident response](patterns/en/P24-forensic-readiness.md) | Operations |
 
 <!-- patterns:end -->
 

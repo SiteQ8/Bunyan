@@ -10,7 +10,7 @@
 
 | المجال | أنماط ذات صلة |
 | --- | --- |
-| العمليات | [P01 الوصول وفق الثقة الصفرية](P01-zero-trust-access.md)، [P02 الهوية مستوى تحكم](P02-identity-control-plane.md)، [P03 الصلاحيات الهامة والحساسة في طبقات](P03-tiered-privileged-access.md)، [P12 استعادة صامدة أمام برامج الفدية](P12-resilient-recovery.md) |
+| العمليات | [P01 الوصول وفق الثقة الصفرية](P01-zero-trust-access.md)، [P02 الهوية مستوى تحكم](P02-identity-control-plane.md)، [P03 الصلاحيات الهامة والحساسة في طبقات](P03-tiered-privileged-access.md)، [P12 استعادة صامدة أمام برامج الفدية](P12-resilient-recovery.md)، [P24 الجاهزية الجنائية والاستجابة للحوادث](P24-forensic-readiness.md) |
 
 ## المشكلة
 

@@ -1,0 +1,308 @@
+{
+  "id": "P19",
+  "slug": "managed-endpoints",
+  "domain": "workplace",
+  "title": {
+    "en": "Managed and hardened endpoints",
+    "ar": "أجهزة طرفية مُدارة ومحصّنة"
+  },
+  "summary": {
+    "en": "Give access only to devices that the organisation manages, keep them hardened, patched, and encrypted, remove local administrator rights, and watch them with endpoint detection and response, because the laptop is where users meet attackers.",
+    "ar": "امنح الوصول للأجهزة التي تديرها المؤسسة فقط، وأبقها محصّنة ومحدّثة ومشفرة، وأزل صلاحيات المسؤول المحلي، وراقبها بأداة للكشف والاستجابة على الأجهزة الطرفية، لأن الحاسوب المحمول هو حيث يلتقي المستخدمون بالمهاجمين."
+  },
+  "problem": {
+    "en": "Most intrusions touch an endpoint: a user opens an attachment, a browser runs a malicious download, or a stolen laptop still holds cached credentials. Devices that users administer themselves collect unpatched software and tools that switch off protection, and personal devices reach company data with no way to check their state or wipe them.",
+    "ar": "يمس معظم الاختراقات جهازًا طرفيًا، فقد يفتح مستخدم مرفقًا أو يشغّل متصفح تنزيلًا ضارًا أو يبقى في حاسوب مسروق بيانات اعتماد مخزنة، كما تتراكم على الأجهزة التي يديرها مستخدموها بأنفسهم برمجيات غير محدّثة وأدوات تعطل الحماية، بينما تصل الأجهزة الشخصية إلى بيانات الشركة دون أي وسيلة لفحص حالتها أو مسحها."
+  },
+  "useWhen": [
+    {
+      "en": "Staff use laptops, desktops, or phones to reach company systems or data.",
+      "ar": "يستخدم الموظفون حواسيب محمولة أو مكتبية أو هواتف للوصول إلى أنظمة الشركة أو بياناتها."
+    },
+    {
+      "en": "People work remotely, or bring their own devices.",
+      "ar": "يعمل الناس عن بعد، أو يستخدمون أجهزتهم الشخصية."
+    },
+    {
+      "en": "Administrators and developers use their own workstations for privileged work.",
+      "ar": "يستخدم المسؤولون والمطورون محطات عملهم للأعمال ذات الصلاحيات الهامة."
+    }
+  ],
+  "design": [
+    {
+      "en": "Enrol every company device in device management with a hardened baseline: full disk encryption, a host firewall, automatic updates, and no local administrator rights for everyday accounts. Run endpoint detection and response on every device, with tamper protection so that neither malware nor users can switch it off, and send its telemetry to the SOC.",
+      "ar": "سجّل كل جهاز تملكه الشركة في نظام لإدارة الأجهزة بخط أساس محصّن يشمل تشفير القرص كاملًا وجدار حماية للجهاز والتحديث التلقائي ومنع صلاحيات المسؤول المحلي عن الحسابات اليومية، ثم شغّل أداة للكشف والاستجابة على كل جهاز مع حماية من العبث حتى لا تستطيع البرمجيات الضارة ولا المستخدمون تعطيلها، وأرسل بيانات رصدها إلى مركز العمليات الأمنية."
+    },
+    {
+      "en": "Make access decisions depend on the device: the identity provider checks that a device is managed, compliant, and healthy before it gives access to sensitive applications, and personal devices get browser-only access or an isolated work profile. Control what can run on sensitive devices with application allowlisting, and give administrators separate privileged workstations.",
+      "ar": "اجعل قرارات الوصول معتمدة على الجهاز، فيتحقق مزود الهوية من أن الجهاز مُدار وملتزم وسليم قبل أن يمنحه الوصول إلى التطبيقات الحساسة، بينما تحصل الأجهزة الشخصية على وصول عبر المتصفح فقط أو على ملف عمل معزول، ثم تحكّم في ما يعمل على الأجهزة الحساسة بقوائم سماح للتطبيقات، وامنح المسؤولين محطات عمل مخصصة للصلاحيات الهامة."
+    }
+  ],
+  "controls": [
+    {
+      "level": "foundation",
+      "name": {
+        "en": "Manage every company device",
+        "ar": "أدر كل جهاز تملكه الشركة"
+      },
+      "detail": {
+        "en": "Enrol every device in device management, keep an inventory, and be able to lock or wipe a lost device.",
+        "ar": "سجّل كل جهاز في نظام إدارة الأجهزة، واحتفظ بسجل حصر لها، ولتكن قادرًا على قفل الجهاز المفقود أو مسحه."
+      },
+      "nist": [
+        "CM-8",
+        "AC-19"
+      ],
+      "cis": [
+        "1.1",
+        "4.1"
+      ],
+      "iso": [
+        "8.1"
+      ]
+    },
+    {
+      "level": "foundation",
+      "name": {
+        "en": "Encrypt and patch every device",
+        "ar": "شفّر كل جهاز وحدّثه"
+      },
+      "detail": {
+        "en": "Turn on full disk encryption, and apply operating system and browser updates automatically within days.",
+        "ar": "فعّل تشفير القرص كاملًا، وطبّق تحديثات نظام التشغيل والمتصفح آليًا خلال أيام."
+      },
+      "nist": [
+        "SC-28",
+        "SI-2"
+      ],
+      "cis": [
+        "3.6",
+        "7.3"
+      ],
+      "iso": [
+        "8.1",
+        "8.8"
+      ]
+    },
+    {
+      "level": "foundation",
+      "name": {
+        "en": "Remove local administrator rights",
+        "ar": "أزل صلاحيات المسؤول المحلي"
+      },
+      "detail": {
+        "en": "Take local administrator rights away from everyday accounts, and handle exceptions through a request that expires.",
+        "ar": "اسحب صلاحيات المسؤول المحلي من الحسابات اليومية، وعالج الاستثناءات عبر طلب ينتهي بمدة."
+      },
+      "nist": [
+        "AC-6",
+        "CM-11"
+      ],
+      "cis": [
+        "5.4"
+      ],
+      "iso": [
+        "8.2"
+      ]
+    },
+    {
+      "level": "enhanced",
+      "name": {
+        "en": "Run endpoint detection and response everywhere",
+        "ar": "شغّل الكشف والاستجابة على كل جهاز"
+      },
+      "detail": {
+        "en": "Deploy EDR with tamper protection on every device, and send its alerts to the SOC with a playbook for isolation.",
+        "ar": "انشر أداة للكشف والاستجابة مع حماية من العبث على كل جهاز، وأرسل تنبيهاتها إلى مركز العمليات الأمنية مع دليل استجابة للعزل."
+      },
+      "nist": [
+        "SI-3",
+        "SI-4"
+      ],
+      "cis": [
+        "10.1",
+        "10.7"
+      ],
+      "iso": [
+        "8.7",
+        "8.16"
+      ]
+    },
+    {
+      "level": "enhanced",
+      "name": {
+        "en": "Check device health before access",
+        "ar": "افحص سلامة الجهاز قبل الوصول"
+      },
+      "detail": {
+        "en": "Let the identity provider require a managed, compliant device for sensitive applications, and give personal devices browser-only access.",
+        "ar": "اجعل مزود الهوية يشترط جهازًا مُدارًا وملتزمًا للتطبيقات الحساسة، وامنح الأجهزة الشخصية وصولًا عبر المتصفح فقط."
+      },
+      "nist": [
+        "AC-17",
+        "IA-3"
+      ],
+      "cis": [],
+      "iso": [
+        "8.1",
+        "6.7"
+      ]
+    },
+    {
+      "level": "enhanced",
+      "name": {
+        "en": "Harden the baseline",
+        "ar": "حصّن خط الأساس"
+      },
+      "detail": {
+        "en": "Apply a benchmark baseline, turn on the host firewall, and block macros from the internet and unsigned scripts.",
+        "ar": "طبّق خط أساس مستندًا إلى معيار مرجعي، وفعّل جدار الحماية للجهاز، وامنع وحدات الماكرو القادمة من الإنترنت والنصوص البرمجية غير الموقعة."
+      },
+      "nist": [
+        "CM-6",
+        "CM-7"
+      ],
+      "cis": [
+        "4.1",
+        "4.5"
+      ],
+      "iso": [
+        "8.9"
+      ]
+    },
+    {
+      "level": "advanced",
+      "name": {
+        "en": "Allow only approved applications",
+        "ar": "اسمح بالتطبيقات المعتمدة فقط"
+      },
+      "detail": {
+        "en": "Use application and script allowlisting on administrator workstations and other sensitive devices.",
+        "ar": "استخدم قوائم السماح للتطبيقات والنصوص البرمجية على محطات عمل المسؤولين والأجهزة الحساسة الأخرى."
+      },
+      "nist": [
+        "CM-7",
+        "CM-14"
+      ],
+      "cis": [
+        "2.5",
+        "2.7"
+      ],
+      "iso": [
+        "8.19"
+      ]
+    },
+    {
+      "level": "advanced",
+      "name": {
+        "en": "Isolate a compromised device in minutes",
+        "ar": "اعزل الجهاز المخترق خلال دقائق"
+      },
+      "detail": {
+        "en": "Let the SOC isolate a device from the network remotely, keep it reachable for investigation, and test this regularly.",
+        "ar": "مكّن مركز العمليات الأمنية من عزل الجهاز عن الشبكة عن بعد مع إبقائه متاحًا للتحقيق، واختبر ذلك بانتظام."
+      },
+      "nist": [
+        "IR-4",
+        "SI-4"
+      ],
+      "cis": [
+        "17.4"
+      ],
+      "iso": [
+        "5.26"
+      ]
+    }
+  ],
+  "decisions": [
+    {
+      "en": "Which applications need a managed device, and which may personal devices reach through the browser?",
+      "ar": "ما التطبيقات التي تحتاج إلى جهاز مُدار، وما التي يجوز للأجهزة الشخصية الوصول إليها عبر المتصفح؟"
+    },
+    {
+      "en": "Who may hold local administrator rights, for how long, and who approves it?",
+      "ar": "من يجوز له امتلاك صلاحيات المسؤول المحلي، ولأي مدة، ومن يعتمد ذلك؟"
+    },
+    {
+      "en": "How quickly must critical updates reach every device, and what happens to devices that miss the deadline?",
+      "ar": "ما السرعة التي يجب أن تصل بها التحديثات الحرجة إلى كل جهاز، وماذا يحدث للأجهزة التي تتأخر عن الموعد؟"
+    }
+  ],
+  "tradeoffs": [
+    {
+      "en": "Removing local administrator rights creates requests for software, so a self-service catalogue has to exist from the first day.",
+      "ar": "تُنشئ إزالة صلاحيات المسؤول المحلي طلبات للبرمجيات، لذا يجب أن يتوفر فهرس للخدمة الذاتية من اليوم الأول."
+    },
+    {
+      "en": "Allowlisting stops unknown software, including tools that developers need, so it fits some roles better than others.",
+      "ar": "تمنع قوائم السماح البرمجيات غير المعروفة بما فيها أدوات يحتاجها المطورون، لذا تناسب بعض الأدوار أكثر من غيرها."
+    },
+    {
+      "en": "Device checks block people on the road when a device falls out of compliance, so remediation must be quick and clear.",
+      "ar": "تحجب فحوص الأجهزة المسافرين حين يخرج جهاز عن الالتزام، لذا يجب أن تكون المعالجة سريعة وواضحة."
+    }
+  ],
+  "antipatterns": [
+    {
+      "en": "Everyday accounts with local administrator rights.",
+      "ar": "حسابات يومية تملك صلاحيات المسؤول المحلي."
+    },
+    {
+      "en": "An EDR agent that users or malware can switch off.",
+      "ar": "وكيل للكشف والاستجابة يستطيع المستخدمون أو البرمجيات الضارة تعطيله."
+    },
+    {
+      "en": "Personal devices syncing company files with no management at all.",
+      "ar": "أجهزة شخصية تزامن ملفات الشركة دون أي إدارة."
+    }
+  ],
+  "verify": [
+    {
+      "en": "Try to stop the EDR agent as a local user and as an administrator, and confirm that tamper protection blocks both.",
+      "ar": "حاول إيقاف وكيل الكشف والاستجابة بصفتك مستخدمًا محليًا ثم مسؤولًا، وتأكد من أن الحماية من العبث تمنع المحاولتين."
+    },
+    {
+      "en": "Sign in to a sensitive application from an unmanaged device, and confirm that access is refused or limited to the browser.",
+      "ar": "ادخل إلى تطبيق حساس من جهاز غير مُدار، وتأكد من رفض الوصول أو حصره في المتصفح."
+    },
+    {
+      "en": "Compare the device inventory with sign-in logs, and find devices that sign in without being managed.",
+      "ar": "قارن سجل حصر الأجهزة بسجلات الدخول، وابحث عن أجهزة تدخل دون أن تكون مُدارة."
+    }
+  ],
+  "attack": [
+    "T1204",
+    "T1059",
+    "T1566.001",
+    "T1003"
+  ],
+  "owasp": [],
+  "related": [
+    "P01",
+    "P03",
+    "P10"
+  ],
+  "references": [
+    {
+      "title": {
+        "en": "CIS Benchmarks",
+        "ar": "معايير CIS المرجعية للتحصين"
+      },
+      "url": "https://www.cisecurity.org/cis-benchmarks"
+    },
+    {
+      "title": {
+        "en": "NIST SP 800-124 Rev 2, Guidelines for Managing the Security of Mobile Devices in the Enterprise",
+        "ar": "إرشادات NIST SP 800-124 Rev 2 لإدارة أمن الأجهزة المحمولة في المؤسسات"
+      },
+      "url": "https://csrc.nist.gov/pubs/sp/800/124/r2/final"
+    },
+    {
+      "title": {
+        "en": "Australian Cyber Security Centre, Essential Eight",
+        "ar": "استراتيجيات Essential Eight من المركز الأسترالي للأمن السيبراني"
+      },
+      "url": "https://www.cyber.gov.au/resources-business-and-government/essential-cyber-security/essential-eight"
+    }
+  ]
+}

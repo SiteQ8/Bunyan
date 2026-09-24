@@ -961,6 +961,266 @@
         "en": "Containers share a platform, so the platform decides how far one compromised workload can reach.",
         "ar": "تتشارك الحاويات منصة واحدة، فتحدد المنصة المدى الذي يبلغه عبء عمل واحد مخترق."
       }
+    },
+    {
+      "pattern": "P17",
+      "priority": "essential",
+      "when": {
+        "all": [
+          {
+            "q": "system",
+            "in": [
+              "digital"
+            ]
+          },
+          {
+            "q": "exposure",
+            "has": "public"
+          }
+        ]
+      },
+      "because": {
+        "en": "Customers sign in from the internet, so account takeover is the attack the service will meet most often.",
+        "ar": "يدخل العملاء من الإنترنت، لذا يُعد الاستيلاء على الحسابات أكثر هجوم ستواجهه الخدمة."
+      }
+    },
+    {
+      "pattern": "P17",
+      "priority": "recommended",
+      "when": {
+        "all": [
+          {
+            "q": "system",
+            "in": [
+              "api",
+              "ai"
+            ]
+          },
+          {
+            "q": "exposure",
+            "has": "public"
+          }
+        ]
+      },
+      "because": {
+        "en": "People outside the organisation sign in, and their accounts will be attacked with stolen passwords.",
+        "ar": "يدخل أشخاص من خارج المؤسسة، وستُهاجم حساباتهم ببيانات اعتماد مسروقة."
+      }
+    },
+    {
+      "pattern": "P18",
+      "priority": "essential",
+      "when": {
+        "q": "system",
+        "in": [
+          "workforce"
+        ]
+      },
+      "because": {
+        "en": "Its users read email and chat with the outside world, which is where most intrusions and payment fraud begin.",
+        "ar": "يقرأ مستخدموه البريد ويتحادثون مع العالم الخارجي، وهناك يبدأ معظم الاختراقات والاحتيال في المدفوعات."
+      }
+    },
+    {
+      "pattern": "P18",
+      "priority": "consider",
+      "when": {
+        "q": "obligations",
+        "hasAny": [
+          "bank",
+          "pci",
+          "swift"
+        ]
+      },
+      "because": {
+        "en": "Payment fraud through spoofed and compromised email targets financial institutions first.",
+        "ar": "يستهدف الاحتيال في المدفوعات عبر البريد المنتحل والمخترق المؤسسات المالية أولًا."
+      }
+    },
+    {
+      "pattern": "P19",
+      "priority": "essential",
+      "when": {
+        "q": "system",
+        "in": [
+          "workforce"
+        ]
+      },
+      "because": {
+        "en": "Staff reach it from laptops and phones, and the device is where attacks meet users.",
+        "ar": "يصل إليه الموظفون من الحواسيب والهواتف، والجهاز هو حيث تلتقي الهجمات بالمستخدمين."
+      }
+    },
+    {
+      "pattern": "P19",
+      "priority": "recommended",
+      "when": {
+        "q": "exposure",
+        "has": "remote"
+      },
+      "because": {
+        "en": "Remote staff connect from laptops that must be managed and healthy before they get access.",
+        "ar": "يتصل الموظفون عن بعد من حواسيب يجب أن تكون مُدارة وسليمة قبل أن تحصل على الوصول."
+      }
+    },
+    {
+      "pattern": "P20",
+      "priority": "recommended",
+      "when": {
+        "q": "system",
+        "in": [
+          "workforce"
+        ]
+      },
+      "because": {
+        "en": "Staff reach the web and SaaS directly, and that traffic is where malware arrives and data leaves.",
+        "ar": "يصل الموظفون إلى الويب والخدمات السحابية مباشرة، وفي تلك الحركة تصل البرمجيات الضارة وتخرج البيانات."
+      }
+    },
+    {
+      "pattern": "P20",
+      "priority": "essential",
+      "when": {
+        "all": [
+          {
+            "q": "system",
+            "in": [
+              "workforce"
+            ]
+          },
+          {
+            "q": "exposure",
+            "has": "remote"
+          }
+        ]
+      },
+      "because": {
+        "en": "People work away from the office, so web security and data loss controls have to follow them.",
+        "ar": "يعمل الناس بعيدًا عن المكتب، لذا يجب أن تتبعهم ضوابط أمن الويب ومنع تسرب البيانات."
+      }
+    },
+    {
+      "pattern": "P21",
+      "priority": "recommended",
+      "when": "always",
+      "because": {
+        "en": "Every environment carries known vulnerabilities, and fixing first the ones being exploited is how teams keep up.",
+        "ar": "تحمل كل بيئة ثغرات معروفة، وإصلاح المستغل منها أولًا هو ما يمكّن الفرق من المواكبة."
+      }
+    },
+    {
+      "pattern": "P21",
+      "priority": "essential",
+      "when": {
+        "q": "exposure",
+        "hasAny": [
+          "public",
+          "partners"
+        ]
+      },
+      "because": {
+        "en": "Attackers scan anything reachable from outside within hours of a new vulnerability, so exposure has to be known and closed fast.",
+        "ar": "يفحص المهاجمون كل ما يمكن الوصول إليه من الخارج خلال ساعات من ظهور أي ثغرة جديدة، لذا يجب أن يكون الانكشاف معروفًا ويُغلق بسرعة."
+      }
+    },
+    {
+      "pattern": "P22",
+      "priority": "essential",
+      "when": {
+        "q": "availability",
+        "in": [
+          "critical"
+        ]
+      },
+      "because": {
+        "en": "The business cannot tolerate an outage, so a second site must be ready to take over, not built after the failure.",
+        "ar": "لا تحتمل الأعمال أي تعطل، لذا يجب أن يكون موقع ثانٍ جاهزًا لتولي العمل، لا أن يُبنى بعد الإخفاق."
+      }
+    },
+    {
+      "pattern": "P22",
+      "priority": "recommended",
+      "when": {
+        "q": "availability",
+        "in": [
+          "high"
+        ]
+      },
+      "because": {
+        "en": "Downtime costs money within hours, so the recovery objectives need a design and a test behind them.",
+        "ar": "يكلّف التعطل مالًا خلال ساعات، لذا تحتاج أهداف الاستعادة إلى تصميم واختبار يسندانها."
+      }
+    },
+    {
+      "pattern": "P23",
+      "priority": "recommended",
+      "when": {
+        "q": "data",
+        "in": [
+          "confidential",
+          "regulated"
+        ]
+      },
+      "because": {
+        "en": "The data must stay secret for years, and traffic recorded today could be decrypted once quantum computers arrive.",
+        "ar": "يجب أن تبقى البيانات سرية لسنوات، وقد يُفك تشفير الحركة المسجلة اليوم حين تصل الحواسيب الكمية."
+      }
+    },
+    {
+      "pattern": "P23",
+      "priority": "essential",
+      "when": {
+        "all": [
+          {
+            "q": "data",
+            "in": [
+              "regulated"
+            ]
+          },
+          {
+            "q": "maturity",
+            "in": [
+              "advanced"
+            ]
+          }
+        ]
+      },
+      "because": {
+        "en": "A mature programme is expected to know its cryptography and to have a post-quantum plan.",
+        "ar": "يُتوقع من البرنامج الناضج أن يعرف استخدامات التشفير لديه وأن يملك خطة لما بعد الحوسبة الكمية."
+      }
+    },
+    {
+      "pattern": "P24",
+      "priority": "essential",
+      "when": {
+        "q": "obligations",
+        "hasAny": [
+          "bank",
+          "national",
+          "pci",
+          "swift"
+        ]
+      },
+      "because": {
+        "en": "Regulators expect incidents to be reported with facts within hours, which is only possible if the evidence was designed in.",
+        "ar": "تتوقع الجهات الرقابية الإبلاغ عن الحوادث بحقائق خلال ساعات، ولا يمكن ذلك إلا إذا صُممت الأدلة مسبقًا."
+      }
+    },
+    {
+      "pattern": "P24",
+      "priority": "recommended",
+      "when": {
+        "q": "data",
+        "in": [
+          "confidential",
+          "regulated"
+        ]
+      },
+      "because": {
+        "en": "A breach of this data will have to be investigated and explained, and that needs evidence prepared in advance.",
+        "ar": "سيتعين التحقيق في أي اختراق لهذه البيانات وتفسيره، وهذا يحتاج إلى أدلة مُعدّة مسبقًا."
+      }
     }
   ],
   "threats": [
@@ -981,6 +1241,59 @@
         "P01"
       ],
       "when": "always"
+    },
+    {
+      "id": "session-hijack",
+      "title": {
+        "en": "Stolen session cookies and intercepted one-time codes",
+        "ar": "سرقة ملفات تعريف الجلسات واعتراض الرموز المؤقتة"
+      },
+      "refs": [
+        "T1539",
+        "T1111"
+      ],
+      "patterns": [
+        "P17",
+        "P02"
+      ],
+      "when": {
+        "all": [
+          {
+            "q": "system",
+            "in": [
+              "digital",
+              "api",
+              "ai"
+            ]
+          },
+          {
+            "q": "exposure",
+            "has": "public"
+          }
+        ]
+      }
+    },
+    {
+      "id": "bec",
+      "title": {
+        "en": "Business email compromise and invoice fraud",
+        "ar": "اختراق البريد التجاري والاحتيال في الفواتير"
+      },
+      "refs": [
+        "T1566.002",
+        "T1534",
+        "T1684.001"
+      ],
+      "patterns": [
+        "P18",
+        "P02"
+      ],
+      "when": {
+        "q": "system",
+        "in": [
+          "workforce"
+        ]
+      }
     },
     {
       "id": "admin-credential-theft",
@@ -1017,6 +1330,28 @@
       "when": "always"
     },
     {
+      "id": "endpoint-malware",
+      "title": {
+        "en": "Malware run by a user on a laptop",
+        "ar": "برمجية ضارة يشغّلها مستخدم على حاسوبه"
+      },
+      "refs": [
+        "T1204",
+        "T1059",
+        "T1566.001"
+      ],
+      "patterns": [
+        "P19",
+        "P18"
+      ],
+      "when": {
+        "q": "system",
+        "in": [
+          "workforce"
+        ]
+      }
+    },
+    {
       "id": "public-app-exploit",
       "title": {
         "en": "Exploitation of an internet-facing application",
@@ -1035,6 +1370,57 @@
         "hasAny": [
           "public",
           "partners"
+        ]
+      }
+    },
+    {
+      "id": "unpatched-exposure",
+      "title": {
+        "en": "Known vulnerabilities left open on exposed systems",
+        "ar": "ثغرات معروفة تُركت مفتوحة على أنظمة مكشوفة"
+      },
+      "refs": [
+        "T1595.002",
+        "T1190",
+        "T1133"
+      ],
+      "patterns": [
+        "P21",
+        "P05"
+      ],
+      "when": {
+        "q": "exposure",
+        "hasAny": [
+          "public",
+          "partners"
+        ]
+      }
+    },
+    {
+      "id": "denial-of-service",
+      "title": {
+        "en": "Denial of service against customer channels",
+        "ar": "تعطيل الخدمة في قنوات العملاء"
+      },
+      "refs": [
+        "T1498"
+      ],
+      "patterns": [
+        "P05"
+      ],
+      "when": {
+        "all": [
+          {
+            "q": "exposure",
+            "has": "public"
+          },
+          {
+            "q": "availability",
+            "in": [
+              "high",
+              "critical"
+            ]
+          }
         ]
       }
     },
@@ -1147,6 +1533,27 @@
       "when": {
         "q": "obligations",
         "has": "swift"
+      }
+    },
+    {
+      "id": "web-threats",
+      "title": {
+        "en": "Malware from the web, and data leaving through web services",
+        "ar": "برمجيات ضارة من الويب وبيانات تخرج عبر خدمات الويب"
+      },
+      "refs": [
+        "T1189",
+        "T1567"
+      ],
+      "patterns": [
+        "P20",
+        "P19"
+      ],
+      "when": {
+        "q": "system",
+        "in": [
+          "workforce"
+        ]
       }
     },
     {
@@ -1321,6 +1728,27 @@
       }
     },
     {
+      "id": "site-loss",
+      "title": {
+        "en": "Loss of a data centre or a cloud region",
+        "ar": "فقدان مركز بيانات أو منطقة سحابية"
+      },
+      "refs": [
+        "T1499",
+        "T1485"
+      ],
+      "patterns": [
+        "P22",
+        "P12"
+      ],
+      "when": {
+        "q": "availability",
+        "in": [
+          "critical"
+        ]
+      }
+    },
+    {
       "id": "quiet-exfiltration",
       "title": {
         "en": "Data leaving quietly through web services",
@@ -1343,30 +1771,49 @@
       }
     },
     {
-      "id": "denial-of-service",
+      "id": "harvest-now",
       "title": {
-        "en": "Denial of service against customer channels",
-        "ar": "تعطيل الخدمة في قنوات العملاء"
+        "en": "Encrypted traffic recorded today and decrypted later",
+        "ar": "حركة مشفرة تُسجَّل اليوم ويُفك تشفيرها لاحقًا"
       },
       "refs": [
-        "T1498"
+        "T1040",
+        "T1557",
+        "T1552.004"
       ],
       "patterns": [
-        "P05"
+        "P23",
+        "P08"
       ],
       "when": {
-        "all": [
-          {
-            "q": "exposure",
-            "has": "public"
-          },
-          {
-            "q": "availability",
-            "in": [
-              "high",
-              "critical"
-            ]
-          }
+        "q": "data",
+        "in": [
+          "confidential",
+          "regulated"
+        ]
+      }
+    },
+    {
+      "id": "lost-evidence",
+      "title": {
+        "en": "Evidence erased or missing after an intrusion",
+        "ar": "أدلة ممسوحة أو مفقودة بعد اختراق"
+      },
+      "refs": [
+        "T1685.005",
+        "T1070"
+      ],
+      "patterns": [
+        "P24",
+        "P10"
+      ],
+      "when": {
+        "q": "obligations",
+        "hasAny": [
+          "bank",
+          "national",
+          "pci",
+          "swift"
         ]
       }
     },
@@ -1584,6 +2031,13 @@
                   "ar": "بوابة الواجهات البرمجية"
                 },
                 "pattern": "P07"
+              },
+              {
+                "label": {
+                  "en": "Customer sign-in with passkeys",
+                  "ar": "دخول العملاء بمفاتيح المرور"
+                },
+                "pattern": "P17"
               }
             ]
           },
@@ -2046,14 +2500,22 @@
                 "label": {
                   "en": "Email and collaboration",
                   "ar": "البريد وأدوات التعاون"
-                }
+                },
+                "pattern": "P18"
               },
               {
                 "label": {
                   "en": "Secure web gateway",
                   "ar": "بوابة ويب آمنة"
                 },
-                "pattern": "P05"
+                "pattern": "P20"
+              },
+              {
+                "label": {
+                  "en": "Managed, compliant devices",
+                  "ar": "أجهزة مُدارة وملتزمة"
+                },
+                "pattern": "P19"
               }
             ]
           },
@@ -2800,6 +3262,38 @@
       "P16": {
         "en": "Container platform guardrails",
         "ar": "ضوابط منصة الحاويات"
+      },
+      "P17": {
+        "en": "Customer sign-in and account protection",
+        "ar": "دخول العملاء وحماية حساباتهم"
+      },
+      "P18": {
+        "en": "Mail and chat protection",
+        "ar": "حماية البريد والمحادثات"
+      },
+      "P19": {
+        "en": "Managed, hardened endpoints",
+        "ar": "أجهزة طرفية مُدارة ومحصّنة"
+      },
+      "P20": {
+        "en": "Security service edge",
+        "ar": "حافة الخدمات الأمنية"
+      },
+      "P21": {
+        "en": "Continuous exposure management",
+        "ar": "إدارة مستمرة للانكشاف"
+      },
+      "P22": {
+        "en": "Second site ready to take over",
+        "ar": "موقع ثانٍ جاهز لتولي العمل"
+      },
+      "P23": {
+        "en": "Crypto inventory and post-quantum plan",
+        "ar": "حصر التشفير وخطة ما بعد الكم"
+      },
+      "P24": {
+        "en": "Evidence kept for investigations",
+        "ar": "أدلة محفوظة للتحقيقات"
       }
     }
   }

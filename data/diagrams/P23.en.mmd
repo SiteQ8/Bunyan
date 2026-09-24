@@ -1,0 +1,10 @@
+flowchart LR
+  SRC["Code, configuration,<br/>certificates, network scans"] --> CBOM["Cryptography inventory<br/>CBOM"]
+  CBOM --> POL["Approved algorithm policy"]
+  POL --> PIPE["Build pipeline checks"]
+  POL --> EDGE["Edge and service mesh"]
+  KMS["Key management service"] --> APPS["Applications using<br/>standard libraries"]
+  CERT["Automated certificates"] --> APPS
+  CBOM --> PQC["Post-quantum plan<br/>long-lived data first"]
+  PQC --> HYB["Hybrid key exchange<br/>ML-KEM"]
+  PQC --> SUP["Supplier plans"]

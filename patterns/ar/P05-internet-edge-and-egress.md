@@ -10,7 +10,7 @@
 
 | المجال | أنماط ذات صلة |
 | --- | --- |
-| الشبكة | [P07 بوابة الواجهات البرمجية والتفويض على مستوى الكائن](P07-api-security.md)، [P04 العزل والتقسيم الدقيق](P04-segmentation.md)، [P10 بيانات الرصد ومسار الكشف](P10-detection-telemetry.md)، [P09 حماية تتمحور حول البيانات](P09-data-centric-protection.md) |
+| الشبكة | [P07 بوابة الواجهات البرمجية والتفويض على مستوى الكائن](P07-api-security.md)، [P04 العزل والتقسيم الدقيق](P04-segmentation.md)، [P10 بيانات الرصد ومسار الكشف](P10-detection-telemetry.md)، [P09 حماية تتمحور حول البيانات](P09-data-centric-protection.md)، [P21 إدارة مستمرة للانكشاف](P21-exposure-management.md) |
 
 ## المشكلة
 

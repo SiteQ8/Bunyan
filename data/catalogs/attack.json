@@ -50,6 +50,14 @@
       "matrix": "enterprise",
       "url": "https://attack.mitre.org/techniques/T1021/"
     },
+    "T1040": {
+      "name": {
+        "en": "Network Sniffing",
+        "ar": "التنصت على الشبكة"
+      },
+      "matrix": "enterprise",
+      "url": "https://attack.mitre.org/techniques/T1040/"
+    },
     "T1046": {
       "name": {
         "en": "Network Service Discovery",
@@ -65,6 +73,14 @@
       },
       "matrix": "enterprise",
       "url": "https://attack.mitre.org/techniques/T1048/"
+    },
+    "T1059": {
+      "name": {
+        "en": "Command and Scripting Interpreter",
+        "ar": "مفسّر الأوامر والنصوص البرمجية"
+      },
+      "matrix": "enterprise",
+      "url": "https://attack.mitre.org/techniques/T1059/"
     },
     "T1070": {
       "name": {
@@ -130,6 +146,22 @@
       "matrix": "enterprise",
       "url": "https://attack.mitre.org/techniques/T1110/004/"
     },
+    "T1111": {
+      "name": {
+        "en": "Multi-Factor Authentication Interception",
+        "ar": "اعتراض التحقق متعدد العناصر"
+      },
+      "matrix": "enterprise",
+      "url": "https://attack.mitre.org/techniques/T1111/"
+    },
+    "T1114": {
+      "name": {
+        "en": "Email Collection",
+        "ar": "جمع البريد الإلكتروني"
+      },
+      "matrix": "enterprise",
+      "url": "https://attack.mitre.org/techniques/T1114/"
+    },
     "T1133": {
       "name": {
         "en": "External Remote Services",
@@ -137,6 +169,14 @@
       },
       "matrix": "enterprise",
       "url": "https://attack.mitre.org/techniques/T1133/"
+    },
+    "T1189": {
+      "name": {
+        "en": "Drive-by Compromise",
+        "ar": "الاختراق أثناء التصفح"
+      },
+      "matrix": "enterprise",
+      "url": "https://attack.mitre.org/techniques/T1189/"
     },
     "T1190": {
       "name": {
@@ -161,6 +201,14 @@
       },
       "matrix": "enterprise",
       "url": "https://attack.mitre.org/techniques/T1199/"
+    },
+    "T1204": {
+      "name": {
+        "en": "User Execution",
+        "ar": "التنفيذ بيد المستخدم"
+      },
+      "matrix": "enterprise",
+      "url": "https://attack.mitre.org/techniques/T1204/"
     },
     "T1210": {
       "name": {
@@ -210,6 +258,14 @@
       "matrix": "enterprise",
       "url": "https://attack.mitre.org/techniques/T1498/"
     },
+    "T1499": {
+      "name": {
+        "en": "Endpoint Denial of Service",
+        "ar": "تعطيل خدمة الأنظمة الطرفية"
+      },
+      "matrix": "enterprise",
+      "url": "https://attack.mitre.org/techniques/T1499/"
+    },
     "T1528": {
       "name": {
         "en": "Steal Application Access Token",
@@ -226,6 +282,14 @@
       "matrix": "enterprise",
       "url": "https://attack.mitre.org/techniques/T1530/"
     },
+    "T1534": {
+      "name": {
+        "en": "Internal Spearphishing",
+        "ar": "التصيد الموجّه الداخلي"
+      },
+      "matrix": "enterprise",
+      "url": "https://attack.mitre.org/techniques/T1534/"
+    },
     "T1537": {
       "name": {
         "en": "Transfer Data to Cloud Account",
@@ -233,6 +297,14 @@
       },
       "matrix": "enterprise",
       "url": "https://attack.mitre.org/techniques/T1537/"
+    },
+    "T1539": {
+      "name": {
+        "en": "Steal Web Session Cookie",
+        "ar": "سرقة ملف تعريف جلسة الويب"
+      },
+      "matrix": "enterprise",
+      "url": "https://attack.mitre.org/techniques/T1539/"
     },
     "T1550": {
       "name": {
@@ -249,6 +321,14 @@
       },
       "matrix": "enterprise",
       "url": "https://attack.mitre.org/techniques/T1552/001/"
+    },
+    "T1552.004": {
+      "name": {
+        "en": "Unsecured Credentials: Private Keys",
+        "ar": "بيانات اعتماد غير محمية، المفاتيح الخاصة"
+      },
+      "matrix": "enterprise",
+      "url": "https://attack.mitre.org/techniques/T1552/004/"
     },
     "T1556": {
       "name": {
@@ -274,6 +354,22 @@
       "matrix": "enterprise",
       "url": "https://attack.mitre.org/techniques/T1566/"
     },
+    "T1566.001": {
+      "name": {
+        "en": "Phishing: Spearphishing Attachment",
+        "ar": "التصيد، مرفق التصيد الموجّه"
+      },
+      "matrix": "enterprise",
+      "url": "https://attack.mitre.org/techniques/T1566/001/"
+    },
+    "T1566.002": {
+      "name": {
+        "en": "Phishing: Spearphishing Link",
+        "ar": "التصيد، رابط التصيد الموجّه"
+      },
+      "matrix": "enterprise",
+      "url": "https://attack.mitre.org/techniques/T1566/002/"
+    },
     "T1567": {
       "name": {
         "en": "Exfiltration Over Web Service",
@@ -281,6 +377,14 @@
       },
       "matrix": "enterprise",
       "url": "https://attack.mitre.org/techniques/T1567/"
+    },
+    "T1595.002": {
+      "name": {
+        "en": "Active Scanning: Vulnerability Scanning",
+        "ar": "الفحص النشط، فحص الثغرات"
+      },
+      "matrix": "enterprise",
+      "url": "https://attack.mitre.org/techniques/T1595/002/"
     },
     "T1610": {
       "name": {
@@ -314,6 +418,14 @@
       "matrix": "enterprise",
       "url": "https://attack.mitre.org/techniques/T1621/"
     },
+    "T1684.001": {
+      "name": {
+        "en": "Social Engineering: Impersonation",
+        "ar": "الهندسة الاجتماعية، انتحال الشخصية"
+      },
+      "matrix": "enterprise",
+      "url": "https://attack.mitre.org/techniques/T1684/001/"
+    },
     "T1685.002": {
       "name": {
         "en": "Disable or Modify Tools: Disable or Modify Cloud Log",
@@ -321,6 +433,14 @@
       },
       "matrix": "enterprise",
       "url": "https://attack.mitre.org/techniques/T1685/002/"
+    },
+    "T1685.005": {
+      "name": {
+        "en": "Disable or Modify Tools: Clear Windows Event Logs",
+        "ar": "تعطيل الأدوات أو تعديلها، مسح سجلات أحداث Windows"
+      },
+      "matrix": "enterprise",
+      "url": "https://attack.mitre.org/techniques/T1685/005/"
     }
   }
 }

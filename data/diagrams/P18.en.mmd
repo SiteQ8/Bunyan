@@ -1,0 +1,10 @@
+flowchart LR
+  EXT["Senders on the internet"] --> AUTH["Sender checks<br/>SPF, DKIM, DMARC"]
+  AUTH --> FILT["Mail filtering<br/>malware and spoofing"]
+  FILT --> SBX["Attachment sandbox"]
+  SBX --> MBX["Mailboxes<br/>outside mail labelled"]
+  MBX -- "click" --> LNK["Link check<br/>at click time"]
+  MBX -- "report button" --> SOC["SOC<br/>and automatic removal"]
+  COL["Chat and shared files"] --> GUEST["Approved outside domains<br/>guests sign in"]
+  GUEST --> SOC
+  PAY["Request to change payment details"] -- "call back on a known number" --> FIN["Finance approval"]

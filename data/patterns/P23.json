@@ -1,0 +1,296 @@
+{
+  "id": "P23",
+  "slug": "crypto-agility",
+  "domain": "data",
+  "title": {
+    "en": "Cryptographic agility and post-quantum readiness",
+    "ar": "مرونة التشفير والجاهزية لما بعد الحوسبة الكمية"
+  },
+  "summary": {
+    "en": "Know where and how you use cryptography, keep it behind a few well-managed services instead of inside every application, automate certificates and keys, and plan the move to the post-quantum algorithms that NIST has standardised, starting with data that must stay secret for years.",
+    "ar": "اعرف أين تستخدم التشفير وكيف، واجعله خلف خدمات قليلة مُحكمة الإدارة بدلًا من داخل كل تطبيق، وأتمت الشهادات والمفاتيح، وخطّط للانتقال إلى خوارزميات ما بعد الحوسبة الكمية التي اعتمدها NIST معيارًا، بدءًا بالبيانات التي يجب أن تبقى سرية لسنوات."
+  },
+  "problem": {
+    "en": "Cryptography is spread through applications, devices, libraries, and supplier products, usually without an inventory, so weak algorithms and expiring certificates are found by outages rather than by plans. A future quantum computer will break the public key algorithms in use today, and attackers can record encrypted traffic now to decrypt it later, which already puts long-lived secrets at risk. Changing algorithms is slow when each application implements cryptography its own way.",
+    "ar": "ينتشر التشفير في التطبيقات والأجهزة والمكتبات ومنتجات الموردين دون حصر في العادة، فتُكتشف الخوارزميات الضعيفة والشهادات التي توشك على الانتهاء بالأعطال لا بالخطط، كما سيكسر حاسوب كمي في المستقبل خوارزميات المفتاح العام المستخدمة اليوم، ويستطيع المهاجمون تسجيل الحركة المشفرة الآن لفك تشفيرها لاحقًا، مما يعرّض الأسرار طويلة الأمد للخطر منذ الآن، بينما يصبح تغيير الخوارزميات بطيئًا حين يطبق كل تطبيق التشفير بطريقته الخاصة."
+  },
+  "useWhen": [
+    {
+      "en": "Data must stay confidential for many years, such as customer, health, or government records.",
+      "ar": "يجب أن تبقى البيانات سرية لسنوات طويلة، مثل سجلات العملاء أو الصحة أو الجهات الحكومية."
+    },
+    {
+      "en": "Certificates, keys, and algorithms are managed by hand, application by application.",
+      "ar": "تُدار الشهادات والمفاتيح والخوارزميات يدويًا تطبيقًا بعد تطبيق."
+    },
+    {
+      "en": "A regulator or a customer asks for a plan for post-quantum cryptography.",
+      "ar": "تطلب جهة رقابية أو عميل خطة للتشفير لما بعد الحوسبة الكمية."
+    }
+  ],
+  "design": [
+    {
+      "en": "Build a cryptographic inventory from code, configuration, certificates, and network scans, recorded as a cryptography bill of materials that lists algorithms, key sizes, protocols, and owners. Set a policy for approved algorithms and protocols, such as TLS 1.3 with TLS 1.2 as the minimum, and enforce it at the edge, in the service mesh, and in build pipelines, so that weak choices are caught before they ship.",
+      "ar": "ابنِ حصرًا للتشفير من الشيفرة والإعدادات والشهادات وفحص الشبكة، ووثّقه في قائمة مكونات للتشفير تذكر الخوارزميات وأطوال المفاتيح والبروتوكولات والمالكين، ثم ضع سياسة للخوارزميات والبروتوكولات المعتمدة مثل TLS 1.3 على أن يكون TLS 1.2 الحد الأدنى، وافرضها عند الحافة وفي شبكة الخدمات ومسارات البناء، حتى تُكتشف الخيارات الضعيفة قبل إطلاقها."
+    },
+    {
+      "en": "Move cryptography behind shared services: a key management service, a certificate service with automated issuance and renewal, and standard libraries, so that changing an algorithm is a change of configuration, not a rewrite. Plan the migration to the NIST post-quantum standards, ML-KEM in FIPS 203 and ML-DSA in FIPS 204, starting with hybrid key exchange for traffic that protects long-lived data, and ask suppliers for their own plans.",
+      "ar": "انقل التشفير إلى خدمات مشتركة، أي خدمة لإدارة المفاتيح وخدمة للشهادات تصدرها وتجددها آليًا ومكتبات قياسية، حتى يصبح تغيير الخوارزمية تغييرًا في الإعدادات لا إعادة كتابة، ثم خطّط للانتقال إلى معايير NIST لما بعد الحوسبة الكمية، أي ML-KEM في FIPS 203 وML-DSA في FIPS 204، بدءًا بتبادل المفاتيح الهجين للحركة التي تحمي بيانات طويلة الأمد، واطلب من الموردين خططهم في ذلك."
+    }
+  ],
+  "controls": [
+    {
+      "level": "foundation",
+      "name": {
+        "en": "Inventory your cryptography",
+        "ar": "احصر استخدامات التشفير"
+      },
+      "detail": {
+        "en": "Record where cryptography is used, with algorithms, key sizes, certificates, and owners, as a cryptography bill of materials.",
+        "ar": "وثّق مواضع استخدام التشفير مع الخوارزميات وأطوال المفاتيح والشهادات والمالكين في قائمة مكونات للتشفير."
+      },
+      "nist": [
+        "CM-8",
+        "SC-13"
+      ],
+      "cis": [],
+      "iso": [
+        "8.24"
+      ]
+    },
+    {
+      "level": "foundation",
+      "name": {
+        "en": "Set an approved algorithm policy",
+        "ar": "ضع سياسة للخوارزميات المعتمدة"
+      },
+      "detail": {
+        "en": "Approve algorithms and protocols, require TLS 1.2 at least and TLS 1.3 where possible, and retire weak ones on a schedule.",
+        "ar": "اعتمد الخوارزميات والبروتوكولات، واشترط TLS 1.2 على الأقل وTLS 1.3 حيثما أمكن، وأوقف الضعيف منها وفق جدول."
+      },
+      "nist": [
+        "SC-13",
+        "SC-8"
+      ],
+      "cis": [
+        "3.10"
+      ],
+      "iso": [
+        "8.24"
+      ]
+    },
+    {
+      "level": "foundation",
+      "name": {
+        "en": "Automate certificates",
+        "ar": "أتمت الشهادات"
+      },
+      "detail": {
+        "en": "Issue and renew certificates automatically, alert well before expiry, and keep private keys out of code and tickets.",
+        "ar": "أصدر الشهادات وجددها آليًا، ونبّه قبل انتهائها بوقت كافٍ، وأبعد المفاتيح الخاصة عن الشيفرة والتذاكر."
+      },
+      "nist": [
+        "SC-17",
+        "SC-12"
+      ],
+      "cis": [],
+      "iso": [
+        "8.24"
+      ]
+    },
+    {
+      "level": "enhanced",
+      "name": {
+        "en": "Put cryptography behind shared services",
+        "ar": "اجعل التشفير خلف خدمات مشتركة"
+      },
+      "detail": {
+        "en": "Use a key management service and standard libraries, so that algorithms change through configuration.",
+        "ar": "استخدم خدمة لإدارة المفاتيح ومكتبات قياسية، حتى تتغير الخوارزميات عبر الإعدادات."
+      },
+      "nist": [
+        "SC-12",
+        "SA-15"
+      ],
+      "cis": [],
+      "iso": [
+        "8.24",
+        "8.28"
+      ]
+    },
+    {
+      "level": "enhanced",
+      "name": {
+        "en": "Enforce the policy in pipelines and at the edge",
+        "ar": "افرض السياسة في مسارات البناء وعند الحافة"
+      },
+      "detail": {
+        "en": "Fail builds that add weak algorithms, and reject weak protocols at load balancers and in the service mesh.",
+        "ar": "أفشل عمليات البناء التي تضيف خوارزميات ضعيفة، وارفض البروتوكولات الضعيفة في موازنات الحمل وشبكة الخدمات."
+      },
+      "nist": [
+        "SA-11",
+        "SC-8"
+      ],
+      "cis": [
+        "16.12"
+      ],
+      "iso": [
+        "8.24",
+        "8.29"
+      ]
+    },
+    {
+      "level": "enhanced",
+      "name": {
+        "en": "Rank data by how long it must stay secret",
+        "ar": "رتّب البيانات حسب مدة بقائها سرية"
+      },
+      "detail": {
+        "en": "Identify data that must stay confidential beyond the next decade, and put its traffic first in the post-quantum plan.",
+        "ar": "حدّد البيانات التي يجب أن تبقى سرية بعد العقد القادم، وضع حركتها في مقدمة خطة ما بعد الحوسبة الكمية."
+      },
+      "nist": [
+        "RA-3",
+        "SC-8"
+      ],
+      "cis": [
+        "3.7"
+      ],
+      "iso": [
+        "5.12",
+        "8.24"
+      ]
+    },
+    {
+      "level": "advanced",
+      "name": {
+        "en": "Adopt hybrid post-quantum key exchange",
+        "ar": "اعتمد تبادل المفاتيح الهجين لما بعد الحوسبة الكمية"
+      },
+      "detail": {
+        "en": "Use hybrid key exchange that combines a classical algorithm with ML-KEM for traffic that protects long-lived data.",
+        "ar": "استخدم تبادل مفاتيح هجينًا يجمع خوارزمية تقليدية مع ML-KEM للحركة التي تحمي بيانات طويلة الأمد."
+      },
+      "nist": [
+        "SC-8",
+        "SC-13"
+      ],
+      "cis": [
+        "3.10"
+      ],
+      "iso": [
+        "8.24"
+      ]
+    },
+    {
+      "level": "advanced",
+      "name": {
+        "en": "Hold suppliers to a post-quantum plan",
+        "ar": "ألزم الموردين بخطة لما بعد الحوسبة الكمية"
+      },
+      "detail": {
+        "en": "Ask critical suppliers when they will support the NIST post-quantum standards, and make it a condition of new contracts.",
+        "ar": "اسأل الموردين الحرجين متى سيدعمون معايير NIST لما بعد الحوسبة الكمية، واجعل ذلك شرطًا في العقود الجديدة."
+      },
+      "nist": [
+        "SR-3",
+        "SA-9"
+      ],
+      "cis": [],
+      "iso": [
+        "5.20"
+      ]
+    }
+  ],
+  "decisions": [
+    {
+      "en": "Which data must stay secret for more than ten years, and which systems carry it?",
+      "ar": "ما البيانات التي يجب أن تبقى سرية أكثر من عشر سنوات، وما الأنظمة التي تنقلها؟"
+    },
+    {
+      "en": "Which algorithms and protocols are approved, and by what date must the weak ones be gone?",
+      "ar": "ما الخوارزميات والبروتوكولات المعتمدة، وبأي تاريخ يجب أن يختفي الضعيف منها؟"
+    },
+    {
+      "en": "Will you move to post-quantum algorithms through hybrid modes first, and where will you start?",
+      "ar": "هل ستنتقل إلى خوارزميات ما بعد الحوسبة الكمية عبر الأنماط الهجينة أولًا، ومن أين ستبدأ؟"
+    }
+  ],
+  "tradeoffs": [
+    {
+      "en": "Post-quantum keys and signatures are larger, which affects bandwidth, storage, and some older devices.",
+      "ar": "مفاتيح ما بعد الحوسبة الكمية وتواقيعها أكبر حجمًا، مما يؤثر في عرض النطاق والتخزين وبعض الأجهزة القديمة."
+    },
+    {
+      "en": "Hybrid modes add complexity for a period, in exchange for safety if either algorithm fails.",
+      "ar": "تضيف الأنماط الهجينة تعقيدًا لفترة، مقابل الأمان إذا أخفقت إحدى الخوارزميتين."
+    },
+    {
+      "en": "Central cryptographic services make change easy but become critical dependencies that need high availability.",
+      "ar": "تسهّل خدمات التشفير المركزية التغيير، لكنها تصبح اعتماديات حرجة تحتاج إلى توافرية عالية."
+    }
+  ],
+  "antipatterns": [
+    {
+      "en": "Certificates tracked in a spreadsheet and renewed by hand.",
+      "ar": "شهادات تُتابع في جدول بيانات وتُجدَّد يدويًا."
+    },
+    {
+      "en": "Each application choosing and hard-coding its own algorithms.",
+      "ar": "اختيار كل تطبيق خوارزمياته وتثبيتها في شيفرته."
+    },
+    {
+      "en": "Waiting for quantum computers to arrive before building an inventory.",
+      "ar": "انتظار وصول الحواسيب الكمية قبل بناء الحصر."
+    }
+  ],
+  "verify": [
+    {
+      "en": "Scan your external endpoints, and confirm that none accepts protocols or ciphers outside the policy.",
+      "ar": "افحص نقاط الوصول الخارجية، وتأكد من أن أيًا منها لا يقبل بروتوكولات أو خوارزميات خارج السياسة."
+    },
+    {
+      "en": "List the certificates that expire in the next thirty days, and confirm that each one will renew automatically.",
+      "ar": "اعرض الشهادات التي تنتهي خلال الأيام الثلاثين القادمة، وتأكد من أن كلًا منها سيتجدد آليًا."
+    },
+    {
+      "en": "Pick an application and change its key exchange algorithm through configuration alone, in a test environment.",
+      "ar": "اختر تطبيقًا وغيّر خوارزمية تبادل المفاتيح فيه عبر الإعدادات وحدها في بيئة اختبار."
+    }
+  ],
+  "attack": [
+    "T1040",
+    "T1557",
+    "T1552.004"
+  ],
+  "owasp": [],
+  "related": [
+    "P08",
+    "P09",
+    "P15"
+  ],
+  "references": [
+    {
+      "title": {
+        "en": "NIST FIPS 203, Module-Lattice-Based Key-Encapsulation Mechanism Standard",
+        "ar": "المعيار NIST FIPS 203 لآلية تغليف المفاتيح المبنية على الشبكات النمطية"
+      },
+      "url": "https://csrc.nist.gov/pubs/fips/203/final"
+    },
+    {
+      "title": {
+        "en": "NIST IR 8547, Transition to Post-Quantum Cryptography Standards",
+        "ar": "التقرير NIST IR 8547 للانتقال إلى معايير التشفير لما بعد الحوسبة الكمية"
+      },
+      "url": "https://csrc.nist.gov/pubs/ir/8547/ipd"
+    },
+    {
+      "title": {
+        "en": "Miftah, a cryptographic inventory tool with CBOM output",
+        "ar": "أداة مفتاح لحصر التشفير وإخراج قائمة مكوناته"
+      },
+      "url": "https://github.com/SiteQ8/miftah"
+    }
+  ]
+}

@@ -49,7 +49,7 @@ test('the catalogues have the published shape', () => {
 
 test('patterns are numbered in order and named after their files', () => {
   const files = fs.readdirSync(path.join(root, 'data/patterns')).sort();
-  assert.equal(patterns.length, 16);
+  assert.equal(patterns.length, 24);
   patterns.forEach((p, i) => {
     assert.equal(p.id, `P${String(i + 1).padStart(2, '0')}`);
     assert.equal(files[i], `${p.id}.json`);
