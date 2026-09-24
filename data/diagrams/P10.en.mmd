@@ -1,0 +1,7 @@
+flowchart LR
+  SRC["Sources<br/>identity, endpoint, cloud,<br/>name resolution, proxy, applications"] --> PIPE["Pipeline<br/>parse, enrich, synchronise time"]
+  PIPE --> SIEM["SIEM or security data lake<br/>separate trust domain"]
+  SIEM --> DET["Detections as code<br/>mapped to attacker techniques"]
+  DET --> SOAR["Response automation<br/>and playbooks"]
+  SOAR --> ACT["Contain, disable, block"]
+  SIM["Attack simulation"] -. "tests" .-> DET

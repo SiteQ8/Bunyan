@@ -1,0 +1,107 @@
+{
+  "id": "P04",
+  "slug": "segmentation",
+  "domain": "network",
+  "title": { "en": "Segmentation and micro-segmentation", "ar": "العزل والتقسيم الدقيق" },
+  "summary": {
+    "en": "Divide the environment into zones by function and trust, allow only the flows each zone needs, and deny everything else between them, so that one compromised system does not open the way to the rest.",
+    "ar": "قسّم البيئة إلى مناطق بحسب الوظيفة ومستوى الثقة، واسمح فقط بالتدفقات التي تحتاجها كل منطقة، وامنع كل ما عداها بينها، حتى لا يفتح نظام واحد مخترق الطريق إلى بقية الأنظمة."
+  },
+  "problem": {
+    "en": "In a flat network every system can talk to every other system, so ransomware and intruders move from the first foothold to the most valuable assets with ordinary tools. The blast radius of any compromise is the whole network.",
+    "ar": "يستطيع كل نظام في الشبكة المسطحة أن يتصل بأي نظام آخر، فينتقل برنامج الفدية والمتسللون من موطئ القدم الأول إلى أثمن الأصول بأدوات عادية، ويصبح نطاق الضرر لأي اختراق هو الشبكة كلها."
+  },
+  "useWhen": [
+    { "en": "Servers, user devices, and management interfaces share networks.", "ar": "تشترك الخوادم وأجهزة المستخدمين وواجهات الإدارة في الشبكات نفسها." },
+    { "en": "You cannot say which systems are allowed to talk to your databases.", "ar": "لا تستطيع تحديد الأنظمة المسموح لها بالاتصال بقواعد بياناتك." },
+    { "en": "A regulation requires you to isolate a regulated environment.", "ar": "يُلزمك تنظيم ما بعزل بيئة خاضعة للتنظيم." }
+  ],
+  "design": [
+    {
+      "en": "Define zones from the data flows, not from the org chart. User devices, internet-facing services, application services, data stores, management, and security tooling are the usual starting set, with regulated systems in an enclave of their own. Between zones, allow only named flows, written as source, destination, port, and purpose, and deny everything else, including traffic between user devices.",
+      "ar": "حدّد المناطق انطلاقًا من تدفقات البيانات لا من الهيكل التنظيمي، فالمجموعة المعتادة للبدء هي أجهزة المستخدمين والخدمات المكشوفة على الإنترنت وخدمات التطبيقات ومخازن البيانات والإدارة وأدوات الأمن، مع وضع الأنظمة الخاضعة للتنظيم في نطاق معزول خاص بها، ثم اسمح بين المناطق بالتدفقات المسماة فقط، مكتوبة بالمصدر والوجهة والمنفذ والغرض، وامنع كل ما عداها بما في ذلك الاتصال بين أجهزة المستخدمين."
+    },
+    {
+      "en": "Micro-segmentation takes the same idea down to the workload. Host firewalls or network policies that follow each workload's identity allow only the connections that workload needs, which contains lateral movement even inside a zone. Start with the most valuable zones, and learn what normal looks like from flow logs before you enforce.",
+      "ar": "يطبّق التقسيم الدقيق الفكرة نفسها على مستوى كل عبء عمل، إذ تسمح جدران الحماية على الخوادم أو سياسات الشبكة المرتبطة بهوية كل عبء عمل بالاتصالات التي يحتاجها فقط، فيُحتوى التنقل الجانبي حتى داخل المنطقة الواحدة، وابدأ بالمناطق الأعلى قيمة واستعن بسجلات التدفق لمعرفة السلوك الطبيعي قبل تفعيل المنع."
+    }
+  ],
+  "controls": [
+    {
+      "level": "foundation",
+      "name": { "en": "Draw and maintain the zone map", "ar": "ارسم خريطة المناطق وحافظ على حداثتها" },
+      "detail": { "en": "Keep a current diagram of zones and of the flows allowed between them, and review it whenever the architecture changes.", "ar": "احتفظ بمخطط محدّث للمناطق وللتدفقات المسموح بها بينها، وراجعه كلما تغيرت المعمارية." },
+      "nist": ["PL-8", "CA-9"], "cis": ["12.4", "3.8"], "iso": ["8.22", "8.27"]
+    },
+    {
+      "level": "foundation",
+      "name": { "en": "Deny by default between zones", "ar": "اجعل المنع هو الأصل بين المناطق" },
+      "detail": { "en": "Filter traffic between zones on an allow list of named flows, and deny and log everything else.", "ar": "صفِّ الحركة بين المناطق وفق قائمة سماح بالتدفقات المسماة، وامنع كل ما عداها وسجّله." },
+      "nist": ["SC-7", "SC-7(5)", "AC-4"], "cis": ["13.4", "12.2"], "iso": ["8.20", "8.22"]
+    },
+    {
+      "level": "foundation",
+      "name": { "en": "Isolate management interfaces", "ar": "اعزل واجهات الإدارة" },
+      "detail": { "en": "Put the management interfaces of servers, network devices, and hypervisors in a management zone that only administrative jump hosts can reach.", "ar": "ضع واجهات إدارة الخوادم وأجهزة الشبكة وأنظمة المحاكاة الافتراضية في منطقة إدارة لا يصل إليها إلا الخوادم الوسيطة المخصصة للإدارة." },
+      "nist": ["SC-7", "SC-2"], "cis": ["12.3", "12.8"], "iso": ["8.22"]
+    },
+    {
+      "level": "enhanced",
+      "name": { "en": "Block traffic between user devices", "ar": "امنع الاتصال بين أجهزة المستخدمين" },
+      "detail": { "en": "Prevent workstations from talking to each other directly, which removes a common path for lateral movement.", "ar": "امنع محطات العمل من الاتصال ببعضها مباشرة، فتُغلق بذلك طريقًا شائعًا للتنقل الجانبي." },
+      "nist": ["SC-7", "AC-4"], "cis": ["4.5", "13.4"], "iso": ["8.22"]
+    },
+    {
+      "level": "enhanced",
+      "name": { "en": "Collect flow logs at zone boundaries", "ar": "اجمع سجلات التدفق عند حدود المناطق" },
+      "detail": { "en": "Record network flows between zones, feed them to detection, and use them to tighten the rules.", "ar": "سجّل تدفقات الشبكة بين المناطق، ومرّرها إلى أنظمة الكشف، واستخدمها لتضييق القواعد." },
+      "nist": ["AU-12", "SI-4"], "cis": ["13.6"], "iso": ["8.16"]
+    },
+    {
+      "level": "enhanced",
+      "name": { "en": "Review rules on a schedule", "ar": "راجع القواعد وفق جدول زمني" },
+      "detail": { "en": "Give every rule an owner and a review date, and remove rules that no longer carry traffic.", "ar": "حدّد لكل قاعدة مالكًا وتاريخًا للمراجعة، واحذف القواعد التي لم تعد تمر عبرها أي حركة." },
+      "nist": ["CM-6", "SC-7"], "cis": ["4.2"], "iso": ["8.20"]
+    },
+    {
+      "level": "advanced",
+      "name": { "en": "Micro-segment critical workloads", "ar": "طبّق التقسيم الدقيق على أعباء العمل الحرجة" },
+      "detail": { "en": "Enforce per-workload policies based on workload identity for the most valuable systems, so that each can reach only its named dependencies.", "ar": "افرض سياسات لكل عبء عمل على حدة بناءً على هويته في الأنظمة الأعلى قيمة، بحيث لا يصل كل منها إلا إلى اعتمادياته المسماة." },
+      "nist": ["AC-4", "SC-7(21)"], "cis": ["13.4", "3.12"], "iso": ["8.22"]
+    },
+    {
+      "level": "advanced",
+      "name": { "en": "Test segmentation like an attacker", "ar": "اختبر التقسيم كما يختبره المهاجم" },
+      "detail": { "en": "Test from each zone that disallowed paths are really closed, at least every six months and after every significant change.", "ar": "اختبر من كل منطقة أن المسارات غير المسموح بها مغلقة فعلًا، مرة كل ستة أشهر على الأقل وبعد كل تغيير كبير." },
+      "nist": ["CA-8"], "cis": ["18.1"], "iso": ["8.22"]
+    }
+  ],
+  "decisions": [
+    { "en": "What are the zones, and which flows between them are allowed, and why?", "ar": "ما المناطق، وما التدفقات المسموح بها بينها، ولماذا؟" },
+    { "en": "Where is segmentation enforced: network firewalls, host firewalls, cloud security groups, or several of them?", "ar": "أين يُطبّق التقسيم، في جدران حماية الشبكة أم في جدران الحماية على الخوادم أم في مجموعات الأمان السحابية أم في أكثر من موضع؟" },
+    { "en": "Who approves a new flow, and how long does an exception last?", "ar": "من يوافق على تدفق جديد، وما مدة صلاحية الاستثناء؟" }
+  ],
+  "tradeoffs": [
+    { "en": "Every boundary adds rules to maintain, and badly managed rule sets drift back towards allowing everything.", "ar": "تضيف كل حدود قواعد تحتاج إلى صيانة، وتنجرف مجموعات القواعد سيئة الإدارة تدريجيًا نحو السماح بكل شيء." },
+    { "en": "Enforcing too early breaks applications with undocumented dependencies, so learn from flow logs first.", "ar": "يؤدي تفعيل المنع مبكرًا إلى تعطل التطبيقات ذات الاعتماديات غير الموثقة، لذا تعلّم من سجلات التدفق أولًا." },
+    { "en": "Micro-segmentation tools add agents or platform dependencies that must themselves be secured.", "ar": "تضيف أدوات التقسيم الدقيق وكلاء أو اعتماديات على المنصة يجب تأمينها هي الأخرى." }
+  ],
+  "antipatterns": [
+    { "en": "VLANs that separate traffic but allow any connection between them.", "ar": "شبكات افتراضية محلية تفصل الحركة لكنها تسمح بأي اتصال بينها." },
+    { "en": "A rule opened for a project and never closed.", "ar": "قاعدة فُتحت لمشروع ولم تُغلق أبدًا." },
+    { "en": "Management interfaces reachable from the user network.", "ar": "واجهات إدارة يمكن الوصول إليها من شبكة المستخدمين." }
+  ],
+  "verify": [
+    { "en": "From a user workstation, scan the data and management zones, and confirm nothing answers.", "ar": "افحص مناطق البيانات والإدارة من محطة عمل أحد المستخدمين، وتأكد أنه لا يستجيب أي شيء." },
+    { "en": "Compare firewall rules with the documented flows, and list every rule with no owner or purpose.", "ar": "قارن قواعد جدار الحماية بالتدفقات الموثقة، واعرض كل قاعدة ليس لها مالك أو غرض." },
+    { "en": "Simulate lateral movement from one workstation to another, and confirm it is blocked and detected.", "ar": "حاكِ التنقل الجانبي من محطة عمل إلى أخرى، وتأكد أنه يُمنع ويُكتشف." }
+  ],
+  "attack": ["T1021", "T1210", "T1046", "T1486"],
+  "owasp": [],
+  "related": ["P01", "P03", "P15", "P13"],
+  "references": [
+    { "title": { "en": "CIS Critical Security Controls v8.1", "ar": "ضوابط CIS Controls v8.1" }, "url": "https://www.cisecurity.org/controls/v8-1" },
+    { "title": { "en": "UK NCSC, preventing lateral movement", "ar": "منع التنقل الجانبي من المركز الوطني للأمن السيبراني في المملكة المتحدة" }, "url": "https://www.ncsc.gov.uk/guidance/preventing-lateral-movement" },
+    { "title": { "en": "NIST SP 800-41 Rev 1, guidelines on firewalls and firewall policy", "ar": "إرشادات جدران الحماية وسياساتها NIST SP 800-41 Rev 1" }, "url": "https://csrc.nist.gov/pubs/sp/800/41/r1/final" }
+  ]
+}

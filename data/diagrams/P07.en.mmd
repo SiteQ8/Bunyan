@@ -1,0 +1,8 @@
+flowchart LR
+  C["Client<br/>mobile app or partner"] -- "token or client certificate" --> GW["API gateway<br/>authentication, schema, rate limits"]
+  AS["Authorization server<br/>short-lived scoped tokens"] -- "issues tokens" --> C
+  GW --> SVC["Service"]
+  SVC --> AUTHZ["Authorization component<br/>object and function checks"]
+  SVC --> DB["Data store"]
+  GW --> LOG["API logs<br/>to the SIEM"]
+  INV["API inventory<br/>versions and owners"] -.- GW

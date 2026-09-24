@@ -1,0 +1,21 @@
+flowchart LR
+  subgraph USR["User zone"]
+    WS["Workstations"]
+  end
+  subgraph DMZ["Internet-facing zone"]
+    WEB["Web front ends"]
+  end
+  subgraph APP["Application zone"]
+    SVC["Application services"]
+  end
+  subgraph DATA["Data zone"]
+    DB["Databases"]
+  end
+  subgraph MGMT["Management zone"]
+    JUMP["Admin jump hosts"]
+  end
+  WEB -- "encrypted web traffic only" --> SVC
+  SVC -- "database port only" --> DB
+  WS -- "through the access broker" --> SVC
+  JUMP -. "admin protocols, recorded" .-> SVC
+  JUMP -. "admin protocols, recorded" .-> DB

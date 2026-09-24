@@ -1,0 +1,107 @@
+{
+  "id": "P13",
+  "slug": "ot-zones-and-conduits",
+  "domain": "industrial",
+  "title": { "en": "OT zones and conduits", "ar": "المناطق والقنوات في التقنيات التشغيلية" },
+  "summary": {
+    "en": "Group industrial systems into zones by function and consequence, connect zones only through defined conduits, and put an industrial DMZ between the enterprise network and the plant, so that nothing crosses from IT to control systems directly.",
+    "ar": "اجمع الأنظمة الصناعية في مناطق بحسب وظيفتها وعواقب تعطلها، ولا تربط المناطق إلا عبر قنوات محددة، وضع منطقة معزولة صناعية بين شبكة المؤسسة والموقع التشغيلي، حتى لا يعبر أي اتصال من تقنية المعلومات إلى أنظمة التحكم مباشرة."
+  },
+  "problem": {
+    "en": "Control systems were built for reliability and a long life, not for hostile networks, and many of them cannot be patched or run security agents. When the plant network is reachable from the office network or from vendor remote access tools, ransomware and intruders reach the systems that move valves and motors, where the consequences are physical.",
+    "ar": "بُنيت أنظمة التحكم لتعمل بموثوقية ولعمر طويل لا لتواجه شبكات معادية، ولا يمكن تحديث كثير منها أو تشغيل برامج أمنية عليها، فإذا أمكن الوصول إلى شبكة الموقع من شبكة المكاتب أو من أدوات الوصول البعيد لدى الموردين وصل برنامج الفدية والمتسللون إلى الأنظمة التي تحرك الصمامات والمحركات، حيث تكون العواقب مادية."
+  },
+  "useWhen": [
+    { "en": "You operate industrial, building management, or utility control systems.", "ar": "تشغّل أنظمة تحكم صناعية أو أنظمة لإدارة المباني أو المرافق." },
+    { "en": "Vendors maintain control systems remotely.", "ar": "يصون الموردون أنظمة التحكم عن بعد." },
+    { "en": "Office and plant networks are connected without a DMZ between them.", "ar": "ترتبط شبكات المكاتب والموقع التشغيلي دون منطقة معزولة بينهما." }
+  ],
+  "design": [
+    {
+      "en": "Use the Purdue reference model as a first map, and IEC 62443 to define zones and conduits. Group assets that share security requirements into zones, give each zone a target security level from a risk assessment, and define every conduit with its protocols, direction, and controls. Place an industrial DMZ between enterprise IT and the plant and end every connection there: historians replicate outwards, files and patches are staged and scanned, and remote users land on a jump host rather than on control systems.",
+      "ar": "استخدم نموذج Purdue المرجعي خريطةً أولى، ومعيار IEC 62443 لتحديد المناطق والقنوات، فاجمع الأصول التي تتشارك المتطلبات الأمنية نفسها في مناطق، وحدّد لكل منطقة مستوى أمن مستهدفًا انطلاقًا من تقييم للمخاطر، ثم عرّف كل قناة ببروتوكولاتها واتجاهها وضوابطها، وضع منطقة معزولة صناعية بين تقنية المعلومات في المؤسسة والموقع التشغيلي تنتهي فيها كل الاتصالات، إذ تنسخ خوادم البيانات التاريخية بياناتها إلى الخارج، وتُجهَّز الملفات والتحديثات وتُفحص فيها، ويصل المستخدمون البعيدون إلى خادم وسيط لا إلى أنظمة التحكم."
+    },
+    {
+      "en": "Where data only needs to leave the plant, use a unidirectional gateway. Monitor OT traffic passively with sensors that understand industrial protocols, keep an accurate asset inventory, and give vendors approved, recorded sessions with a time limit through the DMZ. Safety instrumented systems stay isolated from everything else.",
+      "ar": "استخدم بوابة أحادية الاتجاه حيث لا تحتاج البيانات إلا إلى الخروج من الموقع، وراقب حركة التقنيات التشغيلية بصورة سلبية بأجهزة استشعار تفهم البروتوكولات الصناعية، واحتفظ بسجل حصر دقيق للأصول، وامنح الموردين جلسات معتمدة ومسجلة ومحددة المدة عبر المنطقة المعزولة، أما أنظمة السلامة الآلية فتبقى معزولة عن كل ما سواها."
+    }
+  ],
+  "controls": [
+    {
+      "level": "foundation",
+      "name": { "en": "Inventory OT assets", "ar": "احصر أصول التقنيات التشغيلية" },
+      "detail": { "en": "Keep an inventory of controllers, workstations, and network devices with their firmware, owners, and zones, built with passive discovery where active scanning is unsafe.", "ar": "احتفظ بسجل حصر لوحدات التحكم ومحطات العمل وأجهزة الشبكة مع برامجها الثابتة ومالكيها ومناطقها، وابنه بالاكتشاف السلبي حيث يكون الفحص النشط غير آمن." },
+      "nist": ["CM-8"], "cis": ["1.1", "2.1"], "iso": ["5.9"]
+    },
+    {
+      "level": "foundation",
+      "name": { "en": "Separate IT and OT with an industrial DMZ", "ar": "افصل تقنية المعلومات عن التقنيات التشغيلية بمنطقة معزولة صناعية" },
+      "detail": { "en": "End every connection between enterprise IT and the plant in an industrial DMZ, and allow no direct traffic from IT to the control levels.", "ar": "أنهِ كل اتصال بين تقنية المعلومات في المؤسسة والموقع التشغيلي داخل منطقة معزولة صناعية، ولا تسمح بأي حركة مباشرة من تقنية المعلومات إلى مستويات التحكم." },
+      "nist": ["SC-7", "AC-4"], "cis": ["12.2", "13.4"], "iso": ["8.22"]
+    },
+    {
+      "level": "foundation",
+      "name": { "en": "Control vendor remote access", "ar": "اضبط الوصول البعيد للموردين" },
+      "detail": { "en": "Give vendors access only through the DMZ jump host, with MFA, approval per session, a time limit, and recording, and switch it off when it is not in use.", "ar": "لا تمنح الموردين الوصول إلا عبر الخادم الوسيط في المنطقة المعزولة، مع تحقق متعدد العناصر وموافقة على كل جلسة وحد زمني وتسجيل، وأوقف هذا الوصول حين لا يكون قيد الاستخدام." },
+      "nist": ["AC-17", "MA-4", "IA-2(1)"], "cis": ["6.4", "13.5"], "iso": ["5.19", "5.20"]
+    },
+    {
+      "level": "enhanced",
+      "name": { "en": "Define zones, conduits, and target levels", "ar": "عرّف المناطق والقنوات والمستويات المستهدفة" },
+      "detail": { "en": "Give each zone a target security level based on a risk assessment, and document every conduit with its protocols, direction, and controls.", "ar": "حدّد لكل منطقة مستوى أمن مستهدفًا بناءً على تقييم للمخاطر، ووثّق كل قناة ببروتوكولاتها واتجاهها وضوابطها." },
+      "nist": ["PL-8", "RA-3", "CA-9"], "cis": ["12.4"], "iso": ["8.22", "8.27"]
+    },
+    {
+      "level": "enhanced",
+      "name": { "en": "Monitor OT networks passively", "ar": "راقب شبكات التقنيات التشغيلية بصورة سلبية" },
+      "detail": { "en": "Deploy passive monitoring that understands industrial protocols in each zone, send alerts to the security operations team, and agree response steps with operations engineers.", "ar": "انشر في كل منطقة مراقبة سلبية تفهم البروتوكولات الصناعية، وأرسل التنبيهات إلى فريق العمليات الأمنية، واتفق على خطوات الاستجابة مع مهندسي التشغيل." },
+      "nist": ["SI-4"], "cis": ["13.3", "13.6"], "iso": ["8.16"]
+    },
+    {
+      "level": "enhanced",
+      "name": { "en": "Stage and scan files and patches", "ar": "جهّز الملفات والتحديثات وافحصها" },
+      "detail": { "en": "Move files and patches into the plant only through a staging point in the DMZ, where they are scanned and approved.", "ar": "لا تُدخل الملفات والتحديثات إلى الموقع إلا عبر نقطة تجهيز في المنطقة المعزولة تُفحص فيها وتُعتمد." },
+      "nist": ["SI-3"], "cis": [], "iso": ["8.7", "8.19"]
+    },
+    {
+      "level": "advanced",
+      "name": { "en": "Use unidirectional gateways for outbound data", "ar": "استخدم البوابات أحادية الاتجاه للبيانات الصادرة" },
+      "detail": { "en": "Replace two-way connections with unidirectional gateways wherever data only needs to leave the plant.", "ar": "استبدل الاتصالات ثنائية الاتجاه ببوابات أحادية الاتجاه حيثما لا تحتاج البيانات إلا إلى الخروج من الموقع." },
+      "nist": ["AC-4", "SC-7"], "cis": ["13.4"], "iso": ["8.22"]
+    },
+    {
+      "level": "advanced",
+      "name": { "en": "Exercise OT incident response", "ar": "تمرّن على الاستجابة لحوادث التقنيات التشغيلية" },
+      "detail": { "en": "Rehearse scenarios with operations and safety staff, including running the process by hand while systems are rebuilt.", "ar": "تمرّن على السيناريوهات مع فرق التشغيل والسلامة، بما في ذلك تشغيل العملية يدويًا أثناء إعادة بناء الأنظمة." },
+      "nist": ["IR-3", "CP-4"], "cis": ["17.7"], "iso": ["5.24", "5.29"]
+    }
+  ],
+  "decisions": [
+    { "en": "What are the zones and their target security levels, and who accepted the risk assessment?", "ar": "ما المناطق ومستويات الأمن المستهدفة لها، ومن اعتمد تقييم المخاطر؟" },
+    { "en": "Which data must leave the plant, and can it leave in one direction only?", "ar": "ما البيانات التي يجب أن تخرج من الموقع، وهل يمكن أن تخرج في اتجاه واحد فقط؟" },
+    { "en": "How do vendors connect, who approves each session, and how is the session reviewed?", "ar": "كيف يتصل الموردون، ومن يوافق على كل جلسة، وكيف تُراجع الجلسة؟" }
+  ],
+  "tradeoffs": [
+    { "en": "Security controls must never weaken safety or availability, so test every change in a representative environment first.", "ar": "يجب ألا تُضعف الضوابط الأمنية السلامة أو التوافرية أبدًا، لذا اختبر كل تغيير في بيئة مماثلة أولًا." },
+    { "en": "Unidirectional gateways are very strong, but make remote support and two-way integrations harder.", "ar": "تتسم البوابات أحادية الاتجاه بقوة عالية، لكنها تُصعّب الدعم عن بعد والتكاملات ثنائية الاتجاه." },
+    { "en": "Legacy systems that cannot be patched need compensating controls around them, which makes the zone more complex.", "ar": "تحتاج الأنظمة القديمة غير القابلة للتحديث إلى ضوابط بديلة حولها، مما يزيد تعقيد المنطقة." }
+  ],
+  "antipatterns": [
+    { "en": "An engineering workstation connected to both the office network and the control network.", "ar": "محطة هندسية متصلة بشبكة المكتب وشبكة التحكم في آن واحد." },
+    { "en": "Vendor remote access tools left installed and always on.", "ar": "أدوات وصول بعيد للموردين تبقى مثبتة وتعمل دائمًا." },
+    { "en": "Active vulnerability scans run against live controllers.", "ar": "تشغيل فحوص ثغرات نشطة على وحدات تحكم تعمل فعليًا." }
+  ],
+  "verify": [
+    { "en": "From the enterprise network, try to reach control level addresses, and confirm that nothing answers.", "ar": "حاول من شبكة المؤسسة الوصول إلى عناوين مستوى التحكم، وتأكد أنه لا يستجيب شيء." },
+    { "en": "Review last month's vendor sessions, and confirm each was approved, time-limited, and recorded.", "ar": "راجع جلسات الموردين خلال الشهر الماضي، وتأكد أن كلًا منها كان معتمدًا ومحدد المدة ومسجلًا." },
+    { "en": "Compare the asset list seen by passive monitoring with the asset register, and resolve the differences.", "ar": "قارن قائمة الأصول التي ترصدها أداة المراقبة السلبية بسجل الأصول المعتمد، وعالج الفروقات." }
+  ],
+  "attack": ["T0822", "T0886", "T0883", "T0859"],
+  "owasp": [],
+  "related": ["P01", "P03", "P04", "P10", "P12"],
+  "references": [
+    { "title": { "en": "ISA/IEC 62443 series of standards", "ar": "سلسلة معايير ISA/IEC 62443" }, "url": "https://www.isa.org/standards-and-publications/isa-standards/isa-iec-62443-series-of-standards" },
+    { "title": { "en": "NIST SP 800-82 Rev 3, guide to operational technology security", "ar": "دليل أمن التقنيات التشغيلية NIST SP 800-82 Rev 3" }, "url": "https://csrc.nist.gov/pubs/sp/800/82/r3/final" },
+    { "title": { "en": "MITRE ATT&CK for ICS", "ar": "مصفوفة MITRE ATT&CK لأنظمة التحكم الصناعي" }, "url": "https://attack.mitre.org/matrices/ics/" }
+  ]
+}

@@ -1,0 +1,107 @@
+{
+  "id": "P15",
+  "slug": "regulated-enclave",
+  "domain": "data",
+  "title": { "en": "Regulated enclave", "ar": "النطاق المعزول الخاضع للتنظيم" },
+  "summary": {
+    "en": "Place the systems that store, process, or transmit regulated data, such as payment card data or SWIFT messaging, in a small and tightly controlled enclave, so that the strictest controls apply to a small scope and everything outside it stays out of scope.",
+    "ar": "ضع الأنظمة التي تحفظ البيانات الخاضعة للتنظيم أو تعالجها أو تنقلها، مثل بيانات بطاقات الدفع أو رسائل سويفت، في نطاق معزول صغير ومحكم الضبط، لتنطبق أشد الضوابط على نطاق صغير ويبقى كل ما خارجه خارج النطاق."
+  },
+  "problem": {
+    "en": "When regulated data is spread across the network, every system that touches it or can reach it falls into scope, and the strictest requirements have to be met everywhere. That is expensive and rarely achieved, and the gaps that remain are where attackers find the data.",
+    "ar": "إذا انتشرت البيانات الخاضعة للتنظيم في أنحاء الشبكة دخل في النطاق كل نظام يتعامل معها أو يستطيع الوصول إليها، ووجب تطبيق أشد المتطلبات في كل مكان، وهذا مكلف ونادرًا ما يتحقق، وفي الثغرات المتبقية يجد المهاجمون البيانات."
+  },
+  "useWhen": [
+    { "en": "You store, process, or transmit payment card data.", "ar": "تحفظ بيانات بطاقات الدفع أو تعالجها أو تنقلها." },
+    { "en": "You connect to SWIFT or to another high-value payment network.", "ar": "تتصل بشبكة سويفت أو بشبكة مدفوعات أخرى عالية القيمة." },
+    { "en": "A regulator requires specific controls for a defined set of systems.", "ar": "تشترط جهة تنظيمية ضوابط محددة لمجموعة معرّفة من الأنظمة." }
+  ],
+  "design": [
+    {
+      "en": "Reduce first. Remove regulated data you do not need, and replace stored card numbers with tokens from a tokenization service or payment provider, so that fewer systems ever see the real data. Then build the enclave: a segmented network with its own firewalls and deny-by-default rules, administration only through jump hosts inside the enclave, separate identities or at least separate privileged groups, and its own logging and file integrity monitoring.",
+      "ar": "ابدأ بالتقليص، فاحذف البيانات الخاضعة للتنظيم التي لا تحتاجها، واستبدل أرقام البطاقات المخزنة برموز من خدمة استبدال رمزي أو من مزود المدفوعات حتى يقل عدد الأنظمة التي ترى البيانات الحقيقية، ثم ابنِ النطاق المعزول بشبكة مقسّمة لها جدران حمايتها وقواعد المنع الافتراضي، وبإدارة لا تتم إلا عبر خوادم وسيطة داخل النطاق، وبهويات منفصلة أو على الأقل بمجموعات صلاحيات هامة منفصلة، مع سجلات خاصة به ومراقبة لسلامة الملفات."
+    },
+    {
+      "en": "Document every connection into and out of the enclave with its business reason, and test segmentation regularly to prove that out-of-scope systems really cannot reach it. For SWIFT the same idea appears as the secure zone of the Customer Security Controls Framework, and for payment cards as the cardholder data environment of PCI DSS.",
+      "ar": "وثّق كل اتصال يدخل النطاق المعزول أو يخرج منه مع مبرره في الأعمال، واختبر التقسيم بانتظام لتثبت أن الأنظمة الخارجة عن النطاق لا تستطيع الوصول إليه فعلًا، وتظهر الفكرة نفسها في سويفت باسم المنطقة الآمنة ضمن إطار الضوابط الأمنية للعملاء، بينما تظهر في بطاقات الدفع باسم بيئة بيانات حاملي البطاقات في PCI DSS."
+    }
+  ],
+  "controls": [
+    {
+      "level": "foundation",
+      "name": { "en": "Minimise regulated data", "ar": "قلّل البيانات الخاضعة للتنظيم" },
+      "detail": { "en": "Stop storing regulated data you do not need, and replace stored card numbers with tokens wherever the business process allows.", "ar": "توقف عن حفظ البيانات الخاضعة للتنظيم التي لا تحتاجها، واستبدل أرقام البطاقات المخزنة برموز حيثما تسمح عملية الأعمال." },
+      "nist": ["SI-12"], "cis": ["3.1"], "iso": ["8.11"]
+    },
+    {
+      "level": "foundation",
+      "name": { "en": "Segment the enclave", "ar": "اعزل النطاق بالتقسيم" },
+      "detail": { "en": "Isolate enclave systems in their own network segment, with deny-by-default filtering and a documented list of allowed connections.", "ar": "اعزل أنظمة النطاق في قطاع شبكي خاص بها، مع تصفية قائمة على المنع الافتراضي وقائمة موثقة بالاتصالات المسموح بها." },
+      "nist": ["SC-7", "SC-7(5)", "AC-4"], "cis": ["12.2", "13.4", "3.12"], "iso": ["8.22"]
+    },
+    {
+      "level": "foundation",
+      "name": { "en": "Administer the enclave separately", "ar": "أدر النطاق المعزول بصورة منفصلة" },
+      "detail": { "en": "Administer enclave systems only through jump hosts inside the enclave, with MFA and with accounts used for nothing else.", "ar": "لا تُدر أنظمة النطاق إلا عبر خوادم وسيطة داخله، مع تحقق متعدد العناصر وحسابات لا تُستخدم لأي غرض آخر." },
+      "nist": ["AC-6(5)", "IA-2(1)", "AC-17"], "cis": ["5.4", "6.5", "12.8"], "iso": ["8.2"]
+    },
+    {
+      "level": "enhanced",
+      "name": { "en": "Monitor integrity and access", "ar": "راقب السلامة والوصول" },
+      "detail": { "en": "Run file integrity monitoring on critical enclave files, log all access to regulated data, and review the alerts every day.", "ar": "شغّل مراقبة سلامة الملفات على الملفات الحرجة في النطاق، وسجّل كل وصول إلى البيانات الخاضعة للتنظيم، وراجع التنبيهات كل يوم." },
+      "nist": ["SI-7", "AU-6"], "cis": ["3.14", "8.11"], "iso": ["8.15", "8.16"]
+    },
+    {
+      "level": "enhanced",
+      "name": { "en": "Test segmentation", "ar": "اختبر التقسيم" },
+      "detail": { "en": "Prove on a fixed schedule, at least as often as your obligations require and after every change, that systems outside the enclave cannot reach it.", "ar": "أثبت وفق جدول ثابت، وبالتكرار الذي تفرضه التزاماتك على الأقل وبعد كل تغيير، أن الأنظمة خارج النطاق لا تستطيع الوصول إليه." },
+      "nist": ["CA-8"], "cis": ["18.1"], "iso": ["8.22"]
+    },
+    {
+      "level": "enhanced",
+      "name": { "en": "Harden enclave systems", "ar": "حصّن أنظمة النطاق" },
+      "detail": { "en": "Apply a hardening baseline, remove unnecessary services, and restrict software on enclave systems to an allow list.", "ar": "طبّق خط أساس للتحصين، وأزل الخدمات غير الضرورية، واقصر البرمجيات على أنظمة النطاق على قائمة سماح." },
+      "nist": ["CM-6", "CM-7"], "cis": ["4.1", "4.8", "2.5"], "iso": ["8.9", "8.19"]
+    },
+    {
+      "level": "advanced",
+      "name": { "en": "Give the enclave its own identity", "ar": "امنح النطاق هوية خاصة به" },
+      "detail": { "en": "Use a separate directory or tenant for the enclave, so that a compromise of the corporate directory does not grant access to it.", "ar": "استخدم دليلًا أو مستأجرًا منفصلًا للنطاق، حتى لا يمنح اختراق دليل المؤسسة وصولًا إليه." },
+      "nist": ["AC-2", "SC-32"], "cis": [], "iso": ["5.16"]
+    },
+    {
+      "level": "advanced",
+      "name": { "en": "Use hardware-backed keys for regulated data", "ar": "استخدم مفاتيح محمية بالأجهزة للبيانات الخاضعة للتنظيم" },
+      "detail": { "en": "Protect the keys for regulated data in hardware security modules, with dual control for key management.", "ar": "احمِ مفاتيح البيانات الخاضعة للتنظيم في وحدات أمن الأجهزة، مع رقابة ثنائية على إدارة المفاتيح." },
+      "nist": ["SC-12", "AC-5"], "cis": ["3.11"], "iso": ["8.24"]
+    }
+  ],
+  "decisions": [
+    { "en": "Which systems are in scope, and which were taken out of scope by tokenization or outsourcing?", "ar": "ما الأنظمة الداخلة في النطاق، وما الأنظمة التي خرجت منه بفضل الاستبدال الرمزي أو الإسناد الخارجي؟" },
+    { "en": "Which connections cross the enclave boundary, and what is the business reason for each?", "ar": "ما الاتصالات التي تعبر حدود النطاق المعزول، وما مبرر كل منها في الأعمال؟" },
+    { "en": "Who administers the enclave, and from where?", "ar": "من يدير النطاق المعزول، ومن أين؟" }
+  ],
+  "tradeoffs": [
+    { "en": "A separate enclave duplicates some infrastructure, such as jump hosts and monitoring, which adds cost.", "ar": "يكرر النطاق المعزول جزءًا من البنية التحتية مثل الخوادم الوسيطة وأدوات المراقبة، مما يزيد التكلفة." },
+    { "en": "Outsourcing card processing shrinks scope but moves trust to the provider, which must itself be assessed.", "ar": "يقلص إسناد معالجة البطاقات إلى جهة خارجية النطاق، لكنه ينقل الثقة إلى المزود الذي يجب تقييمه هو أيضًا." },
+    { "en": "Every new connection a project asks for weakens the boundary, so review each one.", "ar": "يُضعف كل اتصال جديد يطلبه مشروع ما الحدود، لذا راجع كل طلب على حدة." }
+  ],
+  "antipatterns": [
+    { "en": "Scope drawn around a diagram rather than around the real data flows.", "ar": "رسم حدود النطاق حول مخطط بدلًا من رسمها حول تدفقات البيانات الحقيقية." },
+    { "en": "Enclave systems administered from ordinary corporate laptops.", "ar": "إدارة أنظمة النطاق المعزول من حواسيب محمولة عادية في المؤسسة." },
+    { "en": "Card numbers in log files and support tickets outside the enclave.", "ar": "أرقام بطاقات في ملفات السجلات وتذاكر الدعم خارج النطاق المعزول." }
+  ],
+  "verify": [
+    { "en": "Search out-of-scope systems, logs, and file shares for card numbers and other regulated data.", "ar": "ابحث في الأنظمة الخارجة عن النطاق وفي السجلات ومجلدات الملفات المشتركة عن أرقام بطاقات وغيرها من البيانات الخاضعة للتنظيم." },
+    { "en": "From each out-of-scope segment, test that enclave systems cannot be reached.", "ar": "اختبر من كل قطاع خارج النطاق أنه لا يمكن الوصول إلى أنظمة النطاق المعزول." },
+    { "en": "Compare the documented connections with the enclave firewall rules, and resolve any difference.", "ar": "قارن الاتصالات الموثقة بقواعد جدار حماية النطاق المعزول، وعالج أي فرق." }
+  ],
+  "attack": ["T1078", "T1021", "T1557"],
+  "owasp": [],
+  "related": ["P04", "P03", "P09", "P08"],
+  "references": [
+    { "title": { "en": "PCI Security Standards Council document library, PCI DSS v4.0.1 and scoping guidance", "ar": "مكتبة وثائق مجلس معايير أمن صناعة بطاقات الدفع، PCI DSS v4.0.1 وإرشادات تحديد النطاق" }, "url": "https://www.pcisecuritystandards.org/document_library/" },
+    { "title": { "en": "SWIFT Customer Security Programme", "ar": "برنامج سويفت لأمن العملاء" }, "url": "https://www.swift.com/customer-security-programme-csp" },
+    { "title": { "en": "CORF Workbook, an open assessment tool for the Central Bank of Kuwait Cyber and Operational Resilience Framework", "ar": "أداة مفتوحة للتقييم وفق إطار الصمود السيبراني والتشغيلي الصادر عن بنك الكويت المركزي" }, "url": "https://github.com/SiteQ8/CORF" }
+  ]
+}

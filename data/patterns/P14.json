@@ -1,0 +1,114 @@
+{
+  "id": "P14",
+  "slug": "llm-application-guardrails",
+  "domain": "ai",
+  "title": { "en": "Guardrails for LLM applications and agents", "ar": "حواجز الحماية لتطبيقات النماذج اللغوية والوكلاء الذكيين" },
+  "summary": {
+    "en": "Treat model input and output as untrusted, give the model only the data and tools the current user is allowed to use, and surround any action with consequences with deterministic checks and human approval.",
+    "ar": "عامل مدخلات النموذج ومخرجاته على أنها غير موثوقة، ولا تمنح النموذج إلا البيانات والأدوات التي يحق للمستخدم الحالي استخدامها، وأحط كل إجراء له عواقب بفحوص حتمية وموافقة بشرية."
+  },
+  "problem": {
+    "en": "Large language models follow instructions found anywhere in their context, including in a document, email, or web page that an attacker controls. Connected to company data and tools, a model can be steered to reveal information the user should not see or to take actions nobody approved, and its output can carry injected code into other systems.",
+    "ar": "تتبع النماذج اللغوية الكبيرة التعليمات أينما وجدتها في سياقها، بما في ذلك مستند أو رسالة بريد أو صفحة ويب يتحكم فيها مهاجم، فإذا رُبط النموذج ببيانات المؤسسة وأدواتها أمكن توجيهه إلى كشف معلومات لا يحق للمستخدم رؤيتها أو تنفيذ إجراءات لم يوافق عليها أحد، كما قد تحمل مخرجاته شيفرة محقونة إلى أنظمة أخرى."
+  },
+  "useWhen": [
+    { "en": "You build an assistant, a chatbot, or an agent on a large language model.", "ar": "تبني مساعدًا أو روبوت محادثة أو وكيلًا ذكيًا على نموذج لغوي كبير." },
+    { "en": "The model can read internal documents through retrieval.", "ar": "يستطيع النموذج قراءة مستندات داخلية عبر الاسترجاع." },
+    { "en": "The model can call tools that change data, send messages, or run code.", "ar": "يستطيع النموذج استدعاء أدوات تغيّر البيانات أو ترسل الرسائل أو تنفّذ شيفرة." }
+  ],
+  "design": [
+    {
+      "en": "Place the model behind an orchestration layer that you control. Retrieval runs with the end user's identity and permissions, so the model sees only documents that user could open, and sensitive data is filtered before it enters the context. Each tool the model can call is a narrow, typed function with its own authorization, rate limits, and allowed parameters, never a general shell or an open database connection.",
+      "ar": "ضع النموذج خلف طبقة تنسيق تتحكم فيها أنت، بحيث يعمل الاسترجاع بهوية المستخدم النهائي وصلاحياته فلا يرى النموذج إلا المستندات التي يستطيع ذلك المستخدم فتحها، وتُرشَّح البيانات الحساسة قبل دخولها السياق، ثم اجعل كل أداة يستطيع النموذج استدعاءها وظيفة ضيقة ومحددة الأنواع لها تفويضها وحدود معدلها ومعاملاتها المسموح بها، لا واجهة أوامر عامة ولا اتصالًا مفتوحًا بقاعدة بيانات."
+    },
+    {
+      "en": "Screen inputs and outputs with guardrails, encode or validate model output before it reaches a browser, a query, or a shell, and require a person to confirm actions that move money, delete data, or contact people outside the organisation. Log prompts, retrieved sources, tool calls, and decisions, set limits on cost and usage, and test the system against prompt injection before and after release.",
+      "ar": "افحص المدخلات والمخرجات بحواجز الحماية، ورمّز مخرجات النموذج أو تحقق منها قبل وصولها إلى متصفح أو استعلام أو واجهة أوامر، واشترط أن يؤكد شخص الإجراءات التي تنقل الأموال أو تحذف البيانات أو تتواصل مع أشخاص من خارج المؤسسة، ثم سجّل التعليمات والمصادر المسترجعة واستدعاءات الأدوات والقرارات، وضع حدودًا للتكلفة والاستخدام، واختبر النظام ضد حقن التعليمات قبل الإطلاق وبعده."
+    }
+  ],
+  "controls": [
+    {
+      "level": "foundation",
+      "name": { "en": "Retrieve with the user's permissions", "ar": "استرجع بصلاحيات المستخدم" },
+      "detail": { "en": "Run retrieval with the end user's identity, so that the model receives only documents that user may already open.", "ar": "شغّل الاسترجاع بهوية المستخدم النهائي، حتى لا يتلقى النموذج إلا المستندات التي يحق لذلك المستخدم فتحها أصلًا." },
+      "nist": ["AC-3", "AC-6"], "cis": ["3.3"], "iso": ["5.15", "8.3"]
+    },
+    {
+      "level": "foundation",
+      "name": { "en": "Treat model output as untrusted input", "ar": "عامل مخرجات النموذج بوصفها مدخلات غير موثوقة" },
+      "detail": { "en": "Validate and encode model output before it is rendered, stored, or passed to another system, exactly as you would user input.", "ar": "تحقق من مخرجات النموذج ورمّزها قبل عرضها أو حفظها أو تمريرها إلى نظام آخر، تمامًا كما تفعل مع مدخلات المستخدم." },
+      "nist": ["SI-10", "SI-15"], "cis": ["16.10"], "iso": ["8.26", "8.28"]
+    },
+    {
+      "level": "foundation",
+      "name": { "en": "Keep tools narrow and authorised", "ar": "اجعل الأدوات ضيقة ومفوَّضة" },
+      "detail": { "en": "Expose only specific, typed functions to the model, check authorization on every call, and never give it general shell, file, or database access.", "ar": "لا تكشف للنموذج إلا وظائف محددة ومحددة الأنواع، وتحقق من التفويض في كل استدعاء، ولا تمنحه أبدًا وصولًا عامًا إلى واجهة الأوامر أو الملفات أو قواعد البيانات." },
+      "nist": ["AC-6", "CM-7"], "cis": [], "iso": ["8.3", "8.26"]
+    },
+    {
+      "level": "foundation",
+      "name": { "en": "Log the whole interaction", "ar": "سجّل التفاعل كاملًا" },
+      "detail": { "en": "Record prompts, retrieved sources, tool calls, and outputs with the user identity, subject to privacy rules.", "ar": "سجّل التعليمات والمصادر المسترجعة واستدعاءات الأدوات والمخرجات مع هوية المستخدم، مع مراعاة قواعد الخصوصية." },
+      "nist": ["AU-2", "AU-12"], "cis": ["8.5"], "iso": ["8.15"]
+    },
+    {
+      "level": "enhanced",
+      "name": { "en": "Require human approval for consequential actions", "ar": "اشترط موافقة بشرية على الإجراءات ذات العواقب" },
+      "detail": { "en": "Ask a person to confirm actions that change records, move money, delete data, or send messages outside the organisation.", "ar": "اطلب من شخص تأكيد الإجراءات التي تغيّر السجلات أو تنقل الأموال أو تحذف البيانات أو ترسل رسائل إلى خارج المؤسسة." },
+      "nist": ["AC-3"], "cis": [], "iso": ["8.26"]
+    },
+    {
+      "level": "enhanced",
+      "name": { "en": "Screen inputs and outputs", "ar": "افحص المدخلات والمخرجات" },
+      "detail": { "en": "Use guardrail checks for prompt injection patterns, sensitive data, and policy violations, on the way in and on the way out.", "ar": "استخدم فحوص حواجز الحماية لكشف أنماط حقن التعليمات والبيانات الحساسة ومخالفات السياسة في الدخول والخروج." },
+      "nist": ["SI-15", "SI-4"], "cis": ["3.13"], "iso": ["8.12"]
+    },
+    {
+      "level": "enhanced",
+      "name": { "en": "Limit consumption", "ar": "قيّد الاستهلاك" },
+      "detail": { "en": "Set limits per user and per application on requests, tokens, and cost, and alert on unusual usage.", "ar": "ضع حدودًا لكل مستخدم ولكل تطبيق على الطلبات والوحدات النصية والتكلفة، وأطلق تنبيهًا عند الاستخدام غير المعتاد." },
+      "nist": ["SC-5"], "cis": [], "iso": ["8.6"]
+    },
+    {
+      "level": "advanced",
+      "name": { "en": "Test the application adversarially", "ar": "اختبر التطبيق بأسلوب المهاجم" },
+      "detail": { "en": "Test the system with direct and indirect prompt injection, data exfiltration, and tool abuse scenarios before release and after any change to the model or prompts.", "ar": "اختبر النظام بسيناريوهات حقن التعليمات المباشر وغير المباشر وتسريب البيانات وإساءة استخدام الأدوات، قبل الإطلاق وبعد أي تغيير في النموذج أو التعليمات." },
+      "nist": ["CA-8", "SA-11"], "cis": ["16.13"], "iso": ["8.29"]
+    },
+    {
+      "level": "advanced",
+      "name": { "en": "Govern models and prompts as code", "ar": "أدر النماذج والتعليمات بوصفها شيفرة" },
+      "detail": { "en": "Version system prompts, model choices, tool definitions, and guardrail settings, review changes, and evaluate them against a test set before deployment.", "ar": "أدر إصدارات تعليمات النظام واختيارات النماذج وتعريفات الأدوات وإعدادات حواجز الحماية، وراجع التغييرات، وقيّمها على مجموعة اختبار قبل النشر." },
+      "nist": ["CM-3", "SA-10"], "cis": [], "iso": ["8.32", "8.25"]
+    }
+  ],
+  "decisions": [
+    { "en": "Which tools may the model call, and which actions need a person to confirm them?", "ar": "ما الأدوات التي يجوز للنموذج استدعاؤها، وما الإجراءات التي تحتاج إلى تأكيد شخص؟" },
+    { "en": "Where does the model run, and what data may be sent to it under your data protection obligations?", "ar": "أين يعمل النموذج، وما البيانات التي يجوز إرسالها إليه في ضوء التزامات حماية البيانات لديك؟" },
+    { "en": "How long are prompts and outputs kept, and who can read them?", "ar": "ما مدة الاحتفاظ بالتعليمات والمخرجات، ومن يستطيع قراءتها؟" }
+  ],
+  "tradeoffs": [
+    { "en": "No filter reliably stops prompt injection, so safety has to come from limiting what the model can see and do.", "ar": "لا يوجد مرشّح يوقف حقن التعليمات بصورة موثوقة، لذلك يجب أن يأتي الأمان من تقييد ما يستطيع النموذج رؤيته وفعله." },
+    { "en": "Human approval reduces risk and also reduces the benefit of automation, so reserve it for actions with real consequences.", "ar": "تقلل الموافقة البشرية المخاطر، لكنها تقلل أيضًا فائدة الأتمتة، لذا خصّصها للإجراءات ذات العواقب الحقيقية." },
+    { "en": "Detailed logs of prompts help investigations and also hold sensitive data, so protect them and let them expire.", "ar": "تساعد السجلات التفصيلية للتعليمات في التحقيقات، لكنها تحتوي أيضًا على بيانات حساسة، لذا احمِها وحدّد موعدًا لانتهائها." }
+  ],
+  "antipatterns": [
+    { "en": "A service account with broad read access used for retrieval on behalf of every user.", "ar": "حساب خدمة بصلاحية قراءة واسعة يُستخدم للاسترجاع نيابة عن جميع المستخدمين." },
+    { "en": "Relying on the system prompt to keep secrets or enforce permissions.", "ar": "الاعتماد على تعليمات النظام لحفظ الأسرار أو فرض الصلاحيات." },
+    { "en": "An agent allowed to run any code or query in production.", "ar": "وكيل ذكي مسموح له بتنفيذ أي شيفرة أو استعلام في بيئة الإنتاج." }
+  ],
+  "verify": [
+    { "en": "Plant an instruction in a document the assistant can retrieve, and confirm it cannot trigger a tool call or leak data.", "ar": "ضع تعليمات في مستند يستطيع المساعد استرجاعه، وتأكد أنها لا تستطيع تشغيل استدعاء أداة أو تسريب بيانات." },
+    { "en": "As a user with few permissions, ask the assistant for a document that only an executive can open, and confirm it is not returned.", "ar": "اطلب من المساعد بصفتك مستخدمًا محدود الصلاحيات مستندًا لا يفتحه إلا أحد التنفيذيين، وتأكد أنه لا يُعاد إليك." },
+    { "en": "Review the logs of one conversation, and confirm you can trace every tool call back to a user and an approval.", "ar": "راجع سجلات محادثة واحدة، وتأكد أنك تستطيع تتبع كل استدعاء أداة إلى مستخدم وموافقة." }
+  ],
+  "attack": ["T1213"],
+  "owasp": ["LLM01:2025", "LLM02:2025", "LLM05:2025", "LLM06:2025", "LLM07:2025", "LLM08:2025", "LLM10:2025"],
+  "related": ["P09", "P07", "P02", "P10"],
+  "references": [
+    { "title": { "en": "OWASP Top 10 for LLM Applications 2025", "ar": "قائمة OWASP لأهم ١٠ مخاطر في تطبيقات النماذج اللغوية الكبيرة لعام ٢٠٢٥" }, "url": "https://genai.owasp.org/llm-top-10/" },
+    { "title": { "en": "NIST AI 600-1, Generative AI Profile", "ar": "ملف الذكاء الاصطناعي التوليدي NIST AI 600-1" }, "url": "https://doi.org/10.6028/NIST.AI.600-1" },
+    { "title": { "en": "MITRE ATLAS", "ar": "قاعدة معارف MITRE ATLAS" }, "url": "https://atlas.mitre.org/" },
+    { "title": { "en": "NIST AI Risk Management Framework", "ar": "إطار إدارة مخاطر الذكاء الاصطناعي من NIST" }, "url": "https://www.nist.gov/itl/ai-risk-management-framework" }
+  ]
+}

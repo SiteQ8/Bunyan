@@ -1,0 +1,114 @@
+{
+  "id": "P10",
+  "slug": "detection-telemetry",
+  "domain": "operations",
+  "title": { "en": "Security telemetry and detection pipeline", "ar": "بيانات الرصد ومسار الكشف" },
+  "summary": {
+    "en": "Collect the logs that answer real detection questions, move them through a pipeline you can trust, and turn them into tested detections and practised responses, because you cannot defend what you cannot see.",
+    "ar": "اجمع السجلات التي تجيب عن أسئلة كشف حقيقية، وانقلها عبر مسار موثوق، ثم حوّلها إلى قواعد كشف مُختبرة واستجابات مُتمرَّن عليها، لأنك لا تستطيع الدفاع عما لا تراه."
+  },
+  "problem": {
+    "en": "Many organisations collect huge volumes of logs and still miss attacks, because the sources that matter are absent, clocks disagree, nobody wrote detections for the attacks they fear, and alerts arrive with no playbook. Attackers also go after logging itself, and switch it off to hide.",
+    "ar": "تجمع مؤسسات كثيرة كميات هائلة من السجلات ومع ذلك تفوتها الهجمات، لأن المصادر المهمة غائبة والساعات غير متزامنة ولم يكتب أحد قواعد كشف للهجمات التي تخشاها، بينما تصل التنبيهات دون دليل استجابة، كما يستهدف المهاجمون السجلات نفسها فيعطلونها ليختفوا."
+  },
+  "useWhen": [
+    { "en": "Today you would not know if an administrator account was used at night from a new country.", "ar": "لن تعرف اليوم إذا استُخدم حساب مسؤول ليلًا من دولة جديدة." },
+    { "en": "Logs stay in each system and are read only after an incident.", "ar": "تبقى السجلات في كل نظام على حدة ولا تُقرأ إلا بعد وقوع حادثة." },
+    { "en": "A regulator or auditor asks how you detect and respond to attacks.", "ar": "تسألك جهة تنظيمية أو مدقق عن طريقة كشفك للهجمات واستجابتك لها." }
+  ],
+  "design": [
+    {
+      "en": "Start from detection questions, not from data sources. List the attacks you most need to catch, map them to ATT&CK techniques, and collect the telemetry that reveals them, which usually means identity and sign-in logs, endpoint detection and response, cloud control plane logs, DNS and proxy logs, and the logs of critical applications. Synchronise time everywhere, and send everything through a pipeline that parses and enriches it before it reaches a SIEM or security data lake held in a separate trust domain.",
+      "ar": "انطلق من أسئلة الكشف لا من مصادر البيانات، فاكتب قائمة بالهجمات التي تحتاج أكثر من غيرها إلى كشفها، واربطها بأساليب ATT&CK، ثم اجمع بيانات الرصد التي تكشفها، وهي عادةً سجلات الهوية والدخول وبيانات الكشف والاستجابة على الأجهزة الطرفية وسجلات مستوى التحكم السحابي وسجلات DNS والوكيل وسجلات التطبيقات الحرجة، ثم وحّد التوقيت في كل مكان، وأرسل كل ذلك عبر مسار يحلل البيانات ويثريها قبل وصولها إلى نظام إدارة سجلات الأحداث ومراقبة الأمن السيبراني أو إلى بحيرة بيانات أمنية ضمن نطاق ثقة منفصل."
+    },
+    {
+      "en": "Write detections as code, test them against simulated attacks, and give each one a playbook, an owner, and a severity. Automate the repetitive parts of response, such as enriching an alert, isolating a device, or disabling an account, and measure how long it takes to detect and to respond.",
+      "ar": "اكتب قواعد الكشف بوصفها شيفرة، واختبرها بهجمات محاكاة، وامنح كل قاعدة دليل استجابة ومالكًا ودرجة خطورة، ثم أتمت الأجزاء المتكررة من الاستجابة مثل إثراء التنبيه وعزل جهاز وتعطيل حساب، وقِس الوقت المستغرق للكشف والاستجابة."
+    }
+  ],
+  "controls": [
+    {
+      "level": "foundation",
+      "name": { "en": "Collect the core sources", "ar": "اجمع المصادر الأساسية" },
+      "detail": { "en": "Centralise identity and sign-in logs, endpoint detection and response telemetry, cloud control plane logs, firewall and proxy logs, and DNS query logs.", "ar": "اجمع مركزيًا سجلات الهوية والدخول وبيانات الكشف والاستجابة على الأجهزة الطرفية وسجلات مستوى التحكم السحابي وسجلات جدران الحماية والوكيل وسجلات استعلامات DNS." },
+      "nist": ["AU-2", "AU-12", "SI-4"], "cis": ["8.2", "8.6", "8.7", "8.9"], "iso": ["8.15", "8.16"]
+    },
+    {
+      "level": "foundation",
+      "name": { "en": "Synchronise time", "ar": "وحّد التوقيت" },
+      "detail": { "en": "Point every system at the same trusted time sources, so that events from different systems line up.", "ar": "اربط كل الأنظمة بمصادر التوقيت الموثوقة نفسها، حتى تتطابق أوقات الأحداث القادمة من أنظمة مختلفة." },
+      "nist": ["AU-8"], "cis": ["8.4"], "iso": ["8.17"]
+    },
+    {
+      "level": "foundation",
+      "name": { "en": "Protect the logs", "ar": "احمِ السجلات" },
+      "detail": { "en": "Store logs where the administrators of monitored systems cannot change or delete them, and keep them for at least the period your obligations require.", "ar": "احفظ السجلات حيث لا يستطيع مسؤولو الأنظمة المراقَبة تعديلها أو حذفها، واحتفظ بها المدة التي تفرضها التزاماتك على الأقل." },
+      "nist": ["AU-9", "AU-9(2)", "AU-11"], "cis": ["8.3", "8.10"], "iso": ["8.15"]
+    },
+    {
+      "level": "foundation",
+      "name": { "en": "Deploy endpoint detection and response", "ar": "انشر الكشف والاستجابة على الأجهزة الطرفية" },
+      "detail": { "en": "Run endpoint detection and response on servers and user devices, with alerts reaching a security team around the clock, in house or through a managed service.", "ar": "شغّل الكشف والاستجابة على الخوادم وأجهزة المستخدمين، مع وصول التنبيهات إلى فريق أمني على مدار الساعة، داخليًا كان أو عبر خدمة مُدارة." },
+      "nist": ["SI-4", "SI-3"], "cis": ["10.1", "13.2"], "iso": ["8.7", "8.16"]
+    },
+    {
+      "level": "enhanced",
+      "name": { "en": "Write detections from threats", "ar": "اكتب قواعد الكشف انطلاقًا من التهديدات" },
+      "detail": { "en": "Build detections for the techniques in your threat model, starting with credential abuse, privilege changes, and log tampering, and map each one to ATT&CK.", "ar": "ابنِ قواعد كشف للأساليب الواردة في نموذج التهديدات لديك، بدءًا بإساءة استخدام بيانات الاعتماد وتغيير الصلاحيات والعبث بالسجلات، واربط كلًا منها بإطار ATT&CK." },
+      "nist": ["SI-4", "AU-6"], "cis": ["13.1", "13.11"], "iso": ["8.16"]
+    },
+    {
+      "level": "enhanced",
+      "name": { "en": "Give every alert a playbook", "ar": "اجعل لكل تنبيه دليل استجابة" },
+      "detail": { "en": "Document triage and response steps for each detection, with owners and escalation paths, and exercise the main ones.", "ar": "وثّق خطوات الفرز والاستجابة لكل قاعدة كشف مع المالكين ومسارات التصعيد، وتمرّن على أهمها." },
+      "nist": ["IR-4", "IR-8"], "cis": ["17.4"], "iso": ["5.24", "5.26"]
+    },
+    {
+      "level": "enhanced",
+      "name": { "en": "Alert on logging failures", "ar": "أطلق تنبيهًا عند تعطل السجلات" },
+      "detail": { "en": "Detect when a source stops sending, a log setting changes, or an audit service is disabled, and treat it as a security event.", "ar": "اكشف توقف أي مصدر عن الإرسال أو تغيير إعدادات السجلات أو تعطيل خدمة التدقيق، وتعامل مع ذلك بوصفه حدثًا أمنيًا." },
+      "nist": ["AU-5", "SI-4"], "cis": [], "iso": ["8.16"]
+    },
+    {
+      "level": "advanced",
+      "name": { "en": "Test detections with simulated attacks", "ar": "اختبر قواعد الكشف بهجمات محاكاة" },
+      "detail": { "en": "Run attack simulations on a schedule and after changes, and track which techniques are detected, prevented, or missed.", "ar": "نفّذ محاكاة للهجمات وفق جدول زمني وبعد التغييرات، وتابع الأساليب التي تُكتشف أو تُمنع أو تفوتك." },
+      "nist": ["CA-8", "CA-7"], "cis": [], "iso": ["8.16"]
+    },
+    {
+      "level": "advanced",
+      "name": { "en": "Automate containment", "ar": "أتمت الاحتواء" },
+      "detail": { "en": "Automate containment actions that can be reversed, such as isolating a device or revoking sessions, for high-confidence detections.", "ar": "أتمت إجراءات الاحتواء التي يمكن التراجع عنها، مثل عزل جهاز أو إلغاء الجلسات، في قواعد الكشف عالية الثقة." },
+      "nist": ["IR-4"], "cis": [], "iso": ["5.26"]
+    }
+  ],
+  "decisions": [
+    { "en": "Which attacks must you detect first, and which log sources prove you would see them?", "ar": "ما الهجمات التي يجب أن تكشفها أولًا، وما مصادر السجلات التي تثبت أنك ستراها؟" },
+    { "en": "Is detection run in house, by a managed service, or by both, and who is on call?", "ar": "هل يُدار الكشف داخليًا أم عبر خدمة مُدارة أم بالاثنين معًا، ومن المناوب؟" },
+    { "en": "How long are logs kept ready for search, and how long are they archived for investigations?", "ar": "ما مدة حفظ السجلات جاهزة للبحث، وما مدة أرشفتها لأغراض التحقيق؟" }
+  ],
+  "tradeoffs": [
+    { "en": "Collecting everything is expensive and slows searches, while collecting too little leaves blind spots, so tie each source to a detection or investigation need.", "ar": "جمع كل شيء مكلف ويُبطئ البحث، بينما يترك جمع القليل مناطق عمياء، لذا اربط كل مصدر بحاجة كشف أو تحقيق." },
+    { "en": "Automated containment speeds up response but can disrupt the business on a false positive, so start with actions that can be reversed.", "ar": "تسرّع أتمتة الاحتواء الاستجابة، لكنها قد تعطّل الأعمال عند إنذار خاطئ، لذلك ابدأ بإجراءات يمكن التراجع عنها." },
+    { "en": "A managed service adds round-the-clock coverage, but needs good context from you to judge what is normal.", "ar": "تضيف الخدمة المُدارة تغطية على مدار الساعة، لكنها تحتاج منك إلى سياق جيد لتحكم على ما هو طبيعي." }
+  ],
+  "antipatterns": [
+    { "en": "A SIEM full of data, running only the vendor's default rules.", "ar": "نظام لإدارة السجلات مليء بالبيانات لا يعمل فيه إلا القواعد الافتراضية للمورد." },
+    { "en": "Logs kept in the same domain that an attacker would compromise first.", "ar": "حفظ السجلات في النطاق نفسه الذي سيخترقه المهاجم أولًا." },
+    { "en": "Alerts that reach nobody at night.", "ar": "تنبيهات لا تصل إلى أحد ليلًا." }
+  ],
+  "verify": [
+    { "en": "Run a simulated credential attack, such as a password spray against a test account, and measure the time until the alert.", "ar": "نفّذ محاكاة لهجوم على بيانات الاعتماد مثل رش كلمات المرور على حساب تجريبي، وقِس الوقت حتى صدور التنبيه." },
+    { "en": "Stop log forwarding on a test server, and confirm an alert fires.", "ar": "أوقف تمرير السجلات على خادم تجريبي، وتأكد من صدور تنبيه." },
+    { "en": "Pick five alerts at random from last month, and confirm each had a playbook and a documented outcome.", "ar": "اختر خمسة تنبيهات عشوائيًا من الشهر الماضي، وتأكد أن لكل منها دليل استجابة ونتيجة موثقة." }
+  ],
+  "attack": ["T1685.002", "T1070", "T1078", "T1110.003"],
+  "owasp": [],
+  "related": ["P01", "P02", "P03", "P12"],
+  "references": [
+    { "title": { "en": "MITRE ATT&CK", "ar": "قاعدة معارف MITRE ATT&CK" }, "url": "https://attack.mitre.org/" },
+    { "title": { "en": "MITRE D3FEND, a knowledge graph of defensive techniques", "ar": "إطار MITRE D3FEND للأساليب الدفاعية" }, "url": "https://d3fend.mitre.org/" },
+    { "title": { "en": "NIST SP 800-61 Rev 3, incident response recommendations", "ar": "توصيات الاستجابة للحوادث NIST SP 800-61 Rev 3" }, "url": "https://csrc.nist.gov/pubs/sp/800/61/r3/final" },
+    { "title": { "en": "CISA and partners, best practices for event logging and threat detection", "ar": "أفضل الممارسات لتسجيل الأحداث وكشف التهديدات من CISA وشركائها" }, "url": "https://www.cisa.gov/resources-tools/resources/best-practices-event-logging-and-threat-detection" }
+  ]
+}

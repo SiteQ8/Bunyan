@@ -1,0 +1,8 @@
+flowchart LR
+  DEV["Developer"] -- "reviewed change" --> REPO["Repository<br/>branch protection, secret scanning"]
+  REPO --> CI["Short-lived build runner<br/>pinned dependencies"]
+  DEPS["Package proxy<br/>vetted packages"] --> CI
+  CI --> ART["Signed artifact<br/>bill of materials and provenance"]
+  ART --> REG["Artifact registry"]
+  REG --> ADM["Deployment policy<br/>verify signature and provenance"]
+  ADM --> PROD["Production"]

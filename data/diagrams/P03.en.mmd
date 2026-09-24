@@ -1,0 +1,9 @@
+flowchart LR
+  A["Administrator"] --> PAW["Privileged access workstation<br/>no email, no browsing"]
+  PAW --> PAM["Privileged access gateway<br/>just in time, recorded"]
+  APPR["Approval for tier zero"] --> PAM
+  PAM --> T0["Tier zero<br/>identity, certificates, backup consoles"]
+  PAM --> T1["Tier one<br/>servers and applications"]
+  PAM --> T2["Tier two<br/>user devices"]
+  PAM --> LOG["Session logs and recordings<br/>to the SIEM"]
+  BG["Break-glass accounts<br/>sealed, alerting"] -.-> T0

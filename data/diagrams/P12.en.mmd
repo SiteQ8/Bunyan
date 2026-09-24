@@ -1,0 +1,8 @@
+flowchart LR
+  PROD["Production"] -- "backup data flows one way" --> BK["Backup system<br/>separate identity domain"]
+  BK --> IMM["Immutable copy<br/>retention lock"]
+  BK --> OFF["Off-site or<br/>offline copy"]
+  IMM --> IRE["Clean recovery environment"]
+  OFF --> IRE
+  IRE -- "verified rebuild" --> RES["Restored service"]
+  PAW["Backup administrators<br/>on dedicated workstations<br/>with phishing-resistant MFA"] --> BK

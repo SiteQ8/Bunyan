@@ -1,0 +1,326 @@
+{
+  "name": "MITRE ATT&CK",
+  "url": "https://attack.mitre.org/",
+  "techniques": {
+    "T0822": {
+      "name": {
+        "en": "External Remote Services",
+        "ar": "خدمات الوصول البعيد الخارجية في أنظمة التحكم الصناعي"
+      },
+      "matrix": "ics",
+      "url": "https://attack.mitre.org/techniques/T0822/"
+    },
+    "T0859": {
+      "name": {
+        "en": "Valid Accounts",
+        "ar": "الحسابات الصالحة في أنظمة التحكم الصناعي"
+      },
+      "matrix": "ics",
+      "url": "https://attack.mitre.org/techniques/T0859/"
+    },
+    "T0883": {
+      "name": {
+        "en": "Internet Accessible Device",
+        "ar": "جهاز يمكن الوصول إليه من الإنترنت"
+      },
+      "matrix": "ics",
+      "url": "https://attack.mitre.org/techniques/T0883/"
+    },
+    "T0886": {
+      "name": {
+        "en": "Remote Services",
+        "ar": "الخدمات البعيدة في أنظمة التحكم الصناعي"
+      },
+      "matrix": "ics",
+      "url": "https://attack.mitre.org/techniques/T0886/"
+    },
+    "T1003": {
+      "name": {
+        "en": "OS Credential Dumping",
+        "ar": "استخراج بيانات الاعتماد من نظام التشغيل"
+      },
+      "matrix": "enterprise",
+      "url": "https://attack.mitre.org/techniques/T1003/"
+    },
+    "T1021": {
+      "name": {
+        "en": "Remote Services",
+        "ar": "الخدمات البعيدة"
+      },
+      "matrix": "enterprise",
+      "url": "https://attack.mitre.org/techniques/T1021/"
+    },
+    "T1046": {
+      "name": {
+        "en": "Network Service Discovery",
+        "ar": "اكتشاف خدمات الشبكة"
+      },
+      "matrix": "enterprise",
+      "url": "https://attack.mitre.org/techniques/T1046/"
+    },
+    "T1048": {
+      "name": {
+        "en": "Exfiltration Over Alternative Protocol",
+        "ar": "التسريب عبر بروتوكول بديل"
+      },
+      "matrix": "enterprise",
+      "url": "https://attack.mitre.org/techniques/T1048/"
+    },
+    "T1070": {
+      "name": {
+        "en": "Indicator Removal",
+        "ar": "إزالة المؤشرات"
+      },
+      "matrix": "enterprise",
+      "url": "https://attack.mitre.org/techniques/T1070/"
+    },
+    "T1071": {
+      "name": {
+        "en": "Application Layer Protocol",
+        "ar": "بروتوكول طبقة التطبيقات"
+      },
+      "matrix": "enterprise",
+      "url": "https://attack.mitre.org/techniques/T1071/"
+    },
+    "T1078": {
+      "name": {
+        "en": "Valid Accounts",
+        "ar": "الحسابات الصالحة"
+      },
+      "matrix": "enterprise",
+      "url": "https://attack.mitre.org/techniques/T1078/"
+    },
+    "T1078.004": {
+      "name": {
+        "en": "Valid Accounts: Cloud Accounts",
+        "ar": "الحسابات الصالحة، الحسابات السحابية"
+      },
+      "matrix": "enterprise",
+      "url": "https://attack.mitre.org/techniques/T1078/004/"
+    },
+    "T1098": {
+      "name": {
+        "en": "Account Manipulation",
+        "ar": "التلاعب بالحسابات"
+      },
+      "matrix": "enterprise",
+      "url": "https://attack.mitre.org/techniques/T1098/"
+    },
+    "T1105": {
+      "name": {
+        "en": "Ingress Tool Transfer",
+        "ar": "نقل الأدوات إلى الداخل"
+      },
+      "matrix": "enterprise",
+      "url": "https://attack.mitre.org/techniques/T1105/"
+    },
+    "T1110.003": {
+      "name": {
+        "en": "Brute Force: Password Spraying",
+        "ar": "التخمين، رش كلمات المرور"
+      },
+      "matrix": "enterprise",
+      "url": "https://attack.mitre.org/techniques/T1110/003/"
+    },
+    "T1110.004": {
+      "name": {
+        "en": "Brute Force: Credential Stuffing",
+        "ar": "التخمين، حشو بيانات الاعتماد"
+      },
+      "matrix": "enterprise",
+      "url": "https://attack.mitre.org/techniques/T1110/004/"
+    },
+    "T1133": {
+      "name": {
+        "en": "External Remote Services",
+        "ar": "خدمات الوصول البعيد الخارجية"
+      },
+      "matrix": "enterprise",
+      "url": "https://attack.mitre.org/techniques/T1133/"
+    },
+    "T1190": {
+      "name": {
+        "en": "Exploit Public-Facing Application",
+        "ar": "استغلال تطبيق مكشوف للعموم"
+      },
+      "matrix": "enterprise",
+      "url": "https://attack.mitre.org/techniques/T1190/"
+    },
+    "T1195.002": {
+      "name": {
+        "en": "Supply Chain Compromise: Compromise Software Supply Chain",
+        "ar": "اختراق سلسلة الإمداد، اختراق سلسلة إمداد البرمجيات"
+      },
+      "matrix": "enterprise",
+      "url": "https://attack.mitre.org/techniques/T1195/002/"
+    },
+    "T1199": {
+      "name": {
+        "en": "Trusted Relationship",
+        "ar": "العلاقة الموثوقة"
+      },
+      "matrix": "enterprise",
+      "url": "https://attack.mitre.org/techniques/T1199/"
+    },
+    "T1210": {
+      "name": {
+        "en": "Exploitation of Remote Services",
+        "ar": "استغلال الخدمات البعيدة"
+      },
+      "matrix": "enterprise",
+      "url": "https://attack.mitre.org/techniques/T1210/"
+    },
+    "T1213": {
+      "name": {
+        "en": "Data from Information Repositories",
+        "ar": "بيانات من مستودعات المعلومات"
+      },
+      "matrix": "enterprise",
+      "url": "https://attack.mitre.org/techniques/T1213/"
+    },
+    "T1485": {
+      "name": {
+        "en": "Data Destruction",
+        "ar": "إتلاف البيانات"
+      },
+      "matrix": "enterprise",
+      "url": "https://attack.mitre.org/techniques/T1485/"
+    },
+    "T1486": {
+      "name": {
+        "en": "Data Encrypted for Impact",
+        "ar": "تشفير البيانات بقصد الإضرار"
+      },
+      "matrix": "enterprise",
+      "url": "https://attack.mitre.org/techniques/T1486/"
+    },
+    "T1490": {
+      "name": {
+        "en": "Inhibit System Recovery",
+        "ar": "منع استعادة النظام"
+      },
+      "matrix": "enterprise",
+      "url": "https://attack.mitre.org/techniques/T1490/"
+    },
+    "T1498": {
+      "name": {
+        "en": "Network Denial of Service",
+        "ar": "تعطيل الخدمة على مستوى الشبكة"
+      },
+      "matrix": "enterprise",
+      "url": "https://attack.mitre.org/techniques/T1498/"
+    },
+    "T1528": {
+      "name": {
+        "en": "Steal Application Access Token",
+        "ar": "سرقة رمز وصول التطبيق"
+      },
+      "matrix": "enterprise",
+      "url": "https://attack.mitre.org/techniques/T1528/"
+    },
+    "T1530": {
+      "name": {
+        "en": "Data from Cloud Storage",
+        "ar": "بيانات من التخزين السحابي"
+      },
+      "matrix": "enterprise",
+      "url": "https://attack.mitre.org/techniques/T1530/"
+    },
+    "T1537": {
+      "name": {
+        "en": "Transfer Data to Cloud Account",
+        "ar": "نقل البيانات إلى حساب سحابي"
+      },
+      "matrix": "enterprise",
+      "url": "https://attack.mitre.org/techniques/T1537/"
+    },
+    "T1550": {
+      "name": {
+        "en": "Use Alternate Authentication Material",
+        "ar": "استخدام مواد تحقق بديلة"
+      },
+      "matrix": "enterprise",
+      "url": "https://attack.mitre.org/techniques/T1550/"
+    },
+    "T1552.001": {
+      "name": {
+        "en": "Unsecured Credentials: Credentials In Files",
+        "ar": "بيانات اعتماد غير مؤمنة، بيانات الاعتماد في الملفات"
+      },
+      "matrix": "enterprise",
+      "url": "https://attack.mitre.org/techniques/T1552/001/"
+    },
+    "T1556": {
+      "name": {
+        "en": "Modify Authentication Process",
+        "ar": "تعديل عملية التحقق من الهوية"
+      },
+      "matrix": "enterprise",
+      "url": "https://attack.mitre.org/techniques/T1556/"
+    },
+    "T1557": {
+      "name": {
+        "en": "Adversary-in-the-Middle",
+        "ar": "الخصم في المنتصف"
+      },
+      "matrix": "enterprise",
+      "url": "https://attack.mitre.org/techniques/T1557/"
+    },
+    "T1566": {
+      "name": {
+        "en": "Phishing",
+        "ar": "التصيد"
+      },
+      "matrix": "enterprise",
+      "url": "https://attack.mitre.org/techniques/T1566/"
+    },
+    "T1567": {
+      "name": {
+        "en": "Exfiltration Over Web Service",
+        "ar": "التسريب عبر خدمة ويب"
+      },
+      "matrix": "enterprise",
+      "url": "https://attack.mitre.org/techniques/T1567/"
+    },
+    "T1610": {
+      "name": {
+        "en": "Deploy Container",
+        "ar": "نشر حاوية"
+      },
+      "matrix": "enterprise",
+      "url": "https://attack.mitre.org/techniques/T1610/"
+    },
+    "T1611": {
+      "name": {
+        "en": "Escape to Host",
+        "ar": "الهروب إلى المضيف"
+      },
+      "matrix": "enterprise",
+      "url": "https://attack.mitre.org/techniques/T1611/"
+    },
+    "T1613": {
+      "name": {
+        "en": "Container and Resource Discovery",
+        "ar": "اكتشاف الحاويات والموارد"
+      },
+      "matrix": "enterprise",
+      "url": "https://attack.mitre.org/techniques/T1613/"
+    },
+    "T1621": {
+      "name": {
+        "en": "Multi-Factor Authentication Request Generation",
+        "ar": "إغراق طلبات التحقق متعدد العناصر"
+      },
+      "matrix": "enterprise",
+      "url": "https://attack.mitre.org/techniques/T1621/"
+    },
+    "T1685.002": {
+      "name": {
+        "en": "Disable or Modify Tools: Disable or Modify Cloud Log",
+        "ar": "تعطيل الأدوات أو تعديلها، تعطيل السجل السحابي أو تعديله"
+      },
+      "matrix": "enterprise",
+      "url": "https://attack.mitre.org/techniques/T1685/002/"
+    }
+  }
+}

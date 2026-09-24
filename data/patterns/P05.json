@@ -1,0 +1,107 @@
+{
+  "id": "P05",
+  "slug": "internet-edge-and-egress",
+  "domain": "network",
+  "title": { "en": "Protected internet edge and controlled egress", "ar": "حافة إنترنت محمية وحركة صادرة مضبوطة" },
+  "summary": {
+    "en": "Terminate every internet-facing service at a hardened edge that absorbs attacks before they reach the application, and let systems reach the internet only through controlled, logged paths.",
+    "ar": "أنهِ كل خدمة مكشوفة على الإنترنت عند حافة محصّنة تمتص الهجمات قبل وصولها إلى التطبيق، ولا تسمح للأنظمة بالوصول إلى الإنترنت إلا عبر مسارات مضبوطة ومسجلة."
+  },
+  "problem": {
+    "en": "Exploiting public-facing applications is one of the most common ways in, and servers that can reach any address on the internet give malware a free channel to download tools and send data out. Many breaches are noticed only after the data has left.",
+    "ar": "يُعد استغلال التطبيقات المكشوفة للعموم من أكثر طرق الاختراق شيوعًا، كما أن الخوادم القادرة على الوصول إلى أي عنوان على الإنترنت تمنح البرمجيات الضارة قناة مفتوحة لتنزيل الأدوات وإخراج البيانات، ولذلك لا يُكتشف كثير من الاختراقات إلا بعد خروج البيانات."
+  },
+  "useWhen": [
+    { "en": "You publish web applications or APIs to the internet.", "ar": "تنشر تطبيقات ويب أو واجهات برمجية على الإنترنت." },
+    { "en": "Your servers can open connections to any address on the internet.", "ar": "تستطيع خوادمك فتح اتصالات إلى أي عنوان على الإنترنت." },
+    { "en": "Your services must stay available during denial of service attacks.", "ar": "يجب أن تبقى خدماتك متاحة أثناء هجمات تعطيل الخدمة." }
+  ],
+  "design": [
+    {
+      "en": "Inbound, place a content delivery and DDoS protection layer in front, then a web application firewall and reverse proxy that terminate TLS and normalise requests, and only then the application, which accepts traffic from the edge alone. Keep the origin's addresses private so that the edge cannot be bypassed.",
+      "ar": "ضع في الاتجاه الوارد طبقة لتوزيع المحتوى والحماية من هجمات تعطيل الخدمة في المقدمة، يليها جدار الحماية لتطبيقات الويب ووكيل عكسي ينهيان اتصال TLS ويوحّدان صيغة الطلبات، ثم يأتي التطبيق الذي لا يقبل الحركة إلا من الحافة، واحرص على إخفاء عناوين الخادم الأصلي حتى لا يمكن تجاوز الحافة."
+    },
+    {
+      "en": "Outbound, deny direct internet access from servers, and send what is needed through an egress proxy or firewall with an allow list of destinations, DNS filtering, and logging. User traffic goes through a secure web gateway, whether users are in the office or remote.",
+      "ar": "امنع في الاتجاه الصادر الوصول المباشر من الخوادم إلى الإنترنت، ومرّر ما تحتاجه عبر وكيل أو جدار حماية للحركة الصادرة يعمل بقائمة وجهات مسموح بها مع تصفية DNS والتسجيل، بينما تمر حركة المستخدمين عبر بوابة ويب آمنة سواء كانوا في المكتب أو خارجه."
+    }
+  ],
+  "controls": [
+    {
+      "level": "foundation",
+      "name": { "en": "Put every public service behind the edge", "ar": "ضع كل خدمة عامة خلف الحافة" },
+      "detail": { "en": "Publish internet-facing applications only through the web application firewall and reverse proxy, and restrict origins to accept traffic from the edge alone.", "ar": "لا تنشر التطبيقات المكشوفة على الإنترنت إلا عبر جدار الحماية لتطبيقات الويب والوكيل العكسي، واقصر الخوادم الأصلية على قبول الحركة من الحافة وحدها." },
+      "nist": ["SC-7"], "cis": ["13.10", "12.2"], "iso": ["8.20", "8.21"]
+    },
+    {
+      "level": "foundation",
+      "name": { "en": "Deny direct outbound access from servers", "ar": "امنع الوصول الصادر المباشر من الخوادم" },
+      "detail": { "en": "Block servers from reaching the internet directly, and allow required destinations through an egress proxy with an allow list.", "ar": "امنع الخوادم من الوصول إلى الإنترنت مباشرة، واسمح بالوجهات المطلوبة عبر وكيل للحركة الصادرة يعمل بقائمة سماح." },
+      "nist": ["SC-7", "SC-7(5)", "AC-4"], "cis": ["4.4"], "iso": ["8.20", "8.23"]
+    },
+    {
+      "level": "foundation",
+      "name": { "en": "Use protective DNS", "ar": "استخدم خدمة DNS وقائية" },
+      "detail": { "en": "Resolve names through filtering resolvers that block known malicious domains, and log every query.", "ar": "استعلم عن الأسماء عبر خوادم DNS تصفّي النطاقات الضارة المعروفة وتحجبها، وسجّل كل استعلام." },
+      "nist": ["SC-7", "SI-4"], "cis": ["9.2", "8.6", "4.9"], "iso": ["8.23", "8.16"]
+    },
+    {
+      "level": "enhanced",
+      "name": { "en": "Absorb denial of service", "ar": "امتص هجمات تعطيل الخدمة" },
+      "detail": { "en": "Use a provider-grade DDoS protection service sized for your peak traffic, with per-client rate limits at the edge.", "ar": "استخدم خدمة حماية من هجمات تعطيل الخدمة الموزعة بمستوى مزودي الخدمة تتسع لذروة حركتك، مع حدود للمعدل لكل عميل عند الحافة." },
+      "nist": ["SC-5"], "cis": [], "iso": ["8.6", "8.14"]
+    },
+    {
+      "level": "enhanced",
+      "name": { "en": "Tune the web application firewall to the application", "ar": "اضبط جدار الحماية لتطبيقات الويب على التطبيق" },
+      "detail": { "en": "Run managed rule sets in blocking mode, add rules for the application's own paths and parameters, and review false positives every week.", "ar": "شغّل مجموعات القواعد المُدارة في وضع المنع، وأضف قواعد لمسارات التطبيق ومعاملاته الخاصة، وراجع الإنذارات الخاطئة كل أسبوع." },
+      "nist": ["SC-7", "SI-4"], "cis": ["13.10"], "iso": ["8.26"]
+    },
+    {
+      "level": "enhanced",
+      "name": { "en": "Log and inspect outbound traffic", "ar": "سجّل الحركة الصادرة وافحصها" },
+      "detail": { "en": "Log every outbound connection with source, destination, and bytes, and alert on large or unusual transfers.", "ar": "سجّل كل اتصال صادر مع مصدره ووجهته وحجم البيانات المنقولة، وأطلق تنبيهًا عند عمليات النقل الكبيرة أو غير المعتادة." },
+      "nist": ["SI-4(4)", "AU-12"], "cis": ["13.6", "8.7"], "iso": ["8.16"]
+    },
+    {
+      "level": "advanced",
+      "name": { "en": "Add bot and abuse controls", "ar": "أضف ضوابط لمكافحة الروبوتات وإساءة الاستخدام" },
+      "detail": { "en": "Detect credential stuffing, scraping, and automated abuse at the edge with behavioural signals, and challenge or block automated clients on sensitive flows.", "ar": "اكشف حشو بيانات الاعتماد وجمع البيانات الآلي وإساءة الاستخدام الآلية عند الحافة بمؤشرات سلوكية، ثم اختبر العملاء الآليين أو احجبهم في المسارات الحساسة." },
+      "nist": ["SI-4", "SC-5"], "cis": ["13.10"], "iso": ["8.16"]
+    },
+    {
+      "level": "advanced",
+      "name": { "en": "Inspect encrypted outbound traffic selectively", "ar": "افحص الحركة الصادرة المشفرة بصورة انتقائية" },
+      "detail": { "en": "Inspect encrypted outbound traffic from servers and high-risk users where law and policy allow, and exempt categories such as banking and health for privacy.", "ar": "افحص الحركة الصادرة المشفرة من الخوادم ومن المستخدمين عاليي المخاطر حيث يسمح القانون والسياسة، واستثنِ فئات مثل المصارف والصحة حفاظًا على الخصوصية." },
+      "nist": ["SI-4(4)", "SC-7"], "cis": [], "iso": ["8.23"]
+    }
+  ],
+  "decisions": [
+    { "en": "Which provider or products form the edge, and how do you stop traffic from bypassing it?", "ar": "ما المزود أو المنتجات التي تشكّل الحافة، وكيف تمنع الحركة من تجاوزها؟" },
+    { "en": "Which destinations may servers reach, and who approves additions to the list?", "ar": "ما الوجهات التي يُسمح للخوادم بالوصول إليها، ومن يوافق على الإضافة إلى القائمة؟" },
+    { "en": "Where is TLS terminated, and how are certificates and keys protected there?", "ar": "أين يُنهى اتصال TLS، وكيف تُحمى الشهادات والمفاتيح هناك؟" }
+  ],
+  "tradeoffs": [
+    { "en": "A cloud edge sees decrypted traffic, which raises data residency and privacy questions for regulated data.", "ar": "ترى الحافة السحابية الحركة بعد فك تشفيرها، فتثير أسئلة حول توطين البيانات وخصوصيتها في حالة البيانات الخاضعة للتنظيم." },
+    { "en": "Egress allow lists break software updates and integrations until they are complete, so start in monitoring mode.", "ar": "تعطّل قوائم الوجهات المسموح بها تحديثات البرامج والتكاملات حتى تكتمل، لذلك ابدأ بوضع المراقبة." },
+    { "en": "A web application firewall reduces risk but does not fix vulnerable code, and aggressive rules block real customers.", "ar": "يقلل جدار الحماية لتطبيقات الويب المخاطر لكنه لا يصلح الشيفرة الضعيفة، كما أن القواعد المتشددة تحجب عملاء حقيقيين." }
+  ],
+  "antipatterns": [
+    { "en": "Origin servers that still accept traffic from any address.", "ar": "خوادم أصلية ما زالت تقبل الحركة من أي عنوان." },
+    { "en": "Allowing any outbound traffic from the server network.", "ar": "السماح بكل الحركة الصادرة من شبكة الخوادم." },
+    { "en": "A web application firewall left in monitoring mode for years.", "ar": "ترك جدار الحماية لتطبيقات الويب في وضع المراقبة لسنوات." }
+  ],
+  "verify": [
+    { "en": "Send requests directly to the origin's address, and confirm they are refused.", "ar": "أرسل طلبات مباشرة إلى عنوان الخادم الأصلي، وتأكد أنها تُرفض." },
+    { "en": "From a server, try to reach an address that is not on the allow list, and confirm it is blocked and logged.", "ar": "حاول من أحد الخوادم الوصول إلى عنوان غير موجود في قائمة السماح، وتأكد أنه يُمنع ويُسجَّل." },
+    { "en": "Resolve a known malicious test domain, and confirm protective DNS blocks it.", "ar": "استعلم عن نطاق اختبار معروف بأنه ضار، وتأكد أن خدمة DNS الوقائية تحجبه." }
+  ],
+  "attack": ["T1190", "T1498", "T1071", "T1567", "T1105"],
+  "owasp": [],
+  "related": ["P07", "P04", "P10", "P09"],
+  "references": [
+    { "title": { "en": "OWASP Core Rule Set for web application firewalls", "ar": "مجموعة القواعد الأساسية من OWASP لجدران الحماية لتطبيقات الويب" }, "url": "https://coreruleset.org/" },
+    { "title": { "en": "UK NCSC, denial of service guidance", "ar": "إرشادات هجمات تعطيل الخدمة من المركز الوطني للأمن السيبراني في المملكة المتحدة" }, "url": "https://www.ncsc.gov.uk/collection/denial-service-dos-guidance-collection" },
+    { "title": { "en": "NIST SP 800-41 Rev 1, guidelines on firewalls and firewall policy", "ar": "إرشادات جدران الحماية وسياساتها NIST SP 800-41 Rev 1" }, "url": "https://csrc.nist.gov/pubs/sp/800/41/r1/final" }
+  ]
+}

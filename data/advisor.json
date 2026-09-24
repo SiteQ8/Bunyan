@@ -1,0 +1,2740 @@
+{
+  "questions": [
+    {
+      "id": "system",
+      "key": "s",
+      "type": "single",
+      "default": "digital",
+      "label": {
+        "en": "What are you designing?",
+        "ar": "ما الذي تصممه؟"
+      },
+      "options": [
+        {
+          "id": "digital",
+          "label": {
+            "en": "A customer-facing web or mobile service",
+            "ar": "خدمة ويب أو تطبيق محمول للعملاء"
+          }
+        },
+        {
+          "id": "api",
+          "label": {
+            "en": "An API platform for partners or other systems",
+            "ar": "منصة واجهات برمجية للشركاء أو لأنظمة أخرى"
+          }
+        },
+        {
+          "id": "workforce",
+          "label": {
+            "en": "Internal applications for employees",
+            "ar": "تطبيقات داخلية للموظفين"
+          }
+        },
+        {
+          "id": "data",
+          "label": {
+            "en": "A data or analytics platform",
+            "ar": "منصة بيانات أو تحليلات"
+          }
+        },
+        {
+          "id": "ot",
+          "label": {
+            "en": "An industrial or operational technology system",
+            "ar": "نظام صناعي أو نظام تقنيات تشغيلية"
+          }
+        },
+        {
+          "id": "ai",
+          "label": {
+            "en": "An assistant or agent built on a language model",
+            "ar": "مساعد أو وكيل ذكي مبني على نموذج لغوي"
+          }
+        }
+      ]
+    },
+    {
+      "id": "hosting",
+      "key": "h",
+      "type": "single",
+      "default": "cloud",
+      "label": {
+        "en": "Where does it run?",
+        "ar": "أين يعمل؟"
+      },
+      "options": [
+        {
+          "id": "onprem",
+          "label": {
+            "en": "In your own data centre",
+            "ar": "في مركز بياناتك"
+          }
+        },
+        {
+          "id": "cloud",
+          "label": {
+            "en": "In one public cloud",
+            "ar": "في سحابة عامة واحدة"
+          }
+        },
+        {
+          "id": "hybrid",
+          "label": {
+            "en": "In your data centre and a public cloud",
+            "ar": "في مركز بياناتك وفي سحابة عامة"
+          }
+        },
+        {
+          "id": "multicloud",
+          "label": {
+            "en": "In more than one public cloud",
+            "ar": "في أكثر من سحابة عامة"
+          }
+        }
+      ]
+    },
+    {
+      "id": "exposure",
+      "key": "x",
+      "type": "multi",
+      "default": [
+        "public"
+      ],
+      "label": {
+        "en": "Who reaches it, and from where?",
+        "ar": "من يصل إليه، ومن أين؟"
+      },
+      "help": {
+        "en": "Choose all that apply.",
+        "ar": "اختر كل ما ينطبق."
+      },
+      "options": [
+        {
+          "id": "public",
+          "label": {
+            "en": "The public, over the internet",
+            "ar": "العموم عبر الإنترنت"
+          }
+        },
+        {
+          "id": "partners",
+          "label": {
+            "en": "Partners and other organisations",
+            "ar": "الشركاء ومؤسسات أخرى"
+          }
+        },
+        {
+          "id": "remote",
+          "label": {
+            "en": "Employees working remotely",
+            "ar": "موظفون يعملون عن بعد"
+          }
+        },
+        {
+          "id": "vendors",
+          "label": {
+            "en": "Vendors who support it remotely",
+            "ar": "موردون يدعمونه عن بعد"
+          }
+        }
+      ]
+    },
+    {
+      "id": "data",
+      "key": "d",
+      "type": "single",
+      "default": "confidential",
+      "label": {
+        "en": "What is the most sensitive data it handles?",
+        "ar": "ما أكثر البيانات حساسية التي يتعامل معها؟"
+      },
+      "options": [
+        {
+          "id": "public",
+          "label": {
+            "en": "Public information",
+            "ar": "معلومات عامة"
+          }
+        },
+        {
+          "id": "internal",
+          "label": {
+            "en": "Internal business information",
+            "ar": "معلومات داخلية للأعمال"
+          }
+        },
+        {
+          "id": "confidential",
+          "label": {
+            "en": "Confidential or personal data",
+            "ar": "بيانات سرية أو شخصية"
+          }
+        },
+        {
+          "id": "regulated",
+          "label": {
+            "en": "Regulated data, such as payment cards or banking records",
+            "ar": "بيانات خاضعة للتنظيم مثل بطاقات الدفع أو السجلات المصرفية"
+          }
+        }
+      ]
+    },
+    {
+      "id": "obligations",
+      "key": "o",
+      "type": "multi",
+      "default": [],
+      "label": {
+        "en": "Which obligations apply?",
+        "ar": "ما الالتزامات التي تنطبق؟"
+      },
+      "help": {
+        "en": "Choose all that apply, or none.",
+        "ar": "اختر كل ما ينطبق أو لا تختر شيئًا."
+      },
+      "options": [
+        {
+          "id": "pci",
+          "label": {
+            "en": "PCI DSS for payment cards",
+            "ar": "معيار PCI DSS لبطاقات الدفع"
+          }
+        },
+        {
+          "id": "swift",
+          "label": {
+            "en": "SWIFT Customer Security Programme",
+            "ar": "برنامج سويفت لأمن العملاء"
+          }
+        },
+        {
+          "id": "bank",
+          "label": {
+            "en": "Central bank resilience rules, such as CBK CORF",
+            "ar": "قواعد الصمود لدى البنك المركزي مثل CBK CORF"
+          }
+        },
+        {
+          "id": "national",
+          "label": {
+            "en": "National cybersecurity controls, such as Kuwait NBCC or NCA ECC",
+            "ar": "الضوابط الوطنية للأمن السيبراني مثل NBCC في الكويت أو NCA ECC"
+          }
+        },
+        {
+          "id": "privacy",
+          "label": {
+            "en": "A personal data protection law",
+            "ar": "قانون لحماية البيانات الشخصية"
+          }
+        },
+        {
+          "id": "iso",
+          "label": {
+            "en": "ISO/IEC 27001 certification",
+            "ar": "شهادة ISO/IEC 27001"
+          }
+        }
+      ]
+    },
+    {
+      "id": "availability",
+      "key": "a",
+      "type": "single",
+      "default": "high",
+      "label": {
+        "en": "How much downtime can it take?",
+        "ar": "ما مقدار التوقف الذي يحتمله؟"
+      },
+      "options": [
+        {
+          "id": "standard",
+          "label": {
+            "en": "Hours to a day",
+            "ar": "من ساعات إلى يوم"
+          }
+        },
+        {
+          "id": "high",
+          "label": {
+            "en": "Minutes to hours, because the business stops without it",
+            "ar": "من دقائق إلى ساعات، لأن الأعمال تتوقف دونه"
+          }
+        },
+        {
+          "id": "critical",
+          "label": {
+            "en": "Almost none, because safety or the public is affected",
+            "ar": "لا يكاد يحتمل أي توقف، لأن أثره يمس السلامة أو العموم"
+          }
+        }
+      ]
+    },
+    {
+      "id": "admins",
+      "key": "m",
+      "type": "single",
+      "default": "small",
+      "label": {
+        "en": "Who administers it?",
+        "ar": "من يديره؟"
+      },
+      "options": [
+        {
+          "id": "small",
+          "label": {
+            "en": "A small in-house team",
+            "ar": "فريق داخلي صغير"
+          }
+        },
+        {
+          "id": "large",
+          "label": {
+            "en": "A large operations team",
+            "ar": "فريق تشغيل كبير"
+          }
+        },
+        {
+          "id": "outsourced",
+          "label": {
+            "en": "An outsourced provider or vendor",
+            "ar": "مزود خدمة خارجي أو مورد"
+          }
+        }
+      ]
+    },
+    {
+      "id": "delivery",
+      "key": "b",
+      "type": "multi",
+      "default": [
+        "inhouse"
+      ],
+      "label": {
+        "en": "How is it built and run?",
+        "ar": "كيف يُبنى ويُشغَّل؟"
+      },
+      "help": {
+        "en": "Choose all that apply.",
+        "ar": "اختر كل ما ينطبق."
+      },
+      "options": [
+        {
+          "id": "inhouse",
+          "label": {
+            "en": "We write and ship our own code",
+            "ar": "نكتب شيفرتنا وننشرها بأنفسنا"
+          }
+        },
+        {
+          "id": "containers",
+          "label": {
+            "en": "On containers or Kubernetes",
+            "ar": "على الحاويات أو Kubernetes"
+          }
+        },
+        {
+          "id": "saas",
+          "label": {
+            "en": "Mostly by configuring SaaS products",
+            "ar": "غالبًا بإعداد خدمات سحابية جاهزة"
+          }
+        }
+      ]
+    },
+    {
+      "id": "maturity",
+      "key": "l",
+      "type": "single",
+      "default": "foundation",
+      "label": {
+        "en": "Where is your security programme today?",
+        "ar": "أين يقف برنامج الأمن لديك اليوم؟"
+      },
+      "options": [
+        {
+          "id": "foundation",
+          "label": {
+            "en": "Starting out",
+            "ar": "في بدايته"
+          }
+        },
+        {
+          "id": "enhanced",
+          "label": {
+            "en": "Established, with a security team",
+            "ar": "قائم ولديه فريق أمني"
+          }
+        },
+        {
+          "id": "advanced",
+          "label": {
+            "en": "Mature, with engineering capacity",
+            "ar": "ناضج ولديه قدرات هندسية"
+          }
+        }
+      ]
+    }
+  ],
+  "rules": [
+    {
+      "pattern": "P02",
+      "priority": "essential",
+      "when": "always",
+      "because": {
+        "en": "Every design starts from identity: it decides who can do what, and it is what attackers test first.",
+        "ar": "يبدأ كل تصميم من الهوية، لأنها تحدد من يستطيع فعل ماذا، وهي أول ما يختبره المهاجمون."
+      }
+    },
+    {
+      "pattern": "P02",
+      "priority": "essential",
+      "when": {
+        "q": "delivery",
+        "has": "saas"
+      },
+      "because": {
+        "en": "SaaS products are secured mostly through identity and configuration.",
+        "ar": "تُؤمَّن الخدمات السحابية الجاهزة في معظمها عبر الهوية والإعدادات."
+      }
+    },
+    {
+      "pattern": "P03",
+      "priority": "essential",
+      "when": "always",
+      "because": {
+        "en": "Every system has administrators, and their access is the shortest path to total compromise.",
+        "ar": "لكل نظام مسؤولون، ووصولهم هو أقصر طريق إلى الاختراق الكامل."
+      }
+    },
+    {
+      "pattern": "P03",
+      "priority": "essential",
+      "when": {
+        "q": "admins",
+        "in": [
+          "large"
+        ]
+      },
+      "because": {
+        "en": "A large operations team means many privileged accounts to govern.",
+        "ar": "يعني فريق التشغيل الكبير حسابات كثيرة ذات صلاحيات هامة تحتاج إلى حوكمة."
+      }
+    },
+    {
+      "pattern": "P03",
+      "priority": "essential",
+      "when": {
+        "q": "admins",
+        "in": [
+          "outsourced"
+        ]
+      },
+      "because": {
+        "en": "An outside provider administers it, so their access must be brokered, recorded, and granted per task.",
+        "ar": "يديره مزود خارجي، فيجب أن يمر وصوله عبر وسيط وأن يُسجَّل ويُمنح لكل مهمة."
+      }
+    },
+    {
+      "pattern": "P03",
+      "priority": "essential",
+      "when": {
+        "q": "exposure",
+        "has": "vendors"
+      },
+      "because": {
+        "en": "Vendors who support it need access that is brokered and recorded.",
+        "ar": "يحتاج الموردون الذين يدعمونه إلى وصول يمر عبر وسيط ويُسجَّل."
+      }
+    },
+    {
+      "pattern": "P10",
+      "priority": "essential",
+      "when": "always",
+      "because": {
+        "en": "You need to see an attack in time to respond to it, whatever the system.",
+        "ar": "تحتاج إلى رؤية الهجوم في الوقت المناسب لتستجيب له مهما كان النظام."
+      }
+    },
+    {
+      "pattern": "P10",
+      "priority": "essential",
+      "when": {
+        "q": "availability",
+        "in": [
+          "critical"
+        ]
+      },
+      "because": {
+        "en": "A critical service needs detection and response around the clock.",
+        "ar": "تحتاج الخدمة الحرجة إلى كشف واستجابة على مدار الساعة."
+      }
+    },
+    {
+      "pattern": "P10",
+      "priority": "essential",
+      "when": {
+        "q": "obligations",
+        "has": "national"
+      },
+      "because": {
+        "en": "National baseline controls require central logging, monitoring, and incident response.",
+        "ar": "تشترط الضوابط الوطنية الأساسية السجلات المركزية والمراقبة والاستجابة للحوادث."
+      }
+    },
+    {
+      "pattern": "P12",
+      "priority": "essential",
+      "when": {
+        "any": [
+          {
+            "q": "availability",
+            "in": [
+              "high",
+              "critical"
+            ]
+          },
+          {
+            "q": "data",
+            "in": [
+              "confidential",
+              "regulated"
+            ]
+          }
+        ]
+      },
+      "because": {
+        "en": "The business depends on this system or its data, so recovery has to survive an attacker who holds admin rights.",
+        "ar": "تعتمد الأعمال على هذا النظام أو على بياناته، فيجب أن تصمد الاستعادة أمام مهاجم يملك صلاحيات إدارية."
+      }
+    },
+    {
+      "pattern": "P12",
+      "priority": "recommended",
+      "when": "always",
+      "because": {
+        "en": "Ransomware does not check how important a system is before it encrypts it.",
+        "ar": "لا يتحقق برنامج الفدية من أهمية النظام قبل أن يشفّره."
+      }
+    },
+    {
+      "pattern": "P04",
+      "priority": "essential",
+      "when": {
+        "q": "hosting",
+        "in": [
+          "onprem",
+          "hybrid"
+        ]
+      },
+      "because": {
+        "en": "Part of it runs on networks you operate, so zones with default deny limit how far a compromise can spread.",
+        "ar": "يعمل جزء منه على شبكات تديرها بنفسك، فتحدّ المناطق القائمة على المنع الافتراضي من انتشار أي اختراق."
+      }
+    },
+    {
+      "pattern": "P04",
+      "priority": "essential",
+      "when": {
+        "q": "data",
+        "in": [
+          "regulated"
+        ]
+      },
+      "because": {
+        "en": "Regulated data needs a boundary you can prove.",
+        "ar": "تحتاج البيانات الخاضعة للتنظيم إلى حدود تستطيع إثباتها."
+      }
+    },
+    {
+      "pattern": "P04",
+      "priority": "recommended",
+      "when": "always",
+      "because": {
+        "en": "Even in the cloud, each workload should reach only what it needs.",
+        "ar": "ينبغي ألا يصل كل عبء عمل إلا إلى ما يحتاجه حتى في السحابة."
+      }
+    },
+    {
+      "pattern": "P01",
+      "priority": "essential",
+      "when": {
+        "q": "exposure",
+        "hasAny": [
+          "remote",
+          "vendors"
+        ]
+      },
+      "because": {
+        "en": "People reach it from outside the office, so access should be decided per request, not granted by a network connection.",
+        "ar": "يصل إليه الناس من خارج المكتب، فينبغي أن يُقرَّر الوصول عند كل طلب لا أن يُمنح بمجرد الاتصال بالشبكة."
+      }
+    },
+    {
+      "pattern": "P01",
+      "priority": "essential",
+      "when": {
+        "q": "admins",
+        "in": [
+          "outsourced"
+        ]
+      },
+      "because": {
+        "en": "Outsourced administrators connect from outside, so their access should be per request and per system.",
+        "ar": "يتصل المسؤولون الخارجيون من خارج المؤسسة، فينبغي أن يكون وصولهم لكل طلب ولكل نظام على حدة."
+      }
+    },
+    {
+      "pattern": "P01",
+      "priority": "recommended",
+      "when": {
+        "q": "system",
+        "in": [
+          "workforce"
+        ]
+      },
+      "because": {
+        "en": "Internal applications are where zero trust access pays off first.",
+        "ar": "تظهر فائدة الوصول وفق الثقة الصفرية أولًا في التطبيقات الداخلية."
+      }
+    },
+    {
+      "pattern": "P01",
+      "priority": "consider",
+      "when": "always",
+      "because": {
+        "en": "Zero trust access is worth planning even before anyone connects from outside.",
+        "ar": "يستحق الوصول وفق الثقة الصفرية التخطيط له حتى قبل أن يتصل أحد من الخارج."
+      }
+    },
+    {
+      "pattern": "P05",
+      "priority": "essential",
+      "when": {
+        "q": "exposure",
+        "has": "public"
+      },
+      "because": {
+        "en": "It is reachable from the internet, so it needs an edge that absorbs attacks before they reach the application.",
+        "ar": "يمكن الوصول إليه من الإنترنت، فيحتاج إلى حافة تمتص الهجمات قبل وصولها إلى التطبيق."
+      }
+    },
+    {
+      "pattern": "P05",
+      "priority": "recommended",
+      "when": {
+        "q": "exposure",
+        "has": "partners"
+      },
+      "because": {
+        "en": "Partners reach it across the internet, and its servers still need controlled egress.",
+        "ar": "يصل إليه الشركاء عبر الإنترنت، وتحتاج خوادمه مع ذلك إلى حركة صادرة مضبوطة."
+      }
+    },
+    {
+      "pattern": "P05",
+      "priority": "recommended",
+      "when": "always",
+      "because": {
+        "en": "Controlled egress stops malware from reaching its operators and data from leaving quietly.",
+        "ar": "تمنع الحركة الصادرة المضبوطة البرمجيات الضارة من الاتصال بمشغليها وتمنع البيانات من الخروج خفيةً."
+      }
+    },
+    {
+      "pattern": "P06",
+      "priority": "essential",
+      "when": {
+        "q": "hosting",
+        "in": [
+          "cloud",
+          "hybrid",
+          "multicloud"
+        ]
+      },
+      "because": {
+        "en": "It runs in a public cloud, so accounts, guardrails, and logging must be in place before workloads arrive.",
+        "ar": "يعمل في سحابة عامة، فيجب أن تكون الحسابات والضوابط الوقائية والسجلات جاهزة قبل وصول أعباء العمل."
+      }
+    },
+    {
+      "pattern": "P06",
+      "priority": "essential",
+      "when": {
+        "q": "hosting",
+        "in": [
+          "multicloud"
+        ]
+      },
+      "because": {
+        "en": "More than one cloud doubles the guardrail work, so set the same guardrails in each.",
+        "ar": "تضاعف السحابة المتعددة عمل الضوابط الوقائية، لذا طبّق الضوابط نفسها في كل سحابة."
+      }
+    },
+    {
+      "pattern": "P07",
+      "priority": "essential",
+      "when": {
+        "q": "system",
+        "in": [
+          "api",
+          "digital"
+        ]
+      },
+      "because": {
+        "en": "Its clients call APIs, and authorization flaws are the most common way data leaks from them.",
+        "ar": "يستدعي عملاؤه واجهات برمجية، وثغرات التفويض أكثر طرق تسرب البيانات منها شيوعًا."
+      }
+    },
+    {
+      "pattern": "P07",
+      "priority": "essential",
+      "when": {
+        "q": "exposure",
+        "has": "partners"
+      },
+      "because": {
+        "en": "Partners integrate through APIs, which need strong client authentication.",
+        "ar": "يتكامل الشركاء عبر واجهات برمجية تحتاج إلى تحقق قوي من هوية العملاء."
+      }
+    },
+    {
+      "pattern": "P07",
+      "priority": "recommended",
+      "when": {
+        "q": "system",
+        "in": [
+          "ai",
+          "data"
+        ]
+      },
+      "because": {
+        "en": "Its tools and data services are reached through APIs that need the same controls.",
+        "ar": "يُوصل إلى أدواته وخدمات بياناته عبر واجهات برمجية تحتاج إلى الضوابط نفسها."
+      }
+    },
+    {
+      "pattern": "P08",
+      "priority": "essential",
+      "when": {
+        "q": "delivery",
+        "hasAny": [
+          "inhouse",
+          "containers"
+        ]
+      },
+      "because": {
+        "en": "Your own code needs credentials, and they must never live in the code.",
+        "ar": "تحتاج شيفرتك إلى بيانات اعتماد يجب ألا تُحفظ فيها أبدًا."
+      }
+    },
+    {
+      "pattern": "P08",
+      "priority": "essential",
+      "when": {
+        "q": "data",
+        "in": [
+          "regulated"
+        ]
+      },
+      "because": {
+        "en": "Regulated data needs keys you control and can prove you protect.",
+        "ar": "تحتاج البيانات الخاضعة للتنظيم إلى مفاتيح تتحكم فيها وتستطيع إثبات حمايتها."
+      }
+    },
+    {
+      "pattern": "P08",
+      "priority": "recommended",
+      "when": {
+        "q": "hosting",
+        "in": [
+          "cloud",
+          "hybrid",
+          "multicloud"
+        ]
+      },
+      "because": {
+        "en": "Cloud workloads should use platform identities instead of stored keys.",
+        "ar": "ينبغي أن تستخدم أعباء العمل السحابية هويات المنصة بدلًا من المفاتيح المخزنة."
+      }
+    },
+    {
+      "pattern": "P08",
+      "priority": "recommended",
+      "when": {
+        "q": "system",
+        "in": [
+          "data",
+          "ai"
+        ]
+      },
+      "because": {
+        "en": "Its pipelines and tools run as services that need their own identities.",
+        "ar": "تعمل مسارات بياناته وأدواته بوصفها خدمات تحتاج إلى هويات خاصة بها."
+      }
+    },
+    {
+      "pattern": "P09",
+      "priority": "essential",
+      "when": {
+        "q": "data",
+        "in": [
+          "confidential",
+          "regulated"
+        ]
+      },
+      "because": {
+        "en": "It holds confidential or regulated data, so protection must follow the data wherever it goes.",
+        "ar": "يحفظ بيانات سرية أو خاضعة للتنظيم، فيجب أن تتبع الحماية البيانات أينما ذهبت."
+      }
+    },
+    {
+      "pattern": "P09",
+      "priority": "essential",
+      "when": {
+        "q": "system",
+        "in": [
+          "data"
+        ]
+      },
+      "because": {
+        "en": "A data platform gathers data from many sources, which makes classification and access control its central design problem.",
+        "ar": "تجمع منصة البيانات بيانات من مصادر كثيرة، فيصبح التصنيف وضبط الوصول جوهر تصميمها."
+      }
+    },
+    {
+      "pattern": "P09",
+      "priority": "essential",
+      "when": {
+        "q": "obligations",
+        "has": "privacy"
+      },
+      "because": {
+        "en": "A data protection law requires you to know where personal data is and to protect it.",
+        "ar": "يُلزمك قانون حماية البيانات بمعرفة أماكن البيانات الشخصية وحمايتها."
+      }
+    },
+    {
+      "pattern": "P09",
+      "priority": "recommended",
+      "when": {
+        "q": "obligations",
+        "has": "iso"
+      },
+      "because": {
+        "en": "ISO/IEC 27001 expects information to be classified and handled according to its class.",
+        "ar": "يتوقع معيار ISO/IEC 27001 أن تُصنَّف المعلومات وأن يُتعامل معها بحسب فئتها."
+      }
+    },
+    {
+      "pattern": "P09",
+      "priority": "recommended",
+      "when": {
+        "q": "data",
+        "in": [
+          "internal"
+        ]
+      },
+      "because": {
+        "en": "Internal data still needs a classification, so that the handling rules are clear.",
+        "ar": "تحتاج البيانات الداخلية مع ذلك إلى تصنيف، حتى تكون قواعد التعامل معها واضحة."
+      }
+    },
+    {
+      "pattern": "P09",
+      "priority": "consider",
+      "when": {
+        "q": "data",
+        "in": [
+          "public"
+        ]
+      },
+      "because": {
+        "en": "Public data still needs its integrity protected, so that nobody can change what you publish.",
+        "ar": "تحتاج البيانات العامة مع ذلك إلى حماية سلامتها، حتى لا يستطيع أحد تغيير ما تنشره."
+      }
+    },
+    {
+      "pattern": "P11",
+      "priority": "essential",
+      "when": {
+        "q": "delivery",
+        "hasAny": [
+          "inhouse",
+          "containers"
+        ]
+      },
+      "because": {
+        "en": "You build and ship software, so the build system is part of your attack surface.",
+        "ar": "تبني البرمجيات وتنشرها، فتصبح منظومة البناء جزءًا من سطح الهجوم لديك."
+      }
+    },
+    {
+      "pattern": "P11",
+      "priority": "consider",
+      "when": {
+        "q": "delivery",
+        "has": "saas"
+      },
+      "because": {
+        "en": "Even configured SaaS depends on suppliers whose software you need to be able to trust.",
+        "ar": "يعتمد حتى إعداد الخدمات السحابية الجاهزة على موردين تحتاج إلى أن تثق ببرمجياتهم."
+      }
+    },
+    {
+      "pattern": "P13",
+      "priority": "essential",
+      "when": {
+        "q": "system",
+        "in": [
+          "ot"
+        ]
+      },
+      "because": {
+        "en": "Industrial systems need zones, conduits, and an industrial DMZ between IT and the plant.",
+        "ar": "تحتاج الأنظمة الصناعية إلى مناطق وقنوات ومنطقة معزولة صناعية بين تقنية المعلومات والموقع التشغيلي."
+      }
+    },
+    {
+      "pattern": "P14",
+      "priority": "essential",
+      "when": {
+        "q": "system",
+        "in": [
+          "ai"
+        ]
+      },
+      "because": {
+        "en": "A language model follows instructions in anything it reads, so its data and tools must be limited to what the user may use.",
+        "ar": "يتبع النموذج اللغوي التعليمات في كل ما يقرؤه، فيجب قصر بياناته وأدواته على ما يحق للمستخدم استخدامه."
+      }
+    },
+    {
+      "pattern": "P15",
+      "priority": "essential",
+      "when": {
+        "q": "obligations",
+        "hasAny": [
+          "pci",
+          "swift"
+        ]
+      },
+      "because": {
+        "en": "PCI DSS and SWIFT both expect regulated systems to sit in an enclave you can draw and test.",
+        "ar": "يتوقع كل من PCI DSS وسويفت أن تقع الأنظمة الخاضعة للتنظيم في نطاق معزول تستطيع رسمه واختباره."
+      }
+    },
+    {
+      "pattern": "P15",
+      "priority": "recommended",
+      "when": {
+        "q": "data",
+        "in": [
+          "regulated"
+        ]
+      },
+      "because": {
+        "en": "Isolating regulated data in an enclave shrinks the scope of the strictest controls.",
+        "ar": "يقلص عزل البيانات الخاضعة للتنظيم في نطاق معزول نطاقَ أشد الضوابط."
+      }
+    },
+    {
+      "pattern": "P15",
+      "priority": "recommended",
+      "when": {
+        "q": "obligations",
+        "has": "bank"
+      },
+      "because": {
+        "en": "Central bank frameworks expect critical systems to be segregated and closely monitored.",
+        "ar": "تتوقع أطر البنوك المركزية فصل الأنظمة الحرجة ومراقبتها عن قرب."
+      }
+    },
+    {
+      "pattern": "P16",
+      "priority": "essential",
+      "when": {
+        "q": "delivery",
+        "has": "containers"
+      },
+      "because": {
+        "en": "Containers share a platform, so the platform decides how far one compromised workload can reach.",
+        "ar": "تتشارك الحاويات منصة واحدة، فتحدد المنصة المدى الذي يبلغه عبء عمل واحد مخترق."
+      }
+    }
+  ],
+  "threats": [
+    {
+      "id": "account-takeover",
+      "title": {
+        "en": "Account takeover with phished, sprayed, or reused credentials",
+        "ar": "الاستيلاء على الحسابات ببيانات اعتماد مصطادة أو مخمَّنة بالرش أو معاد استخدامها"
+      },
+      "refs": [
+        "T1566",
+        "T1110.003",
+        "T1110.004",
+        "T1078"
+      ],
+      "patterns": [
+        "P02",
+        "P01"
+      ],
+      "when": "always"
+    },
+    {
+      "id": "admin-credential-theft",
+      "title": {
+        "en": "Theft of admin credentials, then lateral movement",
+        "ar": "سرقة بيانات اعتماد المسؤولين ثم التنقل الجانبي"
+      },
+      "refs": [
+        "T1003",
+        "T1550",
+        "T1021"
+      ],
+      "patterns": [
+        "P03",
+        "P04"
+      ],
+      "when": "always"
+    },
+    {
+      "id": "ransomware",
+      "title": {
+        "en": "Ransomware that destroys the backups first",
+        "ar": "برنامج فدية يدمر النسخ الاحتياطية أولًا"
+      },
+      "refs": [
+        "T1486",
+        "T1490"
+      ],
+      "patterns": [
+        "P12",
+        "P03",
+        "P04"
+      ],
+      "when": "always"
+    },
+    {
+      "id": "public-app-exploit",
+      "title": {
+        "en": "Exploitation of an internet-facing application",
+        "ar": "استغلال تطبيق مكشوف على الإنترنت"
+      },
+      "refs": [
+        "T1190"
+      ],
+      "patterns": [
+        "P05",
+        "P07",
+        "P11"
+      ],
+      "when": {
+        "q": "exposure",
+        "hasAny": [
+          "public",
+          "partners"
+        ]
+      }
+    },
+    {
+      "id": "api-authorization",
+      "title": {
+        "en": "Reading or changing other people's data through an API",
+        "ar": "قراءة بيانات الآخرين أو تعديلها عبر واجهة برمجية"
+      },
+      "refs": [
+        "API1:2023",
+        "API5:2023"
+      ],
+      "patterns": [
+        "P07"
+      ],
+      "when": {
+        "any": [
+          {
+            "q": "system",
+            "in": [
+              "digital",
+              "api"
+            ]
+          },
+          {
+            "q": "exposure",
+            "has": "partners"
+          }
+        ]
+      }
+    },
+    {
+      "id": "prompt-injection",
+      "title": {
+        "en": "Prompt injection that triggers tools or leaks data",
+        "ar": "حقن تعليمات يشغّل الأدوات أو يسرب البيانات"
+      },
+      "refs": [
+        "LLM01:2025",
+        "LLM06:2025"
+      ],
+      "patterns": [
+        "P14"
+      ],
+      "when": {
+        "q": "system",
+        "in": [
+          "ai"
+        ]
+      }
+    },
+    {
+      "id": "llm-data-exposure",
+      "title": {
+        "en": "Sensitive data exposed through retrieval or model output",
+        "ar": "كشف بيانات حساسة عبر الاسترجاع أو مخرجات النموذج"
+      },
+      "refs": [
+        "LLM02:2025",
+        "LLM08:2025"
+      ],
+      "patterns": [
+        "P14",
+        "P09"
+      ],
+      "when": {
+        "q": "system",
+        "in": [
+          "ai"
+        ]
+      }
+    },
+    {
+      "id": "ot-remote-access",
+      "title": {
+        "en": "Remote access into control systems from IT or from vendors",
+        "ar": "الوصول البعيد إلى أنظمة التحكم من تقنية المعلومات أو من الموردين"
+      },
+      "refs": [
+        "T0822",
+        "T0886",
+        "T0883"
+      ],
+      "patterns": [
+        "P13",
+        "P01"
+      ],
+      "when": {
+        "q": "system",
+        "in": [
+          "ot"
+        ]
+      }
+    },
+    {
+      "id": "swift-fraud",
+      "title": {
+        "en": "Fraudulent payment messages sent with stolen operator credentials",
+        "ar": "رسائل دفع احتيالية تُرسل ببيانات اعتماد مسروقة لمشغلي النظام"
+      },
+      "refs": [
+        "T1078"
+      ],
+      "patterns": [
+        "P15",
+        "P03",
+        "P02"
+      ],
+      "when": {
+        "q": "obligations",
+        "has": "swift"
+      }
+    },
+    {
+      "id": "regulated-data-sprawl",
+      "title": {
+        "en": "Regulated data found outside the enclave",
+        "ar": "وجود بيانات خاضعة للتنظيم خارج النطاق المعزول"
+      },
+      "refs": [],
+      "patterns": [
+        "P15",
+        "P09"
+      ],
+      "when": {
+        "any": [
+          {
+            "q": "obligations",
+            "has": "pci"
+          },
+          {
+            "q": "data",
+            "in": [
+              "regulated"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "mfa-fatigue",
+      "title": {
+        "en": "MFA fatigue and one-time codes relayed by an attacker",
+        "ar": "إغراق طلبات التحقق متعدد العناصر وتمرير الرموز المؤقتة عبر مهاجم وسيط"
+      },
+      "refs": [
+        "T1621",
+        "T1557"
+      ],
+      "patterns": [
+        "P02"
+      ],
+      "when": {
+        "any": [
+          {
+            "q": "exposure",
+            "hasAny": [
+              "remote",
+              "vendors"
+            ]
+          },
+          {
+            "q": "system",
+            "in": [
+              "workforce"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "third-party-access",
+      "title": {
+        "en": "Abuse of vendor or partner access",
+        "ar": "إساءة استخدام وصول الموردين أو الشركاء"
+      },
+      "refs": [
+        "T1199",
+        "T1133"
+      ],
+      "patterns": [
+        "P01",
+        "P03"
+      ],
+      "when": {
+        "any": [
+          {
+            "q": "exposure",
+            "hasAny": [
+              "vendors",
+              "partners"
+            ]
+          },
+          {
+            "q": "admins",
+            "in": [
+              "outsourced"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "cloud-exposure",
+      "title": {
+        "en": "Exposed cloud storage and misused cloud keys",
+        "ar": "وحدات تخزين سحابية مكشوفة ومفاتيح سحابية يُساء استخدامها"
+      },
+      "refs": [
+        "T1530",
+        "T1078.004"
+      ],
+      "patterns": [
+        "P06",
+        "P08"
+      ],
+      "when": {
+        "q": "hosting",
+        "in": [
+          "cloud",
+          "hybrid",
+          "multicloud"
+        ]
+      }
+    },
+    {
+      "id": "leaked-secrets",
+      "title": {
+        "en": "Secrets leaked from code or pipelines",
+        "ar": "تسرب الأسرار من الشيفرة أو مسارات النشر"
+      },
+      "refs": [
+        "T1552.001"
+      ],
+      "patterns": [
+        "P08",
+        "P11"
+      ],
+      "when": {
+        "q": "delivery",
+        "hasAny": [
+          "inhouse",
+          "containers"
+        ]
+      }
+    },
+    {
+      "id": "supply-chain",
+      "title": {
+        "en": "A poisoned dependency or a compromised build pipeline",
+        "ar": "اعتمادية مسمومة أو مسار بناء مخترق"
+      },
+      "refs": [
+        "T1195.002"
+      ],
+      "patterns": [
+        "P11"
+      ],
+      "when": {
+        "q": "delivery",
+        "hasAny": [
+          "inhouse",
+          "containers"
+        ]
+      }
+    },
+    {
+      "id": "container-escape",
+      "title": {
+        "en": "Escape from a container to the node and the cluster",
+        "ar": "الهروب من الحاوية إلى العقدة ثم إلى العنقود"
+      },
+      "refs": [
+        "T1611",
+        "T1610"
+      ],
+      "patterns": [
+        "P16"
+      ],
+      "when": {
+        "q": "delivery",
+        "has": "containers"
+      }
+    },
+    {
+      "id": "quiet-exfiltration",
+      "title": {
+        "en": "Data leaving quietly through web services",
+        "ar": "خروج البيانات خفيةً عبر خدمات الويب"
+      },
+      "refs": [
+        "T1567",
+        "T1048"
+      ],
+      "patterns": [
+        "P05",
+        "P09"
+      ],
+      "when": {
+        "q": "data",
+        "in": [
+          "confidential",
+          "regulated"
+        ]
+      }
+    },
+    {
+      "id": "denial-of-service",
+      "title": {
+        "en": "Denial of service against customer channels",
+        "ar": "تعطيل الخدمة في قنوات العملاء"
+      },
+      "refs": [
+        "T1498"
+      ],
+      "patterns": [
+        "P05"
+      ],
+      "when": {
+        "all": [
+          {
+            "q": "exposure",
+            "has": "public"
+          },
+          {
+            "q": "availability",
+            "in": [
+              "high",
+              "critical"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "blinding",
+      "title": {
+        "en": "Attackers switching off logging to hide",
+        "ar": "تعطيل المهاجمين للسجلات ليختفوا"
+      },
+      "refs": [
+        "T1685.002",
+        "T1070"
+      ],
+      "patterns": [
+        "P10"
+      ],
+      "when": "always"
+    }
+  ],
+  "plan": {
+    "common": {
+      "corridor": {
+        "label": {
+          "en": "Service corridor: every admin path runs through PAWs and PAM, just in time",
+          "ar": "ممر الخدمة: تمر كل مسارات الإدارة عبر محطات العمل المخصصة وبوابة الصلاحيات الهامة عند الحاجة"
+        },
+        "pattern": "P03"
+      },
+      "management": {
+        "label": {
+          "en": "Management",
+          "ar": "الإدارة"
+        },
+        "fixtures": [
+          {
+            "label": {
+              "en": "Privileged access workstations",
+              "ar": "محطات عمل مخصصة"
+            },
+            "pattern": "P03"
+          },
+          {
+            "label": {
+              "en": "PAM gateway",
+              "ar": "بوابة الصلاحيات الهامة"
+            },
+            "pattern": "P03"
+          }
+        ]
+      },
+      "foundations": [
+        {
+          "label": {
+            "en": "Identity provider and phishing-resistant MFA",
+            "ar": "مزود الهوية والتحقق المقاوم للتصيد"
+          },
+          "pattern": "P02"
+        },
+        {
+          "label": {
+            "en": "Keys, secrets, and workload identity",
+            "ar": "المفاتيح والأسرار وهوية أعباء العمل"
+          },
+          "pattern": "P08"
+        },
+        {
+          "label": {
+            "en": "Telemetry and detection",
+            "ar": "بيانات الرصد والكشف"
+          },
+          "pattern": "P10"
+        },
+        {
+          "label": {
+            "en": "Cloud guardrails and logging",
+            "ar": "الضوابط الوقائية والسجلات السحابية"
+          },
+          "pattern": "P06"
+        },
+        {
+          "label": {
+            "en": "Signed builds from a hardened pipeline",
+            "ar": "بناء موقّع من مسار نشر محصّن"
+          },
+          "pattern": "P11"
+        }
+      ],
+      "vault": {
+        "label": {
+          "en": "Recovery vault with immutable copies",
+          "ar": "خزنة الاستعادة بنسخ غير قابلة للتعديل"
+        },
+        "pattern": "P12"
+      },
+      "egress": {
+        "label": {
+          "en": "Exit through the egress proxy",
+          "ar": "الخروج عبر وكيل الحركة الصادرة"
+        },
+        "pattern": "P05"
+      }
+    },
+    "systems": {
+      "digital": {
+        "entrances": [
+          {
+            "actor": {
+              "en": "Customers",
+              "ar": "العملاء"
+            },
+            "label": {
+              "en": "Front door: CDN, WAF, DDoS protection",
+              "ar": "الباب الأمامي: توزيع المحتوى وجدار الحماية والحماية من تعطيل الخدمة"
+            },
+            "pattern": "P05",
+            "when": {
+              "q": "exposure",
+              "has": "public"
+            }
+          },
+          {
+            "actor": {
+              "en": "Partners",
+              "ar": "الشركاء"
+            },
+            "label": {
+              "en": "Partner door: API gateway with mutual TLS",
+              "ar": "باب الشركاء: بوابة الواجهات مع التحقق المتبادل"
+            },
+            "pattern": "P07",
+            "when": {
+              "q": "exposure",
+              "has": "partners"
+            }
+          },
+          {
+            "actor": {
+              "en": "Remote staff",
+              "ar": "الموظفون عن بعد"
+            },
+            "label": {
+              "en": "Staff door: zero trust access broker",
+              "ar": "باب الموظفين: وسيط الوصول وفق الثقة الصفرية"
+            },
+            "pattern": "P01",
+            "when": {
+              "q": "exposure",
+              "has": "remote"
+            }
+          },
+          {
+            "actor": {
+              "en": "Vendors",
+              "ar": "الموردون"
+            },
+            "label": {
+              "en": "Vendor door: brokered, recorded sessions",
+              "ar": "باب الموردين: جلسات عبر وسيط ومسجلة"
+            },
+            "pattern": "P01",
+            "when": {
+              "any": [
+                {
+                  "q": "exposure",
+                  "has": "vendors"
+                },
+                {
+                  "q": "admins",
+                  "in": [
+                    "outsourced"
+                  ]
+                }
+              ]
+            }
+          },
+          {
+            "actor": {
+              "en": "Internal users",
+              "ar": "المستخدمون الداخليون"
+            },
+            "label": {
+              "en": "Internal door: single sign-on and MFA",
+              "ar": "الباب الداخلي: الدخول الموحد والتحقق متعدد العناصر"
+            },
+            "pattern": "P02",
+            "when": {
+              "q": "exposure",
+              "hasNone": [
+                "public",
+                "partners",
+                "remote"
+              ]
+            }
+          }
+        ],
+        "rooms": [
+          {
+            "id": "edge",
+            "label": {
+              "en": "Edge",
+              "ar": "الحافة"
+            },
+            "trust": 1,
+            "fixtures": [
+              {
+                "label": {
+                  "en": "Reverse proxy and WAF",
+                  "ar": "الوكيل العكسي وجدار الحماية"
+                },
+                "pattern": "P05"
+              },
+              {
+                "label": {
+                  "en": "API gateway",
+                  "ar": "بوابة الواجهات البرمجية"
+                },
+                "pattern": "P07"
+              }
+            ]
+          },
+          {
+            "id": "app",
+            "label": {
+              "en": "Application",
+              "ar": "التطبيق"
+            },
+            "trust": 2,
+            "fixtures": [
+              {
+                "label": {
+                  "en": "Stateless services",
+                  "ar": "خدمات عديمة الحالة"
+                }
+              },
+              {
+                "label": {
+                  "en": "Object level authorization",
+                  "ar": "التفويض على مستوى الكائن"
+                },
+                "pattern": "P07"
+              },
+              {
+                "label": {
+                  "en": "Container platform guardrails",
+                  "ar": "ضوابط منصة الحاويات"
+                },
+                "pattern": "P16"
+              }
+            ]
+          },
+          {
+            "id": "data",
+            "label": {
+              "en": "Data",
+              "ar": "البيانات"
+            },
+            "trust": 3,
+            "fixtures": [
+              {
+                "label": {
+                  "en": "Encrypted stores",
+                  "ar": "مخازن مشفرة"
+                },
+                "pattern": "P09"
+              },
+              {
+                "label": {
+                  "en": "Tokenization",
+                  "ar": "الاستبدال الرمزي"
+                },
+                "pattern": "P09",
+                "when": {
+                  "q": "data",
+                  "in": [
+                    "regulated"
+                  ]
+                }
+              },
+              {
+                "label": {
+                  "en": "Access logging",
+                  "ar": "تسجيل الوصول"
+                },
+                "pattern": "P09"
+              }
+            ]
+          },
+          {
+            "id": "enclave",
+            "label": {
+              "en": "Regulated enclave",
+              "ar": "النطاق المعزول"
+            },
+            "trust": 4,
+            "fixtures": [
+              {
+                "label": {
+                  "en": "Card data or SWIFT zone",
+                  "ar": "بيانات البطاقات أو منطقة سويفت"
+                },
+                "pattern": "P15"
+              },
+              {
+                "label": {
+                  "en": "Enclave jump host",
+                  "ar": "خادم وسيط خاص بالنطاق"
+                },
+                "pattern": "P15"
+              },
+              {
+                "label": {
+                  "en": "File integrity monitoring",
+                  "ar": "مراقبة سلامة الملفات"
+                },
+                "pattern": "P15"
+              }
+            ],
+            "when": {
+              "pattern": "P15"
+            }
+          }
+        ],
+        "doors": [
+          {
+            "label": {
+              "en": "Edge traffic only",
+              "ar": "حركة الحافة فقط"
+            },
+            "pattern": "P04"
+          },
+          {
+            "label": {
+              "en": "Named services only",
+              "ar": "خدمات مسماة فقط"
+            },
+            "pattern": "P04"
+          },
+          {
+            "label": {
+              "en": "Tokens only",
+              "ar": "الرموز فقط"
+            },
+            "pattern": "P15"
+          }
+        ]
+      },
+      "api": {
+        "entrances": [
+          {
+            "actor": {
+              "en": "Client systems",
+              "ar": "أنظمة العملاء"
+            },
+            "label": {
+              "en": "Front door: gateway, WAF, rate limits",
+              "ar": "الباب الأمامي: البوابة وجدار الحماية وحدود المعدل"
+            },
+            "pattern": "P05",
+            "when": {
+              "q": "exposure",
+              "has": "public"
+            }
+          },
+          {
+            "actor": {
+              "en": "Partners",
+              "ar": "الشركاء"
+            },
+            "label": {
+              "en": "Partner door: mutual TLS and scoped tokens",
+              "ar": "باب الشركاء: التحقق المتبادل ورموز محددة النطاق"
+            },
+            "pattern": "P07",
+            "when": {
+              "q": "exposure",
+              "has": "partners"
+            }
+          },
+          {
+            "actor": {
+              "en": "Remote staff",
+              "ar": "الموظفون عن بعد"
+            },
+            "label": {
+              "en": "Staff door: zero trust access broker",
+              "ar": "باب الموظفين: وسيط الوصول وفق الثقة الصفرية"
+            },
+            "pattern": "P01",
+            "when": {
+              "q": "exposure",
+              "has": "remote"
+            }
+          },
+          {
+            "actor": {
+              "en": "Vendors",
+              "ar": "الموردون"
+            },
+            "label": {
+              "en": "Vendor door: brokered, recorded sessions",
+              "ar": "باب الموردين: جلسات عبر وسيط ومسجلة"
+            },
+            "pattern": "P01",
+            "when": {
+              "any": [
+                {
+                  "q": "exposure",
+                  "has": "vendors"
+                },
+                {
+                  "q": "admins",
+                  "in": [
+                    "outsourced"
+                  ]
+                }
+              ]
+            }
+          },
+          {
+            "actor": {
+              "en": "Internal systems",
+              "ar": "الأنظمة الداخلية"
+            },
+            "label": {
+              "en": "Internal door: authenticated service calls",
+              "ar": "الباب الداخلي: استدعاءات خدمات موثقة"
+            },
+            "pattern": "P07",
+            "when": {
+              "q": "exposure",
+              "hasNone": [
+                "public",
+                "partners",
+                "remote"
+              ]
+            }
+          }
+        ],
+        "rooms": [
+          {
+            "id": "edge",
+            "label": {
+              "en": "API edge",
+              "ar": "حافة الواجهات"
+            },
+            "trust": 1,
+            "fixtures": [
+              {
+                "label": {
+                  "en": "API gateway",
+                  "ar": "بوابة الواجهات البرمجية"
+                },
+                "pattern": "P07"
+              },
+              {
+                "label": {
+                  "en": "Schema validation",
+                  "ar": "التحقق من المخطط"
+                },
+                "pattern": "P07"
+              },
+              {
+                "label": {
+                  "en": "Rate and quota limits",
+                  "ar": "حدود المعدل والحصص"
+                },
+                "pattern": "P07"
+              }
+            ]
+          },
+          {
+            "id": "app",
+            "label": {
+              "en": "Services",
+              "ar": "الخدمات"
+            },
+            "trust": 2,
+            "fixtures": [
+              {
+                "label": {
+                  "en": "Authorization component",
+                  "ar": "مكوّن التفويض"
+                },
+                "pattern": "P07"
+              },
+              {
+                "label": {
+                  "en": "Workload identities",
+                  "ar": "هويات أعباء العمل"
+                },
+                "pattern": "P08"
+              },
+              {
+                "label": {
+                  "en": "Container platform guardrails",
+                  "ar": "ضوابط منصة الحاويات"
+                },
+                "pattern": "P16"
+              }
+            ]
+          },
+          {
+            "id": "data",
+            "label": {
+              "en": "Data",
+              "ar": "البيانات"
+            },
+            "trust": 3,
+            "fixtures": [
+              {
+                "label": {
+                  "en": "Encrypted stores",
+                  "ar": "مخازن مشفرة"
+                },
+                "pattern": "P09"
+              },
+              {
+                "label": {
+                  "en": "Tokenization",
+                  "ar": "الاستبدال الرمزي"
+                },
+                "pattern": "P09",
+                "when": {
+                  "q": "data",
+                  "in": [
+                    "regulated"
+                  ]
+                }
+              },
+              {
+                "label": {
+                  "en": "Access logging",
+                  "ar": "تسجيل الوصول"
+                },
+                "pattern": "P09"
+              }
+            ]
+          },
+          {
+            "id": "enclave",
+            "label": {
+              "en": "Regulated enclave",
+              "ar": "النطاق المعزول"
+            },
+            "trust": 4,
+            "fixtures": [
+              {
+                "label": {
+                  "en": "Card data or SWIFT zone",
+                  "ar": "بيانات البطاقات أو منطقة سويفت"
+                },
+                "pattern": "P15"
+              },
+              {
+                "label": {
+                  "en": "Enclave jump host",
+                  "ar": "خادم وسيط خاص بالنطاق"
+                },
+                "pattern": "P15"
+              },
+              {
+                "label": {
+                  "en": "File integrity monitoring",
+                  "ar": "مراقبة سلامة الملفات"
+                },
+                "pattern": "P15"
+              }
+            ],
+            "when": {
+              "pattern": "P15"
+            }
+          }
+        ],
+        "doors": [
+          {
+            "label": {
+              "en": "Authenticated calls only",
+              "ar": "استدعاءات موثقة فقط"
+            },
+            "pattern": "P07"
+          },
+          {
+            "label": {
+              "en": "Named services only",
+              "ar": "خدمات مسماة فقط"
+            },
+            "pattern": "P04"
+          },
+          {
+            "label": {
+              "en": "Tokens only",
+              "ar": "الرموز فقط"
+            },
+            "pattern": "P15"
+          }
+        ]
+      },
+      "workforce": {
+        "entrances": [
+          {
+            "actor": {
+              "en": "Office staff",
+              "ar": "موظفو المكتب"
+            },
+            "label": {
+              "en": "Staff door: every request checked",
+              "ar": "باب الموظفين: فحص كل طلب"
+            },
+            "pattern": "P01"
+          },
+          {
+            "actor": {
+              "en": "Remote staff",
+              "ar": "الموظفون عن بعد"
+            },
+            "label": {
+              "en": "Staff door: zero trust access broker",
+              "ar": "باب الموظفين: وسيط الوصول وفق الثقة الصفرية"
+            },
+            "pattern": "P01",
+            "when": {
+              "q": "exposure",
+              "has": "remote"
+            }
+          },
+          {
+            "actor": {
+              "en": "Vendors",
+              "ar": "الموردون"
+            },
+            "label": {
+              "en": "Vendor door: brokered, recorded sessions",
+              "ar": "باب الموردين: جلسات عبر وسيط ومسجلة"
+            },
+            "pattern": "P01",
+            "when": {
+              "any": [
+                {
+                  "q": "exposure",
+                  "has": "vendors"
+                },
+                {
+                  "q": "admins",
+                  "in": [
+                    "outsourced"
+                  ]
+                }
+              ]
+            }
+          },
+          {
+            "actor": {
+              "en": "The public",
+              "ar": "العموم"
+            },
+            "label": {
+              "en": "Front door: WAF and DDoS protection",
+              "ar": "الباب الأمامي: جدار الحماية والحماية من تعطيل الخدمة"
+            },
+            "pattern": "P05",
+            "when": {
+              "q": "exposure",
+              "has": "public"
+            }
+          }
+        ],
+        "rooms": [
+          {
+            "id": "workplace",
+            "label": {
+              "en": "Workplace services",
+              "ar": "خدمات بيئة العمل"
+            },
+            "trust": 1,
+            "fixtures": [
+              {
+                "label": {
+                  "en": "Email and collaboration",
+                  "ar": "البريد وأدوات التعاون"
+                }
+              },
+              {
+                "label": {
+                  "en": "Secure web gateway",
+                  "ar": "بوابة ويب آمنة"
+                },
+                "pattern": "P05"
+              }
+            ]
+          },
+          {
+            "id": "apps",
+            "label": {
+              "en": "Internal applications",
+              "ar": "التطبيقات الداخلية"
+            },
+            "trust": 2,
+            "fixtures": [
+              {
+                "label": {
+                  "en": "Applications behind the broker",
+                  "ar": "تطبيقات خلف الوسيط"
+                },
+                "pattern": "P01"
+              },
+              {
+                "label": {
+                  "en": "Single sign-on everywhere",
+                  "ar": "دخول موحد في كل تطبيق"
+                },
+                "pattern": "P02"
+              }
+            ]
+          },
+          {
+            "id": "data",
+            "label": {
+              "en": "Data",
+              "ar": "البيانات"
+            },
+            "trust": 3,
+            "fixtures": [
+              {
+                "label": {
+                  "en": "Classified data stores",
+                  "ar": "مخازن بيانات مصنفة"
+                },
+                "pattern": "P09"
+              },
+              {
+                "label": {
+                  "en": "Data loss prevention",
+                  "ar": "منع تسرب البيانات"
+                },
+                "pattern": "P09"
+              }
+            ]
+          },
+          {
+            "id": "enclave",
+            "label": {
+              "en": "Regulated enclave",
+              "ar": "النطاق المعزول"
+            },
+            "trust": 4,
+            "fixtures": [
+              {
+                "label": {
+                  "en": "Card data or SWIFT zone",
+                  "ar": "بيانات البطاقات أو منطقة سويفت"
+                },
+                "pattern": "P15"
+              },
+              {
+                "label": {
+                  "en": "Enclave jump host",
+                  "ar": "خادم وسيط خاص بالنطاق"
+                },
+                "pattern": "P15"
+              },
+              {
+                "label": {
+                  "en": "File integrity monitoring",
+                  "ar": "مراقبة سلامة الملفات"
+                },
+                "pattern": "P15"
+              }
+            ],
+            "when": {
+              "pattern": "P15"
+            }
+          }
+        ],
+        "doors": [
+          {
+            "label": {
+              "en": "Brokered access only",
+              "ar": "وصول عبر الوسيط فقط"
+            },
+            "pattern": "P01"
+          },
+          {
+            "label": {
+              "en": "Named services only",
+              "ar": "خدمات مسماة فقط"
+            },
+            "pattern": "P04"
+          },
+          {
+            "label": {
+              "en": "Tokens only",
+              "ar": "الرموز فقط"
+            },
+            "pattern": "P15"
+          }
+        ]
+      },
+      "data": {
+        "entrances": [
+          {
+            "actor": {
+              "en": "Source systems",
+              "ar": "الأنظمة المصدر"
+            },
+            "label": {
+              "en": "Intake door: mutual TLS, schema checks",
+              "ar": "باب الاستقبال: التحقق المتبادل وفحص المخطط"
+            },
+            "pattern": "P07"
+          },
+          {
+            "actor": {
+              "en": "Analysts",
+              "ar": "المحللون"
+            },
+            "label": {
+              "en": "Analyst door: single sign-on and MFA",
+              "ar": "باب المحللين: الدخول الموحد والتحقق متعدد العناصر"
+            },
+            "pattern": "P02"
+          },
+          {
+            "actor": {
+              "en": "Partners",
+              "ar": "الشركاء"
+            },
+            "label": {
+              "en": "Partner door: scoped, logged exports",
+              "ar": "باب الشركاء: تصدير محدد النطاق ومسجل"
+            },
+            "pattern": "P07",
+            "when": {
+              "q": "exposure",
+              "has": "partners"
+            }
+          },
+          {
+            "actor": {
+              "en": "Vendors",
+              "ar": "الموردون"
+            },
+            "label": {
+              "en": "Vendor door: brokered, recorded sessions",
+              "ar": "باب الموردين: جلسات عبر وسيط ومسجلة"
+            },
+            "pattern": "P01",
+            "when": {
+              "any": [
+                {
+                  "q": "exposure",
+                  "has": "vendors"
+                },
+                {
+                  "q": "admins",
+                  "in": [
+                    "outsourced"
+                  ]
+                }
+              ]
+            }
+          }
+        ],
+        "rooms": [
+          {
+            "id": "ingest",
+            "label": {
+              "en": "Ingestion",
+              "ar": "الاستقبال"
+            },
+            "trust": 1,
+            "fixtures": [
+              {
+                "label": {
+                  "en": "Schema validation",
+                  "ar": "التحقق من المخطط"
+                },
+                "pattern": "P07"
+              },
+              {
+                "label": {
+                  "en": "Classification on arrival",
+                  "ar": "التصنيف عند الوصول"
+                },
+                "pattern": "P09"
+              }
+            ]
+          },
+          {
+            "id": "process",
+            "label": {
+              "en": "Processing",
+              "ar": "المعالجة"
+            },
+            "trust": 2,
+            "fixtures": [
+              {
+                "label": {
+                  "en": "Masking and tokenization",
+                  "ar": "الإخفاء والاستبدال الرمزي"
+                },
+                "pattern": "P09"
+              },
+              {
+                "label": {
+                  "en": "Workload identities",
+                  "ar": "هويات أعباء العمل"
+                },
+                "pattern": "P08"
+              }
+            ]
+          },
+          {
+            "id": "curated",
+            "label": {
+              "en": "Curated data",
+              "ar": "البيانات المنقحة"
+            },
+            "trust": 3,
+            "fixtures": [
+              {
+                "label": {
+                  "en": "Keys scoped by class",
+                  "ar": "مفاتيح لكل فئة"
+                },
+                "pattern": "P09"
+              },
+              {
+                "label": {
+                  "en": "Access logging and review",
+                  "ar": "تسجيل الوصول ومراجعته"
+                },
+                "pattern": "P09"
+              }
+            ]
+          },
+          {
+            "id": "enclave",
+            "label": {
+              "en": "Regulated enclave",
+              "ar": "النطاق المعزول"
+            },
+            "trust": 4,
+            "fixtures": [
+              {
+                "label": {
+                  "en": "Card data or SWIFT zone",
+                  "ar": "بيانات البطاقات أو منطقة سويفت"
+                },
+                "pattern": "P15"
+              },
+              {
+                "label": {
+                  "en": "Enclave jump host",
+                  "ar": "خادم وسيط خاص بالنطاق"
+                },
+                "pattern": "P15"
+              },
+              {
+                "label": {
+                  "en": "File integrity monitoring",
+                  "ar": "مراقبة سلامة الملفات"
+                },
+                "pattern": "P15"
+              }
+            ],
+            "when": {
+              "pattern": "P15"
+            }
+          }
+        ],
+        "doors": [
+          {
+            "label": {
+              "en": "Validated data only",
+              "ar": "البيانات المتحقق منها فقط"
+            },
+            "pattern": "P04"
+          },
+          {
+            "label": {
+              "en": "Service identities only",
+              "ar": "هويات الخدمات فقط"
+            },
+            "pattern": "P08"
+          },
+          {
+            "label": {
+              "en": "Tokens only",
+              "ar": "الرموز فقط"
+            },
+            "pattern": "P15"
+          }
+        ]
+      },
+      "ot": {
+        "corridor": {
+          "label": {
+            "en": "Service corridor: administration only through the DMZ jump host",
+            "ar": "ممر الخدمة: الإدارة عبر الخادم الوسيط في المنطقة المعزولة فقط"
+          },
+          "pattern": "P03"
+        },
+        "entrances": [
+          {
+            "actor": {
+              "en": "Vendors",
+              "ar": "الموردون"
+            },
+            "label": {
+              "en": "Vendor door: approved, recorded, time-limited",
+              "ar": "باب الموردين: جلسة معتمدة ومسجلة ومحددة المدة"
+            },
+            "pattern": "P13",
+            "when": {
+              "any": [
+                {
+                  "q": "exposure",
+                  "has": "vendors"
+                },
+                {
+                  "q": "admins",
+                  "in": [
+                    "outsourced"
+                  ]
+                }
+              ]
+            }
+          },
+          {
+            "actor": {
+              "en": "Remote staff",
+              "ar": "الموظفون عن بعد"
+            },
+            "label": {
+              "en": "Staff door: zero trust access broker",
+              "ar": "باب الموظفين: وسيط الوصول وفق الثقة الصفرية"
+            },
+            "pattern": "P01",
+            "when": {
+              "q": "exposure",
+              "has": "remote"
+            }
+          },
+          {
+            "actor": {
+              "en": "The public",
+              "ar": "العموم"
+            },
+            "label": {
+              "en": "Front door: WAF and DDoS protection",
+              "ar": "الباب الأمامي: جدار الحماية والحماية من تعطيل الخدمة"
+            },
+            "pattern": "P05",
+            "when": {
+              "q": "exposure",
+              "has": "public"
+            }
+          }
+        ],
+        "rooms": [
+          {
+            "id": "it",
+            "label": {
+              "en": "Enterprise IT",
+              "ar": "تقنية المعلومات"
+            },
+            "trust": 1,
+            "fixtures": [
+              {
+                "label": {
+                  "en": "Corporate systems",
+                  "ar": "أنظمة المؤسسة"
+                }
+              }
+            ]
+          },
+          {
+            "id": "idmz",
+            "label": {
+              "en": "Industrial DMZ",
+              "ar": "المنطقة المعزولة الصناعية"
+            },
+            "trust": 2,
+            "fixtures": [
+              {
+                "label": {
+                  "en": "Historian replica",
+                  "ar": "نسخة البيانات التاريخية"
+                },
+                "pattern": "P13"
+              },
+              {
+                "label": {
+                  "en": "Patch staging",
+                  "ar": "تجهيز التحديثات"
+                },
+                "pattern": "P13"
+              },
+              {
+                "label": {
+                  "en": "Jump host",
+                  "ar": "الخادم الوسيط"
+                },
+                "pattern": "P13"
+              }
+            ]
+          },
+          {
+            "id": "ops",
+            "label": {
+              "en": "Site operations, Level 3",
+              "ar": "عمليات الموقع، المستوى ٣"
+            },
+            "trust": 3,
+            "fixtures": [
+              {
+                "label": {
+                  "en": "Operations servers",
+                  "ar": "خوادم التشغيل"
+                }
+              },
+              {
+                "label": {
+                  "en": "Passive OT monitoring",
+                  "ar": "مراقبة سلبية للتشغيل"
+                },
+                "pattern": "P13"
+              }
+            ]
+          },
+          {
+            "id": "control",
+            "label": {
+              "en": "Control, Levels 1 and 2",
+              "ar": "التحكم، المستويان ١ و٢"
+            },
+            "trust": 4,
+            "fixtures": [
+              {
+                "label": {
+                  "en": "Controllers and HMIs",
+                  "ar": "وحدات التحكم وواجهات التشغيل"
+                }
+              },
+              {
+                "label": {
+                  "en": "Safety system kept apart",
+                  "ar": "نظام السلامة معزول"
+                },
+                "pattern": "P13"
+              }
+            ]
+          }
+        ],
+        "doors": [
+          {
+            "label": {
+              "en": "Connections end in the DMZ",
+              "ar": "تنتهي الاتصالات في المنطقة المعزولة"
+            },
+            "pattern": "P13"
+          },
+          {
+            "label": {
+              "en": "Conduit with defined protocols",
+              "ar": "قناة ببروتوكولات محددة"
+            },
+            "pattern": "P13"
+          },
+          {
+            "label": {
+              "en": "Conduit",
+              "ar": "قناة"
+            },
+            "pattern": "P13"
+          }
+        ]
+      },
+      "ai": {
+        "entrances": [
+          {
+            "actor": {
+              "en": "Users",
+              "ar": "المستخدمون"
+            },
+            "label": {
+              "en": "Sign-in door: single sign-on and MFA",
+              "ar": "باب الدخول: الدخول الموحد والتحقق متعدد العناصر"
+            },
+            "pattern": "P02"
+          },
+          {
+            "actor": {
+              "en": "The public",
+              "ar": "العموم"
+            },
+            "label": {
+              "en": "Front door: WAF and rate limits",
+              "ar": "الباب الأمامي: جدار الحماية وحدود المعدل"
+            },
+            "pattern": "P05",
+            "when": {
+              "q": "exposure",
+              "has": "public"
+            }
+          },
+          {
+            "actor": {
+              "en": "Remote staff",
+              "ar": "الموظفون عن بعد"
+            },
+            "label": {
+              "en": "Staff door: zero trust access broker",
+              "ar": "باب الموظفين: وسيط الوصول وفق الثقة الصفرية"
+            },
+            "pattern": "P01",
+            "when": {
+              "q": "exposure",
+              "has": "remote"
+            }
+          },
+          {
+            "actor": {
+              "en": "Vendors",
+              "ar": "الموردون"
+            },
+            "label": {
+              "en": "Vendor door: brokered, recorded sessions",
+              "ar": "باب الموردين: جلسات عبر وسيط ومسجلة"
+            },
+            "pattern": "P01",
+            "when": {
+              "any": [
+                {
+                  "q": "exposure",
+                  "has": "vendors"
+                },
+                {
+                  "q": "admins",
+                  "in": [
+                    "outsourced"
+                  ]
+                }
+              ]
+            }
+          }
+        ],
+        "rooms": [
+          {
+            "id": "edge",
+            "label": {
+              "en": "Edge",
+              "ar": "الحافة"
+            },
+            "trust": 1,
+            "fixtures": [
+              {
+                "label": {
+                  "en": "Rate and cost limits",
+                  "ar": "حدود المعدل والتكلفة"
+                },
+                "pattern": "P14"
+              }
+            ]
+          },
+          {
+            "id": "assistant",
+            "label": {
+              "en": "Assistant",
+              "ar": "المساعد"
+            },
+            "trust": 2,
+            "fixtures": [
+              {
+                "label": {
+                  "en": "Model endpoint",
+                  "ar": "واجهة النموذج"
+                }
+              },
+              {
+                "label": {
+                  "en": "Guardrails in and out",
+                  "ar": "حواجز حماية للمدخلات والمخرجات"
+                },
+                "pattern": "P14"
+              },
+              {
+                "label": {
+                  "en": "Human approval for actions",
+                  "ar": "موافقة بشرية على الإجراءات"
+                },
+                "pattern": "P14"
+              }
+            ]
+          },
+          {
+            "id": "tools",
+            "label": {
+              "en": "Tools and retrieval",
+              "ar": "الأدوات والاسترجاع"
+            },
+            "trust": 3,
+            "fixtures": [
+              {
+                "label": {
+                  "en": "Allowed tools only",
+                  "ar": "أدوات مسموح بها فقط"
+                },
+                "pattern": "P14"
+              },
+              {
+                "label": {
+                  "en": "Retrieval as the user",
+                  "ar": "استرجاع بهوية المستخدم"
+                },
+                "pattern": "P14"
+              }
+            ]
+          },
+          {
+            "id": "data",
+            "label": {
+              "en": "Data sources",
+              "ar": "مصادر البيانات"
+            },
+            "trust": 3,
+            "fixtures": [
+              {
+                "label": {
+                  "en": "Classified documents",
+                  "ar": "مستندات مصنفة"
+                },
+                "pattern": "P09"
+              },
+              {
+                "label": {
+                  "en": "Access logging",
+                  "ar": "تسجيل الوصول"
+                },
+                "pattern": "P09"
+              }
+            ]
+          }
+        ],
+        "doors": [
+          {
+            "label": {
+              "en": "Signed-in users only",
+              "ar": "المستخدمون الموثقون فقط"
+            },
+            "pattern": "P02"
+          },
+          {
+            "label": {
+              "en": "Typed, authorised calls",
+              "ar": "استدعاءات محددة ومفوَّضة"
+            },
+            "pattern": "P14"
+          },
+          {
+            "label": {
+              "en": "The user's permissions only",
+              "ar": "صلاحيات المستخدم فقط"
+            },
+            "pattern": "P14"
+          }
+        ]
+      }
+    }
+  }
+}

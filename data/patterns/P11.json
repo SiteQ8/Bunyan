@@ -1,0 +1,108 @@
+{
+  "id": "P11",
+  "slug": "software-supply-chain",
+  "domain": "application",
+  "title": { "en": "Trusted software supply chain", "ar": "سلسلة إمداد برمجيات موثوقة" },
+  "summary": {
+    "en": "Treat the build system as production: protect source code and pipelines, build in isolated and repeatable steps, sign what you build, record what went into it, and deploy only artifacts whose origin you can verify.",
+    "ar": "عامل منظومة البناء معاملة بيئة الإنتاج، فاحمِ الشيفرة المصدرية ومسارات النشر، وابنِ على خطوات معزولة قابلة للتكرار، ووقّع ما تبنيه، ووثّق مكوناته، ولا تنشر إلا المخرجات التي تستطيع التحقق من مصدر منشئها."
+  },
+  "problem": {
+    "en": "Attackers increasingly compromise software before it reaches you, through poisoned open-source packages, stolen maintainer or pipeline credentials, or a compromised build server that slips code into signed releases. Your application inherits every weakness in the components and tools used to build it.",
+    "ar": "يخترق المهاجمون البرمجيات قبل وصولها إليك بصورة متزايدة، عبر حزم مفتوحة المصدر مسمومة أو بيانات اعتماد مسروقة لمطوري الحزم أو لمسارات النشر أو عبر خادم بناء مخترق يدسّ شيفرة في إصدارات موقّعة، ويرث تطبيقك كل ضعف في المكونات والأدوات المستخدمة في بنائه."
+  },
+  "useWhen": [
+    { "en": "You build and deploy your own software.", "ar": "تبني برمجياتك الخاصة وتنشرها." },
+    { "en": "Your applications depend on many open-source packages.", "ar": "تعتمد تطبيقاتك على حزم كثيرة مفتوحة المصدر." },
+    { "en": "Your pipelines hold credentials that can deploy to production.", "ar": "تحمل مسارات النشر لديك بيانات اعتماد قادرة على النشر إلى بيئة الإنتاج." }
+  ],
+  "design": [
+    {
+      "en": "Protect the source by requiring review and branch protection on main branches, signing commits in sensitive repositories, and scanning every change for secrets and vulnerable dependencies. Build on short-lived, isolated runners from pinned dependencies and base images, and give pipelines short-lived, narrowly scoped credentials obtained through workload identity rather than stored secrets.",
+      "ar": "احمِ الشيفرة المصدرية بفرض المراجعة وحماية الفروع الرئيسية وتوقيع الالتزامات في المستودعات الحساسة وفحص كل تغيير بحثًا عن الأسرار والاعتماديات الضعيفة، ثم ابنِ على مشغّلات مؤقتة ومعزولة انطلاقًا من اعتماديات وصور أساسية مثبّتة الإصدار، وامنح مسارات النشر بيانات اعتماد قصيرة الأمد وضيقة النطاق تحصل عليها عبر هوية أعباء العمل بدلًا من الأسرار المخزنة."
+    },
+    {
+      "en": "Sign each artifact, generate a software bill of materials and build provenance for it, and store them together. At deployment, admit only artifacts that your pipeline signed and that meet policy, and keep the bills of materials so that when the next critical library vulnerability is announced you can find every affected system in minutes.",
+      "ar": "وقّع كل مُخرَج وأنشئ له قائمة مكونات البرمجيات وإثبات مصدر البناء واحفظها معًا، ثم لا تقبل عند النشر إلا المخرجات التي وقّعها مسارك والمستوفية للسياسة، واحتفظ بقوائم المكونات حتى تستطيع خلال دقائق تحديد كل نظام متأثر حين يُعلن عن الثغرة الحرجة التالية في إحدى المكتبات."
+    }
+  ],
+  "controls": [
+    {
+      "level": "foundation",
+      "name": { "en": "Protect main branches", "ar": "احمِ الفروع الرئيسية" },
+      "detail": { "en": "Require pull request review and passing checks before merge, block force pushes, and limit who can change repository settings.", "ar": "اشترط مراجعة طلب الدمج ونجاح الفحوص قبل الدمج، وامنع الدفع القسري، وقيّد من يستطيع تغيير إعدادات المستودع." },
+      "nist": ["CM-3", "SA-10"], "cis": ["16.1"], "iso": ["8.4", "8.32"]
+    },
+    {
+      "level": "foundation",
+      "name": { "en": "Scan dependencies and secrets on every change", "ar": "افحص الاعتماديات والأسرار في كل تغيير" },
+      "detail": { "en": "Run dependency vulnerability scanning and secret scanning in the pipeline, and block merges on critical findings.", "ar": "شغّل في مسار النشر فحص ثغرات الاعتماديات وفحص الأسرار، وامنع الدمج عند وجود نتائج حرجة." },
+      "nist": ["RA-5", "SA-11"], "cis": ["16.4", "16.5", "16.12"], "iso": ["8.8", "8.28"]
+    },
+    {
+      "level": "foundation",
+      "name": { "en": "Keep an inventory of third-party components", "ar": "احتفظ بسجل حصر لمكونات الأطراف الخارجية" },
+      "detail": { "en": "Generate a software bill of materials for every build, and keep it with the artifact.", "ar": "أنشئ قائمة مكونات البرمجيات لكل عملية بناء، واحفظها مع المُخرَج." },
+      "nist": ["CM-8", "SR-4"], "cis": ["16.4", "2.1"], "iso": ["5.21"]
+    },
+    {
+      "level": "enhanced",
+      "name": { "en": "Harden the pipeline", "ar": "حصّن مسار النشر" },
+      "detail": { "en": "Use short-lived runners, pin actions and base images to digests, give jobs least-privilege tokens, and separate build permissions from deploy permissions.", "ar": "استخدم مشغّلات مؤقتة، وثبّت الإجراءات والصور الأساسية بالبصمة، وامنح المهام رموزًا بأقل الصلاحيات، وافصل صلاحيات البناء عن صلاحيات النشر." },
+      "nist": ["SA-15", "AC-6"], "cis": [], "iso": ["8.25"]
+    },
+    {
+      "level": "enhanced",
+      "name": { "en": "Sign artifacts and record provenance", "ar": "وقّع المخرجات ووثّق مصدر منشئها" },
+      "detail": { "en": "Sign every release artifact and container image, and produce build provenance that describes how it was built and from what.", "ar": "وقّع كل مُخرَج إصدار وكل صورة حاوية، وأنشئ إثباتًا لمصدر البناء يصف كيف بُني وممَّ بُني." },
+      "nist": ["SI-7", "SR-4", "CM-14"], "cis": [], "iso": ["5.21"]
+    },
+    {
+      "level": "enhanced",
+      "name": { "en": "Use a vetted package source", "ar": "استخدم مصدرًا موثوقًا للحزم" },
+      "detail": { "en": "Pull dependencies through an internal proxy or registry that blocks known malicious packages and admits newly published versions only after a waiting period.", "ar": "اسحب الاعتماديات عبر وكيل أو سجل داخلي يحجب الحزم الضارة المعروفة ولا يقبل الإصدارات المنشورة حديثًا إلا بعد فترة انتظار." },
+      "nist": ["SR-3", "SR-11"], "cis": ["16.5"], "iso": ["5.21"]
+    },
+    {
+      "level": "advanced",
+      "name": { "en": "Verify at deployment", "ar": "تحقق عند النشر" },
+      "detail": { "en": "Admit to production only signed artifacts with valid provenance from your own pipeline, enforced by the deployment platform.", "ar": "لا تقبل في بيئة الإنتاج إلا المخرجات الموقّعة ذات الإثبات الصالح لمصدرها من مسارك أنت، على أن تفرض منصة النشر ذلك." },
+      "nist": ["CM-14", "SI-7"], "cis": ["2.5"], "iso": ["8.19"]
+    },
+    {
+      "level": "advanced",
+      "name": { "en": "Reach a higher SLSA build level", "ar": "ارتقِ إلى مستوى بناء أعلى في SLSA" },
+      "detail": { "en": "Move builds to a hosted, isolated build platform that generates provenance a build cannot forge, and track your SLSA level for each product.", "ar": "انقل عمليات البناء إلى منصة بناء مستضافة ومعزولة تُنشئ إثباتًا لمصدر البناء لا تستطيع عملية البناء تزويره، وتابع مستواك في SLSA لكل منتج." },
+      "nist": ["SA-15", "SR-4"], "cis": [], "iso": ["8.25"]
+    }
+  ],
+  "decisions": [
+    { "en": "Which pipelines can deploy to production, and with what credentials?", "ar": "ما مسارات النشر القادرة على النشر إلى بيئة الإنتاج، وبأي بيانات اعتماد؟" },
+    { "en": "What is the policy for adding new dependencies and for fixing vulnerable ones?", "ar": "ما السياسة المتبعة لإضافة اعتماديات جديدة ولإصلاح الضعيفة منها؟" },
+    { "en": "Where are signatures verified, and what happens to unsigned artifacts?", "ar": "أين يُتحقق من التواقيع، وماذا يحدث للمخرجات غير الموقّعة؟" }
+  ],
+  "tradeoffs": [
+    { "en": "Strict gates slow delivery when scanners are noisy, so tune them and fail builds only on findings that matter.", "ar": "تُبطئ البوابات الصارمة التسليم إذا كانت أدوات الفحص كثيرة الضجيج، لذا اضبطها ولا تُفشل البناء إلا بسبب النتائج المهمة." },
+    { "en": "Pinning and waiting periods delay urgent security updates unless there is a fast path for them.", "ar": "يؤخر تثبيت الإصدارات وفترات الانتظار تحديثات الأمن العاجلة ما لم يوجد مسار سريع لها." },
+    { "en": "Signing helps only if verification is enforced where the software runs.", "ar": "لا ينفع التوقيع إلا إذا فُرض التحقق منه حيث تعمل البرمجيات." }
+  ],
+  "antipatterns": [
+    { "en": "A long-lived cloud admin key stored as a pipeline secret.", "ar": "مفتاح إدارة سحابي طويل الأمد محفوظ سرًّا في مسار النشر." },
+    { "en": "Build servers that are never patched because nobody owns them.", "ar": "خوادم بناء لا تُحدَّث أبدًا لأنه لا يملكها أحد." },
+    { "en": "Dependencies pulled from the internet at build time without pinned versions.", "ar": "سحب الاعتماديات من الإنترنت وقت البناء دون تثبيت إصداراتها." }
+  ],
+  "verify": [
+    { "en": "Try to merge to a protected branch without review, and confirm it is blocked.", "ar": "حاول الدمج في فرع محمي دون مراجعة، وتأكد أن المحاولة تُمنع." },
+    { "en": "Try to deploy an unsigned image, and confirm the platform rejects it.", "ar": "حاول نشر صورة غير موقّعة، وتأكد أن المنصة ترفضها." },
+    { "en": "Pick a library and use your bills of materials to list every product that includes it.", "ar": "اختر إحدى المكتبات واستخدم قوائم المكونات لديك لعرض كل منتج يتضمنها." }
+  ],
+  "attack": ["T1195.002", "T1552.001", "T1528"],
+  "owasp": [],
+  "related": ["P08", "P16", "P07"],
+  "references": [
+    { "title": { "en": "SLSA, supply-chain levels for software artifacts", "ar": "إطار SLSA لمستويات سلامة سلسلة إمداد البرمجيات" }, "url": "https://slsa.dev/" },
+    { "title": { "en": "NIST SP 800-218, Secure Software Development Framework", "ar": "إطار تطوير البرمجيات الآمن NIST SP 800-218" }, "url": "https://csrc.nist.gov/pubs/sp/800/218/final" },
+    { "title": { "en": "CycloneDX, bill of materials standard", "ar": "معيار CycloneDX لقوائم المكونات" }, "url": "https://cyclonedx.org/" },
+    { "title": { "en": "OpenSSF Scorecard", "ar": "مقياس OpenSSF Scorecard" }, "url": "https://securityscorecards.dev/" }
+  ]
+}

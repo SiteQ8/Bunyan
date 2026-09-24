@@ -1,0 +1,7 @@
+flowchart LR
+  I["Internet"] --> CDN["Content delivery<br/>and DDoS protection"]
+  CDN --> WAF["Web application firewall<br/>and reverse proxy"]
+  WAF --> APP["Application<br/>accepts edge traffic only"]
+  APP --> EG["Egress proxy<br/>destination allow list"]
+  EG --> EXT["Approved external services"]
+  DNS["Protective DNS"] --- EG

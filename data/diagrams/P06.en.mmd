@@ -1,0 +1,10 @@
+flowchart TB
+  ORG["Organisation root<br/>preventive guardrails"] --> SEC["Security tooling account"]
+  ORG --> LOGA["Log archive account<br/>write once"]
+  ORG --> NET["Shared network hub<br/>inspection and egress"]
+  ORG --> WL["Workload accounts<br/>one per workload and environment"]
+  IDP["Central identity provider"] -- "short-lived roles" --> WL
+  WL -- "all logs" --> LOGA
+  WL -- "all traffic" --> NET
+  SEC -- "posture checks" --> WL
+  IAC["Infrastructure as code pipeline"] --> ORG

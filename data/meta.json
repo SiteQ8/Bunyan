@@ -1,0 +1,607 @@
+{
+  "project": {
+    "name": {
+      "en": "Bunyan",
+      "ar": "بُنيان"
+    },
+    "tagline": {
+      "en": "Learn security architecture, then design it well.",
+      "ar": "تعلّم معمارية الأمن السيبراني ثم صمّمها بإتقان."
+    },
+    "description": {
+      "en": "An open handbook, pattern catalogue, and design advisor for security architecture, in English and Arabic.",
+      "ar": "دليل مفتوح وفهرس للأنماط ومستشار للتصميم في معمارية الأمن السيبراني، باللغتين العربية والإنجليزية."
+    },
+    "repo": "https://github.com/SiteQ8/Bunyan",
+    "site": "https://siteq8.github.io/Bunyan/",
+    "maintainer": {
+      "en": "Ali AlEnezi",
+      "ar": "علي العنزي"
+    },
+    "version": "0.1.0"
+  },
+  "domains": {
+    "identity": {
+      "en": "Identity",
+      "ar": "الهوية"
+    },
+    "network": {
+      "en": "Network",
+      "ar": "الشبكة"
+    },
+    "platform": {
+      "en": "Platform",
+      "ar": "المنصة"
+    },
+    "application": {
+      "en": "Application",
+      "ar": "التطبيقات"
+    },
+    "data": {
+      "en": "Data",
+      "ar": "البيانات"
+    },
+    "operations": {
+      "en": "Operations",
+      "ar": "العمليات"
+    },
+    "industrial": {
+      "en": "Industrial",
+      "ar": "التقنيات التشغيلية"
+    },
+    "ai": {
+      "en": "AI",
+      "ar": "الذكاء الاصطناعي"
+    }
+  },
+  "levels": {
+    "foundation": {
+      "en": "Foundation",
+      "ar": "أساسي"
+    },
+    "enhanced": {
+      "en": "Enhanced",
+      "ar": "معزز"
+    },
+    "advanced": {
+      "en": "Advanced",
+      "ar": "متقدم"
+    }
+  },
+  "priorities": {
+    "essential": {
+      "en": "Essential",
+      "ar": "أساسي"
+    },
+    "recommended": {
+      "en": "Recommended",
+      "ar": "موصى به"
+    },
+    "consider": {
+      "en": "Worth considering",
+      "ar": "يستحق النظر"
+    }
+  },
+  "frameworks": {
+    "nist": {
+      "en": "NIST SP 800-53 Rev 5",
+      "ar": "NIST SP 800-53 Rev 5"
+    },
+    "cis": {
+      "en": "CIS Controls v8.1",
+      "ar": "CIS Controls v8.1"
+    },
+    "iso": {
+      "en": "ISO/IEC 27001:2022 Annex A",
+      "ar": "ISO/IEC 27001:2022 Annex A"
+    }
+  },
+  "handbook": [
+    {
+      "slug": "01-what-security-architecture-is",
+      "title": {
+        "en": "What security architecture is",
+        "ar": "ما معمارية الأمن السيبراني"
+      },
+      "summary": {
+        "en": "What the discipline covers, what an architect produces, and how the work fits around delivery.",
+        "ar": "ما يشمله هذا التخصص وما ينتجه المعماري وكيف يتكامل عمله مع التسليم."
+      }
+    },
+    {
+      "slug": "02-design-principles",
+      "title": {
+        "en": "Design principles",
+        "ar": "مبادئ التصميم"
+      },
+      "summary": {
+        "en": "Sixteen principles that good designs share, and how to handle the ones that pull against each other.",
+        "ar": "ستة عشر مبدأً تشترك فيها التصاميم الجيدة، وكيف تتعامل مع المبادئ التي يعارض بعضها بعضًا."
+      }
+    },
+    {
+      "slug": "03-frameworks-map",
+      "title": {
+        "en": "A map of frameworks and methods",
+        "ar": "خريطة الأطر والمنهجيات"
+      },
+      "summary": {
+        "en": "Which framework answers which question, from NIST CSF and SABSA to IEC 62443 and the Gulf regulations.",
+        "ar": "أي إطار يجيب عن أي سؤال، من NIST CSF وSABSA إلى IEC 62443 وتشريعات دول الخليج."
+      }
+    },
+    {
+      "slug": "04-threat-modeling",
+      "title": {
+        "en": "Threat modeling for architects",
+        "ar": "نمذجة التهديدات للمعماريين"
+      },
+      "summary": {
+        "en": "Four questions, STRIDE, attack trees, and how to turn threats into design decisions.",
+        "ar": "أربعة أسئلة ونموذج STRIDE وأشجار الهجوم، وكيف تحوّل التهديدات إلى قرارات تصميمية."
+      }
+    },
+    {
+      "slug": "05-design-method",
+      "title": {
+        "en": "The design method",
+        "ar": "منهجية التصميم"
+      },
+      "summary": {
+        "en": "Six steps from business context to a reviewed, verifiable design, with decision records along the way.",
+        "ar": "ست خطوات من سياق الأعمال إلى تصميم مُراجَع يمكن التحقق منه، مع سجلات للقرارات على امتداد الطريق."
+      }
+    },
+    {
+      "slug": "06-anti-patterns",
+      "title": {
+        "en": "Anti-patterns",
+        "ar": "الأنماط الخاطئة"
+      },
+      "summary": {
+        "en": "Designs that look reasonable and fail in predictable ways, and what to do instead.",
+        "ar": "تصاميم تبدو معقولة لكنها تفشل بطرق متوقعة، وما البديل عنها."
+      }
+    },
+    {
+      "slug": "07-learning-path",
+      "title": {
+        "en": "A learning path",
+        "ar": "مسار التعلم"
+      },
+      "summary": {
+        "en": "What to learn, in what order, with books, standards, and certifications for each stage.",
+        "ar": "ما الذي تتعلمه وبأي ترتيب، مع الكتب والمعايير والشهادات المناسبة لكل مرحلة."
+      }
+    }
+  ],
+  "katas": [
+    {
+      "slug": "K01-mobile-banking",
+      "title": {
+        "en": "Mobile banking platform",
+        "ar": "منصة الخدمات المصرفية عبر الهاتف"
+      },
+      "summary": {
+        "en": "A bank launches a mobile app with payments, partner APIs, and a regulator watching.",
+        "ar": "يطلق بنك تطبيقًا للهاتف فيه مدفوعات وواجهات برمجية للشركاء، والجهة الرقابية تتابع."
+      },
+      "advisor": "s=digital&h=hybrid&x=public.partners&d=regulated&o=pci.bank.national&a=critical&m=outsourced&b=inhouse.containers&l=enhanced"
+    },
+    {
+      "slug": "K02-ot-vendor-access",
+      "title": {
+        "en": "Vendor access to a water utility",
+        "ar": "وصول الموردين إلى مرفق للمياه"
+      },
+      "summary": {
+        "en": "A utility must let vendors support its control systems without opening the plant to the internet.",
+        "ar": "يجب على مرفق للمياه أن يسمح للموردين بدعم أنظمة التحكم دون أن يفتح الموقع التشغيلي على الإنترنت."
+      },
+      "advisor": "s=ot&h=onprem&x=vendors&d=internal&o=national&a=critical&m=outsourced&b=&l=foundation"
+    },
+    {
+      "slug": "K03-internal-ai-assistant",
+      "title": {
+        "en": "An internal AI assistant",
+        "ar": "مساعد ذكي داخلي"
+      },
+      "summary": {
+        "en": "An assistant that answers from company documents and can raise tickets on behalf of staff.",
+        "ar": "مساعد يجيب من مستندات المؤسسة ويستطيع فتح طلبات الدعم نيابة عن الموظفين."
+      },
+      "advisor": "s=ai&h=cloud&x=remote&d=confidential&o=privacy&a=standard&m=small&b=inhouse&l=foundation"
+    }
+  ],
+  "templates": [
+    {
+      "slug": "security-architecture-document",
+      "title": {
+        "en": "Security architecture document",
+        "ar": "وثيقة معمارية الأمن"
+      },
+      "summary": {
+        "en": "The main deliverable: context, requirements, views, controls, decisions, and residual risk.",
+        "ar": "المُخرَج الرئيسي الذي يضم السياق والمتطلبات والمناظير والضوابط والقرارات والمخاطر المتبقية."
+      }
+    },
+    {
+      "slug": "threat-model",
+      "title": {
+        "en": "Threat model worksheet",
+        "ar": "ورقة عمل نمذجة التهديدات"
+      },
+      "summary": {
+        "en": "A worksheet for the four questions, with a STRIDE table and a follow-up list.",
+        "ar": "ورقة عمل للأسئلة الأربعة، مع جدول STRIDE وقائمة للمتابعة."
+      }
+    },
+    {
+      "slug": "architecture-decision-record",
+      "title": {
+        "en": "Architecture decision record",
+        "ar": "سجل القرار المعماري"
+      },
+      "summary": {
+        "en": "One page for one decision, its options, and its consequences.",
+        "ar": "صفحة واحدة لقرار واحد وخياراته وعواقبه."
+      }
+    },
+    {
+      "slug": "design-review-checklist",
+      "title": {
+        "en": "Design review checklist",
+        "ar": "قائمة التحقق لمراجعة التصميم"
+      },
+      "summary": {
+        "en": "Questions a reviewer asks before a design goes to build.",
+        "ar": "أسئلة يطرحها المراجع قبل أن ينتقل التصميم إلى التنفيذ."
+      }
+    }
+  ],
+  "ui": {
+    "skip": {
+      "en": "Skip to content",
+      "ar": "انتقل إلى المحتوى"
+    },
+    "navDesign": {
+      "en": "Design",
+      "ar": "صمّم"
+    },
+    "navPatterns": {
+      "en": "Patterns",
+      "ar": "الأنماط"
+    },
+    "navLearn": {
+      "en": "Learn",
+      "ar": "تعلّم"
+    },
+    "navGlossary": {
+      "en": "Glossary",
+      "ar": "المصطلحات"
+    },
+    "switchLanguage": {
+      "en": "العربية",
+      "ar": "English"
+    },
+    "switchLanguageLabel": {
+      "en": "Read this site in Arabic",
+      "ar": "اقرأ هذا الموقع بالإنجليزية"
+    },
+    "themeLabel": {
+      "en": "Switch between light and dark",
+      "ar": "بدّل بين الوضعين الفاتح والداكن"
+    },
+    "designTitle": {
+      "en": "Describe your system and get a design",
+      "ar": "صِف نظامك واحصل على تصميم"
+    },
+    "designIntro": {
+      "en": "Answer nine questions. Bunyan suggests the patterns your design needs, explains why each one is there, and draws the result as a plan. Everything runs in your browser.",
+      "ar": "أجب عن تسعة أسئلة، فيقترح بُنيان الأنماط التي يحتاجها تصميمك ويشرح سبب وجود كل منها، ثم يرسم النتيجة مخططًا، ويعمل كل ذلك داخل متصفحك."
+    },
+    "projectLabel": {
+      "en": "Project name",
+      "ar": "اسم المشروع"
+    },
+    "projectPlaceholder": {
+      "en": "Untitled system",
+      "ar": "نظام بلا اسم"
+    },
+    "questionsTitle": {
+      "en": "Your system",
+      "ar": "نظامك"
+    },
+    "copyLink": {
+      "en": "Copy link",
+      "ar": "انسخ الرابط"
+    },
+    "linkCopied": {
+      "en": "Link copied",
+      "ar": "نُسخ الرابط"
+    },
+    "download": {
+      "en": "Download brief",
+      "ar": "نزّل الملخص"
+    },
+    "print": {
+      "en": "Print sheet",
+      "ar": "اطبع اللوحة"
+    },
+    "reset": {
+      "en": "Start over",
+      "ar": "ابدأ من جديد"
+    },
+    "sheetTitle": {
+      "en": "Proposed security architecture",
+      "ar": "معمارية الأمن المقترحة"
+    },
+    "sheetProject": {
+      "en": "Project",
+      "ar": "المشروع"
+    },
+    "sheetDrawing": {
+      "en": "Drawing",
+      "ar": "اللوحة"
+    },
+    "sheetDate": {
+      "en": "Date",
+      "ar": "التاريخ"
+    },
+    "sheetScale": {
+      "en": "Scale",
+      "ar": "المقياس"
+    },
+    "sheetNotToScale": {
+      "en": "Not to scale",
+      "ar": "بلا مقياس"
+    },
+    "sheetLevel": {
+      "en": "Maturity",
+      "ar": "النضج"
+    },
+    "planLabel": {
+      "en": "Plan of the proposed architecture",
+      "ar": "مخطط المعمارية المقترحة"
+    },
+    "planOutside": {
+      "en": "Outside",
+      "ar": "الخارج"
+    },
+    "planFoundations": {
+      "en": "Foundations",
+      "ar": "الأساسات"
+    },
+    "legendTitle": {
+      "en": "How to read the plan",
+      "ar": "كيف تقرأ المخطط"
+    },
+    "legendWalls": {
+      "en": "Thicker walls mean a more restricted zone.",
+      "ar": "كلما زاد سمك الجدار زادت القيود على المنطقة."
+    },
+    "legendDoors": {
+      "en": "A door is a point where policy is enforced.",
+      "ar": "الباب موضع تُنفَّذ فيه السياسة."
+    },
+    "legendEssential": {
+      "en": "Solid: essential",
+      "ar": "مصمت: أساسي"
+    },
+    "legendRecommended": {
+      "en": "Outlined: recommended",
+      "ar": "بإطار: موصى به"
+    },
+    "legendConsider": {
+      "en": "Dashed: worth considering",
+      "ar": "متقطع: يستحق النظر"
+    },
+    "legendFoundations": {
+      "en": "The band below holds the foundations every zone stands on.",
+      "ar": "يحمل الشريط السفلي الأساسات التي تقوم عليها كل المناطق."
+    },
+    "legendVault": {
+      "en": "The vault is reachable in one direction only.",
+      "ar": "لا يمكن الوصول إلى الخزنة إلا في اتجاه واحد."
+    },
+    "resultsTitle": {
+      "en": "Patterns for this design",
+      "ar": "أنماط هذا التصميم"
+    },
+    "why": {
+      "en": "Why",
+      "ar": "السبب"
+    },
+    "controlsAtLevel": {
+      "en": "Controls at your level",
+      "ar": "الضوابط المناسبة لمستواك"
+    },
+    "nextLevel": {
+      "en": "When you are ready for the next level",
+      "ar": "حين تستعد للمستوى التالي"
+    },
+    "decisions": {
+      "en": "Decisions to record",
+      "ar": "قرارات يجب توثيقها"
+    },
+    "verify": {
+      "en": "How you will know it works",
+      "ar": "كيف تتحقق من أنه يعمل"
+    },
+    "readPattern": {
+      "en": "Read the full pattern",
+      "ar": "اقرأ النمط كاملًا"
+    },
+    "threatsTitle": {
+      "en": "Threats to model first",
+      "ar": "تهديدات تبدأ بنمذجتها"
+    },
+    "threatsIntro": {
+      "en": "Start your threat model with these, then add what is specific to your system.",
+      "ar": "ابدأ نموذج التهديدات بهذه، ثم أضف ما يخص نظامك."
+    },
+    "threatsMitigated": {
+      "en": "Addressed by",
+      "ar": "يعالجها"
+    },
+    "patternsTitle": {
+      "en": "Pattern index",
+      "ar": "فهرس الأنماط"
+    },
+    "patternsIntro": {
+      "en": "Sixteen patterns, each with the problem it solves, the design, controls at three levels, and how to verify it.",
+      "ar": "ستة عشر نمطًا، يضم كل منها المشكلة التي يحلها والتصميم والضوابط على ثلاثة مستويات وطريقة التحقق منه."
+    },
+    "colNumber": {
+      "en": "No.",
+      "ar": "الرقم"
+    },
+    "colPattern": {
+      "en": "Pattern",
+      "ar": "النمط"
+    },
+    "colDomain": {
+      "en": "Domain",
+      "ar": "المجال"
+    },
+    "backToIndex": {
+      "en": "Back to the index",
+      "ar": "العودة إلى الفهرس"
+    },
+    "problem": {
+      "en": "The problem",
+      "ar": "المشكلة"
+    },
+    "useWhen": {
+      "en": "Use it when",
+      "ar": "متى تستخدمه"
+    },
+    "design": {
+      "en": "The design",
+      "ar": "التصميم"
+    },
+    "controls": {
+      "en": "Controls",
+      "ar": "الضوابط"
+    },
+    "tradeoffs": {
+      "en": "Trade-offs",
+      "ar": "المفاضلات"
+    },
+    "antipatterns": {
+      "en": "Anti-patterns to avoid",
+      "ar": "أنماط خاطئة يجب تجنبها"
+    },
+    "threats": {
+      "en": "Threats it addresses",
+      "ar": "التهديدات التي يتصدى لها"
+    },
+    "references": {
+      "en": "References",
+      "ar": "المراجع"
+    },
+    "related": {
+      "en": "Related patterns",
+      "ar": "أنماط ذات صلة"
+    },
+    "learnTitle": {
+      "en": "Learn",
+      "ar": "تعلّم"
+    },
+    "learnIntro": {
+      "en": "Read the handbook in order, practise on the exercises, and use the templates at work.",
+      "ar": "اقرأ الدليل بالترتيب، وتدرّب على التمارين، واستخدم القوالب في عملك."
+    },
+    "handbookTitle": {
+      "en": "Handbook",
+      "ar": "الدليل"
+    },
+    "katasTitle": {
+      "en": "Design exercises",
+      "ar": "تمارين التصميم"
+    },
+    "tryInAdvisor": {
+      "en": "Open it in the advisor",
+      "ar": "افتحه في المستشار"
+    },
+    "templatesTitle": {
+      "en": "Templates",
+      "ar": "القوالب"
+    },
+    "practiceTitle": {
+      "en": "Practise with related tools",
+      "ar": "تدرّب بأدوات ذات صلة"
+    },
+    "openOnGitHub": {
+      "en": "Read on GitHub",
+      "ar": "اقرأ على GitHub"
+    },
+    "glossaryTitle": {
+      "en": "Glossary",
+      "ar": "المصطلحات"
+    },
+    "glossarySearch": {
+      "en": "Search terms",
+      "ar": "ابحث في المصطلحات"
+    },
+    "glossaryEmpty": {
+      "en": "No term matches your search. Try a shorter word.",
+      "ar": "لا يوجد مصطلح يطابق بحثك، فجرّب كلمة أقصر."
+    },
+    "footerLicense": {
+      "en": "Open source under the MIT license.",
+      "ar": "مفتوح المصدر بموجب رخصة MIT."
+    },
+    "footerMaintainer": {
+      "en": "Maintained by Ali AlEnezi.",
+      "ar": "يشرف عليه علي العنزي."
+    },
+    "footerSource": {
+      "en": "Source on GitHub",
+      "ar": "المصدر على GitHub"
+    },
+    "footerPrivacy": {
+      "en": "Nothing you enter leaves your browser.",
+      "ar": "لا يغادر أي شيء تُدخله متصفحك."
+    },
+    "notFound": {
+      "en": "That page does not exist. Here is the design advisor instead.",
+      "ar": "هذه الصفحة غير موجودة، لذا نعرض لك مستشار التصميم بدلًا منها."
+    }
+  },
+  "practice": [
+    {
+      "name": {
+        "en": "Mimar",
+        "ar": "معمار"
+      },
+      "url": "https://siteq8.github.io/Mimar/",
+      "summary": {
+        "en": "Draw a system and threat model it with STRIDE in the browser.",
+        "ar": "ارسم نظامًا وانمذج تهديداته بطريقة STRIDE داخل المتصفح."
+      }
+    },
+    {
+      "name": {
+        "en": "Hisn",
+        "ar": "حصن"
+      },
+      "url": "https://siteq8.github.io/Hisn/",
+      "summary": {
+        "en": "Security blueprints written as code.",
+        "ar": "مخططات أمنية مكتوبة بوصفها شيفرة."
+      }
+    },
+    {
+      "name": {
+        "en": "SC-100 study companion",
+        "ar": "رفيق دراسة SC-100"
+      },
+      "url": "https://siteq8.github.io/SC-100/",
+      "summary": {
+        "en": "Study material for the Microsoft Cybersecurity Architect exam.",
+        "ar": "مواد دراسية لاختبار معماري الأمن السيبراني من مايكروسوفت."
+      }
+    }
+  ]
+}

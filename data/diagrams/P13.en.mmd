@@ -1,0 +1,9 @@
+flowchart TB
+  ENT["Enterprise IT<br/>Levels 4 and 5"] --> IDMZ["Industrial DMZ<br/>historian replica, patch staging, jump host"]
+  VEN["Vendors"] -- "approved, recorded session" --> IDMZ
+  IDMZ -- "conduit with defined protocols" --> OPS["Site operations<br/>Level 3"]
+  OPS -- "conduit" --> CTRL["Control<br/>Levels 1 and 2"]
+  CTRL --> PROC["Process<br/>Level 0"]
+  SIS["Safety instrumented system<br/>isolated"] --- PROC
+  OPS -- "one way" --> UGW["Unidirectional gateway"]
+  UGW --> ENT

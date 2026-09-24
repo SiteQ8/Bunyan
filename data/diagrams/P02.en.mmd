@@ -1,0 +1,8 @@
+flowchart LR
+  HR["HR system<br/>authoritative record"] -- "joiner, mover, leaver" --> IGA["Identity governance<br/>and provisioning"]
+  IGA --> DIR["Directory"]
+  DIR --> IDP["Identity provider<br/>SSO, MFA, conditional access"]
+  U["Person with a passkey<br/>or security key"] --> IDP
+  IDP -- "federation" --> APP1["SaaS application"]
+  IDP -- "federation" --> APP2["Internal application"]
+  IDP --> LOG["Sign-in logs<br/>to the SIEM"]

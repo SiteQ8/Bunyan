@@ -1,0 +1,8 @@
+flowchart LR
+  W["Workload"] -- "platform identity" --> STS["Token service"]
+  STS -- "short-lived credential" --> W
+  W -- "reads its own secrets" --> SM["Secrets manager<br/>access per workload, rotation"]
+  W -- "encrypts with a data key" --> DATA["Encrypted data"]
+  W -- "wraps and unwraps data keys" --> KMS["Key management service<br/>or hardware security module<br/>master keys never leave"]
+  KA["Key administrators"] -. "manage, cannot use" .-> KMS
+  KMS --> LOG["Key use logs<br/>to the SIEM"]
