@@ -74,6 +74,9 @@ test('every interface string is defined in both languages and used', () => {
     ...[...app.matchAll(/'(legend[A-Za-z]+|sheet[A-Za-z]+)'/g)].map((m) => m[1]),
     ...[...plan.matchAll(/\bui\.([A-Za-z]+)/g)].map((m) => m[1]),
   ]);
+  // Keys chosen at run time, such as ui(last ? 'quizFinish' : 'quizNext'), appear as quoted names.
+  const quoted = new Set([...app.matchAll(/'([A-Za-z]+)'/g)].map((m) => m[1]));
+  for (const key of Object.keys(meta.ui)) if (quoted.has(key)) used.add(key);
   for (const key of used) {
     assert.ok(meta.ui[key], `${key} is defined`);
     assert.ok(meta.ui[key].en && meta.ui[key].ar, `${key} has both languages`);

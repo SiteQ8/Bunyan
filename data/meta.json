@@ -18,7 +18,7 @@
       "en": "Ali AlEnezi",
       "ar": "علي العنزي"
     },
-    "version": "0.2.0"
+    "version": "0.3.0"
   },
   "domains": {
     "identity": {
@@ -583,6 +583,106 @@
     "notFound": {
       "en": "That page does not exist. Here is the design advisor instead.",
       "ar": "هذه الصفحة غير موجودة، لذا نعرض لك مستشار التصميم بدلًا منها."
+    },
+    "navQuiz": {
+      "en": "Quiz",
+      "ar": "اختبار"
+    },
+    "planHint": {
+      "en": "Point at anything on the plan, or tap it, to see which pattern put it there and why.",
+      "ar": "أشر إلى أي عنصر في المخطط أو انقر عليه لترى النمط الذي وضعه هناك وسبب وجوده."
+    },
+    "showInList": {
+      "en": "Show it in the list",
+      "ar": "اعرضه في القائمة"
+    },
+    "showOnPlan": {
+      "en": "Show on the plan",
+      "ar": "اعرضه على المخطط"
+    },
+    "stoppedBy": {
+      "en": "Stopped by",
+      "ar": "يتصدى له"
+    },
+    "clearMarks": {
+      "en": "Clear the red marks",
+      "ar": "أزل العلامات الحمراء"
+    },
+    "changesTitle": {
+      "en": "What your answer changed",
+      "ar": "ما الذي غيّره جوابك"
+    },
+    "changeAdded": {
+      "en": "{pattern} joins the design as {priority}",
+      "ar": "انضم {pattern} إلى التصميم بأولوية {priority}"
+    },
+    "changeRemoved": {
+      "en": "{pattern} is no longer needed",
+      "ar": "لم يعد {pattern} ضروريًا"
+    },
+    "changeMoved": {
+      "en": "{pattern} is now {priority}",
+      "ar": "صارت أولوية {pattern} {priority}"
+    },
+    "changeNone": {
+      "en": "The patterns stay the same.",
+      "ar": "بقيت الأنماط كما هي."
+    },
+    "examplesTitle": {
+      "en": "Try an example",
+      "ar": "جرّب مثالًا"
+    },
+    "quizTitle": {
+      "en": "Test yourself",
+      "ar": "اختبر نفسك"
+    },
+    "quizIntro": {
+      "en": "Ten questions drawn from the patterns and threats in Bunyan. Pick the pattern that fits, then read why.",
+      "ar": "عشرة أسئلة مأخوذة من أنماط بُنيان وتهديداته، فاختر النمط المناسب ثم اقرأ السبب."
+    },
+    "quizProblem": {
+      "en": "Which pattern answers this problem?",
+      "ar": "أي نمط يعالج هذه المشكلة؟"
+    },
+    "quizThreat": {
+      "en": "Which pattern helps stop this threat?",
+      "ar": "أي نمط يساعد على صد هذا التهديد؟"
+    },
+    "quizProgress": {
+      "en": "Question {n} of {total}",
+      "ar": "السؤال {n} من {total}"
+    },
+    "quizRight": {
+      "en": "Right.",
+      "ar": "إجابة صحيحة."
+    },
+    "quizWrong": {
+      "en": "Not quite. The best answer is",
+      "ar": "ليست هذه الإجابة الأدق، فالأدق هو"
+    },
+    "quizNext": {
+      "en": "Next question",
+      "ar": "السؤال التالي"
+    },
+    "quizFinish": {
+      "en": "See your score",
+      "ar": "اعرض نتيجتك"
+    },
+    "quizScore": {
+      "en": "You answered {n} of {total} correctly.",
+      "ar": "أجبت إجابة صحيحة عن {n} من {total}."
+    },
+    "quizReview": {
+      "en": "Worth reading again",
+      "ar": "تستحق أن تعيد قراءتها"
+    },
+    "quizAgain": {
+      "en": "Try another round",
+      "ar": "جرّب جولة أخرى"
+    },
+    "quizKeys": {
+      "en": "Press 1 to 4 to answer, and Enter to go on.",
+      "ar": "اضغط من ١ إلى ٤ للإجابة، ثم Enter للمتابعة."
     }
   },
   "practice": [
