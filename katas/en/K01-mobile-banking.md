@@ -39,6 +39,8 @@ From the outside in: the internet edge with the CDN, the WAF, and the API gatewa
 - The platform, [P06](../../patterns/en/P06-cloud-landing-zone.md), [P16](../../patterns/en/P16-container-platform-guardrails.md), [P08](../../patterns/en/P08-secrets-keys-workload-identity.md), and [P11](../../patterns/en/P11-software-supply-chain.md), because the APIs are built in house and run on containers in the cloud.
 - Data and the enclave, [P09](../../patterns/en/P09-data-centric-protection.md) and [P15](../../patterns/en/P15-regulated-enclave.md), so that card numbers stay inside the enclave and the rest of the system handles tokens.
 - Operations, [P04](../../patterns/en/P04-segmentation.md), [P10](../../patterns/en/P10-detection-telemetry.md), and [P12](../../patterns/en/P12-resilient-recovery.md), because an outage must be reported and ransomware is the most likely way to cause one.
+- Customers and payments, [P17](../../patterns/en/P17-customer-identity.md), [P27](../../patterns/en/P27-mobile-app-protection.md), and [P32](../../patterns/en/P32-transaction-signing.md), because customers sign in from phones the bank does not control, and each payment must be confirmed on its own amount and payee.
+- Exposure, evidence, and residency, [P21](../../patterns/en/P21-exposure-management.md), [P24](../../patterns/en/P24-forensic-readiness.md), and [P30](../../patterns/en/P30-sovereign-cloud.md), because the APIs face partners and the internet, an outage or a breach must be reported with facts, and regulated data in the cloud must stay under the bank's control.
 
 ### Key decisions
 

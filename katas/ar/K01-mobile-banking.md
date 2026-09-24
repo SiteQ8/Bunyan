@@ -41,6 +41,8 @@
 - المنصة عبر [P06](../../patterns/ar/P06-cloud-landing-zone.md) و[P16](../../patterns/ar/P16-container-platform-guardrails.md) و[P08](../../patterns/ar/P08-secrets-keys-workload-identity.md) و[P11](../../patterns/ar/P11-software-supply-chain.md)، لأن الواجهات تُبنى داخليًا وتعمل على حاويات في السحابة.
 - البيانات والنطاق المعزول عبر [P09](../../patterns/ar/P09-data-centric-protection.md) و[P15](../../patterns/ar/P15-regulated-enclave.md)، حتى تبقى أرقام البطاقات داخل النطاق ولا يتعامل بقية النظام إلا مع الرموز.
 - العمليات عبر [P04](../../patterns/ar/P04-segmentation.md) و[P10](../../patterns/ar/P10-detection-telemetry.md) و[P12](../../patterns/ar/P12-resilient-recovery.md)، لأن التوقف يستوجب الإبلاغ، ولأن برامج الفدية أرجح أسبابه.
+- العملاء والمدفوعات عبر [P17](../../patterns/ar/P17-customer-identity.md) و[P27](../../patterns/ar/P27-mobile-app-protection.md) و[P32](../../patterns/ar/P32-transaction-signing.md)، لأن العملاء يدخلون من هواتف لا يتحكم فيها البنك، ولأن كل دفعة يجب أن تُؤكَّد بمبلغها ومستفيدها.
+- الانكشاف والأدلة والإقامة عبر [P21](../../patterns/ar/P21-exposure-management.md) و[P24](../../patterns/ar/P24-forensic-readiness.md) و[P30](../../patterns/ar/P30-sovereign-cloud.md)، لأن الواجهات مكشوفة للشركاء وللإنترنت، ولأن التوقف أو الاختراق يستوجب إبلاغًا بالحقائق، ولأن البيانات المنظمة في السحابة يجب أن تبقى تحت سيطرة البنك.
 
 ### القرارات الرئيسية
 

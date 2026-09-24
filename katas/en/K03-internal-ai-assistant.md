@@ -39,6 +39,7 @@ The edge, with sign-in and rate limits; the assistant zone, with the orchestrato
 - [P09](../../patterns/en/P09-data-centric-protection.md) data protection, so that confidential documents are classified and personal data is handled as the law requires.
 - [P01](../../patterns/en/P01-zero-trust-access.md) zero trust access for employees who use the assistant remotely.
 - [P06](../../patterns/en/P06-cloud-landing-zone.md) and [P08](../../patterns/en/P08-secrets-keys-workload-identity.md) for the cloud platform, and for the keys and secrets it needs.
+- The agent and the devices, [P29](../../patterns/en/P29-ai-agents.md) and [P19](../../patterns/en/P19-managed-endpoints.md), because the assistant raises tickets on behalf of staff, so each tool call must carry the user's authority, and staff reach it from laptops at home.
 
 ### Key decisions
 
