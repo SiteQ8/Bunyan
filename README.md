@@ -12,7 +12,7 @@ Bunyan is an open handbook, a catalogue of design patterns, and a design advisor
 
 ## Open the design advisor
 
-Answer nine questions about your system at [siteq8.github.io/Bunyan](https://siteq8.github.io/Bunyan/?lang=en). The advisor suggests the patterns your design needs and explains why each one is there, draws the result as a floor plan of zones, doors, and foundations, and lists the threats to model first. Point at anything on the plan to see which pattern put it there, mark up a threat in red to see what stops it, or load an example and watch the plan change. You can share the design as a link, download a brief in Markdown, or print the sheet. Nothing you enter leaves your browser.
+Answer nine questions about your system at [bunyan.3li.info](https://bunyan.3li.info/?lang=en). The advisor suggests the patterns your design needs and explains why each one is there, draws the result as a floor plan of zones, doors, and foundations, and lists the threats to model first. Point at anything on the plan to see which pattern put it there, mark up a threat in red to see what stops it, or load an example and watch the plan change. You can share the design as a link, download a brief in Markdown, or print the sheet. Nothing you enter leaves your browser.
 
 | In Arabic, the plan reads right to left | Blueprint mode for dark screens |
 | --- | --- |
@@ -35,12 +35,12 @@ Answer nine questions about your system at [siteq8.github.io/Bunyan](https://sit
 | [Design exercises](katas/en/K01-mobile-banking.md) | Three realistic briefs with worked answers |
 | [Templates](templates/en/security-architecture-document.md) | An architecture document, a threat model worksheet, a decision record, and a review checklist |
 | [Glossary](glossary/en.md) | Short definitions of the terms used across the project |
-| [Quiz](https://siteq8.github.io/Bunyan/?lang=en#quiz) | Ten questions at a time, drawn from the patterns and the threats |
+| [Quiz](https://bunyan.3li.info/?lang=en#quiz) | Ten questions at a time, drawn from the patterns and the threats |
 
 ## Where to start
 
 1. Read [what security architecture is](handbook/en/01-what-security-architecture-is.md) and the [design principles](handbook/en/02-design-principles.md).
-2. Run a system you know through the [design advisor](https://siteq8.github.io/Bunyan/?lang=en).
+2. Run a system you know through the [design advisor](https://bunyan.3li.info/?lang=en).
 3. Read the patterns it suggests, then try the [first design exercise](katas/en/K01-mobile-banking.md).
 4. Use the [templates](templates/en/security-architecture-document.md) on real work.
 

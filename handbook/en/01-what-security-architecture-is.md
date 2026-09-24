@@ -59,4 +59,4 @@ A good security architecture is proportionate, because its controls match the va
 
 ## Where to go next
 
-Read the [design principles](02-design-principles.md) in the next chapter, then try the [design advisor](https://siteq8.github.io/Bunyan/?lang=en) on a system you know well.
+Read the [design principles](02-design-principles.md) in the next chapter, then try the [design advisor](https://bunyan.3li.info/?lang=en) on a system you know well.

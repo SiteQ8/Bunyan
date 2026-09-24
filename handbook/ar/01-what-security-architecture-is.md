@@ -61,6 +61,6 @@
 
 ## إلى أين بعد ذلك
 
-اقرأ [مبادئ التصميم](02-design-principles.md) في الفصل التالي، ثم جرّب [مستشار التصميم](https://siteq8.github.io/Bunyan/?lang=ar) على نظام تعرفه جيدًا.
+اقرأ [مبادئ التصميم](02-design-principles.md) في الفصل التالي، ثم جرّب [مستشار التصميم](https://bunyan.3li.info/?lang=ar) على نظام تعرفه جيدًا.
 
 </div>

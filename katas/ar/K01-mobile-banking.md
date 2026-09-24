@@ -26,7 +26,7 @@
 
 ## جرّبه في المستشار
 
-افتح [مستشار التصميم وقد مُلئ بهذا السيناريو](https://siteq8.github.io/Bunyan/?lang=ar#design?s=digital&h=hybrid&x=public.partners&d=regulated&o=pci.bank.national&a=critical&m=outsourced&b=inhouse.containers&l=enhanced)، ثم قارن مخططه برسمك.
+افتح [مستشار التصميم وقد مُلئ بهذا السيناريو](https://bunyan.3li.info/?lang=ar#design?s=digital&h=hybrid&x=public.partners&d=regulated&o=pci.bank.national&a=critical&m=outsourced&b=inhouse.containers&l=enhanced)، ثم قارن مخططه برسمك.
 
 ## إجابة نموذجية
 

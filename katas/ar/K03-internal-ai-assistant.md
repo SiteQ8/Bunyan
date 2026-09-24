@@ -26,7 +26,7 @@
 
 ## جرّبه في المستشار
 
-افتح [مستشار التصميم وقد مُلئ بهذا السيناريو](https://siteq8.github.io/Bunyan/?lang=ar#design?s=ai&h=cloud&x=remote&d=confidential&o=privacy&a=standard&m=small&b=inhouse&l=foundation)، ثم قارن مخططه برسمك.
+افتح [مستشار التصميم وقد مُلئ بهذا السيناريو](https://bunyan.3li.info/?lang=ar#design?s=ai&h=cloud&x=remote&d=confidential&o=privacy&a=standard&m=small&b=inhouse&l=foundation)، ثم قارن مخططه برسمك.
 
 ## إجابة نموذجية
 

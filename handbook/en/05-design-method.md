@@ -37,7 +37,7 @@ The output is a threat model with decisions and owners.
 
 ## Step four: choose patterns and controls
 
-Match the requirements and threats to patterns. The [design advisor](https://siteq8.github.io/Bunyan/?lang=en) gives a quick first pass. Then choose the control level each pattern needs: the foundation level everywhere first, then enhanced and advanced where the risk justifies them.
+Match the requirements and threats to patterns. The [design advisor](https://bunyan.3li.info/?lang=en) gives a quick first pass. Then choose the control level each pattern needs: the foundation level everywhere first, then enhanced and advanced where the risk justifies them.
 
 - Map each requirement and each threat to at least one control.
 - Record every significant choice in an architecture decision record.
