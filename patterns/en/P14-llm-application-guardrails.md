@@ -8,7 +8,7 @@
 
 | Domain | Related patterns |
 | --- | --- |
-| AI | [P09 Data-centric protection](P09-data-centric-protection.md), [P07 API gateway and object level authorization](P07-api-security.md), [P02 Identity as the control plane](P02-identity-control-plane.md), [P10 Security telemetry and detection pipeline](P10-detection-telemetry.md) |
+| AI | [P09 Data-centric protection](P09-data-centric-protection.md), [P07 API gateway and object level authorization](P07-api-security.md), [P02 Identity as the control plane](P02-identity-control-plane.md), [P10 Security telemetry and detection pipeline](P10-detection-telemetry.md), [P29 AI agents that use tools](P29-ai-agents.md) |
 
 ## The problem
 

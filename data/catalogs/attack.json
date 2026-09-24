@@ -42,6 +42,14 @@
       "matrix": "enterprise",
       "url": "https://attack.mitre.org/techniques/T1003/"
     },
+    "T1003.006": {
+      "name": {
+        "en": "OS Credential Dumping: DCSync",
+        "ar": "استخراج بيانات الاعتماد من نظام التشغيل، DCSync"
+      },
+      "matrix": "enterprise",
+      "url": "https://attack.mitre.org/techniques/T1003/006/"
+    },
     "T1021": {
       "name": {
         "en": "Remote Services",
@@ -169,6 +177,14 @@
       },
       "matrix": "enterprise",
       "url": "https://attack.mitre.org/techniques/T1133/"
+    },
+    "T1185": {
+      "name": {
+        "en": "Browser Session Hijacking",
+        "ar": "اختطاف جلسة المتصفح"
+      },
+      "matrix": "enterprise",
+      "url": "https://attack.mitre.org/techniques/T1185/"
     },
     "T1189": {
       "name": {
@@ -362,6 +378,14 @@
       "matrix": "enterprise",
       "url": "https://attack.mitre.org/techniques/T1557/"
     },
+    "T1558.003": {
+      "name": {
+        "en": "Steal or Forge Kerberos Tickets: Kerberoasting",
+        "ar": "سرقة تذاكر Kerberos أو تزويرها، Kerberoasting"
+      },
+      "matrix": "enterprise",
+      "url": "https://attack.mitre.org/techniques/T1558/003/"
+    },
     "T1565.002": {
       "name": {
         "en": "Data Manipulation: Transmitted Data Manipulation",
@@ -409,6 +433,14 @@
       },
       "matrix": "enterprise",
       "url": "https://attack.mitre.org/techniques/T1595/002/"
+    },
+    "T1606.002": {
+      "name": {
+        "en": "Forge Web Credentials: SAML Tokens",
+        "ar": "تزوير بيانات اعتماد الويب، رموز SAML"
+      },
+      "matrix": "enterprise",
+      "url": "https://attack.mitre.org/techniques/T1606/002/"
     },
     "T1610": {
       "name": {

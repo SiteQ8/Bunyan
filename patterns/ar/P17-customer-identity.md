@@ -10,7 +10,7 @@
 
 | المجال | أنماط ذات صلة |
 | --- | --- |
-| الهوية | [P02 الهوية مستوى تحكم](P02-identity-control-plane.md)، [P07 بوابة الواجهات البرمجية والتفويض على مستوى الكائن](P07-api-security.md)، [P10 بيانات الرصد ومسار الكشف](P10-detection-telemetry.md)، [P27 حماية تطبيقات الهاتف](P27-mobile-app-protection.md) |
+| الهوية | [P02 الهوية مستوى تحكم](P02-identity-control-plane.md)، [P07 بوابة الواجهات البرمجية والتفويض على مستوى الكائن](P07-api-security.md)، [P10 بيانات الرصد ومسار الكشف](P10-detection-telemetry.md)، [P27 حماية تطبيقات الهاتف](P27-mobile-app-protection.md)، [P32 توقيع المعاملات في المدفوعات](P32-transaction-signing.md) |
 
 ## المشكلة
 

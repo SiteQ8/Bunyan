@@ -1,0 +1,9 @@
+flowchart LR
+  C["Customer starts a payment<br/>in the browser"] --> SRV["Payment service"]
+  SRV -- "amount and payee" --> APP["Bank app on the registered device"]
+  APP -- "customer checks the details" --> KEY["Hardware-backed key<br/>signs amount and payee"]
+  KEY -- "signature" --> SRV
+  SRV --> VER["Rebuild and verify<br/>refuse if details differ"]
+  VER --> RISK["Fraud monitoring<br/>hold unusual payments"]
+  RISK --> CORE["Core payment system"]
+  VER --> REC["Signed record<br/>for disputes"]

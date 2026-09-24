@@ -10,7 +10,7 @@
 
 | المجال | أنماط ذات صلة |
 | --- | --- |
-| الهوية | [P01 الوصول وفق الثقة الصفرية](P01-zero-trust-access.md)، [P03 الصلاحيات الهامة والحساسة في طبقات](P03-tiered-privileged-access.md)، [P10 بيانات الرصد ومسار الكشف](P10-detection-telemetry.md)، [P17 هوية العملاء وحماية حساباتهم](P17-customer-identity.md) |
+| الهوية | [P01 الوصول وفق الثقة الصفرية](P01-zero-trust-access.md)، [P03 الصلاحيات الهامة والحساسة في طبقات](P03-tiered-privileged-access.md)، [P10 بيانات الرصد ومسار الكشف](P10-detection-telemetry.md)، [P17 هوية العملاء وحماية حساباتهم](P17-customer-identity.md)، [P31 رصد تهديدات الهوية والاستجابة لها](P31-identity-threat-detection.md) |
 
 ## المشكلة
 

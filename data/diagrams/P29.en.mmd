@@ -1,0 +1,10 @@
+flowchart LR
+  U["User"] --> AG["AI agent"]
+  SRC["Mail, documents, web pages<br/>untrusted input"] --> AG
+  AG -- "tool call with the user's token" --> GW["Tool gateway<br/>policy, limits, rates"]
+  GW -- "allowed" --> TL["Narrow tools<br/>read one record, draft one reply"]
+  GW -- "irreversible or high value" --> HUM["A person approves<br/>the exact action"]
+  HUM --> TL
+  TL -- "results checked" --> AG
+  REG["Approved, pinned<br/>tools and MCP servers"] --> GW
+  GW -- "prompts, calls, results" --> LOG["Logs and SIEM"]

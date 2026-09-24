@@ -10,7 +10,7 @@
 
 | المجال | أنماط ذات صلة |
 | --- | --- |
-| المنصة | [P02 الهوية مستوى تحكم](P02-identity-control-plane.md)، [P08 الأسرار والمفاتيح وهوية أعباء العمل](P08-secrets-keys-workload-identity.md)، [P10 بيانات الرصد ومسار الكشف](P10-detection-telemetry.md)، [P16 الضوابط الوقائية لمنصات الحاويات](P16-container-platform-guardrails.md)، [P25 ضوابط مستأجري الخدمات السحابية الجاهزة](P25-saas-guardrails.md) |
+| المنصة | [P02 الهوية مستوى تحكم](P02-identity-control-plane.md)، [P08 الأسرار والمفاتيح وهوية أعباء العمل](P08-secrets-keys-workload-identity.md)، [P10 بيانات الرصد ومسار الكشف](P10-detection-telemetry.md)، [P16 الضوابط الوقائية لمنصات الحاويات](P16-container-platform-guardrails.md)، [P25 ضوابط مستأجري الخدمات السحابية الجاهزة](P25-saas-guardrails.md)، [P30 السحابة السيادية وإقامة البيانات](P30-sovereign-cloud.md) |
 
 ## المشكلة
 

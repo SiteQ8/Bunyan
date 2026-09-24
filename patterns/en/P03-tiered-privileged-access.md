@@ -8,7 +8,7 @@
 
 | Domain | Related patterns |
 | --- | --- |
-| Identity | [P02 Identity as the control plane](P02-identity-control-plane.md), [P04 Segmentation and micro-segmentation](P04-segmentation.md), [P12 Ransomware-resilient recovery](P12-resilient-recovery.md), [P10 Security telemetry and detection pipeline](P10-detection-telemetry.md) |
+| Identity | [P02 Identity as the control plane](P02-identity-control-plane.md), [P04 Segmentation and micro-segmentation](P04-segmentation.md), [P12 Ransomware-resilient recovery](P12-resilient-recovery.md), [P10 Security telemetry and detection pipeline](P10-detection-telemetry.md), [P31 Identity threat detection and response](P31-identity-threat-detection.md) |
 
 ## The problem
 

@@ -1,0 +1,299 @@
+{
+  "id": "P29",
+  "slug": "ai-agents",
+  "domain": "ai",
+  "title": {
+    "en": "AI agents that use tools",
+    "ar": "وكلاء ذكاء اصطناعي يستخدمون الأدوات"
+  },
+  "summary": {
+    "en": "Let AI agents act only with the authority of the user they serve, through a gateway that checks every tool call against policy, limits what each call can do and how often, asks a person to approve actions that cannot be undone, and records everything, because an agent can be steered by any text it reads.",
+    "ar": "لا تسمح لوكلاء الذكاء الاصطناعي بالتصرف إلا بصلاحيات المستخدم الذي يخدمونه، عبر بوابة تفحص كل استدعاء للأدوات مقابل السياسة، وتحد ما يفعله كل استدعاء وعدد مراته، وتطلب موافقة شخص على الإجراءات التي لا يمكن التراجع عنها، وتسجل كل شيء، لأن الوكيل قد يُوجَّه بأي نص يقرؤه."
+  },
+  "problem": {
+    "en": "Agents do not only answer questions: they read mail and documents, call APIs, run code, and change records. Any text they read, such as an email, a web page, or a document in a shared drive, can carry instructions that the model follows, and agents are often connected with broad service credentials that let one injected instruction move money, leak data, or delete records. Tools and servers added through protocols such as MCP bring their own code and permissions, often without review.",
+    "ar": "لا يكتفي الوكلاء بالإجابة عن الأسئلة، بل يقرؤون البريد والمستندات، ويستدعون الواجهات البرمجية، ويشغّلون الشيفرة، ويعدّلون السجلات، وقد يحمل أي نص يقرؤونه مثل رسالة بريد أو صفحة ويب أو مستند في مجلد مشترك تعليمات ينفذها النموذج، كما يُربط الوكلاء في الغالب ببيانات اعتماد خدمية واسعة تسمح لتعليمة واحدة مدسوسة بتحويل أموال أو تسريب بيانات أو حذف سجلات، بينما تجلب الأدوات والخوادم المضافة عبر بروتوكولات مثل MCP شيفرتها وصلاحياتها الخاصة، وكثيرًا ما يحدث ذلك دون مراجعة."
+  },
+  "useWhen": [
+    {
+      "en": "An AI assistant can call tools, APIs, or other systems, not only answer questions.",
+      "ar": "يستطيع مساعد الذكاء الاصطناعي استدعاء الأدوات أو الواجهات البرمجية أو الأنظمة الأخرى، لا الإجابة عن الأسئلة فقط."
+    },
+    {
+      "en": "Agents read content from outside, such as email, web pages, or shared documents.",
+      "ar": "يقرأ الوكلاء محتوى من الخارج مثل البريد وصفحات الويب والمستندات المشتركة."
+    },
+    {
+      "en": "Teams add tools or MCP servers to agents on their own.",
+      "ar": "تضيف الفرق أدوات أو خوادم MCP إلى الوكلاء بنفسها."
+    }
+  ],
+  "design": [
+    {
+      "en": "Put a tool gateway between agents and everything they can touch. Each call carries the identity of the user the agent serves, with a scoped, short-lived token, never a broad service account, and the gateway checks the call against policy: which tools this agent may use, on which data, and with what limits on amount and rate. Keep tools narrow, such as reading one record or drafting one reply, rather than general ones such as running any query or sending any email.",
+      "ar": "ضع بوابة للأدوات بين الوكلاء وكل ما يمكنهم الوصول إليه، فيحمل كل استدعاء هوية المستخدم الذي يخدمه الوكيل برمز محدود النطاق قصير العمر لا بحساب خدمي واسع، وتفحص البوابة الاستدعاء مقابل السياسة، أي الأدوات المسموحة لهذا الوكيل، وعلى أي بيانات، وبأي حدود للكمية والمعدل، ثم اجعل الأدوات ضيقة مثل قراءة سجل واحد أو صياغة رد واحد، بدلًا من أدوات عامة مثل تشغيل أي استعلام أو إرسال أي بريد."
+    },
+    {
+      "en": "Treat everything the agent reads as untrusted input, and never let it grant new authority: text in a document cannot approve a payment. Require a person to approve actions that are irreversible or of high value, showing exactly what will happen, validate tool outputs before they reach other systems, approve and pin every tool and MCP server like any other software dependency, and log each prompt, tool call, and result so that incidents can be traced.",
+      "ar": "عامل كل ما يقرؤه الوكيل بوصفه مدخلات غير موثوقة، ولا تسمح له أبدًا بمنح صلاحيات جديدة، فالنص الوارد في مستند لا يعتمد دفعة، ثم اشترط موافقة شخص على الإجراءات التي لا يمكن التراجع عنها أو عالية القيمة مع عرض ما سيحدث بالضبط، وتحقق من مخرجات الأدوات قبل وصولها إلى أنظمة أخرى، واعتمد كل أداة وكل خادم MCP وثبّت إصداره كأي اعتمادية برمجية أخرى، وسجّل كل تعليمة واستدعاء ونتيجة حتى يمكن تتبع الحوادث."
+    }
+  ],
+  "controls": [
+    {
+      "level": "foundation",
+      "name": {
+        "en": "Act with the user's authority",
+        "ar": "تصرّف بصلاحيات المستخدم"
+      },
+      "detail": {
+        "en": "Give agents scoped, short-lived tokens on behalf of the user they serve, never broad service accounts.",
+        "ar": "امنح الوكلاء رموزًا محدودة النطاق قصيرة العمر نيابة عن المستخدم الذي يخدمونه، لا حسابات خدمية واسعة أبدًا."
+      },
+      "nist": [
+        "AC-6",
+        "IA-9"
+      ],
+      "cis": [
+        "6.8"
+      ],
+      "iso": [
+        "5.15",
+        "8.2"
+      ]
+    },
+    {
+      "level": "foundation",
+      "name": {
+        "en": "Keep tools narrow",
+        "ar": "اجعل الأدوات ضيقة"
+      },
+      "detail": {
+        "en": "Expose small, specific tools with fixed parameters instead of general ones that can run any query or command.",
+        "ar": "وفّر أدوات صغيرة محددة بمعاملات ثابتة بدلًا من أدوات عامة تستطيع تشغيل أي استعلام أو أمر."
+      },
+      "nist": [
+        "CM-7",
+        "AC-3"
+      ],
+      "cis": [],
+      "iso": [
+        "8.26"
+      ]
+    },
+    {
+      "level": "foundation",
+      "name": {
+        "en": "Log every prompt, call, and result",
+        "ar": "سجّل كل تعليمة واستدعاء ونتيجة"
+      },
+      "detail": {
+        "en": "Record each prompt, tool call, and result with the identity of the user and the agent, and send them to the SIEM.",
+        "ar": "وثّق كل تعليمة واستدعاء للأدوات ونتيجته مع هوية المستخدم والوكيل، وأرسلها إلى نظام إدارة السجلات."
+      },
+      "nist": [
+        "AU-2",
+        "AU-12"
+      ],
+      "cis": [
+        "8.2"
+      ],
+      "iso": [
+        "8.15"
+      ]
+    },
+    {
+      "level": "enhanced",
+      "name": {
+        "en": "Check every tool call at a gateway",
+        "ar": "افحص كل استدعاء للأدوات عند بوابة"
+      },
+      "detail": {
+        "en": "Route tool calls through a gateway that enforces which tools, data, amounts, and rates each agent may use.",
+        "ar": "مرّر استدعاءات الأدوات عبر بوابة تفرض الأدوات والبيانات والمبالغ والمعدلات المسموحة لكل وكيل."
+      },
+      "nist": [
+        "AC-24",
+        "AC-4"
+      ],
+      "cis": [],
+      "iso": [
+        "5.15",
+        "8.26"
+      ]
+    },
+    {
+      "level": "enhanced",
+      "name": {
+        "en": "Ask a person before irreversible actions",
+        "ar": "اطلب موافقة شخص قبل الإجراءات التي لا رجعة فيها"
+      },
+      "detail": {
+        "en": "Require explicit approval, showing exactly what will happen, for payments, deletions, and messages sent outside.",
+        "ar": "اشترط موافقة صريحة تعرض ما سيحدث بالضبط للمدفوعات والحذف والرسائل المرسلة إلى الخارج."
+      },
+      "nist": [
+        "AC-3",
+        "IA-11"
+      ],
+      "cis": [],
+      "iso": [
+        "8.26"
+      ]
+    },
+    {
+      "level": "enhanced",
+      "name": {
+        "en": "Validate what tools return",
+        "ar": "تحقق مما تعيده الأدوات"
+      },
+      "detail": {
+        "en": "Treat tool outputs and retrieved content as untrusted, and validate them before they reach other systems or users.",
+        "ar": "عامل مخرجات الأدوات والمحتوى المسترجع بوصفها غير موثوقة، وتحقق منها قبل وصولها إلى أنظمة أخرى أو إلى المستخدمين."
+      },
+      "nist": [
+        "SI-10",
+        "SI-15"
+      ],
+      "cis": [],
+      "iso": [
+        "8.26"
+      ]
+    },
+    {
+      "level": "advanced",
+      "name": {
+        "en": "Approve and pin tools and MCP servers",
+        "ar": "اعتمد الأدوات وخوادم MCP وثبّت إصداراتها"
+      },
+      "detail": {
+        "en": "Review each tool and MCP server before use, pin its version, and watch it for changes like any other dependency.",
+        "ar": "راجع كل أداة وكل خادم MCP قبل الاستخدام، وثبّت إصداره، وراقب تغيّره كأي اعتمادية أخرى."
+      },
+      "nist": [
+        "SR-3",
+        "CM-7"
+      ],
+      "cis": [
+        "2.1",
+        "16.4"
+      ],
+      "iso": [
+        "5.21",
+        "8.19"
+      ]
+    },
+    {
+      "level": "advanced",
+      "name": {
+        "en": "Red team the agent",
+        "ar": "اختبر الوكيل بفريق هجومي"
+      },
+      "detail": {
+        "en": "Test agents with indirect prompt injection through documents, mail, and web pages before release and after each change of tools.",
+        "ar": "اختبر الوكلاء بحقن التعليمات غير المباشر عبر المستندات والبريد وصفحات الويب قبل الإطلاق وبعد كل تغيير في الأدوات."
+      },
+      "nist": [
+        "CA-8",
+        "SA-11"
+      ],
+      "cis": [
+        "16.13"
+      ],
+      "iso": [
+        "8.29"
+      ]
+    }
+  ],
+  "decisions": [
+    {
+      "en": "Which actions may an agent take alone, and which need a person's approval?",
+      "ar": "ما الإجراءات التي يجوز للوكيل تنفيذها وحده، وما التي تحتاج إلى موافقة شخص؟"
+    },
+    {
+      "en": "With whose authority does each agent act, and how is it limited?",
+      "ar": "بصلاحيات من يتصرف كل وكيل، وكيف تُحدّ؟"
+    },
+    {
+      "en": "Who approves new tools and MCP servers, and how are they reviewed?",
+      "ar": "من يعتمد الأدوات وخوادم MCP الجديدة، وكيف تُراجع؟"
+    }
+  ],
+  "tradeoffs": [
+    {
+      "en": "Approvals slow the agent down, so they should cover only the actions that matter.",
+      "ar": "تبطئ الموافقات عمل الوكيل، لذا يجب أن تقتصر على الإجراءات المهمة."
+    },
+    {
+      "en": "Narrow tools need more engineering than one general tool, but they limit what an injected instruction can do.",
+      "ar": "تحتاج الأدوات الضيقة إلى هندسة أكثر من أداة عامة واحدة، لكنها تحد ما تستطيع التعليمة المدسوسة فعله."
+    },
+    {
+      "en": "Full logs of prompts and results hold sensitive data, so the logs need the same protection as the data.",
+      "ar": "تحتفظ السجلات الكاملة للتعليمات والنتائج ببيانات حساسة، لذا تحتاج السجلات إلى الحماية نفسها التي تحتاجها البيانات."
+    }
+  ],
+  "antipatterns": [
+    {
+      "en": "An agent connected with an administrator or a broad service account.",
+      "ar": "وكيل مربوط بحساب مسؤول أو بحساب خدمي واسع."
+    },
+    {
+      "en": "A tool that runs any SQL query or any command the model writes.",
+      "ar": "أداة تشغّل أي استعلام SQL أو أي أمر يكتبه النموذج."
+    },
+    {
+      "en": "MCP servers installed from the internet without review or a pinned version.",
+      "ar": "خوادم MCP مثبتة من الإنترنت دون مراجعة أو تثبيت للإصدار."
+    }
+  ],
+  "verify": [
+    {
+      "en": "Plant instructions in a document the agent will read, and confirm that it does not act on them.",
+      "ar": "ضع تعليمات في مستند سيقرؤه الوكيل، وتأكد من أنه لا ينفذها."
+    },
+    {
+      "en": "Ask the agent to act on data the user cannot access, and confirm that the gateway refuses.",
+      "ar": "اطلب من الوكيل التصرف في بيانات لا يصل إليها المستخدم، وتأكد من أن البوابة ترفض."
+    },
+    {
+      "en": "Trace one agent session from end to end in the logs, from the prompt to every tool call and result.",
+      "ar": "تتبّع جلسة وكيل واحدة كاملة في السجلات، من التعليمة إلى كل استدعاء للأدوات ونتيجته."
+    }
+  ],
+  "attack": [],
+  "owasp": [
+    "LLM01:2025",
+    "LLM06:2025",
+    "LLM05:2025",
+    "LLM02:2025",
+    "LLM10:2025"
+  ],
+  "related": [
+    "P14",
+    "P02",
+    "P08"
+  ],
+  "references": [
+    {
+      "title": {
+        "en": "OWASP Top 10 for LLM Applications",
+        "ar": "قائمة OWASP Top 10 لتطبيقات النماذج اللغوية الكبيرة"
+      },
+      "url": "https://genai.owasp.org/llm-top-10/"
+    },
+    {
+      "title": {
+        "en": "OWASP, Agentic AI: Threats and Mitigations",
+        "ar": "مخاطر الذكاء الاصطناعي الوكيل وطرق تخفيفها من OWASP"
+      },
+      "url": "https://genai.owasp.org/resource/agentic-ai-threats-and-mitigations/"
+    },
+    {
+      "title": {
+        "en": "Model Context Protocol, Security Best Practices",
+        "ar": "أفضل الممارسات الأمنية لبروتوكول سياق النموذج MCP"
+      },
+      "url": "https://modelcontextprotocol.io/specification/2025-06-18/basic/security_best_practices"
+    }
+  ]
+}

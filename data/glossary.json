@@ -234,6 +234,18 @@
       "pattern": "P13"
     },
     {
+      "id": "confidential-computing",
+      "term": {
+        "en": "Confidential computing",
+        "ar": "الحوسبة السرية"
+      },
+      "definition": {
+        "en": "Processing data inside enclaves protected by hardware, so that it stays encrypted in memory, even from the cloud operator.",
+        "ar": "معالجة البيانات داخل بيئات معزولة يحميها العتاد، حتى تبقى مشفرة في الذاكرة ولو أمام مشغل السحابة."
+      },
+      "pattern": "P30"
+    },
+    {
       "id": "consent-phishing",
       "term": {
         "en": "Consent phishing",
@@ -327,6 +339,30 @@
         "ar": "الشخص المسؤول عن مجموعة بيانات، ويحدد تصنيفها ومن يحق له الوصول إليها."
       },
       "pattern": "P09"
+    },
+    {
+      "id": "data-residency",
+      "term": {
+        "en": "Data residency",
+        "ar": "إقامة البيانات"
+      },
+      "definition": {
+        "en": "The requirement that data be stored and processed only in a particular country or region.",
+        "ar": "اشتراط حفظ البيانات ومعالجتها في دولة أو منطقة محددة فقط."
+      },
+      "pattern": "P30"
+    },
+    {
+      "id": "dcsync",
+      "term": {
+        "en": "DCSync",
+        "ar": "هجوم DCSync"
+      },
+      "definition": {
+        "en": "An attack that pretends to be a domain controller and asks a real one to replicate password hashes to it.",
+        "ar": "هجوم يتظاهر بأنه وحدة تحكم بالنطاق، ويطلب من وحدة حقيقية نسخ قيم تجزئة كلمات المرور إليه."
+      },
+      "pattern": "P31"
     },
     {
       "id": "default-deny",
@@ -436,6 +472,18 @@
       "pattern": "P21"
     },
     {
+      "id": "excessive-agency",
+      "term": {
+        "en": "Excessive agency",
+        "ar": "الصلاحيات المفرطة للوكيل"
+      },
+      "definition": {
+        "en": "Giving an AI system more tools, permissions, or autonomy than its task needs, so that a manipulated model can do real harm.",
+        "ar": "منح نظام الذكاء الاصطناعي أدوات أو صلاحيات أو استقلالية تفوق ما تحتاجه مهمته، فيستطيع النموذج المتلاعب به إحداث ضرر حقيقي."
+      },
+      "pattern": "P29"
+    },
+    {
       "id": "fail-secure",
       "term": {
         "en": "Fail secure",
@@ -471,6 +519,18 @@
       "pattern": "P08"
     },
     {
+      "id": "hyok",
+      "term": {
+        "en": "Hold your own key",
+        "ar": "الاحتفاظ بمفتاحك بنفسك"
+      },
+      "definition": {
+        "en": "A cloud encryption model in which the customer keeps the keys outside the provider, so that the provider cannot read the data alone.",
+        "ar": "نموذج للتشفير في السحابة يحتفظ فيه العميل بالمفاتيح خارج المزود، حتى لا يستطيع المزود قراءة البيانات وحده."
+      },
+      "pattern": "P30"
+    },
+    {
       "id": "idp",
       "term": {
         "en": "Identity provider",
@@ -481,6 +541,18 @@
         "ar": "الخدمة التي تتحقق من هوية الأشخاص وتُصدر الرموز التي تثق بها التطبيقات."
       },
       "pattern": "P02"
+    },
+    {
+      "id": "itdr",
+      "term": {
+        "en": "Identity threat detection and response",
+        "ar": "رصد تهديدات الهوية والاستجابة لها"
+      },
+      "definition": {
+        "en": "Detection and response that focus on the identity systems themselves, such as the directory and the identity provider.",
+        "ar": "كشف واستجابة يركزان على أنظمة الهوية نفسها، مثل الدليل ومزود الهوية."
+      },
+      "pattern": "P31"
     },
     {
       "id": "immutable-backup",
@@ -517,6 +589,18 @@
         "ar": "وصول بصلاحيات هامة يُمنح لمهمة محددة ولوقت محدود ثم يُسحب آليًا."
       },
       "pattern": "P03"
+    },
+    {
+      "id": "kerberoasting",
+      "term": {
+        "en": "Kerberoasting",
+        "ar": "هجوم Kerberoasting"
+      },
+      "definition": {
+        "en": "An attack that requests service tickets for service accounts and cracks them offline to recover their passwords.",
+        "ar": "هجوم يطلب تذاكر خدمة لحسابات الخدمة ثم يكسرها دون اتصال لاستخراج كلمات مرورها."
+      },
+      "pattern": "P31"
     },
     {
       "id": "kev",
@@ -566,6 +650,18 @@
       }
     },
     {
+      "id": "man-in-the-browser",
+      "term": {
+        "en": "Man in the browser",
+        "ar": "الوسيط داخل المتصفح"
+      },
+      "definition": {
+        "en": "Malware inside the browser that changes what the user sends or sees, while the connection itself stays secure.",
+        "ar": "برمجية ضارة داخل المتصفح تغيّر ما يرسله المستخدم أو يراه، بينما يبقى الاتصال نفسه آمنًا."
+      },
+      "pattern": "P32"
+    },
+    {
       "id": "mft",
       "term": {
         "en": "Managed file transfer",
@@ -588,6 +684,18 @@
         "ar": "تقسيم يُطبَّق على كل عبء عمل على حدة، فلا يصل كل منها إلا إلى اعتمادياته المسماة."
       },
       "pattern": "P04"
+    },
+    {
+      "id": "mcp",
+      "term": {
+        "en": "Model Context Protocol",
+        "ar": "بروتوكول سياق النموذج"
+      },
+      "definition": {
+        "en": "An open protocol that connects AI applications to tools and data sources through servers that expose them.",
+        "ar": "بروتوكول مفتوح يربط تطبيقات الذكاء الاصطناعي بالأدوات ومصادر البيانات عبر خوادم تتيحها."
+      },
+      "pattern": "P29"
     },
     {
       "id": "mfa",
@@ -1001,6 +1109,18 @@
         "ar": "استبدال قيمة حساسة مثل رقم البطاقة برمز لا قيمة له لدى المهاجم."
       },
       "pattern": "P15"
+    },
+    {
+      "id": "transaction-signing",
+      "term": {
+        "en": "Transaction signing",
+        "ar": "توقيع المعاملات"
+      },
+      "definition": {
+        "en": "Approving a transaction with a key that signs its exact details, such as the amount and the payee, so that the approval cannot be reused for anything else.",
+        "ar": "اعتماد المعاملة بمفتاح يوقّع تفاصيلها نفسها مثل المبلغ والمستفيد، حتى لا يمكن استخدام الاعتماد لأي شيء آخر."
+      },
+      "pattern": "P32"
     },
     {
       "id": "trust-boundary",

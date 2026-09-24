@@ -1378,6 +1378,205 @@
         "en": "Code written in house is exposed to outsiders, so each change must be checked before it ships.",
         "ar": "تنكشف الشيفرة المكتوبة داخليًا لأطراف خارجية، لذا يجب فحص كل تغيير قبل إطلاقه."
       }
+    },
+    {
+      "pattern": "P29",
+      "priority": "recommended",
+      "when": {
+        "q": "system",
+        "in": [
+          "ai"
+        ]
+      },
+      "because": {
+        "en": "The assistant can act through tools, and any text it reads could steer those actions.",
+        "ar": "يستطيع المساعد التصرف عبر الأدوات، وقد يوجّه أي نص يقرؤه تلك التصرفات."
+      }
+    },
+    {
+      "pattern": "P29",
+      "priority": "essential",
+      "when": {
+        "all": [
+          {
+            "q": "system",
+            "in": [
+              "ai"
+            ]
+          },
+          {
+            "q": "data",
+            "in": [
+              "confidential",
+              "regulated"
+            ]
+          }
+        ]
+      },
+      "because": {
+        "en": "The agent can reach sensitive data and act on it, so every tool call needs the user's authority and clear limits.",
+        "ar": "يستطيع الوكيل بلوغ بيانات حساسة والتصرف فيها، لذا يحتاج كل استدعاء للأدوات إلى صلاحيات المستخدم وحدود واضحة."
+      }
+    },
+    {
+      "pattern": "P30",
+      "priority": "essential",
+      "when": {
+        "all": [
+          {
+            "q": "hosting",
+            "in": [
+              "cloud",
+              "hybrid",
+              "multicloud"
+            ]
+          },
+          {
+            "q": "obligations",
+            "hasAny": [
+              "bank",
+              "national"
+            ]
+          }
+        ]
+      },
+      "because": {
+        "en": "Banking and national data in the cloud must stay under local jurisdiction and your control, as regulators in the region expect.",
+        "ar": "يجب أن تبقى البيانات المصرفية والوطنية في السحابة تحت الولاية القضائية المحلية وتحت سيطرتك، كما تتوقع الجهات الرقابية في المنطقة."
+      }
+    },
+    {
+      "pattern": "P30",
+      "priority": "recommended",
+      "when": {
+        "all": [
+          {
+            "q": "hosting",
+            "in": [
+              "cloud",
+              "hybrid",
+              "multicloud"
+            ]
+          },
+          {
+            "q": "data",
+            "in": [
+              "regulated"
+            ]
+          }
+        ]
+      },
+      "because": {
+        "en": "Regulated data in the cloud needs a clear answer to where it is and who can read it.",
+        "ar": "تحتاج البيانات المنظمة في السحابة إلى إجابة واضحة عن مكانها ومن يستطيع قراءتها."
+      }
+    },
+    {
+      "pattern": "P31",
+      "priority": "recommended",
+      "when": {
+        "q": "hosting",
+        "in": [
+          "onprem",
+          "hybrid"
+        ]
+      },
+      "because": {
+        "en": "Active Directory and hybrid identity are where most intrusions end, and they need detection of their own.",
+        "ar": "ينتهي معظم الاختراقات في Active Directory والهوية الهجينة، وهما يحتاجان إلى كشف خاص بهما."
+      }
+    },
+    {
+      "pattern": "P31",
+      "priority": "essential",
+      "when": {
+        "all": [
+          {
+            "q": "hosting",
+            "in": [
+              "onprem",
+              "hybrid"
+            ]
+          },
+          {
+            "q": "obligations",
+            "hasAny": [
+              "bank",
+              "national"
+            ]
+          }
+        ]
+      },
+      "because": {
+        "en": "A compromised directory in a bank or a national system is a crisis, so identity attacks must be caught early.",
+        "ar": "يُعد اختراق الدليل في بنك أو نظام وطني أزمة، لذا يجب كشف هجمات الهوية مبكرًا."
+      }
+    },
+    {
+      "pattern": "P31",
+      "priority": "recommended",
+      "when": {
+        "q": "maturity",
+        "in": [
+          "advanced"
+        ]
+      },
+      "because": {
+        "en": "A mature programme watches its identity systems as closely as its servers.",
+        "ar": "يراقب البرنامج الناضج أنظمة الهوية لديه بالقدر نفسه الذي يراقب به خوادمه."
+      }
+    },
+    {
+      "pattern": "P32",
+      "priority": "essential",
+      "when": {
+        "all": [
+          {
+            "q": "system",
+            "in": [
+              "digital"
+            ]
+          },
+          {
+            "q": "obligations",
+            "hasAny": [
+              "bank",
+              "pci",
+              "swift"
+            ]
+          }
+        ]
+      },
+      "because": {
+        "en": "Payments can be changed in the customer's browser or phone after sign-in, so each one must be confirmed on its own details.",
+        "ar": "يمكن تغيير المدفوعات في متصفح العميل أو هاتفه بعد الدخول، لذا يجب تأكيد كل دفعة بتفاصيلها نفسها."
+      }
+    },
+    {
+      "pattern": "P32",
+      "priority": "recommended",
+      "when": {
+        "all": [
+          {
+            "q": "system",
+            "in": [
+              "api"
+            ]
+          },
+          {
+            "q": "obligations",
+            "hasAny": [
+              "bank",
+              "pci",
+              "swift"
+            ]
+          }
+        ]
+      },
+      "because": {
+        "en": "Payment instructions pass through the platform, and each one needs proof that the payer approved these exact details.",
+        "ar": "تمر تعليمات الدفع عبر المنصة، وتحتاج كل منها إلى دليل على أن الدافع اعتمد تفاصيلها نفسها."
+      }
     }
   ],
   "threats": [
@@ -1431,6 +1630,40 @@
       }
     },
     {
+      "id": "payment-manipulation",
+      "title": {
+        "en": "Payments changed in the browser or phone after sign-in",
+        "ar": "مدفوعات تُغيَّر في المتصفح أو الهاتف بعد الدخول"
+      },
+      "refs": [
+        "T1185",
+        "T1565.002"
+      ],
+      "patterns": [
+        "P32",
+        "P27"
+      ],
+      "when": {
+        "all": [
+          {
+            "q": "system",
+            "in": [
+              "digital",
+              "api"
+            ]
+          },
+          {
+            "q": "obligations",
+            "hasAny": [
+              "bank",
+              "pci",
+              "swift"
+            ]
+          }
+        ]
+      }
+    },
+    {
       "id": "bec",
       "title": {
         "en": "Business email compromise and invoice fraud",
@@ -1468,6 +1701,29 @@
         "P04"
       ],
       "when": "always"
+    },
+    {
+      "id": "identity-takeover",
+      "title": {
+        "en": "Takeover of the directory or the identity provider",
+        "ar": "الاستيلاء على الدليل أو مزود الهوية"
+      },
+      "refs": [
+        "T1003.006",
+        "T1558.003",
+        "T1606.002"
+      ],
+      "patterns": [
+        "P31",
+        "P03"
+      ],
+      "when": {
+        "q": "hosting",
+        "in": [
+          "onprem",
+          "hybrid"
+        ]
+      }
     },
     {
       "id": "ransomware",
@@ -1660,6 +1916,27 @@
       }
     },
     {
+      "id": "agent-misuse",
+      "title": {
+        "en": "An AI agent tricked into misusing its tools",
+        "ar": "وكيل ذكاء اصطناعي يُخدع لإساءة استخدام أدواته"
+      },
+      "refs": [
+        "LLM06:2025",
+        "LLM01:2025"
+      ],
+      "patterns": [
+        "P29",
+        "P14"
+      ],
+      "when": {
+        "q": "system",
+        "in": [
+          "ai"
+        ]
+      }
+    },
+    {
       "id": "llm-data-exposure",
       "title": {
         "en": "Sensitive data exposed through retrieval or model output",
@@ -1782,6 +2059,40 @@
             "q": "data",
             "in": [
               "regulated"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "provider-access",
+      "title": {
+        "en": "Data reached from outside the jurisdiction or by the provider's staff",
+        "ar": "وصول إلى البيانات من خارج الولاية القضائية أو من موظفي المزود"
+      },
+      "refs": [
+        "T1199",
+        "T1537"
+      ],
+      "patterns": [
+        "P30",
+        "P08"
+      ],
+      "when": {
+        "all": [
+          {
+            "q": "hosting",
+            "in": [
+              "cloud",
+              "hybrid",
+              "multicloud"
+            ]
+          },
+          {
+            "q": "obligations",
+            "hasAny": [
+              "bank",
+              "national"
             ]
           }
         ]
@@ -3388,6 +3699,13 @@
                   "ar": "استرجاع بهوية المستخدم"
                 },
                 "pattern": "P14"
+              },
+              {
+                "label": {
+                  "en": "Tool gateway with the user's authority",
+                  "ar": "بوابة أدوات بصلاحيات المستخدم"
+                },
+                "pattern": "P29"
               }
             ]
           },
@@ -3553,6 +3871,22 @@
       "P28": {
         "en": "Security checks in every pull request",
         "ar": "فحوص أمنية في كل طلب دمج"
+      },
+      "P29": {
+        "en": "Gateway for agent tool calls",
+        "ar": "بوابة لاستدعاءات أدوات الوكلاء"
+      },
+      "P30": {
+        "en": "Data kept in country, keys held locally",
+        "ar": "بيانات داخل الدولة ومفاتيح محلية"
+      },
+      "P31": {
+        "en": "Identity threat detection",
+        "ar": "رصد تهديدات الهوية"
+      },
+      "P32": {
+        "en": "Payments signed on their details",
+        "ar": "مدفوعات تُوقَّع بتفاصيلها"
       }
     }
   }
