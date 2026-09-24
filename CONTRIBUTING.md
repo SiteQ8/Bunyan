@@ -36,7 +36,7 @@ The tests enforce these rules, so a pull request that breaks one of them will fa
 ## Adding a pattern
 
 1. Copy an existing file in data/patterns, give it the next number, and fill in every field in both languages.
-2. Add an English and an Arabic diagram in data/diagrams. English diagrams flow left to right, Arabic ones flow right to left, and each line of an Arabic label uses one script only.
+2. Add an English and an Arabic diagram in data/diagrams, then draw them for the website with node scripts/render-diagrams.mjs. English diagrams flow left to right, Arabic ones flow right to left, and each line of an Arabic label uses one script only. The script needs the Mermaid command line tool and the two fonts in docs/assets/fonts installed, because Mermaid measures the labels as it draws.
 3. Add at least one rule in data/advisor.json that recommends the pattern, with its reason in both languages.
 4. Run the build and the tests, and fix whatever fails.
 5. Run the link check with npm run links to confirm that every reference opens.

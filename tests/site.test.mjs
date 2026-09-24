@@ -102,3 +102,19 @@ test('each exercise opens the advisor on the scenario its text describes', () =>
     }
   }
 });
+
+test('every diagram is drawn for the site from its current source and is safe to place in the page', async () => {
+  const { sourceHash, OUT } = await import('../scripts/render-diagrams.mjs');
+  const dir = path.join(root, 'data', 'diagrams');
+  const sources = fs.readdirSync(dir).filter((f) => f.endsWith('.mmd'));
+  const drawings = fs.readdirSync(OUT).filter((f) => f.endsWith('.svg'));
+  assert.equal(drawings.length, sources.length, 'one drawing for each source');
+  for (const f of sources) {
+    const file = path.join(OUT, f.replace(/\.mmd$/, '.svg'));
+    assert.ok(fs.existsSync(file), `${f} is drawn`);
+    const svg = fs.readFileSync(file, 'utf8');
+    const hash = sourceHash(fs.readFileSync(path.join(dir, f), 'utf8'));
+    assert.ok(svg.includes(`data-source="${hash}"`), `${f} was redrawn after its last change, run node scripts/render-diagrams.mjs`);
+    assert.ok(!/<style|\sstyle=|<script|<foreignObject|\son[a-z]+=|href=/i.test(svg), `${f} holds nothing that could run or be blocked in the page`);
+  }
+});
