@@ -1,0 +1,8 @@
+flowchart LR
+  CLS["Data classified<br/>by residency"] --> MAP["Residency map<br/>regions, services, features"]
+  MAP --> POL["Region guardrails<br/>deny the rest"]
+  POL --> REG["Approved local region"]
+  KMS["Keys held by you<br/>local HSM or external key manager"] --> REG
+  PROV["Provider's staff"] -- "approved, recorded access only" --> REG
+  REG --> CHK["Continuous checks<br/>where the data actually is"]
+  REG -- "restorable copies" --> EXIT["Second location or provider<br/>tested exit"]

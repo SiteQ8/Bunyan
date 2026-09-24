@@ -4,7 +4,7 @@
 
 # Pattern catalogue
 
-Twenty-eight patterns for recurring security architecture problems. Each one explains the problem, when to use it, the design, the controls at three levels, the decisions you must record, the trade-offs, the anti-patterns, how to verify it, and the threats it addresses.
+Thirty-two patterns for recurring security architecture problems. Each one explains the problem, when to use it, the design, the controls at three levels, the decisions you must record, the trade-offs, the anti-patterns, how to verify it, and the threats it addresses.
 
 Controls come in three levels: foundation, enhanced, and advanced. Put the foundation controls in place everywhere before going deeper anywhere.
 
@@ -40,5 +40,9 @@ Every control is mapped to NIST SP 800-53 Rev 5, CIS Controls v8.1, and ISO/IEC 
 | P26 | [Secure data exchange with partners](P26-partner-data-exchange.md) | Data | Move files and data to and from partners through one managed exchange that authenticates each partner, encrypts and signs what moves, scans and sanitises what arrives, and keeps a record that neither side can dispute. |
 | P27 | [Mobile application protection](P27-mobile-app-protection.md) | Application | Assume the app runs on a device and in hands you do not control: keep secrets off the device, let the backend check that requests come from your genuine, untampered app, protect the data the app stores and sends, and build the app to the OWASP MASVS. |
 | P28 | [Secure development lifecycle](P28-secure-development.md) | Application | Build security into how software is made: agree requirements and threats at design time, check every change automatically for vulnerable code, dependencies, secrets, and misconfigured infrastructure, test running applications before release, and fix what is found within agreed times, following the NIST Secure Software Development Framework. |
+| P29 | [AI agents that use tools](P29-ai-agents.md) | AI | Let AI agents act only with the authority of the user they serve, through a gateway that checks every tool call against policy, limits what each call can do and how often, asks a person to approve actions that cannot be undone, and records everything, because an agent can be steered by any text it reads. |
+| P30 | [Sovereign cloud and data residency](P30-sovereign-cloud.md) | Platform | Keep regulated data where the law requires, and under your control, when it runs in the cloud: choose regions and services by data class, hold the encryption keys yourself, control and record every access by the provider's staff, and keep an exit plan that works. |
+| P31 | [Identity threat detection and response](P31-identity-threat-detection.md) | Identity | Watch the identity systems themselves for the attacks that turn stolen credentials into full control, such as Kerberoasting, DCSync, and forged tokens, reduce what those attacks can reach, and prepare to contain them in minutes by revoking sessions and resetting trust. |
+| P32 | [Transaction signing for payments](P32-transaction-signing.md) | Application | Confirm every sensitive transaction on its own details, the amount and the payee, with a factor that an attacker in the browser or the phone cannot change, and check the signed details on the server, so that a hijacked session cannot redirect money. |
 
 To find the patterns your own system needs, answer the questions in the design advisor at https://bunyan.3li.info/.

@@ -1,0 +1,304 @@
+{
+  "id": "P31",
+  "slug": "identity-threat-detection",
+  "domain": "identity",
+  "title": {
+    "en": "Identity threat detection and response",
+    "ar": "رصد تهديدات الهوية والاستجابة لها"
+  },
+  "summary": {
+    "en": "Watch the identity systems themselves for the attacks that turn stolen credentials into full control, such as Kerberoasting, DCSync, and forged tokens, reduce what those attacks can reach, and prepare to contain them in minutes by revoking sessions and resetting trust.",
+    "ar": "راقب أنظمة الهوية نفسها لرصد الهجمات التي تحوّل بيانات الاعتماد المسروقة إلى سيطرة كاملة مثل Kerberoasting وDCSync والرموز المزوّرة، وقلّص ما تستطيع تلك الهجمات بلوغه، واستعد لاحتوائها خلال دقائق بإلغاء الجلسات وإعادة ضبط الثقة."
+  },
+  "problem": {
+    "en": "Most intrusions end in the directory: attackers who get a foothold harvest service account tickets, replicate password hashes from domain controllers, add themselves to privileged groups, or forge tokens that the cloud identity provider accepts. Endpoint and network tools see little of this, because the activity uses valid protocols and valid accounts, and teams discover it only when the ransomware runs. Recovery then means rebuilding trust in every identity at once.",
+    "ar": "ينتهي معظم الاختراقات في الدليل، إذ يجمع المهاجمون الذين يحصلون على موطئ قدم تذاكر حسابات الخدمة، وينسخون قيم تجزئة كلمات المرور من وحدات التحكم بالنطاق، ويضيفون أنفسهم إلى المجموعات ذات الصلاحيات الهامة، أو يزوّرون رموزًا يقبلها مزود الهوية السحابي، بينما لا ترى أدوات الأجهزة الطرفية والشبكة من ذلك إلا القليل لأنه يستخدم بروتوكولات وحسابات صالحة، فلا تكتشفه الفرق إلا حين تعمل برامج الفدية، ثم يعني التعافي إعادة بناء الثقة في كل هوية دفعة واحدة."
+  },
+  "useWhen": [
+    {
+      "en": "Active Directory or a hybrid identity set-up runs the organisation.",
+      "ar": "يدير Active Directory أو إعداد هوية هجين عمل المؤسسة."
+    },
+    {
+      "en": "Service accounts, delegation, and trusts have grown over many years.",
+      "ar": "نمت حسابات الخدمة والتفويض وعلاقات الثقة على مدى سنوات طويلة."
+    },
+    {
+      "en": "Ransomware or a compromise of the directory is among your top risks.",
+      "ar": "تقع برامج الفدية أو اختراق الدليل ضمن أعلى المخاطر لديك."
+    }
+  ],
+  "design": [
+    {
+      "en": "Reduce what identity attacks can reach before you try to detect them: find and fix attack paths to privileged groups, give service accounts long random passwords or managed identities, remove unconstrained delegation and old trusts, and keep domain controllers and the identity provider in the top administrative tier. Assess the directory regularly with tools that map these paths, and track the findings like vulnerabilities.",
+      "ar": "قلّص ما تستطيع هجمات الهوية بلوغه قبل أن تحاول رصدها، فاكتشف مسارات الهجوم إلى المجموعات ذات الصلاحيات الهامة وأصلحها، وامنح حسابات الخدمة كلمات مرور طويلة عشوائية أو هويات مُدارة، وأزل التفويض غير المقيد وعلاقات الثقة القديمة، وأبقِ وحدات التحكم بالنطاق ومزود الهوية في أعلى طبقة إدارية، ثم قيّم الدليل بانتظام بأدوات ترسم هذه المسارات، وتابع ما تكتشفه كما تتابع الثغرات."
+    },
+    {
+      "en": "Collect the signals that show identity attacks, such as ticket requests, directory replication, group changes, changes to federation and token signing, and risky sign-ins, and write detections for them in the SIEM. Plant decoy accounts and credentials that no one should ever use, and prepare playbooks that disable accounts, revoke sessions and tokens, reset the Kerberos ticket key twice, and rotate token signing certificates, rehearsed before they are needed.",
+      "ar": "اجمع المؤشرات التي تكشف هجمات الهوية مثل طلبات التذاكر ونسخ الدليل وتغييرات المجموعات وتغييرات الاتحاد وتوقيع الرموز وعمليات الدخول الخطرة، واكتب لها قواعد كشف في نظام إدارة السجلات، ثم ازرع حسابات وبيانات اعتماد خادعة لا ينبغي أن يستخدمها أحد أبدًا، وجهّز أدلة استجابة تعطّل الحسابات، وتلغي الجلسات والرموز، وتعيد تعيين مفتاح منح التذاكر في Kerberos مرتين، وتغيّر شهادات توقيع الرموز، وتدرّب عليها قبل الحاجة إليها."
+    }
+  ],
+  "controls": [
+    {
+      "level": "foundation",
+      "name": {
+        "en": "Find and fix attack paths",
+        "ar": "اكتشف مسارات الهجوم وأصلحها"
+      },
+      "detail": {
+        "en": "Map the paths from ordinary accounts to privileged groups, and remove the permissions and memberships that create them.",
+        "ar": "ارسم المسارات من الحسابات العادية إلى المجموعات ذات الصلاحيات الهامة، وأزل الصلاحيات والعضويات التي تنشئها."
+      },
+      "nist": [
+        "AC-6",
+        "AC-2"
+      ],
+      "cis": [
+        "5.1",
+        "6.8"
+      ],
+      "iso": [
+        "5.18",
+        "8.2"
+      ]
+    },
+    {
+      "level": "foundation",
+      "name": {
+        "en": "Protect service accounts",
+        "ar": "احمِ حسابات الخدمة"
+      },
+      "detail": {
+        "en": "Give service accounts long random passwords or managed identities, and stop them from signing in interactively.",
+        "ar": "امنح حسابات الخدمة كلمات مرور طويلة عشوائية أو هويات مُدارة، وامنعها من الدخول التفاعلي."
+      },
+      "nist": [
+        "IA-5",
+        "AC-2"
+      ],
+      "cis": [
+        "5.5"
+      ],
+      "iso": [
+        "5.17"
+      ]
+    },
+    {
+      "level": "foundation",
+      "name": {
+        "en": "Log what identity attacks leave behind",
+        "ar": "سجّل ما تتركه هجمات الهوية"
+      },
+      "detail": {
+        "en": "Collect directory, ticket, replication, group change, and sign-in events, and send them to the SIEM.",
+        "ar": "اجمع أحداث الدليل والتذاكر والنسخ وتغييرات المجموعات وعمليات الدخول، وأرسلها إلى نظام إدارة السجلات."
+      },
+      "nist": [
+        "AU-2",
+        "AU-12"
+      ],
+      "cis": [
+        "8.2",
+        "8.5"
+      ],
+      "iso": [
+        "8.15"
+      ]
+    },
+    {
+      "level": "enhanced",
+      "name": {
+        "en": "Detect identity attacks",
+        "ar": "اكشف هجمات الهوية"
+      },
+      "detail": {
+        "en": "Write detections for Kerberoasting, directory replication from machines that are not domain controllers, changes to privileged groups, and forged tokens.",
+        "ar": "اكتب قواعد كشف لهجمات Kerberoasting، ونسخ الدليل من أجهزة ليست وحدات تحكم بالنطاق، وتغييرات المجموعات ذات الصلاحيات الهامة، والرموز المزوّرة."
+      },
+      "nist": [
+        "SI-4",
+        "AC-2(12)"
+      ],
+      "cis": [
+        "8.11",
+        "13.1"
+      ],
+      "iso": [
+        "8.16"
+      ]
+    },
+    {
+      "level": "enhanced",
+      "name": {
+        "en": "Remove risky delegation and trusts",
+        "ar": "أزل التفويض والثقة الخطرين"
+      },
+      "detail": {
+        "en": "Remove unconstrained delegation, old trusts, and legacy authentication, and review what remains every year.",
+        "ar": "أزل التفويض غير المقيد وعلاقات الثقة القديمة والتحقق القديم، وراجع ما يتبقى كل عام."
+      },
+      "nist": [
+        "CM-7",
+        "AC-3"
+      ],
+      "cis": [
+        "4.8"
+      ],
+      "iso": [
+        "8.9"
+      ]
+    },
+    {
+      "level": "enhanced",
+      "name": {
+        "en": "Prepare identity containment playbooks",
+        "ar": "جهّز أدلة احتواء الهوية"
+      },
+      "detail": {
+        "en": "Rehearse disabling accounts, revoking sessions and tokens, resetting the Kerberos ticket key twice, and rotating token signing certificates.",
+        "ar": "تدرّب على تعطيل الحسابات، وإلغاء الجلسات والرموز، وإعادة تعيين مفتاح منح التذاكر في Kerberos مرتين، وتغيير شهادات توقيع الرموز."
+      },
+      "nist": [
+        "IR-4",
+        "AC-2"
+      ],
+      "cis": [
+        "17.4"
+      ],
+      "iso": [
+        "5.26"
+      ]
+    },
+    {
+      "level": "advanced",
+      "name": {
+        "en": "Plant decoy identities",
+        "ar": "ازرع هويات خادعة"
+      },
+      "detail": {
+        "en": "Create decoy accounts and credentials that no one should use, and alert on any attempt to use them.",
+        "ar": "أنشئ حسابات وبيانات اعتماد خادعة لا ينبغي أن يستخدمها أحد، ونبّه عند أي محاولة لاستخدامها."
+      },
+      "nist": [
+        "SI-4",
+        "AC-2(12)"
+      ],
+      "cis": [],
+      "iso": [
+        "8.16"
+      ]
+    },
+    {
+      "level": "advanced",
+      "name": {
+        "en": "Keep a clean recovery path for identity",
+        "ar": "احتفظ بمسار نظيف لتعافي الهوية"
+      },
+      "detail": {
+        "en": "Keep offline backups of the directory and a tested plan to rebuild it in an isolated environment.",
+        "ar": "احتفظ بنسخ احتياطية غير متصلة من الدليل وبخطة مُختبَرة لإعادة بنائه في بيئة معزولة."
+      },
+      "nist": [
+        "CP-9",
+        "CP-10"
+      ],
+      "cis": [
+        "11.4"
+      ],
+      "iso": [
+        "8.13"
+      ]
+    }
+  ],
+  "decisions": [
+    {
+      "en": "Which accounts and systems sit in the top tier, and who can administer them?",
+      "ar": "ما الحسابات والأنظمة الواقعة في الطبقة العليا، ومن يستطيع إدارتها؟"
+    },
+    {
+      "en": "Who may disable accounts or reset trust during an incident, even when it stops the business?",
+      "ar": "من يجوز له تعطيل الحسابات أو إعادة ضبط الثقة أثناء الحادثة حتى لو أوقف ذلك الأعمال؟"
+    },
+    {
+      "en": "How will you rebuild the directory if you can no longer trust it?",
+      "ar": "كيف ستعيد بناء الدليل إذا لم تعد تستطيع الوثوق به؟"
+    }
+  ],
+  "tradeoffs": [
+    {
+      "en": "Removing old delegation and trusts breaks forgotten dependencies, so changes need testing and a way back.",
+      "ar": "تكسر إزالة التفويض وعلاقات الثقة القديمة اعتماديات منسية، لذا تحتاج التغييرات إلى اختبار وطريق للعودة."
+    },
+    {
+      "en": "Identity detections are noisy at first, because legitimate tools behave like attacks.",
+      "ar": "تكثر إنذارات قواعد كشف الهوية في البداية، لأن الأدوات المشروعة تتصرف كالهجمات."
+    },
+    {
+      "en": "Resetting the Kerberos ticket key and signing certificates disrupts sign-ins, so the timing must be planned.",
+      "ar": "تعطّل إعادة تعيين مفتاح منح التذاكر وشهادات التوقيع عمليات الدخول، لذا يجب التخطيط لتوقيتها."
+    }
+  ],
+  "antipatterns": [
+    {
+      "en": "Service accounts with old passwords that never expire and rights as domain administrators.",
+      "ar": "حسابات خدمة بكلمات مرور قديمة لا تنتهي وصلاحيات مسؤولي النطاق."
+    },
+    {
+      "en": "Directory events collected with no detections written for them.",
+      "ar": "أحداث دليل تُجمع دون أن تُكتب لها قواعد كشف."
+    },
+    {
+      "en": "Recovery plans that restore the same compromised directory.",
+      "ar": "خطط تعافٍ تستعيد الدليل المخترق نفسه."
+    }
+  ],
+  "verify": [
+    {
+      "en": "Run a tool that maps attack paths, and confirm that no ordinary account can reach a privileged group.",
+      "ar": "شغّل أداة ترسم مسارات الهجوم، وتأكد من أن أي حساب عادي لا يستطيع بلوغ مجموعة ذات صلاحيات هامة."
+    },
+    {
+      "en": "Request a service ticket for a decoy account, and confirm that the alert fires within minutes.",
+      "ar": "اطلب تذكرة خدمة لحساب خادع، وتأكد من تفعيل التنبيه خلال دقائق."
+    },
+    {
+      "en": "Run the containment playbook in a test domain, and time each step.",
+      "ar": "نفّذ دليل الاحتواء في نطاق اختباري، وقِس زمن كل خطوة."
+    }
+  ],
+  "attack": [
+    "T1558.003",
+    "T1003.006",
+    "T1606.002",
+    "T1098"
+  ],
+  "owasp": [],
+  "related": [
+    "P02",
+    "P03",
+    "P10"
+  ],
+  "references": [
+    {
+      "title": {
+        "en": "MITRE ATT&CK, Credential Access",
+        "ar": "تكتيك الوصول إلى بيانات الاعتماد في MITRE ATT&CK"
+      },
+      "url": "https://attack.mitre.org/tactics/TA0006/"
+    },
+    {
+      "title": {
+        "en": "MITRE D3FEND",
+        "ar": "إطار MITRE D3FEND لأساليب الدفاع"
+      },
+      "url": "https://d3fend.mitre.org/"
+    },
+    {
+      "title": {
+        "en": "CISA AA21-008A, Detecting Post-Compromise Threat Activity in Microsoft Cloud Environments",
+        "ar": "التنبيه CISA AA21-008A لكشف نشاط المهاجمين بعد الاختراق في البيئات السحابية من Microsoft"
+      },
+      "url": "https://www.cisa.gov/news-events/cybersecurity-advisories/aa21-008a"
+    }
+  ]
+}

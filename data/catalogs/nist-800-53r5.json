@@ -26,6 +26,7 @@
   "controls": {
     "AC-2": "Account Management",
     "AC-2(3)": "Disable Accounts",
+    "AC-2(12)": "Account Monitoring for Atypical Usage",
     "AC-3": "Access Enforcement",
     "AC-4": "Information Flow Enforcement",
     "AC-5": "Separation of Duties",
@@ -91,6 +92,7 @@
     "SA-3": "System Development Life Cycle",
     "SA-8": "Security and Privacy Engineering Principles",
     "SA-9": "External System Services",
+    "SA-9(5)": "Processing, Storage, and Service Location",
     "SA-10": "Developer Configuration Management",
     "SA-11": "Developer Testing and Evaluation",
     "SA-15": "Development Process, Standards, and Tools",
@@ -107,6 +109,7 @@
     "SC-28": "Protection of Information at Rest",
     "SC-32": "System Partitioning",
     "SC-36": "Distributed Processing and Storage",
+    "SC-37": "Out-of-band Channels",
     "SC-44": "Detonation Chambers",
     "SI-2": "Flaw Remediation",
     "SI-3": "Malicious Code Protection",

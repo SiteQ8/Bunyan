@@ -2,6 +2,15 @@
 
 All notable changes to Bunyan are listed here. The project follows semantic versioning.
 
+## 0.6.0, 2026-09-24
+
+- Four new patterns take the catalogue to thirty-two: P29 AI agents that use tools, P30 Sovereign cloud and data residency, P31 Identity threat detection and response, and P32 Transaction signing for payments. Each has controls at three levels mapped to the three frameworks, and a diagram in each language.
+- P30 takes Kuwait as its example: the CITRA cloud framework requires data at levels three and four of its classification to be hosted in the country by licensed providers.
+- The advisor recommends the new patterns through nine new rules and models four new threats, each placed by importance. A mobile banking design now lists payments changed after sign-in among its first threats.
+- The tools room of an AI assistant shows the tool gateway.
+- Four ATT&CK techniques and three NIST SP 800-53 controls join the catalogues, among them SC-37 for out-of-band channels.
+- Ten glossary terms, including excessive agency, data residency, Kerberoasting, DCSync, and transaction signing.
+
 ## 0.5.0, 2026-09-24
 
 - Four new patterns take the catalogue to twenty-eight: P25 SaaS tenant guardrails, P26 Secure data exchange with partners, P27 Mobile application protection, and P28 Secure development lifecycle. Each has controls at three levels mapped to the three frameworks, and a diagram in each language.

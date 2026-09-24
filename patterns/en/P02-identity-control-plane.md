@@ -8,7 +8,7 @@
 
 | Domain | Related patterns |
 | --- | --- |
-| Identity | [P01 Zero trust access](P01-zero-trust-access.md), [P03 Tiered privileged access](P03-tiered-privileged-access.md), [P10 Security telemetry and detection pipeline](P10-detection-telemetry.md), [P17 Customer identity and account protection](P17-customer-identity.md) |
+| Identity | [P01 Zero trust access](P01-zero-trust-access.md), [P03 Tiered privileged access](P03-tiered-privileged-access.md), [P10 Security telemetry and detection pipeline](P10-detection-telemetry.md), [P17 Customer identity and account protection](P17-customer-identity.md), [P31 Identity threat detection and response](P31-identity-threat-detection.md) |
 
 ## The problem
 

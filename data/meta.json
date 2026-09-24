@@ -18,7 +18,7 @@
       "en": "Ali AlEnezi",
       "ar": "علي العنزي"
     },
-    "version": "0.5.0"
+    "version": "0.6.0"
   },
   "domains": {
     "identity": {
@@ -457,8 +457,8 @@
       "ar": "فهرس الأنماط"
     },
     "patternsIntro": {
-      "en": "Twenty-eight patterns, each with the problem it solves, the design, controls at three levels, and how to verify it.",
-      "ar": "ثمانية وعشرون نمطًا، يضم كل منها المشكلة التي يحلها والتصميم والضوابط على ثلاثة مستويات وطريقة التحقق منه."
+      "en": "Thirty-two patterns, each with the problem it solves, the design, controls at three levels, and how to verify it.",
+      "ar": "اثنان وثلاثون نمطًا، يضم كل منها المشكلة التي يحلها والتصميم والضوابط على ثلاثة مستويات وطريقة التحقق منه."
     },
     "colNumber": {
       "en": "No.",

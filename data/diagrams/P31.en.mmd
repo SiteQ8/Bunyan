@@ -1,0 +1,9 @@
+flowchart LR
+  DIR["Directory and<br/>identity provider"] -- "tickets, replication, group and token changes" --> SIEM["SIEM<br/>identity detections"]
+  PATH["Attack path mapping"] --> FIX["Remove risky paths,<br/>delegation, old trusts"]
+  FIX --> DIR
+  DEC["Decoy accounts<br/>and credentials"] --> SIEM
+  SIEM -- "identity attack" --> PB["Containment playbooks"]
+  PB --> ACT["Disable accounts, revoke tokens,<br/>reset the ticket key twice"]
+  ACT --> DIR
+  BK["Offline directory backups<br/>tested rebuild"] --> DIR

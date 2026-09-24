@@ -1,0 +1,299 @@
+{
+  "id": "P30",
+  "slug": "sovereign-cloud",
+  "domain": "platform",
+  "title": {
+    "en": "Sovereign cloud and data residency",
+    "ar": "السحابة السيادية وإقامة البيانات"
+  },
+  "summary": {
+    "en": "Keep regulated data where the law requires, and under your control, when it runs in the cloud: choose regions and services by data class, hold the encryption keys yourself, control and record every access by the provider's staff, and keep an exit plan that works.",
+    "ar": "أبقِ البيانات المنظمة حيث يشترط القانون وتحت سيطرتك حين تعمل في السحابة، فاختر المناطق والخدمات حسب تصنيف البيانات، واحتفظ بمفاتيح التشفير بنفسك، وتحكّم في كل وصول يجريه موظفو المزود وسجّله، واحتفظ بخطة خروج قابلة للتنفيذ."
+  },
+  "problem": {
+    "en": "Gulf regulators require regulated and government data to stay in the country: in Kuwait, for example, the CITRA cloud framework requires data at levels three and four of its classification to be hosted in the country by licensed providers. Cloud services copy data to other regions for backup, support, analytics, and AI features, the provider's staff can reach customer environments for support, and keys held by the provider leave the organisation unable to prove who can read its data. Contracts rarely say how to leave, so the dependence on one provider becomes permanent.",
+    "ar": "تشترط الجهات الرقابية في الخليج أن تبقى البيانات المنظمة والحكومية داخل الدولة، ففي الكويت مثلًا يشترط الإطار التنظيمي للحوسبة السحابية الصادر عن هيئة الاتصالات وتقنية المعلومات أن تُستضاف بيانات المستويين الثالث والرابع في تصنيفها داخل الدولة لدى مزودين مرخصين، بينما تنسخ الخدمات السحابية البيانات إلى مناطق أخرى لأغراض النسخ الاحتياطي والدعم والتحليل وميزات الذكاء الاصطناعي، ويستطيع موظفو المزود الوصول إلى بيئات العملاء لتقديم الدعم، وتجعل المفاتيح التي يحتفظ بها المزود المؤسسة عاجزة عن إثبات من يستطيع قراءة بياناتها، كما نادرًا ما تذكر العقود طريقة الخروج، فيصبح الاعتماد على مزود واحد دائمًا."
+  },
+  "useWhen": [
+    {
+      "en": "Regulation or contracts say where certain data must be stored or processed.",
+      "ar": "تحدد التشريعات أو العقود أين يجب حفظ بيانات معينة أو معالجتها."
+    },
+    {
+      "en": "Government, financial, or personal data moves to the cloud.",
+      "ar": "تنتقل بيانات حكومية أو مالية أو شخصية إلى السحابة."
+    },
+    {
+      "en": "You must show a regulator who can access the data, including the provider.",
+      "ar": "يجب أن تبيّن للجهة الرقابية من يستطيع الوصول إلى البيانات، بما في ذلك المزود."
+    }
+  ],
+  "design": [
+    {
+      "en": "Classify data by its residency requirement, and map each class to the regions, services, and features allowed to hold or process it, including backups, logs, support tickets, and AI features that may send data elsewhere. Enforce the map with policy guardrails that deny resources outside approved regions, and check where the data actually is continuously, not only at design time.",
+      "ar": "صنّف البيانات حسب متطلبات إقامتها، واربط كل فئة بالمناطق والخدمات والميزات المسموح لها بحفظها أو معالجتها، بما فيها النسخ الاحتياطية والسجلات وتذاكر الدعم وميزات الذكاء الاصطناعي التي قد ترسل البيانات إلى مكان آخر، ثم افرض هذا الربط بضوابط سياسات ترفض الموارد خارج المناطق المعتمدة، وتحقق من موقع البيانات الفعلي باستمرار لا عند التصميم فقط."
+    },
+    {
+      "en": "Hold the keys for regulated data yourself, in a local HSM or an external key manager, so that the provider cannot read the data without you, and use confidential computing where data must be protected while in use. Require approval and recording for any access by the provider's staff, keep copies you can restore in another location or with another provider, and test the exit plan before you need it.",
+      "ar": "احتفظ بنفسك بمفاتيح البيانات المنظمة في وحدة أمن للأجهزة محلية أو في مدير مفاتيح خارجي، حتى لا يستطيع المزود قراءة البيانات دونك، واستخدم الحوسبة السرية حيث يجب حماية البيانات أثناء معالجتها، ثم اشترط الموافقة والتسجيل لأي وصول يجريه موظفو المزود، واحتفظ بنسخ يمكنك استعادتها في موقع آخر أو لدى مزود آخر، واختبر خطة الخروج قبل أن تحتاج إليها."
+    }
+  ],
+  "controls": [
+    {
+      "level": "foundation",
+      "name": {
+        "en": "Classify data by residency",
+        "ar": "صنّف البيانات حسب إقامتها"
+      },
+      "detail": {
+        "en": "Record for each data class where it may be stored and processed, including backups, logs, and support copies.",
+        "ar": "وثّق لكل فئة من البيانات أين يجوز حفظها ومعالجتها، بما فيها النسخ الاحتياطية والسجلات ونسخ الدعم."
+      },
+      "nist": [
+        "SA-9(5)",
+        "RA-2"
+      ],
+      "cis": [
+        "3.2",
+        "3.7"
+      ],
+      "iso": [
+        "5.12",
+        "5.31"
+      ]
+    },
+    {
+      "level": "foundation",
+      "name": {
+        "en": "Allow only approved regions",
+        "ar": "اسمح بالمناطق المعتمدة فقط"
+      },
+      "detail": {
+        "en": "Deny the creation of resources and replicas outside approved regions with policy across the whole organisation.",
+        "ar": "ارفض إنشاء الموارد والنسخ المتكررة خارج المناطق المعتمدة بسياسة تشمل المؤسسة كلها."
+      },
+      "nist": [
+        "SA-9(5)",
+        "CM-7"
+      ],
+      "cis": [],
+      "iso": [
+        "5.23"
+      ]
+    },
+    {
+      "level": "foundation",
+      "name": {
+        "en": "Put residency into the contract",
+        "ar": "ضمّن الإقامة في العقد"
+      },
+      "detail": {
+        "en": "Require data location, provider access, breach notice, and exit terms in the cloud contract.",
+        "ar": "اشترط في عقد السحابة موقع البيانات ووصول المزود والإبلاغ عن الاختراق وشروط الخروج."
+      },
+      "nist": [
+        "SA-9",
+        "SR-3"
+      ],
+      "cis": [
+        "15.4"
+      ],
+      "iso": [
+        "5.20",
+        "5.23"
+      ]
+    },
+    {
+      "level": "enhanced",
+      "name": {
+        "en": "Hold your own keys",
+        "ar": "احتفظ بمفاتيحك بنفسك"
+      },
+      "detail": {
+        "en": "Keep the keys for regulated data in a local HSM or an external key manager that the provider cannot use without you.",
+        "ar": "احتفظ بمفاتيح البيانات المنظمة في وحدة أمن للأجهزة محلية أو في مدير مفاتيح خارجي لا يستطيع المزود استخدامه دونك."
+      },
+      "nist": [
+        "SC-12",
+        "SC-28"
+      ],
+      "cis": [
+        "3.11"
+      ],
+      "iso": [
+        "8.24"
+      ]
+    },
+    {
+      "level": "enhanced",
+      "name": {
+        "en": "Control access by the provider",
+        "ar": "تحكّم في وصول المزود"
+      },
+      "detail": {
+        "en": "Require your approval for any access by the provider's staff, and record each session.",
+        "ar": "اشترط موافقتك على أي وصول يجريه موظفو المزود، وسجّل كل جلسة."
+      },
+      "nist": [
+        "MA-4",
+        "AC-6"
+      ],
+      "cis": [],
+      "iso": [
+        "5.22"
+      ]
+    },
+    {
+      "level": "enhanced",
+      "name": {
+        "en": "Check where data actually is",
+        "ar": "تحقق من موقع البيانات الفعلي"
+      },
+      "detail": {
+        "en": "Scan resources, backups, and replicas continuously, and alert on any copy outside approved regions.",
+        "ar": "افحص الموارد والنسخ الاحتياطية والنسخ المتكررة باستمرار، ونبّه عند وجود أي نسخة خارج المناطق المعتمدة."
+      },
+      "nist": [
+        "CM-8",
+        "CA-7"
+      ],
+      "cis": [
+        "3.2"
+      ],
+      "iso": [
+        "5.23"
+      ]
+    },
+    {
+      "level": "advanced",
+      "name": {
+        "en": "Protect data in use",
+        "ar": "احمِ البيانات أثناء المعالجة"
+      },
+      "detail": {
+        "en": "Use confidential computing for the most sensitive processing, so that data stays encrypted in memory.",
+        "ar": "استخدم الحوسبة السرية للمعالجة الأشد حساسية، حتى تبقى البيانات مشفرة في الذاكرة."
+      },
+      "nist": [
+        "SC-28",
+        "SC-13"
+      ],
+      "cis": [],
+      "iso": [
+        "8.24"
+      ]
+    },
+    {
+      "level": "advanced",
+      "name": {
+        "en": "Test the exit",
+        "ar": "اختبر الخروج"
+      },
+      "detail": {
+        "en": "Keep restorable copies in another location or with another provider, and rehearse moving a critical service.",
+        "ar": "احتفظ بنسخ قابلة للاستعادة في موقع آخر أو لدى مزود آخر، وتدرّب على نقل خدمة حرجة."
+      },
+      "nist": [
+        "CP-9",
+        "CP-7"
+      ],
+      "cis": [
+        "11.4"
+      ],
+      "iso": [
+        "5.30",
+        "8.13"
+      ]
+    }
+  ],
+  "decisions": [
+    {
+      "en": "Which data classes must stay in the country, and who decides?",
+      "ar": "ما فئات البيانات التي يجب أن تبقى داخل الدولة، ومن يقرر ذلك؟"
+    },
+    {
+      "en": "Which cloud features are off limits because they move or copy data elsewhere?",
+      "ar": "ما ميزات السحابة الممنوعة لأنها تنقل البيانات أو تنسخها إلى مكان آخر؟"
+    },
+    {
+      "en": "Where will the keys live, and what happens if the key service is unavailable?",
+      "ar": "أين ستُحفظ المفاتيح، وماذا يحدث إذا تعطلت خدمة المفاتيح؟"
+    }
+  ],
+  "tradeoffs": [
+    {
+      "en": "Keeping keys outside the provider adds a critical dependency that must be highly available.",
+      "ar": "يضيف حفظ المفاتيح خارج المزود اعتمادية حرجة يجب أن تكون عالية التوافر."
+    },
+    {
+      "en": "Local regions often offer fewer services and features, and new ones arrive later.",
+      "ar": "تقدم المناطق المحلية في الغالب خدمات وميزات أقل، وتصل إليها الجديدة متأخرة."
+    },
+    {
+      "en": "A real exit option costs money in the years you do not use it.",
+      "ar": "يكلّف خيار الخروج الحقيقي مالًا في السنوات التي لا تستخدمه فيها."
+    }
+  ],
+  "antipatterns": [
+    {
+      "en": "Residency checked for the main database but not for backups, logs, or support copies.",
+      "ar": "التحقق من إقامة قاعدة البيانات الرئيسية دون النسخ الاحتياطية والسجلات ونسخ الدعم."
+    },
+    {
+      "en": "Keys managed by the provider for data that must be provably under your control.",
+      "ar": "مفاتيح يديرها المزود لبيانات يجب إثبات خضوعها لسيطرتك."
+    },
+    {
+      "en": "An exit plan that exists only as a clause in the contract.",
+      "ar": "خطة خروج لا وجود لها إلا بندًا في العقد."
+    }
+  ],
+  "verify": [
+    {
+      "en": "Try to create a storage account in an unapproved region, and confirm that policy refuses it.",
+      "ar": "حاول إنشاء حساب تخزين في منطقة غير معتمدة، وتأكد من أن السياسة ترفضه."
+    },
+    {
+      "en": "List where the backups and logs of a regulated service are actually stored, and compare them with the residency map.",
+      "ar": "اعرض أماكن حفظ النسخ الاحتياطية والسجلات الفعلية لخدمة منظمة، وقارنها بخريطة الإقامة."
+    },
+    {
+      "en": "Disable the external key for a test dataset, and confirm that the provider can no longer read it.",
+      "ar": "عطّل المفتاح الخارجي لمجموعة بيانات اختبارية، وتأكد من أن المزود لم يعد يستطيع قراءتها."
+    }
+  ],
+  "attack": [
+    "T1199",
+    "T1530",
+    "T1537"
+  ],
+  "owasp": [],
+  "related": [
+    "P06",
+    "P08",
+    "P23"
+  ],
+  "references": [
+    {
+      "title": {
+        "en": "U.S. International Trade Administration, Kuwait cloud storage",
+        "ar": "إدارة التجارة الدولية الأمريكية، تخزين البيانات السحابية في الكويت"
+      },
+      "url": "https://www.trade.gov/market-intelligence/kuwait-cloud-storage"
+    },
+    {
+      "title": {
+        "en": "NIST IR 8320, Hardware-Enabled Security for Cloud and Edge Computing",
+        "ar": "التقرير NIST IR 8320 للأمن المدعوم بالعتاد في الحوسبة السحابية والطرفية"
+      },
+      "url": "https://csrc.nist.gov/pubs/ir/8320/final"
+    },
+    {
+      "title": {
+        "en": "Confidential Computing Consortium",
+        "ar": "اتحاد الحوسبة السرية"
+      },
+      "url": "https://confidentialcomputing.io/"
+    }
+  ]
+}

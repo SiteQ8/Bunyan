@@ -8,7 +8,7 @@
 
 | Domain | Related patterns |
 | --- | --- |
-| Platform | [P02 Identity as the control plane](P02-identity-control-plane.md), [P08 Secrets, keys, and workload identity](P08-secrets-keys-workload-identity.md), [P10 Security telemetry and detection pipeline](P10-detection-telemetry.md), [P16 Container platform guardrails](P16-container-platform-guardrails.md), [P25 SaaS tenant guardrails](P25-saas-guardrails.md) |
+| Platform | [P02 Identity as the control plane](P02-identity-control-plane.md), [P08 Secrets, keys, and workload identity](P08-secrets-keys-workload-identity.md), [P10 Security telemetry and detection pipeline](P10-detection-telemetry.md), [P16 Container platform guardrails](P16-container-platform-guardrails.md), [P25 SaaS tenant guardrails](P25-saas-guardrails.md), [P30 Sovereign cloud and data residency](P30-sovereign-cloud.md) |
 
 ## The problem
 

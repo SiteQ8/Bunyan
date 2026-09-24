@@ -1,0 +1,292 @@
+{
+  "id": "P32",
+  "slug": "transaction-signing",
+  "domain": "application",
+  "title": {
+    "en": "Transaction signing for payments",
+    "ar": "توقيع المعاملات في المدفوعات"
+  },
+  "summary": {
+    "en": "Confirm every sensitive transaction on its own details, the amount and the payee, with a factor that an attacker in the browser or the phone cannot change, and check the signed details on the server, so that a hijacked session cannot redirect money.",
+    "ar": "أكّد كل معاملة حساسة بتفاصيلها نفسها، أي المبلغ والمستفيد، بعنصر لا يستطيع المهاجم في المتصفح أو الهاتف تغييره، وتحقق في الخوادم من التفاصيل الموقّعة، حتى لا تستطيع جلسة مختطفة تحويل الأموال إلى وجهة أخرى."
+  },
+  "problem": {
+    "en": "Strong sign-in does not protect a payment made after sign-in. Malware in the browser or on the phone can change the payee and the amount after the customer enters them, show the customer the original details, and pass the one-time code through, and a phishing proxy can do the same with a live session. Codes that are not bound to the transaction approve whatever the attacker submits, and fraud teams see a payment that was authenticated correctly.",
+    "ar": "لا يحمي الدخول القوي دفعة تُجرى بعد الدخول، إذ تستطيع برمجية ضارة في المتصفح أو الهاتف تغيير المستفيد والمبلغ بعد أن يدخلهما العميل، وعرض التفاصيل الأصلية عليه، وتمرير الرمز المؤقت، كما يستطيع وكيل تصيد فعل الشيء نفسه بجلسة حية، بينما تعتمد الرموز غير المرتبطة بالمعاملة أي شيء يرسله المهاجم، فيرى فريق الاحتيال دفعة تحقق منها النظام بطريقة صحيحة."
+  },
+  "useWhen": [
+    {
+      "en": "Customers or staff move money, add payees, or approve payments online.",
+      "ar": "ينقل العملاء أو الموظفون الأموال، أو يضيفون مستفيدين، أو يعتمدون مدفوعات عبر الإنترنت."
+    },
+    {
+      "en": "A regulation requires strong customer authentication that is linked to the transaction.",
+      "ar": "تشترط التشريعات تحققًا قويًا من هوية العميل يرتبط بالمعاملة."
+    },
+    {
+      "en": "Fraud through malware or real-time phishing already reaches your customers.",
+      "ar": "يصل الاحتيال عبر البرمجيات الضارة أو التصيد اللحظي إلى عملائك بالفعل."
+    }
+  ],
+  "design": [
+    {
+      "en": "Show the amount and the payee on a channel that the attacker cannot change, such as the bank's app on a registered device or a signing device, and have the customer approve those exact details with a key that signs them. The server rebuilds the transaction from what it received, checks the signature against those details, and refuses any payment whose details differ from what was signed.",
+      "ar": "اعرض المبلغ والمستفيد عبر قناة لا يستطيع المهاجم تغييرها، مثل تطبيق البنك على جهاز مسجل أو جهاز توقيع، واجعل العميل يعتمد تلك التفاصيل نفسها بمفتاح يوقّعها، ثم تعيد الخوادم بناء المعاملة مما استلمته، وتتحقق من التوقيع مقابل تلك التفاصيل، وترفض أي دفعة تختلف تفاصيلها عما وُقّع."
+    },
+    {
+      "en": "Apply signing by risk: new payees, large amounts, changes to limits, and changes to contact details always need it, while small payments to trusted payees may not. Send signing results and device signals to fraud monitoring, hold unusual payments for review, and use standards such as FIDO-based payment confirmation where the customer's platform supports them.",
+      "ar": "طبّق التوقيع حسب المخاطر، فالمستفيدون الجدد والمبالغ الكبيرة وتغيير الحدود وتغيير بيانات التواصل تحتاج إليه دائمًا، بينما قد لا تحتاج إليه المدفوعات الصغيرة إلى مستفيدين موثوقين، ثم أرسل نتائج التوقيع ومؤشرات الأجهزة إلى رقابة الاحتيال، وأوقف المدفوعات غير المعتادة للمراجعة، واستخدم معايير مثل تأكيد الدفع المبني على FIDO حيث تدعمها منصة العميل."
+    }
+  ],
+  "controls": [
+    {
+      "level": "foundation",
+      "name": {
+        "en": "Bind approval to the transaction",
+        "ar": "اربط الاعتماد بالمعاملة"
+      },
+      "detail": {
+        "en": "Make every approval code or signature depend on the amount and the payee, so that it cannot approve anything else.",
+        "ar": "اجعل كل رمز اعتماد أو توقيع معتمدًا على المبلغ والمستفيد، حتى لا يعتمد أي شيء آخر."
+      },
+      "nist": [
+        "IA-11",
+        "AU-10"
+      ],
+      "cis": [],
+      "iso": [
+        "8.5"
+      ]
+    },
+    {
+      "level": "foundation",
+      "name": {
+        "en": "Show the details on a separate channel",
+        "ar": "اعرض التفاصيل عبر قناة منفصلة"
+      },
+      "detail": {
+        "en": "Show the amount and the payee in the registered app or on a signing device, not only in the browser that started the payment.",
+        "ar": "اعرض المبلغ والمستفيد في التطبيق المسجل أو على جهاز التوقيع، لا في المتصفح الذي بدأ الدفعة فقط."
+      },
+      "nist": [
+        "SC-37",
+        "IA-11"
+      ],
+      "cis": [],
+      "iso": [
+        "8.5"
+      ]
+    },
+    {
+      "level": "foundation",
+      "name": {
+        "en": "Verify signed details on the server",
+        "ar": "تحقق من التفاصيل الموقّعة في الخوادم"
+      },
+      "detail": {
+        "en": "Rebuild the transaction on the server, check the signature against it, and refuse any payment whose details differ.",
+        "ar": "أعد بناء المعاملة في الخوادم، وتحقق من التوقيع مقابلها، وارفض أي دفعة تختلف تفاصيلها."
+      },
+      "nist": [
+        "SI-7",
+        "SI-10"
+      ],
+      "cis": [
+        "16.10"
+      ],
+      "iso": [
+        "8.26"
+      ]
+    },
+    {
+      "level": "enhanced",
+      "name": {
+        "en": "Sign by risk",
+        "ar": "وقّع حسب المخاطر"
+      },
+      "detail": {
+        "en": "Require signing for new payees, large amounts, and changes to limits or contact details, and allow exemptions only by rule.",
+        "ar": "اشترط التوقيع للمستفيدين الجدد والمبالغ الكبيرة وتغيير الحدود أو بيانات التواصل، ولا تسمح بالاستثناءات إلا وفق قاعدة."
+      },
+      "nist": [
+        "IA-11",
+        "AC-3"
+      ],
+      "cis": [],
+      "iso": [
+        "5.15"
+      ]
+    },
+    {
+      "level": "enhanced",
+      "name": {
+        "en": "Send signing and device signals to fraud monitoring",
+        "ar": "أرسل مؤشرات التوقيع والأجهزة إلى رقابة الاحتيال"
+      },
+      "detail": {
+        "en": "Combine signing results with device and behaviour signals, and hold unusual payments for review.",
+        "ar": "اجمع نتائج التوقيع مع مؤشرات الأجهزة والسلوك، وأوقف المدفوعات غير المعتادة للمراجعة."
+      },
+      "nist": [
+        "SI-4",
+        "AU-6"
+      ],
+      "cis": [
+        "13.1"
+      ],
+      "iso": [
+        "8.16"
+      ]
+    },
+    {
+      "level": "enhanced",
+      "name": {
+        "en": "Keep a record that cannot be disputed",
+        "ar": "احتفظ بسجل لا يمكن إنكاره"
+      },
+      "detail": {
+        "en": "Store each signed approval with its details and device, protected from change, for disputes and regulators.",
+        "ar": "احفظ كل اعتماد موقّع مع تفاصيله وجهازه محميًا من التعديل، للنزاعات وللجهات الرقابية."
+      },
+      "nist": [
+        "AU-10",
+        "AU-9"
+      ],
+      "cis": [
+        "8.10"
+      ],
+      "iso": [
+        "8.15"
+      ]
+    },
+    {
+      "level": "advanced",
+      "name": {
+        "en": "Use hardware-backed keys for signing",
+        "ar": "استخدم مفاتيح محمية بالعتاد للتوقيع"
+      },
+      "detail": {
+        "en": "Keep signing keys in the device's secure hardware or in FIDO authenticators, bound to the registered device.",
+        "ar": "احفظ مفاتيح التوقيع في العتاد الآمن للجهاز أو في أدوات تحقق FIDO، مرتبطة بالجهاز المسجل."
+      },
+      "nist": [
+        "SC-12",
+        "IA-5"
+      ],
+      "cis": [],
+      "iso": [
+        "8.24"
+      ]
+    },
+    {
+      "level": "advanced",
+      "name": {
+        "en": "Protect the registration of signing devices",
+        "ar": "احمِ تسجيل أجهزة التوقيع"
+      },
+      "detail": {
+        "en": "Treat registering a new signing device as a high-risk change, with strong checks, a notice, and a delay before first use.",
+        "ar": "عامل تسجيل جهاز توقيع جديد بوصفه تغييرًا عالي المخاطر، مع فحوص قوية وإشعار ومهلة قبل أول استخدام."
+      },
+      "nist": [
+        "IA-3",
+        "IA-5"
+      ],
+      "cis": [],
+      "iso": [
+        "5.17"
+      ]
+    }
+  ],
+  "decisions": [
+    {
+      "en": "Which transactions always need signing, and which exemptions will you allow?",
+      "ar": "ما المعاملات التي تحتاج إلى التوقيع دائمًا، وما الاستثناءات التي ستسمح بها؟"
+    },
+    {
+      "en": "Which channel shows the details the customer approves, and what happens when the customer has no registered device?",
+      "ar": "ما القناة التي تعرض التفاصيل التي يعتمدها العميل، وماذا يحدث حين لا يملك العميل جهازًا مسجلًا؟"
+    },
+    {
+      "en": "How long will signed approvals be kept, and who can read them in a dispute?",
+      "ar": "ما مدة حفظ الاعتمادات الموقّعة، ومن يستطيع قراءتها عند النزاع؟"
+    }
+  ],
+  "tradeoffs": [
+    {
+      "en": "Signing every payment adds friction, so exemptions for low risk must be defined carefully.",
+      "ar": "يضيف توقيع كل دفعة صعوبة، لذا يجب تعريف الاستثناءات منخفضة المخاطر بعناية."
+    },
+    {
+      "en": "Customers without a smartphone or a signing device need another secure channel, which costs more to run.",
+      "ar": "يحتاج العملاء الذين لا يملكون هاتفًا ذكيًا أو جهاز توقيع إلى قناة آمنة أخرى، وتشغيلها أعلى كلفة."
+    },
+    {
+      "en": "Verification on the server needs the same transaction format on every channel, which touches core systems.",
+      "ar": "يحتاج التحقق في الخوادم إلى صيغة المعاملة نفسها في كل قناة، وهذا يمس الأنظمة الأساسية."
+    }
+  ],
+  "antipatterns": [
+    {
+      "en": "A one-time code sent with no amount or payee in the message.",
+      "ar": "رمز مؤقت يُرسل دون ذكر المبلغ أو المستفيد في الرسالة."
+    },
+    {
+      "en": "Transaction details shown and approved only in the browser that submitted them.",
+      "ar": "تفاصيل معاملة تُعرض وتُعتمد في المتصفح الذي أرسلها فقط."
+    },
+    {
+      "en": "Approvals checked by the app on the device and trusted by the server.",
+      "ar": "اعتمادات يفحصها التطبيق على الجهاز وتثق بها الخوادم."
+    }
+  ],
+  "verify": [
+    {
+      "en": "Change the payee of a test payment after approval, and confirm that the server refuses it.",
+      "ar": "غيّر المستفيد في دفعة اختبارية بعد اعتمادها، وتأكد من أن الخوادم ترفضها."
+    },
+    {
+      "en": "Replay the approval of one payment on another, and confirm that it fails.",
+      "ar": "أعد استخدام اعتماد دفعة في دفعة أخرى، وتأكد من إخفاقه."
+    },
+    {
+      "en": "Register a new signing device on a test account, and confirm the notice and the delay before first use.",
+      "ar": "سجّل جهاز توقيع جديدًا في حساب اختباري، وتأكد من الإشعار ومن المهلة قبل أول استخدام."
+    }
+  ],
+  "attack": [
+    "T1185",
+    "T1557",
+    "T1565.002",
+    "T1111"
+  ],
+  "owasp": [],
+  "related": [
+    "P17",
+    "P27",
+    "P15"
+  ],
+  "references": [
+    {
+      "title": {
+        "en": "OWASP Transaction Authorization Cheat Sheet",
+        "ar": "دليل OWASP المختصر لتفويض المعاملات"
+      },
+      "url": "https://cheatsheetseries.owasp.org/cheatsheets/Transaction_Authorization_Cheat_Sheet.html"
+    },
+    {
+      "title": {
+        "en": "W3C Secure Payment Confirmation",
+        "ar": "معيار W3C لتأكيد الدفع الآمن"
+      },
+      "url": "https://www.w3.org/TR/secure-payment-confirmation/"
+    },
+    {
+      "title": {
+        "en": "Commission Delegated Regulation (EU) 2018/389 on strong customer authentication",
+        "ar": "اللائحة الأوروبية المفوضة رقم ٢٠١٨/٣٨٩ بشأن التحقق القوي من هوية العميل"
+      },
+      "url": "https://eur-lex.europa.eu/eli/reg_del/2018/389/oj"
+    }
+  ]
+}

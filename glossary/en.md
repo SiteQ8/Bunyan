@@ -28,6 +28,7 @@ Short definitions of the terms used across Bunyan. Where a term matters most in 
 | **Compensating control** | A control put in place because the preferred control is not possible, which reduces the same risk another way. |  |
 | **Conditional access** | Policies in the identity provider that decide sign-in based on the user, device, location, and risk. | [P02](../patterns/en/P02-identity-control-plane.md) |
 | **Conduit** | In IEC 62443, a defined communication path between zones, with its own protocols and controls. | [P13](../patterns/en/P13-ot-zones-and-conduits.md) |
+| **Confidential computing** | Processing data inside enclaves protected by hardware, so that it stays encrypted in memory, even from the cloud operator. | [P30](../patterns/en/P30-sovereign-cloud.md) |
 | **Consent phishing** | An attack that tricks a user into granting a malicious app access to their mail or files, with no password stolen at all. | [P25](../patterns/en/P25-saas-guardrails.md) |
 | **Content disarm and reconstruction** | A technique that rebuilds documents from their safe parts only, dropping macros, scripts, and other active content. | [P26](../patterns/en/P26-partner-data-exchange.md) |
 | **Control plane** | The management layer of a platform, such as a cloud console or a cluster API, from which everything else is configured. |  |
@@ -36,6 +37,8 @@ Short definitions of the terms used across Bunyan. Where a term matters most in 
 | **Data classification** | Sorting data into levels of sensitivity, each with its own handling rules. | [P09](../patterns/en/P09-data-centric-protection.md) |
 | **Data loss prevention** | Tools and rules that detect sensitive data leaving through email, web, devices, or cloud services, and alert or block it. | [P09](../patterns/en/P09-data-centric-protection.md) |
 | **Data owner** | The person accountable for a data set, who decides its classification and who may access it. | [P09](../patterns/en/P09-data-centric-protection.md) |
+| **Data residency** | The requirement that data be stored and processed only in a particular country or region. | [P30](../patterns/en/P30-sovereign-cloud.md) |
+| **DCSync** | An attack that pretends to be a domain controller and asks a real one to replicate password hashes to it. | [P31](../patterns/en/P31-identity-threat-detection.md) |
 | **Default deny** | A rule set in which nothing is allowed unless a rule explicitly permits it. | [P04](../patterns/en/P04-segmentation.md) |
 | **Defense in depth** | Layering independent controls so that the failure of one does not expose the asset. |  |
 | **Demilitarized zone** | A network zone between an untrusted network and a trusted one, where connections from each side end. | [P13](../patterns/en/P13-ot-zones-and-conduits.md) |
@@ -45,19 +48,25 @@ Short definitions of the terms used across Bunyan. Where a term matters most in 
 | **Endpoint detection and response** | Software on each device that records activity, detects attacks, and lets responders investigate and isolate the device remotely. | [P19](../patterns/en/P19-managed-endpoints.md) |
 | **Envelope encryption** | Encrypting data with a data key, then encrypting that key with a master key held in a key management service. | [P08](../patterns/en/P08-secrets-keys-workload-identity.md) |
 | **EPSS** | The Exploit Prediction Scoring System, which estimates the probability that a vulnerability will be exploited in the next thirty days. | [P21](../patterns/en/P21-exposure-management.md) |
+| **Excessive agency** | Giving an AI system more tools, permissions, or autonomy than its task needs, so that a manipulated model can do real harm. | [P29](../patterns/en/P29-ai-agents.md) |
 | **Fail secure** | Designing a control so that when it breaks it denies access rather than allowing it. |  |
 | **Failover** | Moving a service from a failed site or component to a standby that takes over. | [P22](../patterns/en/P22-resilient-availability.md) |
 | **Hardware security module** | A tamper-resistant device that generates and holds keys and performs cryptographic operations without exposing them. | [P08](../patterns/en/P08-secrets-keys-workload-identity.md) |
+| **Hold your own key** | A cloud encryption model in which the customer keeps the keys outside the provider, so that the provider cannot read the data alone. | [P30](../patterns/en/P30-sovereign-cloud.md) |
 | **Identity provider** | The service that authenticates people and issues the tokens that applications trust. | [P02](../patterns/en/P02-identity-control-plane.md) |
+| **Identity threat detection and response** | Detection and response that focus on the identity systems themselves, such as the directory and the identity provider. | [P31](../patterns/en/P31-identity-threat-detection.md) |
 | **Immutable backup** | A backup copy that nobody, including administrators, can change or delete before its retention ends. | [P12](../patterns/en/P12-resilient-recovery.md) |
 | **Infrastructure as code** | Defining infrastructure in version-controlled files that a pipeline applies, instead of configuring it by hand. | [P06](../patterns/en/P06-cloud-landing-zone.md) |
 | **Just-in-time access** | Privileged access granted for a specific task and a limited time, then removed automatically. | [P03](../patterns/en/P03-tiered-privileged-access.md) |
+| **Kerberoasting** | An attack that requests service tickets for service accounts and cracks them offline to recover their passwords. | [P31](../patterns/en/P31-identity-threat-detection.md) |
 | **Known exploited vulnerabilities** | Vulnerabilities with evidence of exploitation in the wild, listed in catalogues such as the one CISA maintains. | [P21](../patterns/en/P21-exposure-management.md) |
 | **Landing zone** | A prepared cloud foundation of accounts, identity, network, logging, and guardrails that new workloads are deployed into. | [P06](../patterns/en/P06-cloud-landing-zone.md) |
 | **Lateral movement** | An attacker moving from the first compromised system to others inside the network. | [P04](../patterns/en/P04-segmentation.md) |
 | **Least privilege** | Giving each identity only the access it needs, for only as long as it needs it. |  |
+| **Man in the browser** | Malware inside the browser that changes what the user sends or sees, while the connection itself stays secure. | [P32](../patterns/en/P32-transaction-signing.md) |
 | **Managed file transfer** | A platform that runs file exchanges with partners centrally, with authentication, encryption, scanning, and a record of every transfer. | [P26](../patterns/en/P26-partner-data-exchange.md) |
 | **Microsegmentation** | Segmentation applied to individual workloads, so that each one can reach only its named dependencies. | [P04](../patterns/en/P04-segmentation.md) |
+| **Model Context Protocol** | An open protocol that connects AI applications to tools and data sources through servers that expose them. | [P29](../patterns/en/P29-ai-agents.md) |
 | **Multi-factor authentication** | Authentication that requires two or more different kinds of evidence, such as something you have and something you know. | [P02](../patterns/en/P02-identity-control-plane.md) |
 | **Mutual TLS** | A TLS connection in which both sides present certificates, so each authenticates the other. | [P07](../patterns/en/P07-api-security.md) |
 | **Object level authorization** | Checking, for every request, that the caller may access the specific record it names. | [P07](../patterns/en/P07-api-security.md) |
@@ -93,6 +102,7 @@ Short definitions of the terms used across Bunyan. Where a term matters most in 
 | **Threat model** | A structured description of what can go wrong with a system and what is being done about it. |  |
 | **Tiered administration** | Separating administrative accounts and devices by the value of what they manage, so that credentials never flow downward. | [P03](../patterns/en/P03-tiered-privileged-access.md) |
 | **Tokenization** | Replacing a sensitive value, such as a card number, with a token that is useless to an attacker. | [P15](../patterns/en/P15-regulated-enclave.md) |
+| **Transaction signing** | Approving a transaction with a key that signs its exact details, such as the amount and the payee, so that the approval cannot be reused for anything else. | [P32](../patterns/en/P32-transaction-signing.md) |
 | **Trust boundary** | A point where data or control passes between parts of a system that trust each other differently. |  |
 | **Unidirectional gateway** | A device that physically allows data to flow in one direction only. | [P13](../patterns/en/P13-ot-zones-and-conduits.md) |
 | **Workload identity** | An identity issued by a platform to a service, used to obtain short-lived credentials instead of stored secrets. | [P08](../patterns/en/P08-secrets-keys-workload-identity.md) |

@@ -10,7 +10,7 @@
 
 | المجال | أنماط ذات صلة |
 | --- | --- |
-| الهوية | [P02 الهوية مستوى تحكم](P02-identity-control-plane.md)، [P04 العزل والتقسيم الدقيق](P04-segmentation.md)، [P12 استعادة صامدة أمام برامج الفدية](P12-resilient-recovery.md)، [P10 بيانات الرصد ومسار الكشف](P10-detection-telemetry.md) |
+| الهوية | [P02 الهوية مستوى تحكم](P02-identity-control-plane.md)، [P04 العزل والتقسيم الدقيق](P04-segmentation.md)، [P12 استعادة صامدة أمام برامج الفدية](P12-resilient-recovery.md)، [P10 بيانات الرصد ومسار الكشف](P10-detection-telemetry.md)، [P31 رصد تهديدات الهوية والاستجابة لها](P31-identity-threat-detection.md) |
 
 ## المشكلة
 
