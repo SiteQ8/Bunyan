@@ -4,15 +4,20 @@
 //   node scripts/check-links.mjs --json   print a machine readable report
 //
 // A link passes when it answers with a success or a redirect that ends in a
-// success. A few publishers refuse automated clients outright; those are listed
-// in BOT_WALLED and reported as unverified instead of failed, so that a human
-// opens them, rather than the check silently passing or failing.
+// success. An answer of 401, 403, or 429 means the site refused an automated
+// client, not that the page is gone, and some sites refuse only the cloud
+// addresses that CI runs from. Those links are reported as unverified, so that
+// a human opens them, rather than the check silently passing or failing. A few
+// publishers also drop automated connections outright; they are listed in
+// BOT_WALLED so that a network error from them is treated the same way.
 
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+
+const REFUSED = new Set([401, 403, 429]);
 
 const BOT_WALLED = new Set([
   'www.iso.org',
@@ -99,7 +104,7 @@ async function check(url) {
     // for example an ATT&CK technique that was renumbered. Cite the new home.
     if (ok && r.moved) return { url, ok: false, status: r.status, final: r.final, error: `moved to ${r.moved}` };
     if (ok) return { url, ok: true, status: r.status, final: r.final };
-    if (BOT_WALLED.has(host) && (r.status === 403 || r.status === 429 || r.status === 401)) {
+    if (REFUSED.has(r.status)) {
       return { url, ok: true, unverified: true, status: r.status, final: r.final };
     }
     return { url, ok: false, status: r.status, final: r.final };
