@@ -226,6 +226,14 @@
       "matrix": "enterprise",
       "url": "https://attack.mitre.org/techniques/T1213/"
     },
+    "T1213.003": {
+      "name": {
+        "en": "Data from Information Repositories: Code Repositories",
+        "ar": "بيانات من مستودعات المعلومات، مستودعات الشيفرة"
+      },
+      "matrix": "enterprise",
+      "url": "https://attack.mitre.org/techniques/T1213/003/"
+    },
     "T1485": {
       "name": {
         "en": "Data Destruction",
@@ -314,6 +322,14 @@
       "matrix": "enterprise",
       "url": "https://attack.mitre.org/techniques/T1550/"
     },
+    "T1550.001": {
+      "name": {
+        "en": "Use Alternate Authentication Material: Application Access Token",
+        "ar": "استخدام مواد تحقق بديلة، رمز وصول التطبيق"
+      },
+      "matrix": "enterprise",
+      "url": "https://attack.mitre.org/techniques/T1550/001/"
+    },
     "T1552.001": {
       "name": {
         "en": "Unsecured Credentials: Credentials In Files",
@@ -345,6 +361,14 @@
       },
       "matrix": "enterprise",
       "url": "https://attack.mitre.org/techniques/T1557/"
+    },
+    "T1565.002": {
+      "name": {
+        "en": "Data Manipulation: Transmitted Data Manipulation",
+        "ar": "التلاعب بالبيانات، التلاعب بالبيانات المنقولة"
+      },
+      "matrix": "enterprise",
+      "url": "https://attack.mitre.org/techniques/T1565/002/"
     },
     "T1566": {
       "name": {

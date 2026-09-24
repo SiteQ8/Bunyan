@@ -98,6 +98,41 @@
         "ar": "الاستهلاك غير المحدود"
       },
       "url": "https://genai.owasp.org/llmrisk/llm102025-unbounded-consumption/"
+    },
+    "M1:2024": {
+      "name": {
+        "en": "Improper Credential Usage",
+        "ar": "الاستخدام غير السليم لبيانات الاعتماد"
+      },
+      "url": "https://github.com/OWASP/www-project-mobile-top-10/blob/master/2023-risks/m1-improper-credential-usage.md"
+    },
+    "M3:2024": {
+      "name": {
+        "en": "Insecure Authentication/Authorization",
+        "ar": "ضعف التحقق من الهوية والتفويض"
+      },
+      "url": "https://github.com/OWASP/www-project-mobile-top-10/blob/master/2023-risks/m3-insecure-authentication-authorization.md"
+    },
+    "M5:2024": {
+      "name": {
+        "en": "Insecure Communication",
+        "ar": "الاتصال غير الآمن"
+      },
+      "url": "https://github.com/OWASP/www-project-mobile-top-10/blob/master/2023-risks/m5-insecure-communication.md"
+    },
+    "M7:2024": {
+      "name": {
+        "en": "Insufficient Binary Protection",
+        "ar": "ضعف حماية الملف التنفيذي"
+      },
+      "url": "https://github.com/OWASP/www-project-mobile-top-10/blob/master/2023-risks/m7-insufficient-binary-protection.md"
+    },
+    "M9:2024": {
+      "name": {
+        "en": "Insecure Data Storage",
+        "ar": "التخزين غير الآمن للبيانات"
+      },
+      "url": "https://github.com/OWASP/www-project-mobile-top-10/blob/master/2023-risks/m9-insecure-data-storage.md"
     }
   }
 }

@@ -8,7 +8,7 @@
 
 | Domain | Related patterns |
 | --- | --- |
-| Data | [P04 Segmentation and micro-segmentation](P04-segmentation.md), [P03 Tiered privileged access](P03-tiered-privileged-access.md), [P09 Data-centric protection](P09-data-centric-protection.md), [P08 Secrets, keys, and workload identity](P08-secrets-keys-workload-identity.md) |
+| Data | [P04 Segmentation and micro-segmentation](P04-segmentation.md), [P03 Tiered privileged access](P03-tiered-privileged-access.md), [P09 Data-centric protection](P09-data-centric-protection.md), [P08 Secrets, keys, and workload identity](P08-secrets-keys-workload-identity.md), [P26 Secure data exchange with partners](P26-partner-data-exchange.md) |
 
 ## The problem
 

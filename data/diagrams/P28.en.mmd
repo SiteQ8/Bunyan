@@ -1,0 +1,14 @@
+flowchart LR
+  REQ["Security requirements<br/>and threat model"] --> DEV["Developer"]
+  DEV -- "before commit" --> SEC["Secret scanning"]
+  SEC --> PR["Pull request"]
+  PR --> SAST["Static analysis"]
+  PR --> SCA["Dependency analysis"]
+  PR --> IAC["Infrastructure as code checks"]
+  SAST --> GATE["Merge gate<br/>blocks what matters"]
+  SCA --> GATE
+  IAC --> GATE
+  GATE --> BUILD["Build and deploy to test"]
+  BUILD --> DAST["Dynamic scan<br/>and targeted tests"]
+  DAST --> REL["Release"]
+  GATE -- "the rest" --> BL["Backlog with fix times"]

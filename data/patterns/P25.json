@@ -1,0 +1,308 @@
+{
+  "id": "P25",
+  "slug": "saas-guardrails",
+  "domain": "platform",
+  "title": {
+    "en": "SaaS tenant guardrails",
+    "ar": "ضوابط مستأجري الخدمات السحابية الجاهزة"
+  },
+  "summary": {
+    "en": "Treat every SaaS tenant as a platform you run: harden its configuration against a baseline, keep administration small and strong, govern the third-party apps and integrations that can reach its data, and watch its logs, because the provider secures the service but you secure how it is set up.",
+    "ar": "عامل كل مستأجر في خدمة سحابية جاهزة بوصفه منصة تديرها أنت، فحصّن إعداداته وفق خط أساس، وأبقِ الإدارة محدودة وقوية، واحكم التطبيقات والتكاملات الخارجية التي تصل إلى بياناته، وراقب سجلاته، لأن المزود يؤمّن الخدمة بينما تؤمّن أنت طريقة إعدادها."
+  },
+  "problem": {
+    "en": "Most SaaS breaches are failures not of the provider but of the customer's settings: sharing open to anyone with the link, legacy protocols that skip MFA, too many global administrators, and third-party apps granted broad access through a single consent click. Each SaaS product has hundreds of settings that drift over time, audit logs that are often off or kept briefly, and data that the provider does not back up for your purposes.",
+    "ar": "لا تنتج معظم اختراقات الخدمات السحابية الجاهزة عن إخفاق المزود بل عن إعدادات العميل، مثل مشاركة مفتوحة لكل من يملك الرابط، وبروتوكولات قديمة تتجاوز التحقق متعدد العناصر، وعدد كبير من المسؤولين العامين، وتطبيقات خارجية مُنحت وصولًا واسعًا بنقرة موافقة واحدة، كما يضم كل منتج مئات الإعدادات التي تنحرف مع الوقت، وسجلات تدقيق معطلة في الغالب أو محفوظة لمدة قصيرة، وبيانات لا ينسخها المزود احتياطيًا بما يناسب احتياجاتك."
+  },
+  "useWhen": [
+    {
+      "en": "The business runs on SaaS such as email, collaboration, CRM, or HR platforms.",
+      "ar": "تعتمد الأعمال على خدمات سحابية جاهزة مثل البريد والتعاون وإدارة علاقات العملاء والموارد البشرية."
+    },
+    {
+      "en": "Several teams administer their own SaaS tenants with no shared baseline.",
+      "ar": "تدير عدة فرق مستأجريها في تلك الخدمات دون خط أساس مشترك."
+    },
+    {
+      "en": "Staff can connect third-party apps to company data on their own.",
+      "ar": "يستطيع الموظفون ربط تطبيقات خارجية ببيانات الشركة بأنفسهم."
+    }
+  ],
+  "design": [
+    {
+      "en": "Keep an inventory of every SaaS tenant with an owner, connect each one to the corporate identity provider with single sign-on and MFA, and disable local accounts and legacy protocols. Define a configuration baseline for each major tenant, such as the CISA SCuBA baselines, check the tenant against it continuously with a posture management tool, and treat drift as a finding with an owner.",
+      "ar": "احتفظ بحصر لكل مستأجر في الخدمات السحابية الجاهزة مع مالك له، واربط كلًا منها بمزود هوية الشركة عبر الدخول الموحد والتحقق متعدد العناصر، وعطّل الحسابات المحلية والبروتوكولات القديمة، ثم عرّف خط أساس للإعدادات لكل مستأجر رئيسي مثل خطوط الأساس في مشروع SCuBA من CISA، وافحص المستأجر مقابله باستمرار بأداة لإدارة الوضع الأمني، وعامل أي انحراف بوصفه ملاحظة لها مالك."
+    },
+    {
+      "en": "Keep a handful of administrators with separate, phishing-resistant accounts and just-in-time elevation, and allow third-party apps only through an approval process that reviews the permissions they ask for. Send the tenant's audit logs to the SIEM with enough retention for investigations, alert on risky changes such as new forwarding rules or broad sharing, and back up the data you cannot afford to lose to a place the tenant's administrators cannot delete.",
+      "ar": "أبقِ عدد المسؤولين قليلًا بحسابات منفصلة ومقاومة للتصيد ورفع للصلاحيات عند الحاجة فقط، ولا تسمح بالتطبيقات الخارجية إلا عبر عملية اعتماد تراجع الصلاحيات التي تطلبها، ثم أرسل سجلات تدقيق المستأجر إلى نظام إدارة السجلات مع مدة حفظ تكفي للتحقيقات، ونبّه عند التغييرات الخطرة مثل قواعد التحويل الجديدة أو المشاركة الواسعة، وانسخ احتياطيًا البيانات التي لا تحتمل فقدانها إلى مكان لا يستطيع مسؤولو المستأجر حذفه."
+    }
+  ],
+  "controls": [
+    {
+      "level": "foundation",
+      "name": {
+        "en": "Inventory tenants and give each an owner",
+        "ar": "احصر المستأجرين وامنح كلًا منهم مالكًا"
+      },
+      "detail": {
+        "en": "Record every SaaS tenant the organisation uses, with its owner, its data, and its administrators.",
+        "ar": "وثّق كل مستأجر تستخدمه المؤسسة في الخدمات السحابية الجاهزة، مع مالكه وبياناته ومسؤوليه."
+      },
+      "nist": [
+        "CM-8",
+        "SA-9"
+      ],
+      "cis": [
+        "15.1"
+      ],
+      "iso": [
+        "5.23"
+      ]
+    },
+    {
+      "level": "foundation",
+      "name": {
+        "en": "Sign in only through the identity provider",
+        "ar": "اجعل الدخول عبر مزود الهوية وحده"
+      },
+      "detail": {
+        "en": "Enforce single sign-on and MFA for every user, and disable local accounts and legacy protocols that bypass them.",
+        "ar": "افرض الدخول الموحد والتحقق متعدد العناصر لكل مستخدم، وعطّل الحسابات المحلية والبروتوكولات القديمة التي تتجاوزهما."
+      },
+      "nist": [
+        "IA-2",
+        "IA-2(1)"
+      ],
+      "cis": [
+        "6.3",
+        "6.5"
+      ],
+      "iso": [
+        "8.5"
+      ]
+    },
+    {
+      "level": "foundation",
+      "name": {
+        "en": "Keep administrators few and separate",
+        "ar": "أبقِ المسؤولين قلة وبحسابات منفصلة"
+      },
+      "detail": {
+        "en": "Limit global administrators to a handful of separate accounts, and use narrower roles for everyday administration.",
+        "ar": "احصر المسؤولين العامين في عدد قليل من الحسابات المنفصلة، واستخدم أدوارًا أضيق للإدارة اليومية."
+      },
+      "nist": [
+        "AC-6",
+        "AC-6(5)"
+      ],
+      "cis": [
+        "5.4"
+      ],
+      "iso": [
+        "8.2"
+      ]
+    },
+    {
+      "level": "enhanced",
+      "name": {
+        "en": "Check tenants against a baseline continuously",
+        "ar": "افحص المستأجرين مقابل خط أساس باستمرار"
+      },
+      "detail": {
+        "en": "Define a secure configuration baseline for each major tenant, and use posture management to find and fix drift.",
+        "ar": "عرّف خط أساس آمنًا للإعدادات لكل مستأجر رئيسي، واستخدم أداة إدارة الوضع الأمني لاكتشاف الانحراف وإصلاحه."
+      },
+      "nist": [
+        "CM-2",
+        "CM-6"
+      ],
+      "cis": [
+        "4.1"
+      ],
+      "iso": [
+        "8.9"
+      ]
+    },
+    {
+      "level": "enhanced",
+      "name": {
+        "en": "Govern third-party apps and consent",
+        "ar": "احكم التطبيقات الخارجية والموافقات"
+      },
+      "detail": {
+        "en": "Block user consent to apps that ask for broad permissions, review integrations regularly, and remove unused ones.",
+        "ar": "امنع موافقة المستخدمين على التطبيقات التي تطلب صلاحيات واسعة، وراجع التكاملات بانتظام، واحذف غير المستخدم منها."
+      },
+      "nist": [
+        "AC-3",
+        "CM-7"
+      ],
+      "cis": [
+        "2.1"
+      ],
+      "iso": [
+        "5.19",
+        "5.23"
+      ]
+    },
+    {
+      "level": "enhanced",
+      "name": {
+        "en": "Log and alert on risky changes",
+        "ar": "سجّل التغييرات الخطرة ونبّه عندها"
+      },
+      "detail": {
+        "en": "Send tenant audit logs to the SIEM, keep them long enough for investigations, and alert on forwarding rules, broad sharing, and new administrators.",
+        "ar": "أرسل سجلات تدقيق المستأجر إلى نظام إدارة السجلات، واحفظها مدة تكفي للتحقيقات، ونبّه عند قواعد التحويل والمشاركة الواسعة وإضافة المسؤولين."
+      },
+      "nist": [
+        "AU-2",
+        "AU-6"
+      ],
+      "cis": [
+        "8.2",
+        "8.9"
+      ],
+      "iso": [
+        "8.15",
+        "8.16"
+      ]
+    },
+    {
+      "level": "advanced",
+      "name": {
+        "en": "Back up SaaS data outside the tenant",
+        "ar": "انسخ بيانات الخدمات السحابية احتياطيًا خارج المستأجر"
+      },
+      "detail": {
+        "en": "Back up critical SaaS data to a store that the tenant's administrators cannot delete, and test restores.",
+        "ar": "انسخ بيانات الخدمات السحابية الحرجة احتياطيًا إلى مخزن لا يستطيع مسؤولو المستأجر حذفه، واختبر الاستعادة."
+      },
+      "nist": [
+        "CP-9",
+        "CP-10"
+      ],
+      "cis": [
+        "11.2",
+        "11.5"
+      ],
+      "iso": [
+        "8.13"
+      ]
+    },
+    {
+      "level": "advanced",
+      "name": {
+        "en": "Hold SaaS providers to security terms",
+        "ar": "ألزم مزودي الخدمات السحابية بشروط أمنية"
+      },
+      "detail": {
+        "en": "Require security terms in contracts, such as access to logs, breach notice, data location, and exit, and review them every year.",
+        "ar": "اشترط في العقود شروطًا أمنية مثل الوصول إلى السجلات والإبلاغ عن الاختراق وموقع البيانات والخروج من الخدمة، وراجعها كل عام."
+      },
+      "nist": [
+        "SA-9",
+        "SR-3"
+      ],
+      "cis": [
+        "15.4"
+      ],
+      "iso": [
+        "5.20",
+        "5.22"
+      ]
+    }
+  ],
+  "decisions": [
+    {
+      "en": "Which SaaS tenants hold sensitive data, and who owns each one?",
+      "ar": "ما المستأجرون الذين يحتفظون ببيانات حساسة، ومن يملك كلًا منهم؟"
+    },
+    {
+      "en": "Which baseline applies to each tenant, and who approves exceptions?",
+      "ar": "ما خط الأساس المطبق على كل مستأجر، ومن يعتمد الاستثناءات؟"
+    },
+    {
+      "en": "Which third-party apps may users approve themselves, and which need a review?",
+      "ar": "ما التطبيقات الخارجية التي يجوز للمستخدمين اعتمادها بأنفسهم، وما التي تحتاج إلى مراجعة؟"
+    }
+  ],
+  "tradeoffs": [
+    {
+      "en": "Blocking user consent slows down teams that rely on integrations, so reviews must be quick.",
+      "ar": "يبطئ منع موافقة المستخدمين الفرق التي تعتمد على التكاملات، لذا يجب أن تكون المراجعات سريعة."
+    },
+    {
+      "en": "Longer log retention and backup by a third party add licence and storage costs.",
+      "ar": "تضيف إطالة حفظ السجلات والنسخ الاحتياطي لدى طرف ثالث تكاليف تراخيص وتخزين."
+    },
+    {
+      "en": "A strict baseline can disable features that some teams depend on.",
+      "ar": "قد يعطّل خط الأساس الصارم ميزات تعتمد عليها بعض الفرق."
+    }
+  ],
+  "antipatterns": [
+    {
+      "en": "Dozens of global administrators, some of them shared or synced from on premises.",
+      "ar": "عشرات المسؤولين العامين، بعضهم بحسابات مشتركة أو متزامنة من البيئة المحلية."
+    },
+    {
+      "en": "Sharing links open to anyone, with no expiry.",
+      "ar": "روابط مشاركة مفتوحة لأي شخص دون مدة انتهاء."
+    },
+    {
+      "en": "Relying on the provider's recycle bin as the only backup.",
+      "ar": "الاعتماد على سلة المحذوفات لدى المزود بوصفها النسخة الاحتياطية الوحيدة."
+    }
+  ],
+  "verify": [
+    {
+      "en": "Scan each major tenant against its baseline, and confirm that every deviation has an owner or an approved exception.",
+      "ar": "افحص كل مستأجر رئيسي مقابل خط أساسه، وتأكد من أن لكل انحراف مالكًا أو استثناءً معتمدًا."
+    },
+    {
+      "en": "List the third-party apps with access to mail or files, and confirm that each one was approved and is still used.",
+      "ar": "اعرض التطبيقات الخارجية التي تصل إلى البريد أو الملفات، وتأكد من أن كلًا منها معتمد وما زال مستخدمًا."
+    },
+    {
+      "en": "Try to sign in with a legacy protocol, and confirm that it is refused.",
+      "ar": "حاول الدخول ببروتوكول قديم، وتأكد من رفضه."
+    }
+  ],
+  "attack": [
+    "T1528",
+    "T1550.001",
+    "T1078.004",
+    "T1098"
+  ],
+  "owasp": [],
+  "related": [
+    "P02",
+    "P06",
+    "P20"
+  ],
+  "references": [
+    {
+      "title": {
+        "en": "CISA Secure Cloud Business Applications (SCuBA)",
+        "ar": "مشروع CISA لتأمين تطبيقات الأعمال السحابية SCuBA"
+      },
+      "url": "https://www.cisa.gov/resources-tools/services/secure-cloud-business-applications-scuba-project"
+    },
+    {
+      "title": {
+        "en": "Cloud Security Alliance, Cloud Controls Matrix",
+        "ar": "مصفوفة الضوابط السحابية من تحالف أمن السحابة"
+      },
+      "url": "https://cloudsecurityalliance.org/research/cloud-controls-matrix"
+    },
+    {
+      "title": {
+        "en": "NIST SP 800-210, General Access Control Guidance for Cloud Systems",
+        "ar": "إرشادات NIST SP 800-210 العامة للتحكم في الوصول في الأنظمة السحابية"
+      },
+      "url": "https://csrc.nist.gov/pubs/sp/800/210/final"
+    }
+  ]
+}

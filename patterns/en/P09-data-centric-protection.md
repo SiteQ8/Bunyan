@@ -8,7 +8,7 @@
 
 | Domain | Related patterns |
 | --- | --- |
-| Data | [P08 Secrets, keys, and workload identity](P08-secrets-keys-workload-identity.md), [P05 Protected internet edge and controlled egress](P05-internet-edge-and-egress.md), [P15 Regulated enclave](P15-regulated-enclave.md), [P14 Guardrails for LLM applications and agents](P14-llm-application-guardrails.md) |
+| Data | [P08 Secrets, keys, and workload identity](P08-secrets-keys-workload-identity.md), [P05 Protected internet edge and controlled egress](P05-internet-edge-and-egress.md), [P15 Regulated enclave](P15-regulated-enclave.md), [P14 Guardrails for LLM applications and agents](P14-llm-application-guardrails.md), [P26 Secure data exchange with partners](P26-partner-data-exchange.md) |
 
 ## The problem
 

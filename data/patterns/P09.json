@@ -2,7 +2,10 @@
   "id": "P09",
   "slug": "data-centric-protection",
   "domain": "data",
-  "title": { "en": "Data-centric protection", "ar": "حماية تتمحور حول البيانات" },
+  "title": {
+    "en": "Data-centric protection",
+    "ar": "حماية تتمحور حول البيانات"
+  },
   "summary": {
     "en": "Classify data, then let the classification decide how it is stored, encrypted, masked, shared, kept, and monitored, so that protection follows the data wherever it goes.",
     "ar": "صنّف البيانات، ثم اجعل التصنيف يحدد طريقة حفظها وتشفيرها وإخفائها ومشاركتها والاحتفاظ بها ومراقبتها، حتى تتبع الحماية البيانات أينما ذهبت."
@@ -12,9 +15,18 @@
     "ar": "تغفل الضوابط المبنية حول الأنظمة أن البيانات تتنقل، فتنتهي نسخ منها في بيئات الاختبار ومنصات التحليل وجداول البيانات وأدوات الخدمات السحابية التي لم تُصمَّم لحفظها، ولا يمكنك حماية ما لم تكتشفه بعد ولا ترتيب الأولويات دون معرفة الأهم."
   },
   "useWhen": [
-    { "en": "You hold personal, financial, or health data.", "ar": "تحتفظ ببيانات شخصية أو مالية أو صحية." },
-    { "en": "Production data is copied to test, to analytics, or to partners.", "ar": "تُنسخ بيانات الإنتاج إلى بيئات الاختبار أو التحليل أو إلى الشركاء." },
-    { "en": "A data protection law or a regulator requires you to know where personal data lives.", "ar": "يُلزمك قانون لحماية البيانات أو جهة تنظيمية بمعرفة أماكن وجود البيانات الشخصية." }
+    {
+      "en": "You hold personal, financial, or health data.",
+      "ar": "تحتفظ ببيانات شخصية أو مالية أو صحية."
+    },
+    {
+      "en": "Production data is copied to test, to analytics, or to partners.",
+      "ar": "تُنسخ بيانات الإنتاج إلى بيئات الاختبار أو التحليل أو إلى الشركاء."
+    },
+    {
+      "en": "A data protection law or a regulator requires you to know where personal data lives.",
+      "ar": "يُلزمك قانون لحماية البيانات أو جهة تنظيمية بمعرفة أماكن وجود البيانات الشخصية."
+    }
   ],
   "design": [
     {
@@ -29,79 +41,263 @@
   "controls": [
     {
       "level": "foundation",
-      "name": { "en": "Define a classification scheme", "ar": "حدّد نظامًا لتصنيف البيانات" },
-      "detail": { "en": "Adopt a short classification scheme with clear examples and handling rules for each level, and assign an owner to each major data set.", "ar": "اعتمد نظام تصنيف قصيرًا مع أمثلة واضحة وقواعد تعامل لكل مستوى، وحدّد مالكًا لكل مجموعة بيانات رئيسية." },
-      "nist": ["RA-2"], "cis": ["3.7"], "iso": ["5.12", "5.13"]
+      "name": {
+        "en": "Define a classification scheme",
+        "ar": "حدّد نظامًا لتصنيف البيانات"
+      },
+      "detail": {
+        "en": "Adopt a short classification scheme with clear examples and handling rules for each level, and assign an owner to each major data set.",
+        "ar": "اعتمد نظام تصنيف قصيرًا مع أمثلة واضحة وقواعد تعامل لكل مستوى، وحدّد مالكًا لكل مجموعة بيانات رئيسية."
+      },
+      "nist": [
+        "RA-2"
+      ],
+      "cis": [
+        "3.7"
+      ],
+      "iso": [
+        "5.12",
+        "5.13"
+      ]
     },
     {
       "level": "foundation",
-      "name": { "en": "Build a data inventory", "ar": "أنشئ سجل حصر للبيانات" },
-      "detail": { "en": "Record where each class of data is stored and processed, including SaaS and backups, and document the main data flows.", "ar": "سجّل أماكن حفظ كل فئة من البيانات ومعالجتها بما في ذلك الخدمات السحابية والنسخ الاحتياطية، ووثّق تدفقات البيانات الرئيسية." },
-      "nist": ["CM-8"], "cis": ["3.2", "3.8"], "iso": ["5.9"]
+      "name": {
+        "en": "Build a data inventory",
+        "ar": "أنشئ سجل حصر للبيانات"
+      },
+      "detail": {
+        "en": "Record where each class of data is stored and processed, including SaaS and backups, and document the main data flows.",
+        "ar": "سجّل أماكن حفظ كل فئة من البيانات ومعالجتها بما في ذلك الخدمات السحابية والنسخ الاحتياطية، ووثّق تدفقات البيانات الرئيسية."
+      },
+      "nist": [
+        "CM-8"
+      ],
+      "cis": [
+        "3.2",
+        "3.8"
+      ],
+      "iso": [
+        "5.9"
+      ]
     },
     {
       "level": "foundation",
-      "name": { "en": "Encrypt in transit and at rest", "ar": "شفّر البيانات أثناء النقل والتخزين" },
-      "detail": { "en": "Use TLS 1.2 or later for all traffic that carries non-public data, and encrypt every store that holds confidential or restricted data.", "ar": "استخدم TLS 1.2 أو ما بعده لكل حركة تحمل بيانات غير عامة، وشفّر كل مخزن يحفظ بيانات سرية أو مقيدة." },
-      "nist": ["SC-8", "SC-28"], "cis": ["3.10", "3.11"], "iso": ["8.24"]
+      "name": {
+        "en": "Encrypt in transit and at rest",
+        "ar": "شفّر البيانات أثناء النقل والتخزين"
+      },
+      "detail": {
+        "en": "Use TLS 1.2 or later for all traffic that carries non-public data, and encrypt every store that holds confidential or restricted data.",
+        "ar": "استخدم TLS 1.2 أو ما بعده لكل حركة تحمل بيانات غير عامة، وشفّر كل مخزن يحفظ بيانات سرية أو مقيدة."
+      },
+      "nist": [
+        "SC-8",
+        "SC-28"
+      ],
+      "cis": [
+        "3.10",
+        "3.11"
+      ],
+      "iso": [
+        "8.24"
+      ]
     },
     {
       "level": "enhanced",
-      "name": { "en": "Mask or tokenize outside production", "ar": "أخفِ البيانات أو استبدلها رمزيًا خارج بيئة الإنتاج" },
-      "detail": { "en": "Replace sensitive fields with masked or tokenized values before data reaches test, analytics, or partners.", "ar": "استبدل الحقول الحساسة بقيم مخفية أو رمزية قبل وصول البيانات إلى بيئات الاختبار أو التحليل أو إلى الشركاء." },
-      "nist": ["SI-19"], "cis": [], "iso": ["8.11", "8.33"]
+      "name": {
+        "en": "Mask or tokenize outside production",
+        "ar": "أخفِ البيانات أو استبدلها رمزيًا خارج بيئة الإنتاج"
+      },
+      "detail": {
+        "en": "Replace sensitive fields with masked or tokenized values before data reaches test, analytics, or partners.",
+        "ar": "استبدل الحقول الحساسة بقيم مخفية أو رمزية قبل وصول البيانات إلى بيئات الاختبار أو التحليل أو إلى الشركاء."
+      },
+      "nist": [
+        "SI-19"
+      ],
+      "cis": [],
+      "iso": [
+        "8.11",
+        "8.33"
+      ]
     },
     {
       "level": "enhanced",
-      "name": { "en": "Run data loss prevention on the main channels", "ar": "شغّل منع تسرب البيانات على القنوات الرئيسية" },
-      "detail": { "en": "Monitor, and where clear enough block, restricted data leaving through email, web uploads, external storage media, and sanctioned SaaS.", "ar": "راقب خروج البيانات المقيدة عبر البريد الإلكتروني والرفع إلى مواقع الويب ووسائط التخزين الخارجية والخدمات السحابية المعتمدة، وامنعه حين تكون الحالة واضحة بما يكفي." },
-      "nist": ["AC-4", "SC-7"], "cis": ["3.13"], "iso": ["8.12"]
+      "name": {
+        "en": "Run data loss prevention on the main channels",
+        "ar": "شغّل منع تسرب البيانات على القنوات الرئيسية"
+      },
+      "detail": {
+        "en": "Monitor, and where clear enough block, restricted data leaving through email, web uploads, external storage media, and sanctioned SaaS.",
+        "ar": "راقب خروج البيانات المقيدة عبر البريد الإلكتروني والرفع إلى مواقع الويب ووسائط التخزين الخارجية والخدمات السحابية المعتمدة، وامنعه حين تكون الحالة واضحة بما يكفي."
+      },
+      "nist": [
+        "AC-4",
+        "SC-7"
+      ],
+      "cis": [
+        "3.13"
+      ],
+      "iso": [
+        "8.12"
+      ]
     },
     {
       "level": "enhanced",
-      "name": { "en": "Log access to restricted data", "ar": "سجّل الوصول إلى البيانات المقيدة" },
-      "detail": { "en": "Record who read or changed restricted data, and alert on unusual volumes or on access with no business need.", "ar": "سجّل من قرأ البيانات المقيدة أو عدّلها، وأطلق تنبيهًا عند الكميات غير المعتادة أو عند الوصول دون حاجة عمل." },
-      "nist": ["AU-2", "AU-12"], "cis": ["3.14"], "iso": ["8.15"]
+      "name": {
+        "en": "Log access to restricted data",
+        "ar": "سجّل الوصول إلى البيانات المقيدة"
+      },
+      "detail": {
+        "en": "Record who read or changed restricted data, and alert on unusual volumes or on access with no business need.",
+        "ar": "سجّل من قرأ البيانات المقيدة أو عدّلها، وأطلق تنبيهًا عند الكميات غير المعتادة أو عند الوصول دون حاجة عمل."
+      },
+      "nist": [
+        "AU-2",
+        "AU-12"
+      ],
+      "cis": [
+        "3.14"
+      ],
+      "iso": [
+        "8.15"
+      ]
     },
     {
       "level": "advanced",
-      "name": { "en": "Scope keys to data sensitivity", "ar": "خصّص المفاتيح بحسب حساسية البيانات" },
-      "detail": { "en": "Use separate keys per data class and per tenant or business unit, so that one compromised key exposes as little data as possible.", "ar": "استخدم مفاتيح منفصلة لكل فئة بيانات ولكل مستأجر أو وحدة أعمال، حتى يكشف اختراق مفتاح واحد أقل قدر ممكن من البيانات." },
-      "nist": ["SC-12"], "cis": ["3.11"], "iso": ["8.24"]
+      "name": {
+        "en": "Scope keys to data sensitivity",
+        "ar": "خصّص المفاتيح بحسب حساسية البيانات"
+      },
+      "detail": {
+        "en": "Use separate keys per data class and per tenant or business unit, so that one compromised key exposes as little data as possible.",
+        "ar": "استخدم مفاتيح منفصلة لكل فئة بيانات ولكل مستأجر أو وحدة أعمال، حتى يكشف اختراق مفتاح واحد أقل قدر ممكن من البيانات."
+      },
+      "nist": [
+        "SC-12"
+      ],
+      "cis": [
+        "3.11"
+      ],
+      "iso": [
+        "8.24"
+      ]
     },
     {
       "level": "advanced",
-      "name": { "en": "Enforce retention and deletion", "ar": "افرض مدد الاحتفاظ والحذف" },
-      "detail": { "en": "Delete data automatically at the end of its retention period, including from analytics and backups where the law allows.", "ar": "احذف البيانات آليًا عند انتهاء مدة الاحتفاظ بها، بما في ذلك من منصات التحليل والنسخ الاحتياطية حيث يسمح القانون." },
-      "nist": ["SI-12"], "cis": ["3.4", "3.5"], "iso": ["8.10", "5.33"]
+      "name": {
+        "en": "Enforce retention and deletion",
+        "ar": "افرض مدد الاحتفاظ والحذف"
+      },
+      "detail": {
+        "en": "Delete data automatically at the end of its retention period, including from analytics and backups where the law allows.",
+        "ar": "احذف البيانات آليًا عند انتهاء مدة الاحتفاظ بها، بما في ذلك من منصات التحليل والنسخ الاحتياطية حيث يسمح القانون."
+      },
+      "nist": [
+        "SI-12"
+      ],
+      "cis": [
+        "3.4",
+        "3.5"
+      ],
+      "iso": [
+        "8.10",
+        "5.33"
+      ]
     }
   ],
   "decisions": [
-    { "en": "What are the classification levels, and who owns each major data set?", "ar": "ما مستويات التصنيف، ومن يملك كل مجموعة بيانات رئيسية؟" },
-    { "en": "Which data may leave production, and in what form?", "ar": "ما البيانات التي يجوز خروجها من بيئة الإنتاج، وبأي صيغة؟" },
-    { "en": "How long is each class of data kept, and how is deletion proven?", "ar": "ما مدة الاحتفاظ بكل فئة من البيانات، وكيف يُثبت حذفها؟" }
+    {
+      "en": "What are the classification levels, and who owns each major data set?",
+      "ar": "ما مستويات التصنيف، ومن يملك كل مجموعة بيانات رئيسية؟"
+    },
+    {
+      "en": "Which data may leave production, and in what form?",
+      "ar": "ما البيانات التي يجوز خروجها من بيئة الإنتاج، وبأي صيغة؟"
+    },
+    {
+      "en": "How long is each class of data kept, and how is deletion proven?",
+      "ar": "ما مدة الاحتفاظ بكل فئة من البيانات، وكيف يُثبت حذفها؟"
+    }
   ],
   "tradeoffs": [
-    { "en": "Data loss prevention produces false positives that frustrate people, so start by monitoring and block only the clearest cases.", "ar": "ينتج منع تسرب البيانات إنذارات خاطئة تُزعج الناس، لذا ابدأ بالمراقبة ولا تمنع إلا أوضح الحالات." },
-    { "en": "Tokenization reduces exposure, but adds a critical service that must be available and protected.", "ar": "يقلل الاستبدال الرمزي انكشاف البيانات، لكنه يضيف خدمة حرجة يجب أن تكون متاحة ومحمية." },
-    { "en": "Too many classification levels confuse people, and confused people misclassify.", "ar": "تُربك كثرة مستويات التصنيف الناس، والمرتبكون يخطئون في التصنيف." }
+    {
+      "en": "Data loss prevention produces false positives that frustrate people, so start by monitoring and block only the clearest cases.",
+      "ar": "ينتج منع تسرب البيانات إنذارات خاطئة تُزعج الناس، لذا ابدأ بالمراقبة ولا تمنع إلا أوضح الحالات."
+    },
+    {
+      "en": "Tokenization reduces exposure, but adds a critical service that must be available and protected.",
+      "ar": "يقلل الاستبدال الرمزي انكشاف البيانات، لكنه يضيف خدمة حرجة يجب أن تكون متاحة ومحمية."
+    },
+    {
+      "en": "Too many classification levels confuse people, and confused people misclassify.",
+      "ar": "تُربك كثرة مستويات التصنيف الناس، والمرتبكون يخطئون في التصنيف."
+    }
   ],
   "antipatterns": [
-    { "en": "Production databases copied to test environments with real customer data.", "ar": "نسخ قواعد بيانات الإنتاج إلى بيئات الاختبار ببيانات عملاء حقيقية." },
-    { "en": "Encryption at rest presented as the answer to every data risk.", "ar": "تقديم التشفير أثناء التخزين على أنه الحل لكل مخاطر البيانات." },
-    { "en": "A classification policy that no system enforces.", "ar": "سياسة تصنيف لا يطبّقها أي نظام." }
+    {
+      "en": "Production databases copied to test environments with real customer data.",
+      "ar": "نسخ قواعد بيانات الإنتاج إلى بيئات الاختبار ببيانات عملاء حقيقية."
+    },
+    {
+      "en": "Encryption at rest presented as the answer to every data risk.",
+      "ar": "تقديم التشفير أثناء التخزين على أنه الحل لكل مخاطر البيانات."
+    },
+    {
+      "en": "A classification policy that no system enforces.",
+      "ar": "سياسة تصنيف لا يطبّقها أي نظام."
+    }
   ],
   "verify": [
-    { "en": "Search test and analytics environments for real customer identifiers.", "ar": "ابحث في بيئات الاختبار والتحليل عن معرّفات عملاء حقيقية." },
-    { "en": "Send a test document marked restricted through email and through a web upload, and confirm it is blocked or alerted.", "ar": "أرسل مستندًا تجريبيًا مصنفًا مقيدًا عبر البريد الإلكتروني وعبر الرفع إلى موقع ويب، وتأكد أنه يُمنع أو يُطلق تنبيهًا." },
-    { "en": "Pick a restricted data set and confirm you can list everyone who accessed it last month.", "ar": "اختر مجموعة بيانات مقيدة وتأكد أنك تستطيع عرض كل من وصل إليها في الشهر الماضي." }
+    {
+      "en": "Search test and analytics environments for real customer identifiers.",
+      "ar": "ابحث في بيئات الاختبار والتحليل عن معرّفات عملاء حقيقية."
+    },
+    {
+      "en": "Send a test document marked restricted through email and through a web upload, and confirm it is blocked or alerted.",
+      "ar": "أرسل مستندًا تجريبيًا مصنفًا مقيدًا عبر البريد الإلكتروني وعبر الرفع إلى موقع ويب، وتأكد أنه يُمنع أو يُطلق تنبيهًا."
+    },
+    {
+      "en": "Pick a restricted data set and confirm you can list everyone who accessed it last month.",
+      "ar": "اختر مجموعة بيانات مقيدة وتأكد أنك تستطيع عرض كل من وصل إليها في الشهر الماضي."
+    }
   ],
-  "attack": ["T1530", "T1567", "T1048", "T1213"],
+  "attack": [
+    "T1530",
+    "T1567",
+    "T1048",
+    "T1213"
+  ],
   "owasp": [],
-  "related": ["P08", "P05", "P15", "P14"],
+  "related": [
+    "P08",
+    "P05",
+    "P15",
+    "P14",
+    "P26"
+  ],
   "references": [
-    { "title": { "en": "NIST Privacy Framework", "ar": "إطار الخصوصية من NIST" }, "url": "https://www.nist.gov/privacy-framework" },
-    { "title": { "en": "NIST SP 800-188, de-identifying government datasets", "ar": "إزالة المعرّفات من مجموعات البيانات NIST SP 800-188" }, "url": "https://csrc.nist.gov/pubs/sp/800/188/final" },
-    { "title": { "en": "OWASP Cryptographic Storage Cheat Sheet", "ar": "دليل OWASP المختصر للتخزين المشفر" }, "url": "https://cheatsheetseries.owasp.org/cheatsheets/Cryptographic_Storage_Cheat_Sheet.html" }
+    {
+      "title": {
+        "en": "NIST Privacy Framework",
+        "ar": "إطار الخصوصية من NIST"
+      },
+      "url": "https://www.nist.gov/privacy-framework"
+    },
+    {
+      "title": {
+        "en": "NIST SP 800-188, de-identifying government datasets",
+        "ar": "إزالة المعرّفات من مجموعات البيانات NIST SP 800-188"
+      },
+      "url": "https://csrc.nist.gov/pubs/sp/800/188/final"
+    },
+    {
+      "title": {
+        "en": "OWASP Cryptographic Storage Cheat Sheet",
+        "ar": "دليل OWASP المختصر للتخزين المشفر"
+      },
+      "url": "https://cheatsheetseries.owasp.org/cheatsheets/Cryptographic_Storage_Cheat_Sheet.html"
+    }
   ]
 }

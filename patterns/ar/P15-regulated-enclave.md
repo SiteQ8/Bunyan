@@ -10,7 +10,7 @@
 
 | المجال | أنماط ذات صلة |
 | --- | --- |
-| البيانات | [P04 العزل والتقسيم الدقيق](P04-segmentation.md)، [P03 الصلاحيات الهامة والحساسة في طبقات](P03-tiered-privileged-access.md)، [P09 حماية تتمحور حول البيانات](P09-data-centric-protection.md)، [P08 الأسرار والمفاتيح وهوية أعباء العمل](P08-secrets-keys-workload-identity.md) |
+| البيانات | [P04 العزل والتقسيم الدقيق](P04-segmentation.md)، [P03 الصلاحيات الهامة والحساسة في طبقات](P03-tiered-privileged-access.md)، [P09 حماية تتمحور حول البيانات](P09-data-centric-protection.md)، [P08 الأسرار والمفاتيح وهوية أعباء العمل](P08-secrets-keys-workload-identity.md)، [P26 تبادل آمن للبيانات مع الشركاء](P26-partner-data-exchange.md) |
 
 ## المشكلة
 

@@ -8,7 +8,7 @@
 
 | Domain | Related patterns |
 | --- | --- |
-| Identity | [P02 Identity as the control plane](P02-identity-control-plane.md), [P07 API gateway and object level authorization](P07-api-security.md), [P10 Security telemetry and detection pipeline](P10-detection-telemetry.md) |
+| Identity | [P02 Identity as the control plane](P02-identity-control-plane.md), [P07 API gateway and object level authorization](P07-api-security.md), [P10 Security telemetry and detection pipeline](P10-detection-telemetry.md), [P27 Mobile application protection](P27-mobile-app-protection.md) |
 
 ## The problem
 

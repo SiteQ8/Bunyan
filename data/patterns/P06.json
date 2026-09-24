@@ -2,7 +2,10 @@
   "id": "P06",
   "slug": "cloud-landing-zone",
   "domain": "platform",
-  "title": { "en": "Cloud landing zone with guardrails", "ar": "منطقة هبوط سحابية بضوابط وقائية" },
+  "title": {
+    "en": "Cloud landing zone with guardrails",
+    "ar": "منطقة هبوط سحابية بضوابط وقائية"
+  },
   "summary": {
     "en": "Build every cloud workload on a prepared foundation of separate accounts, central identity, organisation-wide guardrails, shared networking, and logging that workload teams cannot switch off.",
     "ar": "ابنِ كل عبء عمل سحابي على أساس مُعدّ مسبقًا من حسابات منفصلة وهوية مركزية وضوابط وقائية على مستوى المؤسسة وشبكات مشتركة وسجلات لا تستطيع فرق أعباء العمل إيقافها."
@@ -12,9 +15,18 @@
     "ar": "تُسهّل الحوسبة السحابية إنشاء الموارد وتُسهّل كشفها بالقدر نفسه، فإذا غاب الأساس تشاركت الفرق الحسابات ومنحت صلاحيات واسعة وكشفت وحدات التخزين على الإنترنت خطأً ثم أوقفت السجلات التي كانت ستكشف ذلك."
   },
   "useWhen": [
-    { "en": "You run, or are about to run, workloads in a public cloud.", "ar": "تشغّل أعباء عمل في سحابة عامة أو توشك على ذلك." },
-    { "en": "Several teams deploy to the cloud independently.", "ar": "تنشر فرق عدة إلى السحابة كلٌّ على حدة." },
-    { "en": "Production and non-production share accounts or subscriptions.", "ar": "تشترك بيئات الإنتاج وغير الإنتاج في الحسابات أو الاشتراكات نفسها." }
+    {
+      "en": "You run, or are about to run, workloads in a public cloud.",
+      "ar": "تشغّل أعباء عمل في سحابة عامة أو توشك على ذلك."
+    },
+    {
+      "en": "Several teams deploy to the cloud independently.",
+      "ar": "تنشر فرق عدة إلى السحابة كلٌّ على حدة."
+    },
+    {
+      "en": "Production and non-production share accounts or subscriptions.",
+      "ar": "تشترك بيئات الإنتاج وغير الإنتاج في الحسابات أو الاشتراكات نفسها."
+    }
   ],
   "design": [
     {
@@ -29,79 +41,281 @@
   "controls": [
     {
       "level": "foundation",
-      "name": { "en": "Separate accounts by workload and environment", "ar": "افصل الحسابات بحسب عبء العمل والبيئة" },
-      "detail": { "en": "Give each workload and each environment its own account or subscription, and keep production apart from everything else.", "ar": "امنح كل عبء عمل وكل بيئة حسابًا أو اشتراكًا خاصًا به، وأبقِ بيئة الإنتاج منفصلة عن كل ما سواها." },
-      "nist": ["SC-32"], "cis": ["16.8", "12.2"], "iso": ["8.31", "5.23"]
+      "name": {
+        "en": "Separate accounts by workload and environment",
+        "ar": "افصل الحسابات بحسب عبء العمل والبيئة"
+      },
+      "detail": {
+        "en": "Give each workload and each environment its own account or subscription, and keep production apart from everything else.",
+        "ar": "امنح كل عبء عمل وكل بيئة حسابًا أو اشتراكًا خاصًا به، وأبقِ بيئة الإنتاج منفصلة عن كل ما سواها."
+      },
+      "nist": [
+        "SC-32"
+      ],
+      "cis": [
+        "16.8",
+        "12.2"
+      ],
+      "iso": [
+        "8.31",
+        "5.23"
+      ]
     },
     {
       "level": "foundation",
-      "name": { "en": "Centralise identity with short-lived access", "ar": "وحّد الهوية مع وصول قصير الأمد" },
-      "detail": { "en": "Sign people in through the central identity provider with role sessions, remove long-lived access keys for people, and protect the root or global administrator accounts with phishing-resistant MFA.", "ar": "أدخل الأشخاص عبر مزود الهوية المركزي بجلسات أدوار، وأزل مفاتيح الوصول طويلة الأمد المخصصة للأشخاص، واحمِ حسابات الجذر أو المسؤول العام بتحقق متعدد العناصر مقاوم للتصيد." },
-      "nist": ["IA-2(1)", "AC-2", "IA-5"], "cis": ["6.5", "5.6"], "iso": ["5.17", "8.5"]
+      "name": {
+        "en": "Centralise identity with short-lived access",
+        "ar": "وحّد الهوية مع وصول قصير الأمد"
+      },
+      "detail": {
+        "en": "Sign people in through the central identity provider with role sessions, remove long-lived access keys for people, and protect the root or global administrator accounts with phishing-resistant MFA.",
+        "ar": "أدخل الأشخاص عبر مزود الهوية المركزي بجلسات أدوار، وأزل مفاتيح الوصول طويلة الأمد المخصصة للأشخاص، واحمِ حسابات الجذر أو المسؤول العام بتحقق متعدد العناصر مقاوم للتصيد."
+      },
+      "nist": [
+        "IA-2(1)",
+        "AC-2",
+        "IA-5"
+      ],
+      "cis": [
+        "6.5",
+        "5.6"
+      ],
+      "iso": [
+        "5.17",
+        "8.5"
+      ]
     },
     {
       "level": "foundation",
-      "name": { "en": "Turn on organisation-wide logging", "ar": "فعّل السجلات على مستوى المؤسسة" },
-      "detail": { "en": "Enable control plane logs in every account and region, send them to a separate log archive account that workload teams cannot modify, and keep them for the retention your obligations require.", "ar": "فعّل سجلات مستوى التحكم في كل حساب وكل منطقة سحابية، وأرسلها إلى حساب منفصل لأرشيف السجلات لا تستطيع فرق أعباء العمل تعديله، واحتفظ بها للمدة التي تفرضها التزاماتك." },
-      "nist": ["AU-2", "AU-9(2)", "AU-11"], "cis": ["8.2", "8.9", "8.10", "8.12"], "iso": ["8.15"]
+      "name": {
+        "en": "Turn on organisation-wide logging",
+        "ar": "فعّل السجلات على مستوى المؤسسة"
+      },
+      "detail": {
+        "en": "Enable control plane logs in every account and region, send them to a separate log archive account that workload teams cannot modify, and keep them for the retention your obligations require.",
+        "ar": "فعّل سجلات مستوى التحكم في كل حساب وكل منطقة سحابية، وأرسلها إلى حساب منفصل لأرشيف السجلات لا تستطيع فرق أعباء العمل تعديله، واحتفظ بها للمدة التي تفرضها التزاماتك."
+      },
+      "nist": [
+        "AU-2",
+        "AU-9(2)",
+        "AU-11"
+      ],
+      "cis": [
+        "8.2",
+        "8.9",
+        "8.10",
+        "8.12"
+      ],
+      "iso": [
+        "8.15"
+      ]
     },
     {
       "level": "enhanced",
-      "name": { "en": "Enforce preventive guardrails", "ar": "افرض الضوابط الوقائية المانعة" },
-      "detail": { "en": "Apply organisation policies that block public storage, the disabling of logs or security services, unapproved regions, and unencrypted resources.", "ar": "طبّق سياسات على مستوى المؤسسة تمنع التخزين المكشوف للعموم وإيقاف السجلات أو خدمات الأمن والمناطق السحابية غير المعتمدة والموارد غير المشفرة." },
-      "nist": ["CM-6", "CM-7"], "cis": ["4.1", "3.3"], "iso": ["8.9", "5.23"]
+      "name": {
+        "en": "Enforce preventive guardrails",
+        "ar": "افرض الضوابط الوقائية المانعة"
+      },
+      "detail": {
+        "en": "Apply organisation policies that block public storage, the disabling of logs or security services, unapproved regions, and unencrypted resources.",
+        "ar": "طبّق سياسات على مستوى المؤسسة تمنع التخزين المكشوف للعموم وإيقاف السجلات أو خدمات الأمن والمناطق السحابية غير المعتمدة والموارد غير المشفرة."
+      },
+      "nist": [
+        "CM-6",
+        "CM-7"
+      ],
+      "cis": [
+        "4.1",
+        "3.3"
+      ],
+      "iso": [
+        "8.9",
+        "5.23"
+      ]
     },
     {
       "level": "enhanced",
-      "name": { "en": "Monitor posture continuously", "ar": "راقب الوضع الأمني باستمرار" },
-      "detail": { "en": "Run cloud security posture checks across all accounts against a benchmark, and route findings to the owning team with a deadline by severity.", "ar": "شغّل فحوص الوضع الأمني السحابي على جميع الحسابات مقارنة بمعيار مرجعي، ووجّه النتائج إلى الفريق المالك مع موعد نهائي بحسب الخطورة." },
-      "nist": ["CA-7", "RA-5", "CM-6"], "cis": ["4.1", "7.1"], "iso": ["8.8", "8.9"]
+      "name": {
+        "en": "Monitor posture continuously",
+        "ar": "راقب الوضع الأمني باستمرار"
+      },
+      "detail": {
+        "en": "Run cloud security posture checks across all accounts against a benchmark, and route findings to the owning team with a deadline by severity.",
+        "ar": "شغّل فحوص الوضع الأمني السحابي على جميع الحسابات مقارنة بمعيار مرجعي، ووجّه النتائج إلى الفريق المالك مع موعد نهائي بحسب الخطورة."
+      },
+      "nist": [
+        "CA-7",
+        "RA-5",
+        "CM-6"
+      ],
+      "cis": [
+        "4.1",
+        "7.1"
+      ],
+      "iso": [
+        "8.8",
+        "8.9"
+      ]
     },
     {
       "level": "enhanced",
-      "name": { "en": "Route traffic through a shared hub", "ar": "مرّر الحركة عبر مركز مشترك" },
-      "detail": { "en": "Send traffic between workloads and to the internet through a shared network hub with firewalls and egress control, and give workloads private endpoints to cloud services.", "ar": "مرّر الحركة بين أعباء العمل وإلى الإنترنت عبر مركز شبكي مشترك فيه جدران حماية وضبط للحركة الصادرة، وامنح أعباء العمل نقاط وصول خاصة إلى الخدمات السحابية." },
-      "nist": ["SC-7", "AC-4"], "cis": ["12.2", "13.4"], "iso": ["8.20", "8.22"]
+      "name": {
+        "en": "Route traffic through a shared hub",
+        "ar": "مرّر الحركة عبر مركز مشترك"
+      },
+      "detail": {
+        "en": "Send traffic between workloads and to the internet through a shared network hub with firewalls and egress control, and give workloads private endpoints to cloud services.",
+        "ar": "مرّر الحركة بين أعباء العمل وإلى الإنترنت عبر مركز شبكي مشترك فيه جدران حماية وضبط للحركة الصادرة، وامنح أعباء العمل نقاط وصول خاصة إلى الخدمات السحابية."
+      },
+      "nist": [
+        "SC-7",
+        "AC-4"
+      ],
+      "cis": [
+        "12.2",
+        "13.4"
+      ],
+      "iso": [
+        "8.20",
+        "8.22"
+      ]
     },
     {
       "level": "advanced",
-      "name": { "en": "Define the landing zone as code", "ar": "عرّف منطقة الهبوط بوصفها شيفرة" },
-      "detail": { "en": "Keep every account, policy, and network definition in version control, review changes, deploy through a pipeline, and alert on changes made outside it.", "ar": "احفظ تعريفات الحسابات والسياسات والشبكات كلها في نظام لإدارة الإصدارات، وراجع التغييرات، وانشرها عبر مسار آلي، وأطلق تنبيهًا عند أي تغيير يتم خارجه." },
-      "nist": ["CM-2", "CM-3", "SA-10"], "cis": ["4.1"], "iso": ["8.9", "8.32"]
+      "name": {
+        "en": "Define the landing zone as code",
+        "ar": "عرّف منطقة الهبوط بوصفها شيفرة"
+      },
+      "detail": {
+        "en": "Keep every account, policy, and network definition in version control, review changes, deploy through a pipeline, and alert on changes made outside it.",
+        "ar": "احفظ تعريفات الحسابات والسياسات والشبكات كلها في نظام لإدارة الإصدارات، وراجع التغييرات، وانشرها عبر مسار آلي، وأطلق تنبيهًا عند أي تغيير يتم خارجه."
+      },
+      "nist": [
+        "CM-2",
+        "CM-3",
+        "SA-10"
+      ],
+      "cis": [
+        "4.1"
+      ],
+      "iso": [
+        "8.9",
+        "8.32"
+      ]
     },
     {
       "level": "advanced",
-      "name": { "en": "Remediate critical drift automatically", "ar": "عالج الانحرافات الحرجة آليًا" },
-      "detail": { "en": "Automatically revert critical drift, such as a storage bucket made public, and notify the owner.", "ar": "أعد الانحرافات الحرجة إلى وضعها الصحيح آليًا، مثل وحدة تخزين أصبحت مكشوفة للعموم، وأبلغ مالكها." },
-      "nist": ["CM-6", "SI-4"], "cis": ["4.1"], "iso": ["8.9"]
+      "name": {
+        "en": "Remediate critical drift automatically",
+        "ar": "عالج الانحرافات الحرجة آليًا"
+      },
+      "detail": {
+        "en": "Automatically revert critical drift, such as a storage bucket made public, and notify the owner.",
+        "ar": "أعد الانحرافات الحرجة إلى وضعها الصحيح آليًا، مثل وحدة تخزين أصبحت مكشوفة للعموم، وأبلغ مالكها."
+      },
+      "nist": [
+        "CM-6",
+        "SI-4"
+      ],
+      "cis": [
+        "4.1"
+      ],
+      "iso": [
+        "8.9"
+      ]
     }
   ],
   "decisions": [
-    { "en": "How are accounts or subscriptions structured, and who may create new ones?", "ar": "كيف تُنظَّم الحسابات أو الاشتراكات، ومن يحق له إنشاء حسابات جديدة؟" },
-    { "en": "Which guardrails are preventive and which are detective, and how are exceptions granted?", "ar": "ما الضوابط الوقائية المانعة وما الكاشفة، وكيف تُمنح الاستثناءات؟" },
-    { "en": "Which regions are allowed, given your data residency obligations?", "ar": "ما المناطق السحابية المسموح بها في ضوء التزامات توطين البيانات لديك؟" }
+    {
+      "en": "How are accounts or subscriptions structured, and who may create new ones?",
+      "ar": "كيف تُنظَّم الحسابات أو الاشتراكات، ومن يحق له إنشاء حسابات جديدة؟"
+    },
+    {
+      "en": "Which guardrails are preventive and which are detective, and how are exceptions granted?",
+      "ar": "ما الضوابط الوقائية المانعة وما الكاشفة، وكيف تُمنح الاستثناءات؟"
+    },
+    {
+      "en": "Which regions are allowed, given your data residency obligations?",
+      "ar": "ما المناطق السحابية المسموح بها في ضوء التزامات توطين البيانات لديك؟"
+    }
   ],
   "tradeoffs": [
-    { "en": "Strong guardrails slow down teams that need something unusual, so exceptions need a fast, recorded path.", "ar": "تُبطئ الضوابط الوقائية القوية الفرق التي تحتاج إلى أمر غير معتاد، لذلك تحتاج الاستثناءات إلى مسار سريع وموثق." },
-    { "en": "A shared network hub simplifies inspection, but adds cost and a central point that must be highly available.", "ar": "يُبسّط المركز الشبكي المشترك الفحص، لكنه يضيف تكلفة ونقطة مركزية يجب أن تعمل بتوافرية عالية." },
-    { "en": "Multi-cloud doubles the guardrail work, because each provider's controls differ.", "ar": "تضاعف السحابة المتعددة عمل الضوابط الوقائية، لأن ضوابط كل مزود تختلف عن غيره." }
+    {
+      "en": "Strong guardrails slow down teams that need something unusual, so exceptions need a fast, recorded path.",
+      "ar": "تُبطئ الضوابط الوقائية القوية الفرق التي تحتاج إلى أمر غير معتاد، لذلك تحتاج الاستثناءات إلى مسار سريع وموثق."
+    },
+    {
+      "en": "A shared network hub simplifies inspection, but adds cost and a central point that must be highly available.",
+      "ar": "يُبسّط المركز الشبكي المشترك الفحص، لكنه يضيف تكلفة ونقطة مركزية يجب أن تعمل بتوافرية عالية."
+    },
+    {
+      "en": "Multi-cloud doubles the guardrail work, because each provider's controls differ.",
+      "ar": "تضاعف السحابة المتعددة عمل الضوابط الوقائية، لأن ضوابط كل مزود تختلف عن غيره."
+    }
   ],
   "antipatterns": [
-    { "en": "One account for everything, with production next to experiments.", "ar": "حساب واحد لكل شيء تجاور فيه بيئة الإنتاج التجارب." },
-    { "en": "Long-lived access keys on developer laptops and in code repositories.", "ar": "مفاتيح وصول طويلة الأمد على حواسيب المطورين وفي مستودعات الشيفرة." },
-    { "en": "Logs kept in the same account as the workload, where an attacker with admin rights can delete them.", "ar": "حفظ السجلات في حساب عبء العمل نفسه، حيث يستطيع مهاجم يملك صلاحيات إدارية حذفها." }
+    {
+      "en": "One account for everything, with production next to experiments.",
+      "ar": "حساب واحد لكل شيء تجاور فيه بيئة الإنتاج التجارب."
+    },
+    {
+      "en": "Long-lived access keys on developer laptops and in code repositories.",
+      "ar": "مفاتيح وصول طويلة الأمد على حواسيب المطورين وفي مستودعات الشيفرة."
+    },
+    {
+      "en": "Logs kept in the same account as the workload, where an attacker with admin rights can delete them.",
+      "ar": "حفظ السجلات في حساب عبء العمل نفسه، حيث يستطيع مهاجم يملك صلاحيات إدارية حذفها."
+    }
   ],
   "verify": [
-    { "en": "Try to create a public storage bucket in a workload account, and confirm the guardrail blocks it.", "ar": "حاول إنشاء وحدة تخزين مكشوفة للعموم في أحد حسابات أعباء العمل، وتأكد أن الضابط الوقائي يمنعها." },
-    { "en": "List every long-lived access key and the person or system behind it.", "ar": "اعرض كل مفتاح وصول طويل الأمد والشخص أو النظام الذي يقف خلفه." },
-    { "en": "As a workload administrator, try to stop logging, and confirm it is denied and alerted.", "ar": "حاول إيقاف السجلات بصفتك مسؤولًا عن عبء عمل، وتأكد أن المحاولة تُرفض وتُطلق تنبيهًا." }
+    {
+      "en": "Try to create a public storage bucket in a workload account, and confirm the guardrail blocks it.",
+      "ar": "حاول إنشاء وحدة تخزين مكشوفة للعموم في أحد حسابات أعباء العمل، وتأكد أن الضابط الوقائي يمنعها."
+    },
+    {
+      "en": "List every long-lived access key and the person or system behind it.",
+      "ar": "اعرض كل مفتاح وصول طويل الأمد والشخص أو النظام الذي يقف خلفه."
+    },
+    {
+      "en": "As a workload administrator, try to stop logging, and confirm it is denied and alerted.",
+      "ar": "حاول إيقاف السجلات بصفتك مسؤولًا عن عبء عمل، وتأكد أن المحاولة تُرفض وتُطلق تنبيهًا."
+    }
   ],
-  "attack": ["T1078.004", "T1530", "T1537", "T1685.002"],
+  "attack": [
+    "T1078.004",
+    "T1530",
+    "T1537",
+    "T1685.002"
+  ],
   "owasp": [],
-  "related": ["P02", "P08", "P10", "P16"],
+  "related": [
+    "P02",
+    "P08",
+    "P10",
+    "P16",
+    "P25"
+  ],
   "references": [
-    { "title": { "en": "Cloud Security Alliance, Cloud Controls Matrix", "ar": "مصفوفة الضوابط السحابية من تحالف أمن السحابة" }, "url": "https://cloudsecurityalliance.org/research/cloud-controls-matrix" },
-    { "title": { "en": "CIS Benchmarks for cloud providers", "ar": "معايير CIS Benchmarks للإعدادات الآمنة لدى مزودي السحابة" }, "url": "https://www.cisecurity.org/cis-benchmarks" },
-    { "title": { "en": "NIST SP 800-210, access control guidance for cloud systems", "ar": "إرشادات التحكم في الوصول للأنظمة السحابية NIST SP 800-210" }, "url": "https://csrc.nist.gov/pubs/sp/800/210/final" }
+    {
+      "title": {
+        "en": "Cloud Security Alliance, Cloud Controls Matrix",
+        "ar": "مصفوفة الضوابط السحابية من تحالف أمن السحابة"
+      },
+      "url": "https://cloudsecurityalliance.org/research/cloud-controls-matrix"
+    },
+    {
+      "title": {
+        "en": "CIS Benchmarks for cloud providers",
+        "ar": "معايير CIS Benchmarks للإعدادات الآمنة لدى مزودي السحابة"
+      },
+      "url": "https://www.cisecurity.org/cis-benchmarks"
+    },
+    {
+      "title": {
+        "en": "NIST SP 800-210, access control guidance for cloud systems",
+        "ar": "إرشادات التحكم في الوصول للأنظمة السحابية NIST SP 800-210"
+      },
+      "url": "https://csrc.nist.gov/pubs/sp/800/210/final"
+    }
   ]
 }

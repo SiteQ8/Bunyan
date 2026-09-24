@@ -1,0 +1,297 @@
+{
+  "id": "P27",
+  "slug": "mobile-app-protection",
+  "domain": "application",
+  "title": {
+    "en": "Mobile application protection",
+    "ar": "حماية تطبيقات الهاتف"
+  },
+  "summary": {
+    "en": "Assume the app runs on a device and in hands you do not control: keep secrets off the device, let the backend check that requests come from your genuine, untampered app, protect the data the app stores and sends, and build the app to the OWASP MASVS.",
+    "ar": "افترض أن التطبيق يعمل على جهاز وبين أيدٍ لا تتحكم فيها، فأبعد الأسرار عن الجهاز، ودع الخوادم تتحقق من أن الطلبات تأتي من تطبيقك الأصلي غير المعدَّل، واحمِ البيانات التي يحفظها التطبيق ويرسلها، وابنِ التطبيق وفق معيار OWASP MASVS."
+  },
+  "problem": {
+    "en": "A mobile app is software you hand to the attacker. It can be decompiled to find API keys and hidden endpoints, repackaged with malware and published under your name, run on rooted devices with hooking tools that bypass its checks, and targeted by overlay and accessibility malware that reads one-time codes. Backends that trust whatever the app sends, and apps that keep tokens or data in plain files, turn each of these into fraud.",
+    "ar": "تطبيق الهاتف برنامج تسلّمه للمهاجم بنفسك، إذ يمكن تفكيكه لاستخراج مفاتيح الواجهات البرمجية ونقاط الوصول المخفية، وإعادة تغليفه ببرمجية ضارة ونشره باسمك، وتشغيله على أجهزة مكسورة الحماية بأدوات اعتراض تتجاوز فحوصه، واستهدافه ببرمجيات تراكب وبرمجيات تستغل خدمات إمكانية الوصول لقراءة الرموز المؤقتة، بينما تحوّل الخوادم التي تثق بكل ما يرسله التطبيق والتطبيقات التي تحفظ الرموز أو البيانات في ملفات مكشوفة كل ذلك إلى احتيال."
+  },
+  "useWhen": [
+    {
+      "en": "Customers use a mobile app to reach accounts, payments, or personal data.",
+      "ar": "يستخدم العملاء تطبيقًا للهاتف للوصول إلى الحسابات أو المدفوعات أو البيانات الشخصية."
+    },
+    {
+      "en": "The app talks to APIs that are also reachable from the internet.",
+      "ar": "يتصل التطبيق بواجهات برمجية يمكن الوصول إليها من الإنترنت أيضًا."
+    },
+    {
+      "en": "Fraud through malware or cloned apps already reaches your customers or your sector.",
+      "ar": "يصل الاحتيال عبر البرمجيات الضارة أو التطبيقات المستنسخة إلى عملائك أو قطاعك بالفعل."
+    }
+  ],
+  "design": [
+    {
+      "en": "Keep secrets and decisions on the server: the app holds no shared API keys, every request carries a short-lived token bound to the device, and the backend enforces authorization and limits as if the app did not exist. Use platform attestation, such as Play Integrity and App Attest, so that the backend can tell your genuine app on a genuine device from a script or a modified copy, and step up or refuse when it cannot.",
+      "ar": "أبقِ الأسرار والقرارات في الخوادم، فلا يحمل التطبيق مفاتيح مشتركة للواجهات البرمجية، ويحمل كل طلب رمزًا قصير العمر مرتبطًا بالجهاز، وتفرض الخوادم التفويض والحدود كأن التطبيق غير موجود، ثم استخدم إثبات سلامة المنصة مثل Play Integrity وApp Attest حتى تميّز الخوادم تطبيقك الأصلي على جهاز سليم من نص برمجي أو نسخة معدّلة، فتطلب إثباتًا أقوى أو ترفض حين يتعذر ذلك."
+    },
+    {
+      "en": "Protect what the app keeps and sends: store tokens and keys in the platform keystore, keep sensitive data out of shared storage, logs, and screenshots, and use TLS with strict validation. Harden the app itself with obfuscation, tamper and hooking detection, and runtime protection for sensitive flows, test it against the OWASP MASVS before each major release, and watch the stores for clones that impersonate your brand.",
+      "ar": "احمِ ما يحفظه التطبيق وما يرسله، فاحفظ الرموز والمفاتيح في مخزن المفاتيح الخاص بالمنصة، وأبعد البيانات الحساسة عن التخزين المشترك والسجلات ولقطات الشاشة، واستخدم TLS مع تحقق صارم، ثم حصّن التطبيق نفسه بالتعمية وكشف العبث والاعتراض والحماية أثناء التشغيل للعمليات الحساسة، واختبره وفق معيار OWASP MASVS قبل كل إصدار رئيسي، وراقب المتاجر بحثًا عن نسخ مستنسخة تنتحل علامتك."
+    }
+  ],
+  "controls": [
+    {
+      "level": "foundation",
+      "name": {
+        "en": "Keep secrets off the device",
+        "ar": "أبعد الأسرار عن الجهاز"
+      },
+      "detail": {
+        "en": "Ship no shared API keys or credentials in the app, and issue short-lived tokens per user and per device instead.",
+        "ar": "لا تضمّن التطبيق مفاتيح أو بيانات اعتماد مشتركة للواجهات البرمجية، وأصدر بدلًا منها رموزًا قصيرة العمر لكل مستخدم ولكل جهاز."
+      },
+      "nist": [
+        "IA-5",
+        "SC-12"
+      ],
+      "cis": [],
+      "iso": [
+        "8.28"
+      ]
+    },
+    {
+      "level": "foundation",
+      "name": {
+        "en": "Store data in the platform keystore",
+        "ar": "احفظ البيانات في مخزن المفاتيح الخاص بالمنصة"
+      },
+      "detail": {
+        "en": "Keep tokens and keys in the platform keystore, and keep sensitive data out of shared storage, logs, and backups.",
+        "ar": "احفظ الرموز والمفاتيح في مخزن المفاتيح الخاص بالمنصة، وأبعد البيانات الحساسة عن التخزين المشترك والسجلات والنسخ الاحتياطية."
+      },
+      "nist": [
+        "SC-28",
+        "SC-12"
+      ],
+      "cis": [
+        "3.11"
+      ],
+      "iso": [
+        "8.24"
+      ]
+    },
+    {
+      "level": "foundation",
+      "name": {
+        "en": "Enforce every rule on the server",
+        "ar": "افرض كل القواعد في الخوادم"
+      },
+      "detail": {
+        "en": "Let the backend enforce authorization, limits, and business rules, whatever the app claims.",
+        "ar": "اجعل الخوادم تفرض التفويض والحدود وقواعد العمل مهما ادّعى التطبيق."
+      },
+      "nist": [
+        "AC-3",
+        "SI-10"
+      ],
+      "cis": [
+        "16.10"
+      ],
+      "iso": [
+        "8.26"
+      ]
+    },
+    {
+      "level": "enhanced",
+      "name": {
+        "en": "Attest the app and the device",
+        "ar": "أثبت سلامة التطبيق والجهاز"
+      },
+      "detail": {
+        "en": "Use platform attestation, so that the backend can tell the genuine app on a genuine device from scripts and modified copies.",
+        "ar": "استخدم إثبات سلامة المنصة، حتى تميّز الخوادم التطبيق الأصلي على جهاز سليم من النصوص البرمجية والنسخ المعدّلة."
+      },
+      "nist": [
+        "IA-3",
+        "SI-7"
+      ],
+      "cis": [],
+      "iso": [
+        "8.5"
+      ]
+    },
+    {
+      "level": "enhanced",
+      "name": {
+        "en": "Validate TLS strictly",
+        "ar": "تحقق من TLS بصرامة"
+      },
+      "detail": {
+        "en": "Use TLS with strict certificate validation, and pin certificates only with a tested plan for changing the pins.",
+        "ar": "استخدم TLS مع تحقق صارم من الشهادات، ولا تثبّت الشهادات إلا مع خطة مُختبَرة لتغييرها."
+      },
+      "nist": [
+        "SC-8",
+        "SC-17"
+      ],
+      "cis": [
+        "3.10"
+      ],
+      "iso": [
+        "8.24"
+      ]
+    },
+    {
+      "level": "enhanced",
+      "name": {
+        "en": "Test against the MASVS",
+        "ar": "اختبر وفق معيار MASVS"
+      },
+      "detail": {
+        "en": "Test each major release against the OWASP MASVS, including a penetration test of the app and its APIs.",
+        "ar": "اختبر كل إصدار رئيسي وفق معيار OWASP MASVS، بما في ذلك اختبار اختراق للتطبيق وواجهاته البرمجية."
+      },
+      "nist": [
+        "SA-11",
+        "CA-8"
+      ],
+      "cis": [
+        "16.13"
+      ],
+      "iso": [
+        "8.29"
+      ]
+    },
+    {
+      "level": "advanced",
+      "name": {
+        "en": "Detect tampering and hooking at runtime",
+        "ar": "اكشف العبث والاعتراض أثناء التشغيل"
+      },
+      "detail": {
+        "en": "Obfuscate the app, and detect tampering, hooking, and overlays during sensitive flows, reporting the signals to the backend.",
+        "ar": "طبّق التعمية على شيفرة التطبيق، واكشف العبث والاعتراض والتراكب أثناء العمليات الحساسة، وأرسل المؤشرات إلى الخوادم."
+      },
+      "nist": [
+        "SI-7",
+        "SI-4"
+      ],
+      "cis": [],
+      "iso": [
+        "8.26"
+      ]
+    },
+    {
+      "level": "advanced",
+      "name": {
+        "en": "Watch the stores for clones",
+        "ar": "راقب المتاجر بحثًا عن النسخ المستنسخة"
+      },
+      "detail": {
+        "en": "Monitor app stores and the web for apps that impersonate your brand, and keep a takedown process ready.",
+        "ar": "راقب متاجر التطبيقات والويب بحثًا عن تطبيقات تنتحل علامتك، وجهّز إجراءً لإزالتها."
+      },
+      "nist": [
+        "SI-4",
+        "IR-4"
+      ],
+      "cis": [],
+      "iso": [
+        "5.7"
+      ]
+    }
+  ],
+  "decisions": [
+    {
+      "en": "Which actions in the app are sensitive enough to need attestation or step-up?",
+      "ar": "ما الإجراءات في التطبيق التي تبلغ حساسيتها حد الحاجة إلى إثبات السلامة أو إثبات أقوى؟"
+    },
+    {
+      "en": "What will the backend do when attestation fails: refuse, step up, or allow with limits?",
+      "ar": "ماذا ستفعل الخوادم حين يخفق إثبات السلامة، أترفض أم تطلب إثباتًا أقوى أم تسمح بحدود؟"
+    },
+    {
+      "en": "Will you pin certificates, and how will you change the pins without locking customers out?",
+      "ar": "هل ستثبّت الشهادات، وكيف ستغيّرها دون أن تمنع العملاء من الدخول؟"
+    }
+  ],
+  "tradeoffs": [
+    {
+      "en": "Attestation and root detection block some legitimate customers on older or modified devices.",
+      "ar": "يحجب إثبات السلامة وكشف كسر الحماية بعض العملاء الشرعيين على أجهزة قديمة أو معدّلة."
+    },
+    {
+      "en": "Runtime protection raises the cost of an attack but never makes the app trustworthy on its own.",
+      "ar": "ترفع الحماية أثناء التشغيل كلفة الهجوم، لكنها لا تجعل التطبيق جديرًا بالثقة وحدها أبدًا."
+    },
+    {
+      "en": "Pinning stops interception but can break the app when certificates change unexpectedly.",
+      "ar": "يمنع تثبيت الشهادات الاعتراض، لكنه قد يعطّل التطبيق حين تتغير الشهادات فجأة."
+    }
+  ],
+  "antipatterns": [
+    {
+      "en": "API keys or signing secrets embedded in the app.",
+      "ar": "مفاتيح واجهات برمجية أو أسرار توقيع مضمّنة في التطبيق."
+    },
+    {
+      "en": "Business rules checked only in the app, and trusted by the backend.",
+      "ar": "قواعد عمل تُفحص في التطبيق وحده وتثق بها الخوادم."
+    },
+    {
+      "en": "Tokens stored in plain files or in shared preferences.",
+      "ar": "رموز محفوظة في ملفات مكشوفة أو في إعدادات التطبيق المشتركة."
+    }
+  ],
+  "verify": [
+    {
+      "en": "Decompile the release build, and confirm that it contains no keys, secrets, or hidden endpoints.",
+      "ar": "فكّك نسخة الإصدار، وتأكد من خلوها من المفاتيح والأسرار ونقاط الوصول المخفية."
+    },
+    {
+      "en": "Call the APIs from a script with a valid user token, and confirm that the failed attestation triggers the agreed response.",
+      "ar": "استدعِ الواجهات البرمجية من نص برمجي برمز مستخدم صالح، وتأكد من أن إخفاق إثبات السلامة يطلق الاستجابة المتفق عليها."
+    },
+    {
+      "en": "Run the app on a rooted test device with a hooking tool, and confirm that sensitive flows are protected and reported.",
+      "ar": "شغّل التطبيق على جهاز اختباري مكسور الحماية مع أداة اعتراض، وتأكد من حماية العمليات الحساسة والإبلاغ عنها."
+    }
+  ],
+  "attack": [
+    "T1111"
+  ],
+  "owasp": [
+    "M1:2024",
+    "M3:2024",
+    "M5:2024",
+    "M7:2024",
+    "M9:2024"
+  ],
+  "related": [
+    "P17",
+    "P07",
+    "P11"
+  ],
+  "references": [
+    {
+      "title": {
+        "en": "OWASP Mobile Application Security Verification Standard (MASVS)",
+        "ar": "معيار OWASP للتحقق من أمن تطبيقات الهاتف MASVS"
+      },
+      "url": "https://mas.owasp.org/MASVS/"
+    },
+    {
+      "title": {
+        "en": "OWASP Mobile Top 10",
+        "ar": "قائمة OWASP Mobile Top 10 لمخاطر تطبيقات الهاتف"
+      },
+      "url": "https://owasp.org/www-project-mobile-top-10/"
+    },
+    {
+      "title": {
+        "en": "NIST SP 800-163 Rev 1, Vetting the Security of Mobile Applications",
+        "ar": "إرشادات NIST SP 800-163 Rev 1 لفحص أمن تطبيقات الهاتف"
+      },
+      "url": "https://csrc.nist.gov/pubs/sp/800/163/r1/final"
+    }
+  ]
+}

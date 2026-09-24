@@ -102,4 +102,4 @@ flowchart LR
 
 - [CIS Benchmarks](https://www.cisecurity.org/cis-benchmarks)
 - [NIST SP 800-124 Rev 2, Guidelines for Managing the Security of Mobile Devices in the Enterprise](https://csrc.nist.gov/pubs/sp/800/124/r2/final)
-- [Australian Cyber Security Centre, Essential Eight](https://www.cyber.gov.au/resources-business-and-government/essential-cyber-security/essential-eight)
+- [NCSC, Device Security Guidance](https://www.ncsc.gov.uk/collection/device-security-guidance)

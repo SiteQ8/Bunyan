@@ -1221,6 +1221,163 @@
         "en": "A breach of this data will have to be investigated and explained, and that needs evidence prepared in advance.",
         "ar": "سيتعين التحقيق في أي اختراق لهذه البيانات وتفسيره، وهذا يحتاج إلى أدلة مُعدّة مسبقًا."
       }
+    },
+    {
+      "pattern": "P25",
+      "priority": "recommended",
+      "when": {
+        "q": "delivery",
+        "has": "saas"
+      },
+      "because": {
+        "en": "The system relies on SaaS, and its security depends on how each tenant is set up.",
+        "ar": "يعتمد النظام على الخدمات السحابية الجاهزة، ويتوقف أمنه على طريقة إعداد كل مستأجر."
+      }
+    },
+    {
+      "pattern": "P25",
+      "priority": "essential",
+      "when": {
+        "all": [
+          {
+            "q": "delivery",
+            "has": "saas"
+          },
+          {
+            "q": "data",
+            "in": [
+              "confidential",
+              "regulated"
+            ]
+          }
+        ]
+      },
+      "because": {
+        "en": "Sensitive data lives in SaaS tenants, where one wrong sharing setting exposes it to anyone.",
+        "ar": "تقيم البيانات الحساسة في مستأجري الخدمات السحابية، حيث يكفي إعداد مشاركة خاطئ واحد لكشفها لأي شخص."
+      }
+    },
+    {
+      "pattern": "P26",
+      "priority": "recommended",
+      "when": {
+        "q": "exposure",
+        "has": "partners"
+      },
+      "because": {
+        "en": "Partners exchange data with the system, and every exchange is a door into it.",
+        "ar": "يتبادل الشركاء البيانات مع النظام، وكل تبادل باب يؤدي إليه."
+      }
+    },
+    {
+      "pattern": "P26",
+      "priority": "essential",
+      "when": {
+        "all": [
+          {
+            "q": "exposure",
+            "has": "partners"
+          },
+          {
+            "q": "obligations",
+            "hasAny": [
+              "bank",
+              "swift",
+              "pci"
+            ]
+          }
+        ]
+      },
+      "because": {
+        "en": "Payment and customer files move between institutions, where a file changed in transit becomes fraud.",
+        "ar": "تنتقل ملفات المدفوعات والعملاء بين المؤسسات، حيث يتحول الملف المعدَّل أثناء نقله إلى احتيال."
+      }
+    },
+    {
+      "pattern": "P27",
+      "priority": "recommended",
+      "when": {
+        "all": [
+          {
+            "q": "system",
+            "in": [
+              "digital"
+            ]
+          },
+          {
+            "q": "exposure",
+            "has": "public"
+          }
+        ]
+      },
+      "because": {
+        "en": "Customers are likely to reach the service through a mobile app, which runs on devices you do not control.",
+        "ar": "يُرجَّح أن يصل العملاء إلى الخدمة عبر تطبيق للهاتف يعمل على أجهزة لا تتحكم فيها."
+      }
+    },
+    {
+      "pattern": "P27",
+      "priority": "essential",
+      "when": {
+        "all": [
+          {
+            "q": "system",
+            "in": [
+              "digital"
+            ]
+          },
+          {
+            "q": "exposure",
+            "has": "public"
+          },
+          {
+            "q": "obligations",
+            "hasAny": [
+              "bank",
+              "pci"
+            ]
+          }
+        ]
+      },
+      "because": {
+        "en": "Banking and payment apps are the main target of mobile malware and cloned apps.",
+        "ar": "تطبيقات البنوك والمدفوعات هي الهدف الأول لبرمجيات الهاتف الضارة والتطبيقات المستنسخة."
+      }
+    },
+    {
+      "pattern": "P28",
+      "priority": "recommended",
+      "when": {
+        "q": "delivery",
+        "has": "inhouse"
+      },
+      "because": {
+        "en": "Your teams write code, so weaknesses and secrets are best caught where they are introduced.",
+        "ar": "تكتب فرقك الشيفرة، لذا يُكتشف الضعف والأسرار على أفضل وجه حيث تُضاف."
+      }
+    },
+    {
+      "pattern": "P28",
+      "priority": "essential",
+      "when": {
+        "all": [
+          {
+            "q": "delivery",
+            "has": "inhouse"
+          },
+          {
+            "q": "exposure",
+            "hasAny": [
+              "public",
+              "partners"
+            ]
+          }
+        ]
+      },
+      "because": {
+        "en": "Code written in house is exposed to outsiders, so each change must be checked before it ships.",
+        "ar": "تنكشف الشيفرة المكتوبة داخليًا لأطراف خارجية، لذا يجب فحص كل تغيير قبل إطلاقه."
+      }
     }
   ],
   "threats": [
@@ -1454,6 +1611,35 @@
       }
     },
     {
+      "id": "mobile-app-abuse",
+      "title": {
+        "en": "Cloned apps and malware on customers' phones",
+        "ar": "تطبيقات مستنسخة وبرمجيات ضارة على هواتف العملاء"
+      },
+      "refs": [
+        "M7:2024",
+        "T1111"
+      ],
+      "patterns": [
+        "P27",
+        "P17"
+      ],
+      "when": {
+        "all": [
+          {
+            "q": "system",
+            "in": [
+              "digital"
+            ]
+          },
+          {
+            "q": "exposure",
+            "has": "public"
+          }
+        ]
+      }
+    },
+    {
       "id": "prompt-injection",
       "title": {
         "en": "Prompt injection that triggers tools or leaks data",
@@ -1536,6 +1722,25 @@
       }
     },
     {
+      "id": "tampered-exchange",
+      "title": {
+        "en": "Tampered or malicious files from a partner",
+        "ar": "ملفات معدّلة أو ضارة من شريك"
+      },
+      "refs": [
+        "T1565.002",
+        "T1199"
+      ],
+      "patterns": [
+        "P26",
+        "P07"
+      ],
+      "when": {
+        "q": "exposure",
+        "has": "partners"
+      }
+    },
+    {
       "id": "web-threats",
       "title": {
         "en": "Malware from the web, and data leaving through web services",
@@ -1614,6 +1819,25 @@
       }
     },
     {
+      "id": "oauth-consent",
+      "title": {
+        "en": "Malicious app consent and stolen tokens in SaaS",
+        "ar": "موافقات على تطبيقات خبيثة ورموز مسروقة في الخدمات السحابية"
+      },
+      "refs": [
+        "T1528",
+        "T1550.001"
+      ],
+      "patterns": [
+        "P25",
+        "P02"
+      ],
+      "when": {
+        "q": "delivery",
+        "has": "saas"
+      }
+    },
+    {
       "id": "third-party-access",
       "title": {
         "en": "Abuse of vendor or partner access",
@@ -1687,6 +1911,25 @@
           "inhouse",
           "containers"
         ]
+      }
+    },
+    {
+      "id": "vulnerable-code",
+      "title": {
+        "en": "Vulnerable code and components shipped to production",
+        "ar": "شيفرة ومكونات ضعيفة تصل إلى بيئة الإنتاج"
+      },
+      "refs": [
+        "T1190",
+        "T1213.003"
+      ],
+      "patterns": [
+        "P28",
+        "P11"
+      ],
+      "when": {
+        "q": "delivery",
+        "has": "inhouse"
       }
     },
     {
@@ -2656,10 +2899,10 @@
               "ar": "الشركاء"
             },
             "label": {
-              "en": "Partner door: scoped, logged exports",
-              "ar": "باب الشركاء: تصدير محدد النطاق ومسجل"
+              "en": "Partner door: managed exchange, scanned and signed",
+              "ar": "باب الشركاء: تبادل مُدار ومفحوص وموقّع"
             },
-            "pattern": "P07",
+            "pattern": "P26",
             "when": {
               "q": "exposure",
               "has": "partners"
@@ -3294,6 +3537,22 @@
       "P24": {
         "en": "Evidence kept for investigations",
         "ar": "أدلة محفوظة للتحقيقات"
+      },
+      "P25": {
+        "en": "SaaS tenant guardrails",
+        "ar": "ضوابط مستأجري الخدمات السحابية"
+      },
+      "P26": {
+        "en": "Managed exchange with partners",
+        "ar": "تبادل مُدار مع الشركاء"
+      },
+      "P27": {
+        "en": "Protected mobile app",
+        "ar": "تطبيق هاتف محمي"
+      },
+      "P28": {
+        "en": "Security checks in every pull request",
+        "ar": "فحوص أمنية في كل طلب دمج"
       }
     }
   }

@@ -31,7 +31,7 @@ Answer nine questions about your system at [bunyan.3li.info](https://bunyan.3li.
 | Part | What it gives you |
 | --- | --- |
 | [Handbook](handbook/en/01-what-security-architecture-is.md) | Seven chapters, from what the discipline is to a learning path |
-| [Patterns](patterns/en/README.md) | Twenty-four patterns with controls at three levels, mapped to NIST SP 800-53 Rev 5, CIS Controls v8.1, and ISO/IEC 27001:2022 |
+| [Patterns](patterns/en/README.md) | Twenty-eight patterns with controls at three levels, mapped to NIST SP 800-53 Rev 5, CIS Controls v8.1, and ISO/IEC 27001:2022 |
 | [Design exercises](katas/en/K01-mobile-banking.md) | Three realistic briefs with worked answers |
 | [Templates](templates/en/security-architecture-document.md) | An architecture document, a threat model worksheet, a decision record, and a review checklist |
 | [Glossary](glossary/en.md) | Short definitions of the terms used across the project |
@@ -74,6 +74,10 @@ Answer nine questions about your system at [bunyan.3li.info](https://bunyan.3li.
 | P22 | [Resilient availability across sites](patterns/en/P22-resilient-availability.md) | Operations |
 | P23 | [Cryptographic agility and post-quantum readiness](patterns/en/P23-crypto-agility.md) | Data |
 | P24 | [Forensic readiness and incident response](patterns/en/P24-forensic-readiness.md) | Operations |
+| P25 | [SaaS tenant guardrails](patterns/en/P25-saas-guardrails.md) | Platform |
+| P26 | [Secure data exchange with partners](patterns/en/P26-partner-data-exchange.md) | Data |
+| P27 | [Mobile application protection](patterns/en/P27-mobile-app-protection.md) | Application |
+| P28 | [Secure development lifecycle](patterns/en/P28-secure-development.md) | Application |
 
 <!-- patterns:end -->
 
