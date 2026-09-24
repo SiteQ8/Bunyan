@@ -2,6 +2,15 @@
 
 All notable changes to Bunyan are listed here. The project follows semantic versioning.
 
+## 0.3.0, 2026-09-24
+
+- The plan answers back: point at any piece, or tap it, to see which pattern put it there and why, and pin it to find the pattern in the list. Pointing at a pattern in the list lights up its pieces on the plan.
+- Every threat can be marked up in red on the plan, to show the controls that stop it.
+- After each answer, a note says which patterns were added, removed, or moved, and the new pieces flash on the plan.
+- Three examples load a whole scenario with one click.
+- A quiz of ten questions at a time, drawn from the patterns and the threats, with an explanation after every answer, in both languages.
+- Every pattern the design recommends now has a piece on the plan: a pattern with no place of its own on a system's plan stands in the foundations band, and a test holds the plan to this.
+
 ## 0.2.0, 2026-09-24
 
 - Every pattern page on the website shows its diagram, drawn to match the site in the light and dark themes, beside an at a glance panel of its controls, framework mappings, and related patterns.
