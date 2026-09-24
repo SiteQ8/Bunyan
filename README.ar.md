@@ -6,13 +6,23 @@
 
 **تعلّم معمارية الأمن السيبراني ثم صمّمها بإتقان.**
 
+[![CI](https://github.com/SiteQ8/Bunyan/actions/workflows/ci.yml/badge.svg)](https://github.com/SiteQ8/Bunyan/actions/workflows/ci.yml) [![Release](https://img.shields.io/github/v/release/SiteQ8/Bunyan)](https://github.com/SiteQ8/Bunyan/releases) [![License](https://img.shields.io/github/license/SiteQ8/Bunyan)](LICENSE)
+
 يضم بُنيان دليلًا مفتوحًا وفهرسًا لأنماط التصميم ومستشارًا للتصميم في معمارية الأمن السيبراني، وهو مكتوب بالعربية والإنجليزية لكل من يريد تعلّم هذا التخصص أو استخدامه في عمله، واسمه مستوحى من صورة البُنيان الذي يشد بعضه بعضًا.
 
-[![CI](https://github.com/SiteQ8/Bunyan/actions/workflows/ci.yml/badge.svg)](https://github.com/SiteQ8/Bunyan/actions/workflows/ci.yml)
+![مستشار التصميم يرسم مخطط معمارية أمنية لمنصة الخدمات المصرفية عبر الهاتف](media/advisor-ar.png)
 
 ## افتح مستشار التصميم
 
 أجب عن تسعة أسئلة عن نظامك عبر [siteq8.github.io/Bunyan](https://siteq8.github.io/Bunyan/?lang=ar)، فيقترح المستشار الأنماط التي يحتاجها تصميمك ويشرح سبب وجود كل منها، ثم يرسم النتيجة مخططًا للمناطق والأبواب والأساسات ويسرد التهديدات التي تبدأ بنمذجتها، ويمكنك مشاركة التصميم رابطًا أو تنزيل ملخص بصيغة Markdown أو طباعة اللوحة، ولا يغادر أي شيء تُدخله متصفحك.
+
+| بالإنجليزية يُقرأ المخطط من اليسار إلى اليمين | وضع المخطط الأزرق للشاشات الداكنة |
+| --- | --- |
+| ![مستشار التصميم بالإنجليزية](media/advisor-en.png) | ![الأسئلة والأنماط الموصى بها في الوضع الداكن](media/dark-ar.png) |
+
+| كل نمط مع مخططه | على الهاتف باللغتين |
+| --- | --- |
+| ![نمط الوصول وفق الثقة الصفرية مع مخططه](media/pattern-ar.png) | ![مستشار التصميم على هاتفين بالإنجليزية والعربية](media/phones.png) |
 
 ## ما الذي يضمه المشروع
 

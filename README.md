@@ -4,13 +4,23 @@
 
 **Learn security architecture, then design it well.**
 
+[![CI](https://github.com/SiteQ8/Bunyan/actions/workflows/ci.yml/badge.svg)](https://github.com/SiteQ8/Bunyan/actions/workflows/ci.yml) [![Release](https://img.shields.io/github/v/release/SiteQ8/Bunyan)](https://github.com/SiteQ8/Bunyan/releases) [![License](https://img.shields.io/github/license/SiteQ8/Bunyan)](LICENSE)
+
 Bunyan is an open handbook, a catalogue of design patterns, and a design advisor for security architecture, written in English and Arabic for anyone who wants to learn the discipline or use it at work. The name comes from the Arabic بُنيان, a structure whose parts hold one another up.
 
-[![CI](https://github.com/SiteQ8/Bunyan/actions/workflows/ci.yml/badge.svg)](https://github.com/SiteQ8/Bunyan/actions/workflows/ci.yml)
+![The design advisor drawing a security architecture plan for a mobile banking platform](media/advisor-en.png)
 
 ## Open the design advisor
 
 Answer nine questions about your system at [siteq8.github.io/Bunyan](https://siteq8.github.io/Bunyan/?lang=en). The advisor suggests the patterns your design needs and explains why each one is there, draws the result as a floor plan of zones, doors, and foundations, and lists the threats to model first. You can share the design as a link, download a brief in Markdown, or print the sheet. Nothing you enter leaves your browser.
+
+| In Arabic, the plan reads right to left | Blueprint mode for dark screens |
+| --- | --- |
+| ![The design advisor in Arabic](media/advisor-ar.png) | ![The questions and the recommended patterns in dark mode](media/dark-en.png) |
+
+| Every pattern with its drawing | On a phone, in both languages |
+| --- | --- |
+| ![The zero trust access pattern with its diagram](media/pattern-en.png) | ![The design advisor on two phones, in English and in Arabic](media/phones.png) |
 
 ## What is inside
 
