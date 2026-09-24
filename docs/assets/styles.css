@@ -1,0 +1,1414 @@
+/* Bunyan: a drawing set. Vellum and ink by day, a blueprint by night. */
+
+@font-face {
+  font-family: "Archivo";
+  src: url("fonts/archivo-latin.woff2") format("woff2");
+  font-weight: 100 900;
+  font-stretch: 62% 125%;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329,
+    U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "Noto Kufi Arabic";
+  src: url("fonts/noto-kufi-arabic.woff2") format("woff2");
+  font-weight: 100 900;
+  font-display: swap;
+  unicode-range: U+0600-06FF, U+0750-077F, U+0870-088E, U+0890-0891, U+0897-08E1, U+08E3-08FF, U+200C-200E,
+    U+2010-2011, U+204F, U+2E41, U+FB50-FDFF, U+FE70-FE74, U+FE76-FEFC;
+}
+
+:root {
+  --paper: #e9ede8;
+  --sheet: #f6f7f3;
+  --ink: #1d2a33;
+  --graphite: #56626b;
+  --rule: #c3cccb;
+  --blue: #245e7a;
+  --wash: #d5e4ea;
+  --red: #b8321b;
+  --font: "Archivo", "Noto Kufi Arabic", system-ui, sans-serif;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0c243a;
+    --sheet: #102d48;
+    --ink: #e6eff5;
+    --graphite: #a8c0d3;
+    --rule: #2e5373;
+    --blue: #9ccbe6;
+    --wash: #1b4466;
+    --red: #ff8e73;
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme="dark"] {
+  --paper: #0c243a;
+  --sheet: #102d48;
+  --ink: #e6eff5;
+  --graphite: #a8c0d3;
+  --rule: #2e5373;
+  --blue: #9ccbe6;
+  --wash: #1b4466;
+  --red: #ff8e73;
+  color-scheme: dark;
+}
+
+html[lang="ar"] {
+  --font: "Noto Kufi Arabic", "Archivo", system-ui, sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font: 400 1.0625rem/1.6 var(--font);
+  font-kerning: normal;
+}
+
+html[lang="ar"] body {
+  font-size: 1rem;
+  line-height: 1.95;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  margin: 0;
+  line-height: 1.2;
+  font-weight: 650;
+  font-stretch: 87%;
+  text-wrap: balance;
+}
+
+html[lang="ar"] :is(h1, h2, h3, h4) {
+  font-weight: 700;
+  line-height: 1.55;
+}
+
+h1 {
+  font-size: clamp(1.8rem, 1.2rem + 2.2vw, 2.6rem);
+}
+
+h2 {
+  font-size: clamp(1.3rem, 1.1rem + 0.7vw, 1.6rem);
+}
+
+h3 {
+  font-size: 1.125rem;
+}
+
+h4 {
+  font-size: 0.95rem;
+}
+
+p {
+  margin: 0;
+}
+
+a {
+  color: var(--blue);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+}
+
+a:hover {
+  text-decoration-thickness: 2px;
+}
+
+:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 2px;
+}
+
+button {
+  font: inherit;
+}
+
+abbr[title] {
+  text-decoration: none;
+  cursor: help;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+.visually-hidden,
+.offscreen {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.skip {
+  position: absolute;
+  inset-inline-start: 1rem;
+  top: -4rem;
+  z-index: 10;
+  padding: 0.5rem 0.8rem;
+  background: var(--ink);
+  color: var(--sheet);
+}
+
+.skip:focus {
+  top: 0.75rem;
+}
+
+/* Page frame */
+
+.masthead,
+main,
+.colophon {
+  width: min(100% - 2rem, 84rem);
+  margin-inline: auto;
+}
+
+.masthead {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 1.75rem;
+  padding-block: 1rem 0.85rem;
+  border-bottom: 2px solid var(--ink);
+}
+
+.brand {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.55rem;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.brand-en {
+  font-family: "Archivo", sans-serif;
+  font-size: 1.55rem;
+  font-weight: 700;
+  font-stretch: 78%;
+  line-height: 1;
+}
+
+.brand-ar {
+  font-family: "Noto Kufi Arabic", sans-serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+/* Each language leads with its own name. */
+html[lang="ar"] .brand-ar,
+html[lang="ar"] .tb-mark [lang="ar"] {
+  order: -1;
+}
+
+.nav {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  gap: 0.2rem 1.25rem;
+}
+
+.nav a {
+  padding-block: 0.3rem;
+  border-bottom: 2px solid transparent;
+  color: var(--ink);
+  font-weight: 550;
+  text-decoration: none;
+}
+
+.nav a:hover {
+  border-bottom-color: var(--rule);
+}
+
+.nav a[aria-current="page"] {
+  border-bottom-color: var(--ink);
+}
+
+.tools {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.lang {
+  padding: 0.25rem 0.65rem;
+  border: 1px solid var(--ink);
+  border-radius: 2px;
+  color: var(--ink);
+  font-family: "Noto Kufi Arabic", "Archivo", sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.lang:hover {
+  background: var(--wash);
+}
+
+.theme {
+  display: grid;
+  place-items: center;
+  width: 2.2rem;
+  height: 2.2rem;
+  padding: 0;
+  border: 1px solid var(--ink);
+  border-radius: 50%;
+  background: none;
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.theme:hover {
+  background: var(--wash);
+}
+
+.theme-icon {
+  width: 1.1rem;
+  height: 1.1rem;
+}
+
+.ti-ring {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+}
+
+.ti-half {
+  fill: currentColor;
+}
+
+@media (max-width: 40rem) {
+  .nav {
+    order: 3;
+    flex-basis: 100%;
+  }
+
+  .tools {
+    margin-inline-start: auto;
+  }
+}
+
+main {
+  padding-block: 2rem 4rem;
+}
+
+main:focus {
+  outline: none;
+}
+
+.loading {
+  color: var(--graphite);
+}
+
+.notice {
+  margin-top: 1rem;
+  padding: 0.6rem 0.9rem;
+  border-inline-start: 3px solid var(--red);
+  background: var(--sheet);
+}
+
+.colophon {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 2rem;
+  padding-block: 1.25rem 2.5rem;
+  border-top: 2px solid var(--ink);
+  color: var(--graphite);
+  font-size: 0.9rem;
+}
+
+.colophon a {
+  color: var(--ink);
+}
+
+.version {
+  margin-inline-start: 0.75rem;
+}
+
+/* The design advisor */
+
+.intro {
+  max-width: 46rem;
+  margin-bottom: 1.5rem;
+}
+
+.intro > p {
+  margin-top: 0.6rem;
+  color: var(--graphite);
+}
+
+.sheet {
+  padding: 14px;
+  border: 2px solid var(--ink);
+  background: var(--sheet);
+  box-shadow: inset 0 0 0 5px var(--sheet), inset 0 0 0 6px var(--ink);
+}
+
+.sheet-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem 1rem;
+  padding: 0.35rem 0.5rem 0.85rem;
+  border-bottom: 1px solid var(--ink);
+}
+
+.sheet-head h2 {
+  font-size: 1.15rem;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.actions button {
+  padding: 0.4rem 0.75rem;
+  border: 1px solid var(--ink);
+  border-radius: 2px;
+  background: transparent;
+  color: var(--ink);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.actions button:hover {
+  background: var(--wash);
+}
+
+.actions .quiet {
+  border-style: dashed;
+  color: var(--graphite);
+}
+
+.toast {
+  flex-basis: 100%;
+  color: var(--blue);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.toast:empty {
+  display: none;
+}
+
+.plan-frame {
+  overflow-x: auto;
+  padding-block: 0.75rem;
+}
+
+.plan {
+  display: block;
+  width: 100%;
+  min-width: 68rem;
+  height: auto;
+  font-family: var(--font);
+}
+
+@media (min-width: 64rem) {
+  .plan {
+    min-width: 0;
+  }
+}
+
+.sheet-foot {
+  display: grid;
+  gap: 1.25rem;
+  padding: 0.9rem 0.5rem 0.25rem;
+  border-top: 1px solid var(--ink);
+}
+
+@media (min-width: 62rem) {
+  .sheet-foot {
+    grid-template-columns: 1fr minmax(21rem, 25rem);
+  }
+}
+
+.legend h3 {
+  margin-bottom: 0.5rem;
+  font-size: 0.95rem;
+}
+
+.legend ul {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+  gap: 0.45rem 1.25rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.legend li {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  color: var(--graphite);
+  font-size: 0.88rem;
+  line-height: 1.35;
+}
+
+.swatch {
+  flex: none;
+  width: 3rem;
+  height: 1.75rem;
+  overflow: visible;
+}
+
+.swatch .pl-room.w1 {
+  stroke-width: 1.5;
+}
+
+.swatch .pl-room.w3,
+.swatch .pl-vault {
+  stroke-width: 4;
+}
+
+.lg-wall {
+  stroke: var(--ink);
+  stroke-width: 3;
+}
+
+/* The plan mirrors for Arabic, so the legend mirrors with it. */
+html[dir="rtl"] .swatch {
+  transform: scaleX(-1);
+}
+
+.titleblock {
+  align-self: start;
+  border: 1.5px solid var(--ink);
+}
+
+.titleblock dl {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin: 0;
+}
+
+.titleblock dl > div {
+  padding: 0.4rem 0.6rem;
+  border-bottom: 1px solid var(--ink);
+  border-inline-end: 1px solid var(--ink);
+}
+
+.titleblock dl > div:first-child {
+  grid-column: 1 / -1;
+}
+
+.titleblock dl > div:nth-child(odd) {
+  border-inline-end: none;
+}
+
+.titleblock dt {
+  color: var(--graphite);
+  font-size: 0.75rem;
+  line-height: 1.4;
+}
+
+.titleblock dd {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
+.tb-mark {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding: 0.45rem 0.6rem;
+  font-weight: 700;
+}
+
+.tb-mark [lang="en"] {
+  font-family: "Archivo", sans-serif;
+  font-size: 1.1rem;
+  font-stretch: 78%;
+}
+
+.tb-mark [lang="ar"] {
+  font-family: "Noto Kufi Arabic", sans-serif;
+}
+
+.muted {
+  color: var(--graphite);
+  font-weight: 400;
+}
+
+.workspace {
+  display: grid;
+  gap: 2.5rem;
+  margin-top: 2.75rem;
+}
+
+@media (min-width: 64rem) {
+  .workspace {
+    grid-template-columns: minmax(20rem, 25rem) 1fr;
+    align-items: start;
+    gap: 3.5rem;
+  }
+}
+
+.questions > h2,
+.results > h2,
+.threats > h2 {
+  margin-bottom: 1rem;
+  font-size: 1.35rem;
+}
+
+.project {
+  display: grid;
+  gap: 0.3rem;
+  margin-bottom: 1.75rem;
+}
+
+.project span {
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.project input {
+  padding: 0.35rem 0.1rem;
+  border: 0;
+  border-bottom: 1.5px solid var(--ink);
+  border-radius: 0;
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+}
+
+.project input::placeholder {
+  color: var(--graphite);
+}
+
+.qlist {
+  display: grid;
+  gap: 1.6rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: q;
+}
+
+.qlist > li {
+  display: grid;
+  grid-template-columns: 2.1rem 1fr;
+  gap: 0.75rem;
+  counter-increment: q;
+}
+
+/* Grid bubbles, the way architectural drawings number their grid lines. */
+.qlist > li::before,
+.steps > li::before {
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border: 1.5px solid var(--ink);
+  border-radius: 50%;
+  font-size: 0.9rem;
+  font-weight: 650;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.qlist > li::before {
+  content: counter(q);
+}
+
+html[lang="ar"] .qlist > li::before {
+  content: counter(q, arabic-indic);
+}
+
+fieldset {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+legend {
+  margin-bottom: 0.2rem;
+  padding: 0;
+  font-size: 1.02rem;
+  font-weight: 650;
+  line-height: 1.4;
+}
+
+html[lang="ar"] legend {
+  line-height: 1.75;
+}
+
+.help {
+  margin-bottom: 0.4rem;
+  color: var(--graphite);
+  font-size: 0.88rem;
+}
+
+.opts {
+  display: grid;
+  gap: 0.25rem;
+  margin-top: 0.4rem;
+}
+
+.opt {
+  display: grid;
+  grid-template-columns: 1.1rem 1fr;
+  align-items: start;
+  gap: 0.6rem;
+  padding: 0.35rem 0.5rem;
+  border: 1px solid transparent;
+  border-radius: 2px;
+  font-size: 0.95rem;
+  line-height: 1.4;
+  cursor: pointer;
+}
+
+html[lang="ar"] .opt {
+  line-height: 1.7;
+}
+
+.opt:hover {
+  border-color: var(--rule);
+}
+
+.opt:has(input:checked) {
+  border-color: var(--ink);
+  background: var(--wash);
+}
+
+.opt input {
+  width: 1rem;
+  height: 1rem;
+  margin: 0.2rem 0 0;
+  accent-color: var(--ink);
+}
+
+html[lang="ar"] .opt input {
+  margin-top: 0.4rem;
+}
+
+.group + .group {
+  margin-top: 1.75rem;
+}
+
+.group h3 {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin-bottom: 0.4rem;
+  font-size: 1.05rem;
+}
+
+.mark {
+  flex: none;
+  width: 0.8rem;
+  height: 0.8rem;
+  border: 1.5px solid var(--ink);
+}
+
+.mark-essential {
+  border-color: var(--red);
+  background: var(--red);
+}
+
+.mark-consider {
+  border-style: dashed;
+}
+
+.count {
+  color: var(--graphite);
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+
+.plist,
+.tlist {
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--ink);
+  list-style: none;
+}
+
+.plist > li {
+  border-bottom: 1px solid var(--rule);
+}
+
+summary {
+  display: grid;
+  grid-template-columns: 3rem 1fr auto 1rem;
+  align-items: baseline;
+  gap: 0.75rem;
+  padding: 0.7rem 0.25rem;
+  cursor: pointer;
+  list-style: none;
+}
+
+summary::-webkit-details-marker {
+  display: none;
+}
+
+summary::after {
+  content: "";
+  align-self: center;
+  justify-self: center;
+  width: 0.45rem;
+  height: 0.45rem;
+  border-right: 1.5px solid var(--ink);
+  border-bottom: 1.5px solid var(--ink);
+  transform: rotate(45deg);
+}
+
+details[open] > summary::after {
+  transform: rotate(225deg);
+}
+
+summary:hover .ptitle {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.pid {
+  color: var(--graphite);
+  font-weight: 650;
+  font-variant-numeric: tabular-nums;
+}
+
+.ptitle {
+  font-weight: 600;
+}
+
+.pdomain {
+  color: var(--graphite);
+  font-size: 0.85rem;
+}
+
+.pbody {
+  display: grid;
+  gap: 0.45rem;
+  padding: 0.1rem 0.25rem 1.25rem;
+  padding-inline-start: 3.75rem;
+}
+
+.pbody h4 {
+  margin-top: 0.6rem;
+  color: var(--graphite);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.pbody ul:not(.controls),
+.page ul:not(.controls, .items),
+.page ol:not(.steps) {
+  display: grid;
+  gap: 0.35rem;
+  margin: 0;
+  padding-inline-start: 1.2rem;
+}
+
+.pbody ul:not(.controls) {
+  list-style: square;
+}
+
+.pbody li::marker,
+.page li::marker {
+  color: var(--graphite);
+}
+
+.controls {
+  display: grid;
+  gap: 0.8rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.controls > li {
+  padding-inline-start: 0.75rem;
+  border-inline-start: 2px solid var(--rule);
+}
+
+.cname {
+  font-weight: 600;
+}
+
+.level {
+  margin-inline-start: 0.35rem;
+  padding: 0 0.4rem;
+  border: 1px solid var(--rule);
+  border-radius: 2px;
+  color: var(--graphite);
+  font-size: 0.78rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.maps {
+  margin-top: 0.15rem;
+  color: var(--graphite);
+  font-size: 0.8rem;
+}
+
+.more {
+  margin-top: 0.5rem;
+}
+
+.more a {
+  font-weight: 600;
+}
+
+.threats {
+  margin-top: 2.75rem;
+}
+
+.threats > p {
+  margin-bottom: 1rem;
+  color: var(--graphite);
+}
+
+.tlist > li {
+  display: grid;
+  gap: 0.2rem;
+  padding: 0.75rem 0.25rem;
+  border-bottom: 1px solid var(--rule);
+}
+
+.ttitle {
+  font-weight: 600;
+}
+
+.trefs,
+.tby {
+  color: var(--graphite);
+  font-size: 0.85rem;
+}
+
+/* Reading pages */
+
+.page {
+  max-width: 50rem;
+}
+
+.page.wide {
+  max-width: 66rem;
+}
+
+.page > h1 {
+  margin-bottom: 0.5rem;
+}
+
+.lede {
+  margin-bottom: 1.5rem;
+  color: var(--graphite);
+  font-size: 1.15rem;
+}
+
+.page h2 {
+  margin-top: 2rem;
+  margin-bottom: 0.6rem;
+  padding-top: 0.6rem;
+  border-top: 1px solid var(--rule);
+}
+
+.page h3 {
+  margin-top: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.page p + p {
+  margin-top: 0.75rem;
+}
+
+.back {
+  margin-bottom: 1rem;
+  font-size: 0.95rem;
+}
+
+.pattern h1 .pid {
+  margin-inline-end: 0.3rem;
+  font-weight: 600;
+}
+
+.domain {
+  margin: 0.2rem 0 1rem;
+  color: var(--graphite);
+}
+
+.table-wrap {
+  overflow-x: auto;
+}
+
+.index {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.index th {
+  padding: 0.5rem 0.6rem;
+  border-bottom: 2px solid var(--ink);
+  color: var(--graphite);
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-align: start;
+}
+
+.index td {
+  padding: 0.75rem 0.6rem;
+  border-bottom: 1px solid var(--rule);
+  vertical-align: top;
+}
+
+.index td.pid {
+  width: 4rem;
+}
+
+.index td a {
+  font-weight: 600;
+}
+
+.index td p {
+  margin-top: 0.2rem;
+  color: var(--graphite);
+  font-size: 0.92rem;
+}
+
+.index td:last-child {
+  color: var(--graphite);
+  font-size: 0.92rem;
+  white-space: nowrap;
+}
+
+.learn.page {
+  max-width: 76rem;
+}
+
+.learn-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+@media (min-width: 60rem) {
+  .learn-grid {
+    grid-template-columns: 1.1fr 1fr;
+    gap: 4rem;
+  }
+}
+
+.learn h2 {
+  border-top: 2px solid var(--ink);
+}
+
+.steps,
+.items {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.steps {
+  counter-reset: step;
+}
+
+.steps > li,
+.items > li {
+  padding-block: 0.8rem;
+  border-bottom: 1px solid var(--rule);
+}
+
+.steps > li {
+  display: grid;
+  grid-template-columns: 2.1rem 1fr;
+  column-gap: 0.75rem;
+  counter-increment: step;
+}
+
+.steps > li::before {
+  content: counter(step);
+  grid-row: span 3;
+}
+
+html[lang="ar"] .steps > li::before {
+  content: counter(step, arabic-indic);
+}
+
+.steps > li > * {
+  grid-column: 2;
+}
+
+.steps a,
+.items a {
+  font-weight: 600;
+}
+
+.steps p,
+.items p {
+  margin-top: 0.15rem;
+  color: var(--graphite);
+  font-size: 0.95rem;
+}
+
+.search {
+  display: grid;
+  gap: 0.3rem;
+  max-width: 26rem;
+  margin: 1rem 0 1.5rem;
+}
+
+.search span {
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.search input {
+  padding: 0.5rem 0.65rem;
+  border: 1.5px solid var(--ink);
+  border-radius: 2px;
+  background: var(--sheet);
+  color: var(--ink);
+  font: inherit;
+}
+
+.terms {
+  margin: 0;
+  border-top: 2px solid var(--ink);
+}
+
+.term {
+  padding-block: 0.8rem;
+  border-bottom: 1px solid var(--rule);
+}
+
+.term dt {
+  font-weight: 650;
+}
+
+.twin {
+  margin-inline-start: 0.5rem;
+  color: var(--graphite);
+  font-weight: 400;
+}
+
+.term dd {
+  margin: 0.2rem 0 0;
+}
+
+.empty {
+  margin-top: 1rem;
+  color: var(--graphite);
+}
+
+/* The plan. Every class here is emitted by assets/plan.js. */
+
+.plan text {
+  font-family: var(--font);
+}
+
+.pl-outside {
+  fill: url(#pl-ground);
+}
+
+.pl-hatch {
+  stroke: var(--rule);
+  stroke-width: 1;
+}
+
+.pl-zone-label {
+  fill: var(--graphite);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.pl-room {
+  fill: var(--sheet);
+  stroke: var(--ink);
+}
+
+.w1 {
+  stroke-width: 2;
+}
+
+.w2 {
+  stroke-width: 4;
+}
+
+.w3 {
+  stroke-width: 6;
+}
+
+.w4 {
+  stroke-width: 9;
+}
+
+.pl-room-label {
+  fill: var(--ink);
+  font-size: 13px;
+  font-weight: 650;
+}
+
+.pl-fixture {
+  fill: var(--sheet);
+  stroke: var(--ink);
+  stroke-width: 1.5;
+}
+
+.pl-fixture.pl-essential {
+  fill: var(--ink);
+}
+
+.pl-fixture.pl-consider {
+  stroke-dasharray: 5 4;
+}
+
+.pl-fixture.pl-structural {
+  stroke: var(--graphite);
+  stroke-width: 1;
+}
+
+.pl-fixture-label {
+  fill: var(--ink);
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.pl-fixture-label.pl-essential {
+  fill: var(--sheet);
+  font-weight: 600;
+}
+
+.pl-gap {
+  fill: var(--sheet);
+  stroke: none;
+}
+
+.pl-leaf {
+  stroke: var(--ink);
+  stroke-width: 2;
+}
+
+.pl-swing {
+  fill: none;
+  stroke: var(--graphite);
+  stroke-width: 1;
+  stroke-dasharray: 3 3;
+}
+
+.pl-tag {
+  fill: var(--sheet);
+  stroke: var(--ink);
+  stroke-width: 1;
+}
+
+.pl-door-label {
+  fill: var(--ink);
+  font-size: 11px;
+}
+
+.pl-person {
+  fill: var(--ink);
+}
+
+.pl-person-body {
+  stroke: var(--ink);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+}
+
+.pl-actor {
+  fill: var(--ink);
+  font-size: 12.5px;
+  font-weight: 650;
+}
+
+.pl-entrance-label {
+  fill: var(--graphite);
+  font-size: 10.5px;
+}
+
+.pl-flow {
+  stroke: var(--blue);
+  stroke-width: 1.5;
+}
+
+.pl-arrowhead {
+  fill: var(--blue);
+}
+
+.pl-corridor {
+  stroke: var(--graphite);
+  stroke-width: 1;
+  stroke-dasharray: 8 5;
+}
+
+.pl-corridor-label {
+  fill: var(--graphite);
+  font-size: 11.5px;
+}
+
+.pl-service {
+  stroke: var(--graphite);
+  stroke-width: 1.2;
+  stroke-dasharray: 4 3;
+}
+
+.pl-foundation {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 1.5;
+  stroke-dasharray: 10 6;
+}
+
+.pl-vault {
+  fill: var(--sheet);
+  stroke: var(--ink);
+  stroke-width: 9;
+}
+
+.pl-vault-label {
+  fill: var(--ink);
+  font-size: 11.5px;
+  font-weight: 650;
+}
+
+.pl-oneway {
+  stroke: var(--ink);
+  stroke-width: 2;
+}
+
+/* Print: the drawing sheet on one landscape page, then the pattern list. */
+
+@media print {
+  :root,
+  :root[data-theme],
+  :root:not([data-theme="light"]) {
+    --paper: #fff;
+    --sheet: #fff;
+    --ink: #111;
+    --graphite: #444;
+    --rule: #bbb;
+    --blue: #111;
+    --wash: #eee;
+    --red: #111;
+    color-scheme: light;
+  }
+
+  @page {
+    size: A4 landscape;
+    margin: 10mm;
+  }
+
+  body {
+    font-size: 10pt;
+  }
+
+  .masthead,
+  .colophon,
+  .skip,
+  .intro,
+  .actions,
+  .toast,
+  .questions,
+  .threats > p,
+  .more {
+    display: none !important;
+  }
+
+  main {
+    width: auto;
+    padding: 0;
+  }
+
+  .sheet {
+    padding: 8px;
+    box-shadow: none;
+    break-inside: avoid;
+    break-after: page;
+  }
+
+  .sheet-head {
+    padding-bottom: 2mm;
+  }
+
+  .plan-frame {
+    overflow: visible;
+    padding-block: 2mm;
+  }
+
+  .plan {
+    min-width: 0;
+    max-height: 104mm;
+  }
+
+  .sheet-foot {
+    grid-template-columns: 1fr 72mm;
+    gap: 6mm;
+    padding-top: 3mm;
+  }
+
+  .legend ul {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1mm 5mm;
+  }
+
+  .legend li {
+    font-size: 7.5pt;
+  }
+
+  .swatch {
+    width: 9mm;
+    height: 5mm;
+  }
+
+  .titleblock dl > div,
+  .tb-mark {
+    padding: 0.8mm 2mm;
+  }
+
+  .titleblock dt {
+    font-size: 6.5pt;
+  }
+
+  .titleblock dd {
+    font-size: 8.5pt;
+  }
+
+  .workspace {
+    display: block;
+    margin: 0;
+  }
+
+  .threats {
+    break-before: page;
+  }
+
+  summary::after,
+  .pbody {
+    display: none;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+}
