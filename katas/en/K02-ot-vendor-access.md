@@ -39,6 +39,7 @@ Follow the Purdue levels: enterprise IT; an industrial DMZ that holds the histor
 - [P04](../../patterns/en/P04-segmentation.md) segmentation inside the plant, so that one compromised workstation cannot reach every controller.
 - [P10](../../patterns/en/P10-detection-telemetry.md) passive monitoring that understands industrial protocols, with alerts that reach someone who can act.
 - [P12](../../patterns/en/P12-resilient-recovery.md) recovery, including controller configurations and the ability to run the process by hand.
+- Resilience, evidence, and identity, [P22](../../patterns/en/P22-resilient-availability.md), [P24](../../patterns/en/P24-forensic-readiness.md), and [P31](../../patterns/en/P31-identity-threat-detection.md), because the plant must keep running, incidents must be reported to the national authority with facts, and the directory that holds the vendor accounts is the attacker's shortest path.
 
 ### Key decisions
 

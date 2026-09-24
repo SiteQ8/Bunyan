@@ -2,6 +2,12 @@
 
 All notable changes to Bunyan are listed here. The project follows semantic versioning.
 
+## 0.7.0, 2026-09-24
+
+- Three new design exercises in English and Arabic, each with a brief, constraints, a task, an advisor link that opens the scenario, a worked answer, and discussion questions: K04 An AI agent for customer service, K05 A ministry moves to a sovereign cloud, and K06 A bank's payment hub.
+- The worked answers of K01 to K03 now include the patterns added since they were written, such as customer identity, mobile app protection, and transaction signing for mobile banking, and the tool gateway for the internal assistant.
+- The advisor offers all six exercises as examples.
+
 ## 0.6.0, 2026-09-24
 
 - Four new patterns take the catalogue to thirty-two: P29 AI agents that use tools, P30 Sovereign cloud and data residency, P31 Identity threat detection and response, and P32 Transaction signing for payments. Each has controls at three levels mapped to the three frameworks, and a diagram in each language.

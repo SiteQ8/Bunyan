@@ -18,7 +18,7 @@
       "en": "Ali AlEnezi",
       "ar": "علي العنزي"
     },
-    "version": "0.6.0"
+    "version": "0.7.0"
   },
   "domains": {
     "identity": {
@@ -215,6 +215,42 @@
         "ar": "مساعد يجيب من مستندات المؤسسة ويستطيع فتح طلبات الدعم نيابة عن الموظفين."
       },
       "advisor": "s=ai&h=cloud&x=remote&d=confidential&o=privacy&a=standard&m=small&b=inhouse&l=foundation"
+    },
+    {
+      "slug": "K04-ai-customer-service",
+      "title": {
+        "en": "An AI agent for customer service",
+        "ar": "وكيل ذكاء اصطناعي لخدمة العملاء"
+      },
+      "summary": {
+        "en": "A telecom operator's agent can change plans and replace SIM cards, so every action must carry the customer's authority.",
+        "ar": "يستطيع وكيل شركة اتصالات تغيير الباقات واستبدال الشرائح، لذا يجب أن يحمل كل إجراء صلاحيات العميل."
+      },
+      "advisor": "s=ai&h=hybrid&x=public.vendors&d=regulated&o=national.privacy&a=high&m=small&b=inhouse.saas&l=enhanced"
+    },
+    {
+      "slug": "K05-sovereign-cloud-ministry",
+      "title": {
+        "en": "A ministry moves to a sovereign cloud",
+        "ar": "وزارة تنتقل إلى سحابة سيادية"
+      },
+      "summary": {
+        "en": "A citizen portal moves to a local cloud region, with classified data, an integrator, and a directory that stays on premises.",
+        "ar": "تنتقل بوابة للخدمات الحكومية إلى منطقة سحابية محلية، مع بيانات مصنفة ومتكامل خارجي ودليل يبقى في مقر الوزارة."
+      },
+      "advisor": "s=digital&h=hybrid&x=public.vendors&d=regulated&o=national.privacy&a=high&m=outsourced&b=inhouse.saas&l=foundation"
+    },
+    {
+      "slug": "K06-payment-hub",
+      "title": {
+        "en": "A bank's payment hub",
+        "ar": "مركز المدفوعات في بنك"
+      },
+      "summary": {
+        "en": "Payment files, partner banks, and SWIFT messages flow through one hub that must never change or duplicate a payment.",
+        "ar": "تمر ملفات المدفوعات والبنوك الشريكة ورسائل SWIFT عبر مركز واحد يجب ألا يغيّر أي دفعة أو يكررها."
+      },
+      "advisor": "s=api&h=hybrid&x=partners&d=regulated&o=pci.swift.bank.national&a=critical&m=large&b=inhouse.containers&l=advanced"
     }
   ],
   "templates": [

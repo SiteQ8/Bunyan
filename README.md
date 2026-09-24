@@ -32,7 +32,7 @@ Answer nine questions about your system at [bunyan.3li.info](https://bunyan.3li.
 | --- | --- |
 | [Handbook](handbook/en/01-what-security-architecture-is.md) | Seven chapters, from what the discipline is to a learning path |
 | [Patterns](patterns/en/README.md) | Thirty-two patterns with controls at three levels, mapped to NIST SP 800-53 Rev 5, CIS Controls v8.1, and ISO/IEC 27001:2022 |
-| [Design exercises](katas/en/K01-mobile-banking.md) | Three realistic briefs with worked answers |
+| [Design exercises](katas/en/K01-mobile-banking.md) | Six realistic briefs with worked answers |
 | [Templates](templates/en/security-architecture-document.md) | An architecture document, a threat model worksheet, a decision record, and a review checklist |
 | [Glossary](glossary/en.md) | Short definitions of the terms used across the project |
 | [Quiz](https://bunyan.3li.info/?lang=en#quiz) | Ten questions at a time, drawn from the patterns and the threats |
