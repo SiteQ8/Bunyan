@@ -1,0 +1,301 @@
+{
+  "id": "P26",
+  "slug": "partner-data-exchange",
+  "domain": "data",
+  "title": {
+    "en": "Secure data exchange with partners",
+    "ar": "تبادل آمن للبيانات مع الشركاء"
+  },
+  "summary": {
+    "en": "Move files and data to and from partners through one managed exchange that authenticates each partner, encrypts and signs what moves, scans and sanitises what arrives, and keeps a record that neither side can dispute.",
+    "ar": "انقل الملفات والبيانات من الشركاء وإليهم عبر منصة تبادل مُدارة واحدة تتحقق من هوية كل شريك، وتشفّر ما ينتقل وتوقّعه، وتفحص ما يصل وتنظّفه، وتحتفظ بسجل لا يستطيع أي طرف إنكاره."
+  },
+  "problem": {
+    "en": "Organisations exchange payment files, statements, and customer data with banks, suppliers, and regulators over a patchwork of SFTP servers, shared mailboxes, and scripts that nobody owns. Credentials are shared and never rotated, files arrive unscanned and go straight into core systems, and when a payment file is altered in transit or a partner is compromised, there is no record to show what was sent, by whom, and whether it changed.",
+    "ar": "تتبادل المؤسسات ملفات المدفوعات والكشوف وبيانات العملاء مع البنوك والموردين والجهات الرقابية عبر خليط من خوادم SFTP وصناديق بريد مشتركة ونصوص برمجية لا يملكها أحد، فتُشارك بيانات الاعتماد ولا تُغيَّر أبدًا، وتصل الملفات دون فحص لتدخل الأنظمة الأساسية مباشرة، وحين يُعدَّل ملف مدفوعات أثناء نقله أو يُخترق شريك لا يوجد سجل يبيّن ما الذي أُرسل ومن أرسله وهل تغيّر."
+  },
+  "useWhen": [
+    {
+      "en": "You send or receive files or bulk data with partners, suppliers, or regulators.",
+      "ar": "ترسل الملفات أو البيانات المجمعة إلى الشركاء أو الموردين أو الجهات الرقابية أو تستقبلها منهم."
+    },
+    {
+      "en": "Payment instructions, statements, or customer records travel as files.",
+      "ar": "تنتقل تعليمات الدفع أو الكشوف أو سجلات العملاء في صورة ملفات."
+    },
+    {
+      "en": "Exchanges run on servers and scripts that no single team owns.",
+      "ar": "تعمل عمليات التبادل على خوادم ونصوص برمجية لا يملكها فريق بعينه."
+    }
+  ],
+  "design": [
+    {
+      "en": "Run every file exchange through one managed platform, in its own zone, that terminates partner connections, authenticates each partner with its own keys or certificates, and holds files in quarantine until they pass checks. Encrypt data in transit and at rest, sign files where the business depends on their integrity, such as payment instructions, and verify signatures and checksums before anything is released to internal systems.",
+      "ar": "مرّر كل تبادل للملفات عبر منصة مُدارة واحدة في منطقتها الخاصة، تنهي اتصالات الشركاء، وتتحقق من هوية كل شريك بمفاتيحه أو شهاداته الخاصة، وتحتجز الملفات في منطقة عزل حتى تجتاز الفحوص، ثم شفّر البيانات أثناء النقل وعند الحفظ، ووقّع الملفات حيث تعتمد الأعمال على سلامتها مثل تعليمات الدفع، وتحقق من التواقيع وقيم التحقق قبل إطلاق أي ملف إلى الأنظمة الداخلية."
+    },
+    {
+      "en": "Scan everything that arrives for malware, validate it against the expected format, and rebuild risky document types with content disarm and reconstruction, so that only clean, well-formed data moves inward. Bring each partner on board with an agreement that names the data, the channel, the keys, and the contacts, rotate keys on a schedule, and log every transfer with who, what, when, and a hash, so that disputes and investigations have evidence.",
+      "ar": "افحص كل ما يصل بحثًا عن البرمجيات الضارة، وتحقق من مطابقته للصيغة المتوقعة، وأعد بناء أنواع المستندات الخطرة بتقنية نزع المحتوى وإعادة بنائه، حتى لا تنتقل إلى الداخل إلا بيانات نظيفة سليمة البنية، ثم أدخل كل شريك باتفاقية تحدد البيانات والقناة والمفاتيح وجهات التواصل، وغيّر المفاتيح وفق جدول، وسجّل كل عملية نقل بمن وماذا ومتى مع قيمة تجزئة، حتى تجد النزاعات والتحقيقات دليلًا."
+    }
+  ],
+  "controls": [
+    {
+      "level": "foundation",
+      "name": {
+        "en": "Use one managed exchange",
+        "ar": "استخدم منصة تبادل مُدارة واحدة"
+      },
+      "detail": {
+        "en": "Retire ad hoc SFTP servers, shared mailboxes, and scripts, and move every partner exchange onto one platform with an owner.",
+        "ar": "أوقف خوادم SFTP العشوائية وصناديق البريد المشتركة والنصوص البرمجية، وانقل كل تبادل مع الشركاء إلى منصة واحدة لها مالك."
+      },
+      "nist": [
+        "CA-3",
+        "AC-4"
+      ],
+      "cis": [
+        "12.2"
+      ],
+      "iso": [
+        "5.14"
+      ]
+    },
+    {
+      "level": "foundation",
+      "name": {
+        "en": "Authenticate every partner separately",
+        "ar": "تحقق من هوية كل شريك على حدة"
+      },
+      "detail": {
+        "en": "Give each partner its own keys or certificates, never shared passwords, and rotate them on a schedule.",
+        "ar": "امنح كل شريك مفاتيحه أو شهاداته الخاصة لا كلمات مرور مشتركة، وغيّرها وفق جدول."
+      },
+      "nist": [
+        "IA-9",
+        "IA-5"
+      ],
+      "cis": [],
+      "iso": [
+        "5.17"
+      ]
+    },
+    {
+      "level": "foundation",
+      "name": {
+        "en": "Encrypt data in transit and at rest",
+        "ar": "شفّر البيانات أثناء النقل وعند الحفظ"
+      },
+      "detail": {
+        "en": "Encrypt every transfer and every file held on the exchange, with keys managed outside it.",
+        "ar": "شفّر كل عملية نقل وكل ملف محفوظ في منصة التبادل، بمفاتيح تُدار خارجها."
+      },
+      "nist": [
+        "SC-8",
+        "SC-28"
+      ],
+      "cis": [
+        "3.10",
+        "3.11"
+      ],
+      "iso": [
+        "8.24"
+      ]
+    },
+    {
+      "level": "enhanced",
+      "name": {
+        "en": "Quarantine and scan what arrives",
+        "ar": "اعزل ما يصل وافحصه"
+      },
+      "detail": {
+        "en": "Hold incoming files in quarantine, scan them for malware, and validate them against the expected format before release.",
+        "ar": "احتجز الملفات الواردة في منطقة عزل، وافحصها بحثًا عن البرمجيات الضارة، وتحقق من مطابقتها للصيغة المتوقعة قبل إطلاقها."
+      },
+      "nist": [
+        "SI-3",
+        "SI-10"
+      ],
+      "cis": [
+        "10.1"
+      ],
+      "iso": [
+        "8.7"
+      ]
+    },
+    {
+      "level": "enhanced",
+      "name": {
+        "en": "Sign what the business depends on",
+        "ar": "وقّع ما تعتمد عليه الأعمال"
+      },
+      "detail": {
+        "en": "Sign payment instructions and other critical files, and verify signatures and checksums before they reach internal systems.",
+        "ar": "وقّع تعليمات الدفع وغيرها من الملفات الحرجة، وتحقق من التواقيع وقيم التحقق قبل وصولها إلى الأنظمة الداخلية."
+      },
+      "nist": [
+        "SI-7",
+        "AU-10"
+      ],
+      "cis": [],
+      "iso": [
+        "8.24"
+      ]
+    },
+    {
+      "level": "enhanced",
+      "name": {
+        "en": "Log every transfer with a hash",
+        "ar": "سجّل كل عملية نقل مع قيمة تجزئة"
+      },
+      "detail": {
+        "en": "Record who sent what, when, and the hash of each file, and send the records to the SIEM.",
+        "ar": "وثّق من أرسل ماذا ومتى وقيمة تجزئة كل ملف، وأرسل السجلات إلى نظام إدارة السجلات."
+      },
+      "nist": [
+        "AU-2",
+        "AU-10"
+      ],
+      "cis": [
+        "3.14",
+        "8.2"
+      ],
+      "iso": [
+        "8.15"
+      ]
+    },
+    {
+      "level": "advanced",
+      "name": {
+        "en": "Rebuild risky documents",
+        "ar": "أعد بناء المستندات الخطرة"
+      },
+      "detail": {
+        "en": "Use content disarm and reconstruction for office documents and PDF files from partners, so that active content never reaches users.",
+        "ar": "استخدم تقنية نزع المحتوى وإعادة بنائه لمستندات المكتب وملفات PDF الواردة من الشركاء، حتى لا يصل أي محتوى نشط إلى المستخدمين."
+      },
+      "nist": [
+        "SI-3",
+        "SC-44"
+      ],
+      "cis": [
+        "9.6"
+      ],
+      "iso": [
+        "8.7"
+      ]
+    },
+    {
+      "level": "advanced",
+      "name": {
+        "en": "Govern each exchange with an agreement",
+        "ar": "احكم كل تبادل باتفاقية"
+      },
+      "detail": {
+        "en": "Record the data, channel, keys, contacts, and incident duties for each partner in an agreement, and review it every year.",
+        "ar": "وثّق لكل شريك البيانات والقناة والمفاتيح وجهات التواصل وواجبات الحوادث في اتفاقية، وراجعها كل عام."
+      },
+      "nist": [
+        "CA-3",
+        "SA-9"
+      ],
+      "cis": [
+        "15.4"
+      ],
+      "iso": [
+        "5.14",
+        "5.20"
+      ]
+    }
+  ],
+  "decisions": [
+    {
+      "en": "Which exchanges carry payments or customer data, and which of them need signing?",
+      "ar": "ما عمليات التبادل التي تنقل مدفوعات أو بيانات عملاء، وأي منها يحتاج إلى توقيع؟"
+    },
+    {
+      "en": "Who owns the exchange platform, and who approves a new partner?",
+      "ar": "من يملك منصة التبادل، ومن يعتمد إضافة شريك جديد؟"
+    },
+    {
+      "en": "Which file types will you accept from partners, and what happens to the rest?",
+      "ar": "ما أنواع الملفات التي ستقبلها من الشركاء، وماذا يحدث لبقيتها؟"
+    }
+  ],
+  "tradeoffs": [
+    {
+      "en": "Moving partners onto one platform takes coordination with each of them, so it happens in waves.",
+      "ar": "يتطلب نقل الشركاء إلى منصة واحدة تنسيقًا مع كل منهم، لذا يحدث على مراحل."
+    },
+    {
+      "en": "Rebuilding documents removes macros and active content that some partners rely on.",
+      "ar": "تزيل إعادة بناء المستندات وحدات الماكرو والمحتوى النشط الذي يعتمد عليه بعض الشركاء."
+    },
+    {
+      "en": "Signing and key rotation add work for partners with small technical teams.",
+      "ar": "يضيف التوقيع وتغيير المفاتيح عملًا على الشركاء الذين يملكون فرقًا تقنية صغيرة."
+    }
+  ],
+  "antipatterns": [
+    {
+      "en": "One SFTP account and password shared by every partner.",
+      "ar": "حساب SFTP واحد وكلمة مرور واحدة يتشاركهما كل الشركاء."
+    },
+    {
+      "en": "Incoming files dropped straight into the folder that core systems read.",
+      "ar": "ملفات واردة تُلقى مباشرة في المجلد الذي تقرأ منه الأنظمة الأساسية."
+    },
+    {
+      "en": "Payment files exchanged by email.",
+      "ar": "تبادل ملفات المدفوعات عبر البريد."
+    }
+  ],
+  "verify": [
+    {
+      "en": "Send a test file with a harmless malware signature, and confirm that it stays in quarantine.",
+      "ar": "أرسل ملفًا اختباريًا يحمل توقيع برمجية ضارة غير مؤذٍ، وتأكد من بقائه في منطقة العزل."
+    },
+    {
+      "en": "Change one byte of a signed test payment file, and confirm that it is rejected before release.",
+      "ar": "غيّر بايتًا واحدًا في ملف مدفوعات اختباري موقّع، وتأكد من رفضه قبل إطلاقه."
+    },
+    {
+      "en": "Pick a transfer from last month, and confirm that the logs show who sent it, when, and its hash.",
+      "ar": "اختر عملية نقل من الشهر الماضي، وتأكد من أن السجلات تُظهر من أرسلها ومتى وقيمة تجزئتها."
+    }
+  ],
+  "attack": [
+    "T1199",
+    "T1565.002",
+    "T1105",
+    "T1048"
+  ],
+  "owasp": [],
+  "related": [
+    "P15",
+    "P09",
+    "P07"
+  ],
+  "references": [
+    {
+      "title": {
+        "en": "NIST SP 800-47 Rev 1, Managing the Security of Information Exchanges",
+        "ar": "إرشادات NIST SP 800-47 Rev 1 لإدارة أمن تبادل المعلومات"
+      },
+      "url": "https://csrc.nist.gov/pubs/sp/800/47/r1/final"
+    },
+    {
+      "title": {
+        "en": "NCSC, Pattern: Safely importing data",
+        "ar": "نمط الاستيراد الآمن للبيانات من المركز الوطني البريطاني للأمن السيبراني NCSC"
+      },
+      "url": "https://www.ncsc.gov.uk/guidance/pattern-safely-importing-data"
+    },
+    {
+      "title": {
+        "en": "RFC 4130, Secure business data interchange over HTTP (AS2)",
+        "ar": "المعيار RFC 4130 لتبادل بيانات الأعمال الآمن عبر HTTP، ويُعرف باسم AS2"
+      },
+      "url": "https://datatracker.ietf.org/doc/html/rfc4130"
+    }
+  ]
+}

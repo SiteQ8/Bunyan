@@ -8,7 +8,7 @@
 
 | Domain | Related patterns |
 | --- | --- |
-| Application | [P08 Secrets, keys, and workload identity](P08-secrets-keys-workload-identity.md), [P16 Container platform guardrails](P16-container-platform-guardrails.md), [P07 API gateway and object level authorization](P07-api-security.md) |
+| Application | [P08 Secrets, keys, and workload identity](P08-secrets-keys-workload-identity.md), [P16 Container platform guardrails](P16-container-platform-guardrails.md), [P07 API gateway and object level authorization](P07-api-security.md), [P28 Secure development lifecycle](P28-secure-development.md) |
 
 ## The problem
 

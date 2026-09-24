@@ -299,10 +299,10 @@
     },
     {
       "title": {
-        "en": "Australian Cyber Security Centre, Essential Eight",
-        "ar": "استراتيجيات Essential Eight من المركز الأسترالي للأمن السيبراني"
+        "en": "NCSC, Device Security Guidance",
+        "ar": "إرشادات أمن الأجهزة من المركز الوطني البريطاني للأمن السيبراني NCSC"
       },
-      "url": "https://www.cyber.gov.au/resources-business-and-government/essential-cyber-security/essential-eight"
+      "url": "https://www.ncsc.gov.uk/collection/device-security-guidance"
     }
   ]
 }

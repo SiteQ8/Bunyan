@@ -10,7 +10,7 @@
 
 | المجال | أنماط ذات صلة |
 | --- | --- |
-| البيانات | [P08 الأسرار والمفاتيح وهوية أعباء العمل](P08-secrets-keys-workload-identity.md)، [P05 حافة إنترنت محمية وحركة صادرة مضبوطة](P05-internet-edge-and-egress.md)، [P15 النطاق المعزول الخاضع للتنظيم](P15-regulated-enclave.md)، [P14 حواجز الحماية لتطبيقات النماذج اللغوية والوكلاء الذكيين](P14-llm-application-guardrails.md) |
+| البيانات | [P08 الأسرار والمفاتيح وهوية أعباء العمل](P08-secrets-keys-workload-identity.md)، [P05 حافة إنترنت محمية وحركة صادرة مضبوطة](P05-internet-edge-and-egress.md)، [P15 النطاق المعزول الخاضع للتنظيم](P15-regulated-enclave.md)، [P14 حواجز الحماية لتطبيقات النماذج اللغوية والوكلاء الذكيين](P14-llm-application-guardrails.md)، [P26 تبادل آمن للبيانات مع الشركاء](P26-partner-data-exchange.md) |
 
 ## المشكلة
 

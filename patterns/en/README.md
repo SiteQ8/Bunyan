@@ -4,7 +4,7 @@
 
 # Pattern catalogue
 
-Twenty-four patterns for recurring security architecture problems. Each one explains the problem, when to use it, the design, the controls at three levels, the decisions you must record, the trade-offs, the anti-patterns, how to verify it, and the threats it addresses.
+Twenty-eight patterns for recurring security architecture problems. Each one explains the problem, when to use it, the design, the controls at three levels, the decisions you must record, the trade-offs, the anti-patterns, how to verify it, and the threats it addresses.
 
 Controls come in three levels: foundation, enhanced, and advanced. Put the foundation controls in place everywhere before going deeper anywhere.
 
@@ -36,5 +36,9 @@ Every control is mapped to NIST SP 800-53 Rev 5, CIS Controls v8.1, and ISO/IEC 
 | P22 | [Resilient availability across sites](P22-resilient-availability.md) | Operations | Tier your services by how long the business can live without them, run the critical ones across independent sites or regions with tested failover, and remove the single points of failure in identity, DNS, and connectivity that would take every site down at once. |
 | P23 | [Cryptographic agility and post-quantum readiness](P23-crypto-agility.md) | Data | Know where and how you use cryptography, keep it behind a few well-managed services instead of inside every application, automate certificates and keys, and plan the move to the post-quantum algorithms that NIST has standardised, starting with data that must stay secret for years. |
 | P24 | [Forensic readiness and incident response](P24-forensic-readiness.md) | Operations | Decide before an incident what evidence you will need, collect and protect it from the start with synchronised clocks and storage that resists tampering, prepare the tools and the out-of-band channels for responders, and rehearse, so that you can contain, investigate, and report within the hours a regulator allows. |
+| P25 | [SaaS tenant guardrails](P25-saas-guardrails.md) | Platform | Treat every SaaS tenant as a platform you run: harden its configuration against a baseline, keep administration small and strong, govern the third-party apps and integrations that can reach its data, and watch its logs, because the provider secures the service but you secure how it is set up. |
+| P26 | [Secure data exchange with partners](P26-partner-data-exchange.md) | Data | Move files and data to and from partners through one managed exchange that authenticates each partner, encrypts and signs what moves, scans and sanitises what arrives, and keeps a record that neither side can dispute. |
+| P27 | [Mobile application protection](P27-mobile-app-protection.md) | Application | Assume the app runs on a device and in hands you do not control: keep secrets off the device, let the backend check that requests come from your genuine, untampered app, protect the data the app stores and sends, and build the app to the OWASP MASVS. |
+| P28 | [Secure development lifecycle](P28-secure-development.md) | Application | Build security into how software is made: agree requirements and threats at design time, check every change automatically for vulnerable code, dependencies, secrets, and misconfigured infrastructure, test running applications before release, and fix what is found within agreed times, following the NIST Secure Software Development Framework. |
 
 To find the patterns your own system needs, answer the questions in the design advisor at https://bunyan.3li.info/.

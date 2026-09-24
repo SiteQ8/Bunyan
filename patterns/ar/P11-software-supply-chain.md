@@ -10,7 +10,7 @@
 
 | المجال | أنماط ذات صلة |
 | --- | --- |
-| التطبيقات | [P08 الأسرار والمفاتيح وهوية أعباء العمل](P08-secrets-keys-workload-identity.md)، [P16 الضوابط الوقائية لمنصات الحاويات](P16-container-platform-guardrails.md)، [P07 بوابة الواجهات البرمجية والتفويض على مستوى الكائن](P07-api-security.md) |
+| التطبيقات | [P08 الأسرار والمفاتيح وهوية أعباء العمل](P08-secrets-keys-workload-identity.md)، [P16 الضوابط الوقائية لمنصات الحاويات](P16-container-platform-guardrails.md)، [P07 بوابة الواجهات البرمجية والتفويض على مستوى الكائن](P07-api-security.md)، [P28 دورة حياة التطوير الآمن](P28-secure-development.md) |
 
 ## المشكلة
 

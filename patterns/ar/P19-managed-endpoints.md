@@ -104,6 +104,6 @@ flowchart RL
 
 - [معايير CIS المرجعية للتحصين](https://www.cisecurity.org/cis-benchmarks)
 - [إرشادات NIST SP 800-124 Rev 2 لإدارة أمن الأجهزة المحمولة في المؤسسات](https://csrc.nist.gov/pubs/sp/800/124/r2/final)
-- [استراتيجيات Essential Eight من المركز الأسترالي للأمن السيبراني](https://www.cyber.gov.au/resources-business-and-government/essential-cyber-security/essential-eight)
+- [إرشادات أمن الأجهزة من المركز الوطني البريطاني للأمن السيبراني NCSC](https://www.ncsc.gov.uk/collection/device-security-guidance)
 
 </div>

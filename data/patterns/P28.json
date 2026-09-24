@@ -1,0 +1,307 @@
+{
+  "id": "P28",
+  "slug": "secure-development",
+  "domain": "application",
+  "title": {
+    "en": "Secure development lifecycle",
+    "ar": "دورة حياة التطوير الآمن"
+  },
+  "summary": {
+    "en": "Build security into how software is made: agree requirements and threats at design time, check every change automatically for vulnerable code, dependencies, secrets, and misconfigured infrastructure, test running applications before release, and fix what is found within agreed times, following the NIST Secure Software Development Framework.",
+    "ar": "ادمج الأمن في طريقة صنع البرمجيات، فاتفق على المتطلبات والتهديدات عند التصميم، وافحص كل تغيير آليًا بحثًا عن الشيفرة الضعيفة والاعتماديات والأسرار والبنية التحتية المضبوطة بطريقة خاطئة، واختبر التطبيقات أثناء تشغيلها قبل الإطلاق، وأصلح ما يُكتشف خلال مدد متفق عليها، وفق إطار NIST لتطوير البرمجيات الآمنة."
+  },
+  "problem": {
+    "en": "Security testing that happens once, just before go-live, finds problems when they are most expensive to fix, and teams learn to treat it as an obstacle. Meanwhile developers commit secrets, pull in vulnerable libraries, and write infrastructure code with open storage and broad permissions every day, and findings pile up in reports that nobody owns.",
+    "ar": "يكتشف اختبار الأمن الذي يُجرى مرة واحدة قبيل الإطلاق المشكلات حين يكون إصلاحها في أعلى كلفة، فتتعلم الفرق معاملته بوصفه عقبة، بينما يضيف المطورون كل يوم أسرارًا إلى الشيفرة، ويستخدمون مكتبات ضعيفة، ويكتبون شيفرة البنية التحتية بتخزين مفتوح وصلاحيات واسعة، فتتراكم الملاحظات في تقارير لا يملكها أحد."
+  },
+  "useWhen": [
+    {
+      "en": "Your teams write or customise software, including infrastructure as code.",
+      "ar": "تكتب فرقك البرمجيات أو تخصّصها، بما فيها شيفرة البنية التحتية."
+    },
+    {
+      "en": "Releases are frequent, and manual security reviews cannot keep up.",
+      "ar": "تتكرر الإصدارات، ولا تستطيع مراجعات الأمن اليدوية مواكبتها."
+    },
+    {
+      "en": "Penetration tests keep finding the same kinds of weakness.",
+      "ar": "تواصل اختبارات الاختراق اكتشاف أنواع الضعف نفسها."
+    }
+  ],
+  "design": [
+    {
+      "en": "Start at design: record security requirements for each application, threat model new features and major changes, and use approved components and patterns so that teams do not solve the same problems differently. Put checks where developers work: secret scanning before commit, static analysis, dependency analysis, and scanning of infrastructure as code on every pull request, with the results shown in the review instead of a separate portal.",
+      "ar": "ابدأ من التصميم، فوثّق المتطلبات الأمنية لكل تطبيق، ونمذج التهديدات للميزات الجديدة والتغييرات الكبرى، واستخدم مكونات وأنماطًا معتمدة حتى لا تحل الفرق المشكلات نفسها بطرق مختلفة، ثم ضع الفحوص حيث يعمل المطورون، أي فحص الأسرار قبل الإيداع، والتحليل الثابت، وتحليل الاعتماديات، وفحص شيفرة البنية التحتية عند كل طلب دمج، مع عرض النتائج في المراجعة نفسها لا في بوابة منفصلة."
+    },
+    {
+      "en": "Block merges only on findings that matter, such as leaked secrets, critical vulnerabilities, and exploitable dependencies, and send the rest to the backlog with fix times by severity. Test running applications with dynamic scans and targeted penetration tests before major releases, train developers on the weaknesses you actually find, and give each team a security champion who knows when to ask for help.",
+      "ar": "امنع الدمج فقط عند الملاحظات المهمة مثل الأسرار المسربة والثغرات الحرجة والاعتماديات القابلة للاستغلال، وأرسل البقية إلى قائمة العمل مع مدد إصلاح حسب الخطورة، ثم اختبر التطبيقات أثناء تشغيلها بالفحص الديناميكي واختبارات الاختراق الموجّهة قبل الإصدارات الرئيسية، ودرّب المطورين على أنواع الضعف التي تكتشفها فعلًا، وامنح كل فريق ممثلًا للأمن يعرف متى يطلب المساعدة."
+    }
+  ],
+  "controls": [
+    {
+      "level": "foundation",
+      "name": {
+        "en": "Scan for secrets before they are committed",
+        "ar": "افحص الأسرار قبل إيداعها"
+      },
+      "detail": {
+        "en": "Block commits that contain secrets, scan existing repositories, and rotate any secret that was ever exposed.",
+        "ar": "امنع الإيداعات التي تحوي أسرارًا، وافحص المستودعات الحالية، وغيّر أي سر انكشف في أي وقت."
+      },
+      "nist": [
+        "IA-5",
+        "SA-11"
+      ],
+      "cis": [
+        "16.12"
+      ],
+      "iso": [
+        "8.28"
+      ]
+    },
+    {
+      "level": "foundation",
+      "name": {
+        "en": "Check dependencies on every build",
+        "ar": "افحص الاعتماديات في كل عملية بناء"
+      },
+      "detail": {
+        "en": "Analyse third-party components for known vulnerabilities and licences on every build, and keep them current.",
+        "ar": "حلّل المكونات الخارجية بحثًا عن الثغرات المعروفة والتراخيص في كل عملية بناء، وأبقها محدّثة."
+      },
+      "nist": [
+        "RA-5",
+        "SA-11"
+      ],
+      "cis": [
+        "16.4",
+        "16.5"
+      ],
+      "iso": [
+        "8.8",
+        "8.28"
+      ]
+    },
+    {
+      "level": "foundation",
+      "name": {
+        "en": "Record security requirements for each application",
+        "ar": "وثّق المتطلبات الأمنية لكل تطبيق"
+      },
+      "detail": {
+        "en": "Agree the security requirements for each application at design time, based on its data and its exposure.",
+        "ar": "اتفق على المتطلبات الأمنية لكل تطبيق عند التصميم، بناءً على بياناته وانكشافه."
+      },
+      "nist": [
+        "SA-3",
+        "SA-8"
+      ],
+      "cis": [
+        "16.1"
+      ],
+      "iso": [
+        "8.25",
+        "8.26"
+      ]
+    },
+    {
+      "level": "enhanced",
+      "name": {
+        "en": "Analyse code and infrastructure on every pull request",
+        "ar": "حلّل الشيفرة والبنية التحتية عند كل طلب دمج"
+      },
+      "detail": {
+        "en": "Run static analysis and checks of infrastructure as code on every pull request, and show the results in the review.",
+        "ar": "شغّل التحليل الثابت وفحص شيفرة البنية التحتية عند كل طلب دمج، واعرض النتائج في المراجعة."
+      },
+      "nist": [
+        "SA-11",
+        "CM-3"
+      ],
+      "cis": [
+        "16.7",
+        "16.12"
+      ],
+      "iso": [
+        "8.28",
+        "8.29"
+      ]
+    },
+    {
+      "level": "enhanced",
+      "name": {
+        "en": "Threat model new features",
+        "ar": "نمذج التهديدات للميزات الجديدة"
+      },
+      "detail": {
+        "en": "Threat model new features and major changes, and turn the results into requirements and tests.",
+        "ar": "نمذج التهديدات للميزات الجديدة والتغييرات الكبرى، وحوّل النتائج إلى متطلبات واختبارات."
+      },
+      "nist": [
+        "SA-8",
+        "RA-3"
+      ],
+      "cis": [
+        "16.14"
+      ],
+      "iso": [
+        "8.27"
+      ]
+    },
+    {
+      "level": "enhanced",
+      "name": {
+        "en": "Fix findings within agreed times",
+        "ar": "أصلح الملاحظات خلال مدد متفق عليها"
+      },
+      "detail": {
+        "en": "Rate application vulnerabilities by severity, set fix times for each level, and track them to closure.",
+        "ar": "صنّف ثغرات التطبيقات حسب الخطورة، وحدّد مدد الإصلاح لكل مستوى، وتابعها حتى إغلاقها."
+      },
+      "nist": [
+        "SI-2",
+        "RA-5"
+      ],
+      "cis": [
+        "16.2",
+        "16.6"
+      ],
+      "iso": [
+        "8.8"
+      ]
+    },
+    {
+      "level": "advanced",
+      "name": {
+        "en": "Test running applications before release",
+        "ar": "اختبر التطبيقات أثناء تشغيلها قبل الإطلاق"
+      },
+      "detail": {
+        "en": "Run dynamic scans in the pipeline, and targeted penetration tests before major releases.",
+        "ar": "شغّل الفحص الديناميكي في المسار، واختبارات الاختراق الموجّهة قبل الإصدارات الرئيسية."
+      },
+      "nist": [
+        "SA-11",
+        "CA-8"
+      ],
+      "cis": [
+        "16.13"
+      ],
+      "iso": [
+        "8.29"
+      ]
+    },
+    {
+      "level": "advanced",
+      "name": {
+        "en": "Train developers and name security champions",
+        "ar": "درّب المطورين وسمِّ ممثلين للأمن"
+      },
+      "detail": {
+        "en": "Train developers on the weaknesses you actually find, and give each team a security champion with time for the role.",
+        "ar": "درّب المطورين على أنواع الضعف التي تكتشفها فعلًا، وامنح كل فريق ممثلًا للأمن يملك وقتًا لأداء دوره."
+      },
+      "nist": [
+        "AT-3"
+      ],
+      "cis": [
+        "16.9"
+      ],
+      "iso": [
+        "6.3"
+      ]
+    }
+  ],
+  "decisions": [
+    {
+      "en": "Which findings block a merge, and which go to the backlog?",
+      "ar": "ما الملاحظات التي تمنع الدمج، وما التي تذهب إلى قائمة العمل؟"
+    },
+    {
+      "en": "What fix times apply to each severity, and who can accept a risk instead?",
+      "ar": "ما مدد الإصلاح لكل مستوى خطورة، ومن يستطيع قبول المخاطر بدلًا من ذلك؟"
+    },
+    {
+      "en": "Which applications need a threat model and a penetration test before each major release?",
+      "ar": "ما التطبيقات التي تحتاج إلى نمذجة للتهديدات واختبار اختراق قبل كل إصدار رئيسي؟"
+    }
+  ],
+  "tradeoffs": [
+    {
+      "en": "Blocking on every finding slows delivery and teaches teams to suppress results, so gates must be few and trusted.",
+      "ar": "يبطئ المنع عند كل ملاحظة التسليم ويعلّم الفرق إخفاء النتائج، لذا يجب أن تكون البوابات قليلة وموثوقة."
+    },
+    {
+      "en": "Scanners produce false positives that cost developer time until they are tuned.",
+      "ar": "تنتج أدوات الفحص نتائج خاطئة تستهلك وقت المطورين حتى تُضبط."
+    },
+    {
+      "en": "Security champions need time from their teams, which competes with work on features.",
+      "ar": "يحتاج ممثلو الأمن إلى وقت من فرقهم، وهذا ينافس العمل على الميزات."
+    }
+  ],
+  "antipatterns": [
+    {
+      "en": "A single penetration test before go-live as the only security activity.",
+      "ar": "اختبار اختراق واحد قبل الإطلاق بوصفه النشاط الأمني الوحيد."
+    },
+    {
+      "en": "Scan results sent to a portal that developers never open.",
+      "ar": "نتائج فحص تُرسل إلى بوابة لا يفتحها المطورون أبدًا."
+    },
+    {
+      "en": "Secrets removed from the code but never rotated.",
+      "ar": "أسرار تُحذف من الشيفرة لكنها لا تُغيَّر أبدًا."
+    }
+  ],
+  "verify": [
+    {
+      "en": "Commit a test secret to a branch, and confirm that it is blocked before it reaches the repository.",
+      "ar": "أودع سرًا اختباريًا في فرع، وتأكد من منعه قبل وصوله إلى المستودع."
+    },
+    {
+      "en": "Add a dependency with a known critical vulnerability, and confirm that the pull request is blocked.",
+      "ar": "أضف اعتمادية بها ثغرة حرجة معروفة، وتأكد من منع طلب الدمج."
+    },
+    {
+      "en": "Compare the findings of the last penetration test with the pipeline results, and add checks for what the pipeline missed.",
+      "ar": "قارن ملاحظات آخر اختبار اختراق بنتائج المسار، وأضف فحوصًا لما فات المسار."
+    }
+  ],
+  "attack": [
+    "T1552.001",
+    "T1195.002",
+    "T1213.003",
+    "T1190"
+  ],
+  "owasp": [],
+  "related": [
+    "P11",
+    "P07",
+    "P21"
+  ],
+  "references": [
+    {
+      "title": {
+        "en": "NIST SP 800-218, Secure Software Development Framework (SSDF)",
+        "ar": "إطار NIST SP 800-218 لتطوير البرمجيات الآمنة SSDF"
+      },
+      "url": "https://csrc.nist.gov/pubs/sp/800/218/final"
+    },
+    {
+      "title": {
+        "en": "OWASP Software Assurance Maturity Model (SAMM)",
+        "ar": "نموذج OWASP لنضج ضمان البرمجيات SAMM"
+      },
+      "url": "https://owaspsamm.org/"
+    },
+    {
+      "title": {
+        "en": "CISA, Secure by Design",
+        "ar": "مبادرة CISA للأمن منذ التصميم"
+      },
+      "url": "https://www.cisa.gov/securebydesign"
+    }
+  ]
+}

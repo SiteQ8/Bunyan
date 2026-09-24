@@ -11,6 +11,7 @@ Short definitions of the terms used across Bunyan. Where a term matters most in 
 | **Access broker** | A service that sits in front of applications and lets each request through only after checking the user, the device, and the policy. | [P01](../patterns/en/P01-zero-trust-access.md) |
 | **Admission control** | A check that a container platform runs before accepting a workload, used to reject unsigned images or unsafe settings. | [P16](../patterns/en/P16-container-platform-guardrails.md) |
 | **Allow list** | A list of what is permitted, such as destinations, software, or senders, where everything else is refused. |  |
+| **App attestation** | A signed statement from the mobile platform that a request comes from your genuine app on a genuine device. | [P27](../patterns/en/P27-mobile-app-protection.md) |
 | **Architecture decision record** | A short document that records one design decision, the options considered, and the reasons for the choice. |  |
 | **Assume breach** | A design stance that plans for an attacker already being inside, and limits what they could reach and how quickly they would be seen. |  |
 | **Attack surface** | Every point where an attacker could try to enter or extract data, including interfaces, accounts, and suppliers. |  |
@@ -27,6 +28,8 @@ Short definitions of the terms used across Bunyan. Where a term matters most in 
 | **Compensating control** | A control put in place because the preferred control is not possible, which reduces the same risk another way. |  |
 | **Conditional access** | Policies in the identity provider that decide sign-in based on the user, device, location, and risk. | [P02](../patterns/en/P02-identity-control-plane.md) |
 | **Conduit** | In IEC 62443, a defined communication path between zones, with its own protocols and controls. | [P13](../patterns/en/P13-ot-zones-and-conduits.md) |
+| **Consent phishing** | An attack that tricks a user into granting a malicious app access to their mail or files, with no password stolen at all. | [P25](../patterns/en/P25-saas-guardrails.md) |
+| **Content disarm and reconstruction** | A technique that rebuilds documents from their safe parts only, dropping macros, scripts, and other active content. | [P26](../patterns/en/P26-partner-data-exchange.md) |
 | **Control plane** | The management layer of a platform, such as a cloud console or a cluster API, from which everything else is configured. |  |
 | **Crypto agility** | The ability to change algorithms and keys without redesigning systems, needed for the move to post-quantum cryptography. | [P08](../patterns/en/P08-secrets-keys-workload-identity.md) |
 | **Cryptography bill of materials** | An inventory of the algorithms, keys, certificates, and protocols that a system uses, often shortened to CBOM. | [P23](../patterns/en/P23-crypto-agility.md) |
@@ -37,6 +40,7 @@ Short definitions of the terms used across Bunyan. Where a term matters most in 
 | **Defense in depth** | Layering independent controls so that the failure of one does not expose the asset. |  |
 | **Demilitarized zone** | A network zone between an untrusted network and a trusted one, where connections from each side end. | [P13](../patterns/en/P13-ot-zones-and-conduits.md) |
 | **DMARC** | A DNS record that tells receiving mail servers what to do with messages that fail the SPF and DKIM checks for your domain, and where to send reports. | [P18](../patterns/en/P18-email-and-collaboration.md) |
+| **Dynamic application security testing** | Testing a running application from the outside, the way an attacker would, to find weaknesses that can be exploited. | [P28](../patterns/en/P28-secure-development.md) |
 | **Egress filtering** | Controlling which destinations systems may connect to on the way out. | [P05](../patterns/en/P05-internet-edge-and-egress.md) |
 | **Endpoint detection and response** | Software on each device that records activity, detects attacks, and lets responders investigate and isolate the device remotely. | [P19](../patterns/en/P19-managed-endpoints.md) |
 | **Envelope encryption** | Encrypting data with a data key, then encrypting that key with a master key held in a key management service. | [P08](../patterns/en/P08-secrets-keys-workload-identity.md) |
@@ -52,6 +56,7 @@ Short definitions of the terms used across Bunyan. Where a term matters most in 
 | **Landing zone** | A prepared cloud foundation of accounts, identity, network, logging, and guardrails that new workloads are deployed into. | [P06](../patterns/en/P06-cloud-landing-zone.md) |
 | **Lateral movement** | An attacker moving from the first compromised system to others inside the network. | [P04](../patterns/en/P04-segmentation.md) |
 | **Least privilege** | Giving each identity only the access it needs, for only as long as it needs it. |  |
+| **Managed file transfer** | A platform that runs file exchanges with partners centrally, with authentication, encryption, scanning, and a record of every transfer. | [P26](../patterns/en/P26-partner-data-exchange.md) |
 | **Microsegmentation** | Segmentation applied to individual workloads, so that each one can reach only its named dependencies. | [P04](../patterns/en/P04-segmentation.md) |
 | **Multi-factor authentication** | Authentication that requires two or more different kinds of evidence, such as something you have and something you know. | [P02](../patterns/en/P02-identity-control-plane.md) |
 | **Mutual TLS** | A TLS connection in which both sides present certificates, so each authenticates the other. | [P07](../patterns/en/P07-api-security.md) |
@@ -69,7 +74,10 @@ Short definitions of the terms used across Bunyan. Where a term matters most in 
 | **Recovery time objective** | The maximum time the business accepts for a service to be restored after a disruption. | [P12](../patterns/en/P12-resilient-recovery.md) |
 | **Residual risk** | The risk that remains after controls are applied, which someone with authority must accept. |  |
 | **Risk appetite** | The amount and kind of risk an organisation is willing to accept in pursuit of its goals. |  |
+| **Runtime application self-protection** | Protection built into an application that detects tampering, hooking, or attacks while it runs, and reacts. | [P27](../patterns/en/P27-mobile-app-protection.md) |
+| **SaaS security posture management** | Tools that check the configuration of SaaS tenants against a baseline, and report drift and risky settings. | [P25](../patterns/en/P25-saas-guardrails.md) |
 | **Security architecture** | The structure of controls, trust boundaries, and decisions that makes a system secure by design and keeps it that way. |  |
+| **Security champion** | A developer who acts as the security contact for their team, with time and training for the role. | [P28](../patterns/en/P28-secure-development.md) |
 | **Security service edge** | A cloud service that applies web filtering, SaaS controls, data loss prevention, and private application access to users wherever they are. | [P20](../patterns/en/P20-security-service-edge.md) |
 | **Security zone** | A group of systems that share a trust level and security requirements, separated from others by enforced boundaries. | [P04](../patterns/en/P04-segmentation.md) |
 | **Segmentation** | Dividing a network into zones and controlling the traffic between them. | [P04](../patterns/en/P04-segmentation.md) |
@@ -77,7 +85,9 @@ Short definitions of the terms used across Bunyan. Where a term matters most in 
 | **SIEM** | A platform that collects security events from many sources, correlates them, and raises alerts. | [P10](../patterns/en/P10-detection-telemetry.md) |
 | **Single sign-on** | Signing in once through the identity provider to reach many applications. | [P02](../patterns/en/P02-identity-control-plane.md) |
 | **Software bill of materials** | A list of the components and versions inside a piece of software, used to find affected systems when a flaw is announced. | [P11](../patterns/en/P11-software-supply-chain.md) |
+| **Software composition analysis** | Analysis of the third-party components in an application for known vulnerabilities and licence issues. | [P28](../patterns/en/P28-secure-development.md) |
 | **Software supply chain** | Everything that goes into building and delivering software, including code, dependencies, tools, and pipelines. | [P11](../patterns/en/P11-software-supply-chain.md) |
+| **Static application security testing** | Analysis of source code for security weaknesses without running it, usually on every pull request. | [P28](../patterns/en/P28-secure-development.md) |
 | **STRIDE** | A threat modeling mnemonic for spoofing, tampering, repudiation, information disclosure, denial of service, and elevation of privilege. |  |
 | **Threat intelligence** | Information about attackers, their methods, and their targets, used to set priorities for defence. |  |
 | **Threat model** | A structured description of what can go wrong with a system and what is being done about it. |  |

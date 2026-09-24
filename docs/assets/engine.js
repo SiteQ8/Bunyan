@@ -6,7 +6,7 @@
 
 export const LEVELS = ['foundation', 'enhanced', 'advanced'];
 export const PRIORITIES = ['essential', 'recommended', 'consider'];
-export const THREAT_LIMIT = 8;
+export const THREAT_LIMIT = 10;
 
 const rank = (priority) => PRIORITIES.indexOf(priority);
 

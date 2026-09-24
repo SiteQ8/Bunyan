@@ -1,0 +1,9 @@
+flowchart LR
+  USERS["Users"] --> IDP["Identity provider<br/>single sign-on and MFA"]
+  IDP --> T["SaaS tenant"]
+  ADM["A few administrators<br/>separate accounts, just in time"] --> T
+  APPS["Third-party apps"] -- "approved consent only" --> T
+  SSPM["Posture management<br/>baseline and drift"] --> T
+  T -- "audit logs" --> SIEM["SIEM<br/>alerts on risky changes"]
+  T -- "backup" --> BK["Backup outside the tenant"]
+  CON["Contract terms<br/>logs, breach notice, exit"] --> T

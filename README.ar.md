@@ -33,7 +33,7 @@
 | الجزء | ما يقدمه لك |
 | --- | --- |
 | [الدليل](handbook/ar/01-what-security-architecture-is.md) | سبعة فصول من تعريف التخصص حتى مسار التعلم |
-| [الأنماط](patterns/ar/README.md) | أربعة وعشرون نمطًا بضوابط على ثلاثة مستويات، مرتبطة بمعايير NIST SP 800-53 Rev 5 وCIS Controls v8.1 وISO/IEC 27001:2022 |
+| [الأنماط](patterns/ar/README.md) | ثمانية وعشرون نمطًا بضوابط على ثلاثة مستويات، مرتبطة بمعايير NIST SP 800-53 Rev 5 وCIS Controls v8.1 وISO/IEC 27001:2022 |
 | [تمارين التصميم](katas/ar/K01-mobile-banking.md) | ثلاثة سيناريوهات واقعية مع إجابات نموذجية |
 | [القوالب](templates/ar/security-architecture-document.md) | وثيقة للمعمارية وورقة عمل لنمذجة التهديدات وسجل للقرار وقائمة تحقق للمراجعة |
 | [المصطلحات](glossary/ar.md) | تعريفات قصيرة للمصطلحات المستخدمة في المشروع |
@@ -76,6 +76,10 @@
 | P22 | [توافرية صامدة عبر مواقع متعددة](patterns/ar/P22-resilient-availability.md) | العمليات |
 | P23 | [مرونة التشفير والجاهزية لما بعد الحوسبة الكمية](patterns/ar/P23-crypto-agility.md) | البيانات |
 | P24 | [الجاهزية الجنائية والاستجابة للحوادث](patterns/ar/P24-forensic-readiness.md) | العمليات |
+| P25 | [ضوابط مستأجري الخدمات السحابية الجاهزة](patterns/ar/P25-saas-guardrails.md) | المنصة |
+| P26 | [تبادل آمن للبيانات مع الشركاء](patterns/ar/P26-partner-data-exchange.md) | البيانات |
+| P27 | [حماية تطبيقات الهاتف](patterns/ar/P27-mobile-app-protection.md) | التطبيقات |
+| P28 | [دورة حياة التطوير الآمن](patterns/ar/P28-secure-development.md) | التطبيقات |
 
 <!-- patterns:end -->
 

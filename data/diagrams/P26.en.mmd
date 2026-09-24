@@ -1,0 +1,10 @@
+flowchart LR
+  PART["Partner"] -- "own keys, encrypted channel" --> EX["Managed exchange<br/>in its own zone"]
+  EX --> Q["Quarantine"]
+  Q --> SCAN["Malware scan<br/>and format checks"]
+  SCAN --> CDR["Rebuild risky documents"]
+  CDR --> SIG["Verify signatures<br/>and checksums"]
+  SIG --> CORE["Internal systems"]
+  CORE -- "signed outbound files" --> EX
+  EX -- "who, what, when, hash" --> LOG["Transfer log and SIEM"]
+  AGR["Partner agreement<br/>data, channel, keys, contacts"] --> EX

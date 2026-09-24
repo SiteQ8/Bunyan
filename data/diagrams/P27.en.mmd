@@ -1,0 +1,9 @@
+flowchart LR
+  APP["Mobile app<br/>no embedded secrets"] --> KS["Platform keystore<br/>tokens and keys"]
+  APP -- "attestation" --> PLAT["Platform attestation<br/>Play Integrity, App Attest"]
+  APP -- "TLS with strict validation" --> GW["API gateway"]
+  PLAT -- "verdict" --> GW
+  GW --> BE["Backend<br/>enforces every rule"]
+  RASP["Runtime protection<br/>tamper and hooking checks"] --> APP
+  RASP -- "signals" --> FRAUD["Fraud monitoring"]
+  STORE["Store monitoring<br/>clones and takedowns"] --> FRAUD

@@ -2,6 +2,15 @@
 
 All notable changes to Bunyan are listed here. The project follows semantic versioning.
 
+## 0.5.0, 2026-09-24
+
+- Four new patterns take the catalogue to twenty-eight: P25 SaaS tenant guardrails, P26 Secure data exchange with partners, P27 Mobile application protection, and P28 Secure development lifecycle. Each has controls at three levels mapped to the three frameworks, and a diagram in each language.
+- Five risks from the OWASP Mobile Top 10 join the catalogues, linked to the official project repository because the risk pages on the project site moved.
+- The advisor recommends the new patterns through eight new rules and models four new threats. It now lists the ten most important threats for a design instead of eight, because the threat catalogue grew from nineteen to thirty-one.
+- The partner door of a data platform now shows the managed exchange.
+- Ten glossary terms, including SSPM, CDR, RASP, SAST, and DAST.
+- P19 cites the NCSC device security guidance in place of a page that refuses every automated check.
+
 ## 0.4.0, 2026-09-24
 
 - Eight new patterns take the catalogue to twenty-four: P17 Customer identity and account protection, P18 Email and collaboration protection, P19 Managed and hardened endpoints, P20 Security service edge for users anywhere, P21 Continuous exposure management, P22 Resilient availability across sites, P23 Cryptographic agility and post-quantum readiness, and P24 Forensic readiness and incident response. Each has the full structure, controls at three levels mapped to the three frameworks, and a diagram in each language.

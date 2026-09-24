@@ -36,6 +36,18 @@
       }
     },
     {
+      "id": "app-attestation",
+      "term": {
+        "en": "App attestation",
+        "ar": "إثبات سلامة التطبيق"
+      },
+      "definition": {
+        "en": "A signed statement from the mobile platform that a request comes from your genuine app on a genuine device.",
+        "ar": "إفادة موقّعة من منصة الهاتف تثبت أن الطلب صادر عن تطبيقك الأصلي على جهاز سليم."
+      },
+      "pattern": "P27"
+    },
+    {
       "id": "adr",
       "term": {
         "en": "Architecture decision record",
@@ -222,6 +234,30 @@
       "pattern": "P13"
     },
     {
+      "id": "consent-phishing",
+      "term": {
+        "en": "Consent phishing",
+        "ar": "التصيد عبر طلب الموافقة"
+      },
+      "definition": {
+        "en": "An attack that tricks a user into granting a malicious app access to their mail or files, with no password stolen at all.",
+        "ar": "هجوم يخدع المستخدم كي يمنح تطبيقًا خبيثًا وصولًا إلى بريده أو ملفاته، دون سرقة أي كلمة مرور."
+      },
+      "pattern": "P25"
+    },
+    {
+      "id": "cdr",
+      "term": {
+        "en": "Content disarm and reconstruction",
+        "ar": "نزع المحتوى وإعادة بنائه"
+      },
+      "definition": {
+        "en": "A technique that rebuilds documents from their safe parts only, dropping macros, scripts, and other active content.",
+        "ar": "تقنية تعيد بناء المستندات من أجزائها الآمنة فقط، وتسقط وحدات الماكرو والنصوص البرمجية وغيرها من المحتوى النشط."
+      },
+      "pattern": "P26"
+    },
+    {
       "id": "control-plane",
       "term": {
         "en": "Control plane",
@@ -338,6 +374,18 @@
         "ar": "سجل في نظام أسماء النطاقات يخبر خوادم البريد المستقبِلة بما تفعله بالرسائل التي تخفق في فحص SPF وDKIM لنطاقك، وإلى أين ترسل التقارير."
       },
       "pattern": "P18"
+    },
+    {
+      "id": "dast",
+      "term": {
+        "en": "Dynamic application security testing",
+        "ar": "الاختبار الأمني الديناميكي للتطبيقات"
+      },
+      "definition": {
+        "en": "Testing a running application from the outside, the way an attacker would, to find weaknesses that can be exploited.",
+        "ar": "اختبار التطبيق أثناء تشغيله من الخارج كما يفعل المهاجم، لاكتشاف نقاط الضعف القابلة للاستغلال."
+      },
+      "pattern": "P28"
     },
     {
       "id": "egress-filtering",
@@ -516,6 +564,18 @@
         "en": "Giving each identity only the access it needs, for only as long as it needs it.",
         "ar": "منح كل هوية الصلاحيات التي تحتاجها فقط وللمدة التي تحتاجها فقط."
       }
+    },
+    {
+      "id": "mft",
+      "term": {
+        "en": "Managed file transfer",
+        "ar": "النقل المُدار للملفات"
+      },
+      "definition": {
+        "en": "A platform that runs file exchanges with partners centrally, with authentication, encryption, scanning, and a record of every transfer.",
+        "ar": "منصة تدير تبادل الملفات مع الشركاء مركزيًا، مع التحقق من الهوية والتشفير والفحص وسجل لكل عملية نقل."
+      },
+      "pattern": "P26"
     },
     {
       "id": "microsegmentation",
@@ -720,6 +780,30 @@
       }
     },
     {
+      "id": "rasp",
+      "term": {
+        "en": "Runtime application self-protection",
+        "ar": "الحماية الذاتية للتطبيق أثناء التشغيل"
+      },
+      "definition": {
+        "en": "Protection built into an application that detects tampering, hooking, or attacks while it runs, and reacts.",
+        "ar": "حماية مدمجة في التطبيق تكشف العبث أو الاعتراض أو الهجمات أثناء تشغيله، وتتصرف حيالها."
+      },
+      "pattern": "P27"
+    },
+    {
+      "id": "sspm",
+      "term": {
+        "en": "SaaS security posture management",
+        "ar": "إدارة الوضع الأمني للخدمات السحابية الجاهزة"
+      },
+      "definition": {
+        "en": "Tools that check the configuration of SaaS tenants against a baseline, and report drift and risky settings.",
+        "ar": "أدوات تفحص إعدادات مستأجري الخدمات السحابية الجاهزة مقابل خط أساس، وتبلّغ عن الانحراف والإعدادات الخطرة."
+      },
+      "pattern": "P25"
+    },
+    {
       "id": "security-architecture",
       "term": {
         "en": "Security architecture",
@@ -729,6 +813,18 @@
         "en": "The structure of controls, trust boundaries, and decisions that makes a system secure by design and keeps it that way.",
         "ar": "بنية الضوابط وحدود الثقة والقرارات التي تجعل النظام آمنًا من التصميم وتحافظ على أمنه."
       }
+    },
+    {
+      "id": "security-champion",
+      "term": {
+        "en": "Security champion",
+        "ar": "ممثل الأمن"
+      },
+      "definition": {
+        "en": "A developer who acts as the security contact for their team, with time and training for the role.",
+        "ar": "مطور يؤدي دور جهة التواصل الأمنية لفريقه، مع وقت وتدريب مخصصين لهذا الدور."
+      },
+      "pattern": "P28"
     },
     {
       "id": "sse",
@@ -814,6 +910,18 @@
       "pattern": "P11"
     },
     {
+      "id": "sca",
+      "term": {
+        "en": "Software composition analysis",
+        "ar": "تحليل مكونات البرمجيات"
+      },
+      "definition": {
+        "en": "Analysis of the third-party components in an application for known vulnerabilities and licence issues.",
+        "ar": "تحليل المكونات الخارجية في التطبيق بحثًا عن الثغرات المعروفة ومشكلات التراخيص."
+      },
+      "pattern": "P28"
+    },
+    {
       "id": "supply-chain",
       "term": {
         "en": "Software supply chain",
@@ -824,6 +932,18 @@
         "ar": "كل ما يدخل في بناء البرمجيات وتسليمها، بما في ذلك الشيفرة والاعتماديات والأدوات ومسارات النشر."
       },
       "pattern": "P11"
+    },
+    {
+      "id": "sast",
+      "term": {
+        "en": "Static application security testing",
+        "ar": "الاختبار الأمني الثابت للتطبيقات"
+      },
+      "definition": {
+        "en": "Analysis of source code for security weaknesses without running it, usually on every pull request.",
+        "ar": "تحليل الشيفرة المصدرية بحثًا عن نقاط الضعف الأمنية دون تشغيلها، ويكون في الغالب عند كل طلب دمج."
+      },
+      "pattern": "P28"
     },
     {
       "id": "stride",
