@@ -20,26 +20,35 @@ Short definitions of the terms used across Bunyan. Where a term matters most in 
 | **Blast radius** | How much an attacker could reach or damage from a single compromised account, system, or key. |  |
 | **Break-glass account** | An emergency account kept sealed for when normal administration fails, whose every use raises an alert. | [P03](../patterns/en/P03-tiered-privileged-access.md) |
 | **Build provenance** | Signed evidence of how, where, and from what source an artifact was built. | [P11](../patterns/en/P11-software-supply-chain.md) |
+| **Business email compromise** | Fraud in which an attacker uses a spoofed or compromised mailbox to trick staff into paying money or sending data. | [P18](../patterns/en/P18-email-and-collaboration.md) |
 | **Certificate authority** | The service that issues and signs digital certificates, whose keys must be among the best protected in the organisation. | [P08](../patterns/en/P08-secrets-keys-workload-identity.md) |
+| **Chain of custody** | The record of who collected, handled, and stored a piece of evidence, and when, which lets it be trusted later. | [P24](../patterns/en/P24-forensic-readiness.md) |
+| **Cloud access security broker** | A service that discovers which SaaS services people use, and governs and protects that use. | [P20](../patterns/en/P20-security-service-edge.md) |
 | **Compensating control** | A control put in place because the preferred control is not possible, which reduces the same risk another way. |  |
 | **Conditional access** | Policies in the identity provider that decide sign-in based on the user, device, location, and risk. | [P02](../patterns/en/P02-identity-control-plane.md) |
 | **Conduit** | In IEC 62443, a defined communication path between zones, with its own protocols and controls. | [P13](../patterns/en/P13-ot-zones-and-conduits.md) |
 | **Control plane** | The management layer of a platform, such as a cloud console or a cluster API, from which everything else is configured. |  |
 | **Crypto agility** | The ability to change algorithms and keys without redesigning systems, needed for the move to post-quantum cryptography. | [P08](../patterns/en/P08-secrets-keys-workload-identity.md) |
+| **Cryptography bill of materials** | An inventory of the algorithms, keys, certificates, and protocols that a system uses, often shortened to CBOM. | [P23](../patterns/en/P23-crypto-agility.md) |
 | **Data classification** | Sorting data into levels of sensitivity, each with its own handling rules. | [P09](../patterns/en/P09-data-centric-protection.md) |
 | **Data loss prevention** | Tools and rules that detect sensitive data leaving through email, web, devices, or cloud services, and alert or block it. | [P09](../patterns/en/P09-data-centric-protection.md) |
 | **Data owner** | The person accountable for a data set, who decides its classification and who may access it. | [P09](../patterns/en/P09-data-centric-protection.md) |
 | **Default deny** | A rule set in which nothing is allowed unless a rule explicitly permits it. | [P04](../patterns/en/P04-segmentation.md) |
 | **Defense in depth** | Layering independent controls so that the failure of one does not expose the asset. |  |
 | **Demilitarized zone** | A network zone between an untrusted network and a trusted one, where connections from each side end. | [P13](../patterns/en/P13-ot-zones-and-conduits.md) |
+| **DMARC** | A DNS record that tells receiving mail servers what to do with messages that fail the SPF and DKIM checks for your domain, and where to send reports. | [P18](../patterns/en/P18-email-and-collaboration.md) |
 | **Egress filtering** | Controlling which destinations systems may connect to on the way out. | [P05](../patterns/en/P05-internet-edge-and-egress.md) |
+| **Endpoint detection and response** | Software on each device that records activity, detects attacks, and lets responders investigate and isolate the device remotely. | [P19](../patterns/en/P19-managed-endpoints.md) |
 | **Envelope encryption** | Encrypting data with a data key, then encrypting that key with a master key held in a key management service. | [P08](../patterns/en/P08-secrets-keys-workload-identity.md) |
+| **EPSS** | The Exploit Prediction Scoring System, which estimates the probability that a vulnerability will be exploited in the next thirty days. | [P21](../patterns/en/P21-exposure-management.md) |
 | **Fail secure** | Designing a control so that when it breaks it denies access rather than allowing it. |  |
+| **Failover** | Moving a service from a failed site or component to a standby that takes over. | [P22](../patterns/en/P22-resilient-availability.md) |
 | **Hardware security module** | A tamper-resistant device that generates and holds keys and performs cryptographic operations without exposing them. | [P08](../patterns/en/P08-secrets-keys-workload-identity.md) |
 | **Identity provider** | The service that authenticates people and issues the tokens that applications trust. | [P02](../patterns/en/P02-identity-control-plane.md) |
 | **Immutable backup** | A backup copy that nobody, including administrators, can change or delete before its retention ends. | [P12](../patterns/en/P12-resilient-recovery.md) |
 | **Infrastructure as code** | Defining infrastructure in version-controlled files that a pipeline applies, instead of configuring it by hand. | [P06](../patterns/en/P06-cloud-landing-zone.md) |
 | **Just-in-time access** | Privileged access granted for a specific task and a limited time, then removed automatically. | [P03](../patterns/en/P03-tiered-privileged-access.md) |
+| **Known exploited vulnerabilities** | Vulnerabilities with evidence of exploitation in the wild, listed in catalogues such as the one CISA maintains. | [P21](../patterns/en/P21-exposure-management.md) |
 | **Landing zone** | A prepared cloud foundation of accounts, identity, network, logging, and guardrails that new workloads are deployed into. | [P06](../patterns/en/P06-cloud-landing-zone.md) |
 | **Lateral movement** | An attacker moving from the first compromised system to others inside the network. | [P04](../patterns/en/P04-segmentation.md) |
 | **Least privilege** | Giving each identity only the access it needs, for only as long as it needs it. |  |
@@ -51,6 +60,7 @@ Short definitions of the terms used across Bunyan. Where a term matters most in 
 | **Phishing-resistant MFA** | MFA that an attacker cannot relay through a fake site, such as passkeys, security keys, or smart cards. | [P02](../patterns/en/P02-identity-control-plane.md) |
 | **Policy decision point** | The component that evaluates a request against policy and signals and returns allow or deny. | [P01](../patterns/en/P01-zero-trust-access.md) |
 | **Policy enforcement point** | The component that sits in the path of a request and carries out the decision of the policy decision point. | [P01](../patterns/en/P01-zero-trust-access.md) |
+| **Post-quantum cryptography** | Public key algorithms designed to resist attack by quantum computers, such as ML-KEM and ML-DSA. | [P23](../patterns/en/P23-crypto-agility.md) |
 | **Preventive guardrail** | A policy set above workloads that makes certain actions impossible, such as disabling logs or creating public storage. | [P06](../patterns/en/P06-cloud-landing-zone.md) |
 | **Privileged access management** | Tools and processes that broker, time-limit, approve, and record privileged access. | [P03](../patterns/en/P03-tiered-privileged-access.md) |
 | **Privileged access workstation** | A hardened device used only for administration, with no email or general web browsing. | [P03](../patterns/en/P03-tiered-privileged-access.md) |
@@ -60,6 +70,7 @@ Short definitions of the terms used across Bunyan. Where a term matters most in 
 | **Residual risk** | The risk that remains after controls are applied, which someone with authority must accept. |  |
 | **Risk appetite** | The amount and kind of risk an organisation is willing to accept in pursuit of its goals. |  |
 | **Security architecture** | The structure of controls, trust boundaries, and decisions that makes a system secure by design and keeps it that way. |  |
+| **Security service edge** | A cloud service that applies web filtering, SaaS controls, data loss prevention, and private application access to users wherever they are. | [P20](../patterns/en/P20-security-service-edge.md) |
 | **Security zone** | A group of systems that share a trust level and security requirements, separated from others by enforced boundaries. | [P04](../patterns/en/P04-segmentation.md) |
 | **Segmentation** | Dividing a network into zones and controlling the traffic between them. | [P04](../patterns/en/P04-segmentation.md) |
 | **Separation of duties** | Splitting sensitive tasks so that no single person can complete them alone. |  |

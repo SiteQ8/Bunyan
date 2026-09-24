@@ -10,7 +10,7 @@
 
 | المجال | أنماط ذات صلة |
 | --- | --- |
-| الهوية | [P02 الهوية مستوى تحكم](P02-identity-control-plane.md)، [P03 الصلاحيات الهامة والحساسة في طبقات](P03-tiered-privileged-access.md)، [P04 العزل والتقسيم الدقيق](P04-segmentation.md)، [P10 بيانات الرصد ومسار الكشف](P10-detection-telemetry.md) |
+| الهوية | [P02 الهوية مستوى تحكم](P02-identity-control-plane.md)، [P03 الصلاحيات الهامة والحساسة في طبقات](P03-tiered-privileged-access.md)، [P04 العزل والتقسيم الدقيق](P04-segmentation.md)، [P10 بيانات الرصد ومسار الكشف](P10-detection-telemetry.md)، [P20 حافة الخدمات الأمنية للمستخدمين أينما كانوا](P20-security-service-edge.md) |
 
 ## المشكلة
 

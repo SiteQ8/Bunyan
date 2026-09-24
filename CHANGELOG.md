@@ -2,6 +2,17 @@
 
 All notable changes to Bunyan are listed here. The project follows semantic versioning.
 
+## 0.4.0, 2026-09-24
+
+- Eight new patterns take the catalogue to twenty-four: P17 Customer identity and account protection, P18 Email and collaboration protection, P19 Managed and hardened endpoints, P20 Security service edge for users anywhere, P21 Continuous exposure management, P22 Resilient availability across sites, P23 Cryptographic agility and post-quantum readiness, and P24 Forensic readiness and incident response. Each has the full structure, controls at three levels mapped to the three frameworks, and a diagram in each language.
+- A new Workplace domain groups email, endpoints, and the security service edge.
+- The advisor recommends the new patterns through sixteen new rules and models eight new threats, each placed in the threat list by importance.
+- Floor plans draw the new patterns: the workplace room shows email, the security service edge, and managed devices, and the edge of a digital service shows customer sign-in with passkeys.
+- The foundations band wraps onto a second row when it holds more than eight pieces, and a word too long for its line breaks after its hyphens, so no label is cut or spills out of its box. A test checks every label in six hundred random designs, in both languages.
+- Fifteen ATT&CK techniques added and checked against attack.mitre.org, using the current IDs T1684.001 for impersonation and T1685.005 for clearing Windows event logs. Sixteen NIST SP 800-53 controls and sixteen CIS safeguards added to the catalogues.
+- Eleven glossary terms, including DMARC, EDR, CASB, EPSS, CBOM, and chain of custody.
+- The site is now served from https://bunyan.3li.info.
+
 ## 0.3.0, 2026-09-24
 
 - The plan answers back: point at any piece, or tap it, to see which pattern put it there and why, and pin it to find the pattern in the list. Pointing at a pattern in the list lights up its pieces on the plan.

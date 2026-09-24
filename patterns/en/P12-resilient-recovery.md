@@ -8,7 +8,7 @@
 
 | Domain | Related patterns |
 | --- | --- |
-| Operations | [P03 Tiered privileged access](P03-tiered-privileged-access.md), [P04 Segmentation and micro-segmentation](P04-segmentation.md), [P10 Security telemetry and detection pipeline](P10-detection-telemetry.md) |
+| Operations | [P03 Tiered privileged access](P03-tiered-privileged-access.md), [P04 Segmentation and micro-segmentation](P04-segmentation.md), [P10 Security telemetry and detection pipeline](P10-detection-telemetry.md), [P22 Resilient availability across sites](P22-resilient-availability.md) |
 
 ## The problem
 

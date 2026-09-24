@@ -1,0 +1,305 @@
+{
+  "id": "P21",
+  "slug": "exposure-management",
+  "domain": "operations",
+  "title": {
+    "en": "Continuous exposure management",
+    "ar": "إدارة مستمرة للانكشاف"
+  },
+  "summary": {
+    "en": "Keep a live inventory of everything you expose, find vulnerabilities and misconfigurations continuously, fix first what attackers are exploiting now, and prove the fixes with tests, instead of chasing every scanner finding.",
+    "ar": "احتفظ بحصر حي لكل ما تكشفه، واكتشف الثغرات وأخطاء الإعداد باستمرار، وأصلح أولًا ما يستغله المهاجمون الآن، وأثبت الإصلاح بالاختبار، بدلًا من ملاحقة كل ملاحظة تظهرها أداة الفحص."
+  },
+  "problem": {
+    "en": "Vulnerability scanners produce thousands of findings, and teams patch by severity score while attackers exploit a small set of known vulnerabilities, often within days of disclosure. Internet-facing systems that nobody listed, forgotten test environments, and expired certificates are found by attackers before they are found by the organisation.",
+    "ar": "تنتج أدوات فحص الثغرات آلاف الملاحظات، فتعالجها الفرق حسب درجة الخطورة بينما يستغل المهاجمون مجموعة صغيرة من الثغرات المعروفة خلال أيام من الإعلان عنها في الغالب، كما يكتشف المهاجمون الأنظمة المكشوفة على الإنترنت التي لم يحصها أحد وبيئات الاختبار المنسية والشهادات المنتهية قبل أن تكتشفها المؤسسة نفسها."
+  },
+  "useWhen": [
+    {
+      "en": "Any system is reachable from the internet or from partners.",
+      "ar": "يمكن الوصول إلى أي نظام من الإنترنت أو من الشركاء."
+    },
+    {
+      "en": "Patching falls behind, or is prioritised by severity scores alone.",
+      "ar": "يتأخر التحديث، أو تُحدَّد أولوياته بدرجات الخطورة وحدها."
+    },
+    {
+      "en": "Teams can create cloud resources and public endpoints on their own.",
+      "ar": "تستطيع الفرق إنشاء موارد سحابية ونقاط وصول عامة بنفسها."
+    }
+  ],
+  "design": [
+    {
+      "en": "Build the inventory from the outside in: discover your domains, certificates, IP ranges, and cloud accounts the way an attacker would, and reconcile them with the asset inventory, so that unknown exposure becomes a finding of its own. Scan internal and external assets continuously, including cloud configuration and code dependencies, and attach an owner to every asset.",
+      "ar": "ابنِ الحصر من الخارج إلى الداخل، فاكتشف نطاقاتك وشهاداتك ونطاقات عناوين IP وحساباتك السحابية كما يفعل المهاجم، وطابقها مع سجل حصر الأصول حتى يصبح الانكشاف غير المعروف ملاحظة قائمة بذاتها، ثم افحص الأصول الداخلية والخارجية باستمرار بما فيها إعدادات السحابة واعتماديات الشيفرة، واربط كل أصل بمالك."
+    },
+    {
+      "en": "Prioritise by what is exploited and what is exposed: vulnerabilities in the CISA Known Exploited Vulnerabilities catalogue, and those with a high likelihood of exploitation on internet-facing assets, come first, with deadlines measured in days. Track remediation against those deadlines, use mitigations when a fix cannot wait, and confirm closure with a rescan or a targeted test, not with a ticket status.",
+      "ar": "حدّد الأولويات بما يُستغل فعلًا وما هو مكشوف، فتأتي أولًا الثغرات الواردة في فهرس CISA للثغرات المستغلة المعروفة والثغرات عالية احتمال الاستغلال على الأصول المكشوفة للإنترنت، بمواعيد نهائية تقاس بالأيام، ثم تابع المعالجة مقابل تلك المواعيد، واستخدم إجراءات مخففة حين لا يحتمل الإصلاح الانتظار، وتأكد من الإغلاق بإعادة الفحص أو باختبار موجّه لا بحالة التذكرة."
+    }
+  ],
+  "controls": [
+    {
+      "level": "foundation",
+      "name": {
+        "en": "Inventory what you expose",
+        "ar": "احصر ما تكشفه"
+      },
+      "detail": {
+        "en": "Discover internet-facing domains, addresses, and services continuously, and give each one an owner.",
+        "ar": "اكتشف النطاقات والعناوين والخدمات المكشوفة للإنترنت باستمرار، وامنح كلًا منها مالكًا."
+      },
+      "nist": [
+        "CM-8",
+        "RA-5"
+      ],
+      "cis": [
+        "1.1"
+      ],
+      "iso": [
+        "5.9"
+      ]
+    },
+    {
+      "level": "foundation",
+      "name": {
+        "en": "Scan internal and external assets",
+        "ar": "افحص الأصول الداخلية والخارجية"
+      },
+      "detail": {
+        "en": "Scan all assets for vulnerabilities at least monthly, and internet-facing assets at least weekly.",
+        "ar": "افحص كل الأصول بحثًا عن الثغرات مرة كل شهر على الأقل، والأصول المكشوفة للإنترنت مرة كل أسبوع على الأقل."
+      },
+      "nist": [
+        "RA-5"
+      ],
+      "cis": [
+        "7.1",
+        "7.6"
+      ],
+      "iso": [
+        "8.8"
+      ]
+    },
+    {
+      "level": "foundation",
+      "name": {
+        "en": "Fix exploited vulnerabilities first",
+        "ar": "أصلح الثغرات المستغلة أولًا"
+      },
+      "detail": {
+        "en": "Patch vulnerabilities that are known to be exploited on exposed assets within days, and track every deadline.",
+        "ar": "عالج الثغرات المعروف استغلالها على الأصول المكشوفة خلال أيام، وتابع كل موعد نهائي."
+      },
+      "nist": [
+        "SI-2",
+        "SI-5"
+      ],
+      "cis": [
+        "7.2",
+        "7.7"
+      ],
+      "iso": [
+        "8.8"
+      ]
+    },
+    {
+      "level": "enhanced",
+      "name": {
+        "en": "Prioritise with exploit intelligence",
+        "ar": "حدّد الأولويات بمعلومات الاستغلال"
+      },
+      "detail": {
+        "en": "Rank findings by known exploitation, likelihood of exploitation, exposure, and asset value, not by severity score alone.",
+        "ar": "رتّب الملاحظات حسب الاستغلال المعروف واحتمال الاستغلال والانكشاف وقيمة الأصل، لا حسب درجة الخطورة وحدها."
+      },
+      "nist": [
+        "RA-3",
+        "RA-7"
+      ],
+      "cis": [
+        "7.2"
+      ],
+      "iso": [
+        "5.7",
+        "8.8"
+      ]
+    },
+    {
+      "level": "enhanced",
+      "name": {
+        "en": "Include cloud and code in scope",
+        "ar": "أدخل السحابة والشيفرة في النطاق"
+      },
+      "detail": {
+        "en": "Scan cloud configuration, container images, and code dependencies, and route findings to the teams that own them.",
+        "ar": "افحص إعدادات السحابة وصور الحاويات واعتماديات الشيفرة، ووجّه الملاحظات إلى الفرق التي تملكها."
+      },
+      "nist": [
+        "RA-5",
+        "CM-6"
+      ],
+      "cis": [
+        "16.4"
+      ],
+      "iso": [
+        "8.8",
+        "8.9"
+      ]
+    },
+    {
+      "level": "enhanced",
+      "name": {
+        "en": "Use mitigations when a fix must wait",
+        "ar": "استخدم إجراءات مخففة حين يجب أن ينتظر الإصلاح"
+      },
+      "detail": {
+        "en": "Apply compensating controls, such as disabling a feature or a virtual patch, with an owner and an expiry date.",
+        "ar": "طبّق ضوابط تعويضية مثل تعطيل ميزة أو ترقيع افتراضي، مع مالك وتاريخ انتهاء."
+      },
+      "nist": [
+        "RA-7",
+        "SI-2"
+      ],
+      "cis": [
+        "7.2"
+      ],
+      "iso": [
+        "8.8"
+      ]
+    },
+    {
+      "level": "advanced",
+      "name": {
+        "en": "Prove closure by testing",
+        "ar": "أثبت الإغلاق بالاختبار"
+      },
+      "detail": {
+        "en": "Confirm that exposures are closed with a rescan or a targeted test, and run external penetration tests every year.",
+        "ar": "تأكد من إغلاق مواطن الانكشاف بإعادة الفحص أو باختبار موجّه، ونفّذ اختبارات اختراق خارجية كل عام."
+      },
+      "nist": [
+        "CA-8",
+        "RA-5"
+      ],
+      "cis": [
+        "18.2"
+      ],
+      "iso": [
+        "8.8"
+      ]
+    },
+    {
+      "level": "advanced",
+      "name": {
+        "en": "Measure exposure as a trend",
+        "ar": "قِس الانكشاف بوصفه اتجاهًا"
+      },
+      "detail": {
+        "en": "Report the time taken to fix exploited vulnerabilities and the count of unknown exposed assets, and review both with leadership.",
+        "ar": "أبلغ عن الزمن المستغرق لإصلاح الثغرات المستغلة وعدد الأصول المكشوفة غير المعروفة، وراجعهما مع القيادة."
+      },
+      "nist": [
+        "CA-7",
+        "RA-3"
+      ],
+      "cis": [
+        "7.1"
+      ],
+      "iso": [
+        "8.8"
+      ]
+    }
+  ],
+  "decisions": [
+    {
+      "en": "What deadlines apply to exploited, critical, and other vulnerabilities, on exposed and on internal assets?",
+      "ar": "ما المواعيد النهائية للثغرات المستغلة والحرجة وغيرها، على الأصول المكشوفة والداخلية؟"
+    },
+    {
+      "en": "Who owns each asset, and what happens to assets that nobody claims?",
+      "ar": "من يملك كل أصل، وماذا يحدث للأصول التي لا يطالب بها أحد؟"
+    },
+    {
+      "en": "Which sources of exploit intelligence will you trust for prioritisation?",
+      "ar": "ما مصادر معلومات الاستغلال التي ستعتمد عليها لتحديد الأولويات؟"
+    }
+  ],
+  "tradeoffs": [
+    {
+      "en": "Fast deadlines for exploited vulnerabilities mean emergency changes, which need a lighter approval path.",
+      "ar": "تعني المواعيد السريعة للثغرات المستغلة تغييرات طارئة، وهذه تحتاج إلى مسار اعتماد أخف."
+    },
+    {
+      "en": "Discovery from the outside finds real surprises, and some of them belong to suppliers you do not control.",
+      "ar": "يكشف الاكتشاف من الخارج مفاجآت حقيقية، وبعضها يعود إلى موردين لا تتحكم فيهم."
+    },
+    {
+      "en": "More scanning means more findings, so without prioritisation it only adds noise.",
+      "ar": "يعني المزيد من الفحص المزيد من الملاحظات، فلا يضيف دون تحديد الأولويات سوى الضجيج."
+    }
+  ],
+  "antipatterns": [
+    {
+      "en": "Patching by severity score alone, while known exploited vulnerabilities wait in the queue.",
+      "ar": "المعالجة حسب درجة الخطورة وحدها بينما تنتظر الثغرات المعروف استغلالها في الطابور."
+    },
+    {
+      "en": "Closing findings because a ticket was closed, with no rescan.",
+      "ar": "إغلاق الملاحظات لأن تذكرة أُغلقت دون إعادة الفحص."
+    },
+    {
+      "en": "An inventory built only from what teams remember to register.",
+      "ar": "حصر مبني فقط على ما تتذكر الفرق تسجيله."
+    }
+  ],
+  "verify": [
+    {
+      "en": "Pick a vulnerability recently added to the known exploited catalogue, and check how long it stayed open on your exposed assets.",
+      "ar": "اختر ثغرة أُضيفت حديثًا إلى فهرس الثغرات المستغلة المعروفة، وتحقق من المدة التي بقيت فيها مفتوحة على أصولك المكشوفة."
+    },
+    {
+      "en": "Rescan a sample of findings marked as fixed, and confirm that they are really closed.",
+      "ar": "أعد فحص عينة من الملاحظات المصنفة مُصلحة، وتأكد من أنها مغلقة فعلًا."
+    },
+    {
+      "en": "Run external discovery and compare the results with the inventory, and give every unknown asset an owner or a shutdown date.",
+      "ar": "نفّذ اكتشافًا خارجيًا وقارن نتائجه بسجل الحصر، وامنح كل أصل غير معروف مالكًا أو موعدًا لإيقافه."
+    }
+  ],
+  "attack": [
+    "T1595.002",
+    "T1190",
+    "T1133",
+    "T1210"
+  ],
+  "owasp": [],
+  "related": [
+    "P05",
+    "P11",
+    "P06"
+  ],
+  "references": [
+    {
+      "title": {
+        "en": "CISA Known Exploited Vulnerabilities Catalog",
+        "ar": "فهرس CISA للثغرات المستغلة المعروفة"
+      },
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog"
+    },
+    {
+      "title": {
+        "en": "FIRST, Exploit Prediction Scoring System",
+        "ar": "نظام FIRST للتنبؤ باستغلال الثغرات EPSS"
+      },
+      "url": "https://www.first.org/epss/"
+    },
+    {
+      "title": {
+        "en": "NIST SP 800-40 Rev 4, Guide to Enterprise Patch Management Planning",
+        "ar": "دليل NIST SP 800-40 Rev 4 لتخطيط إدارة التحديثات في المؤسسات"
+      },
+      "url": "https://csrc.nist.gov/pubs/sp/800/40/r4/final"
+    }
+  ]
+}

@@ -10,7 +10,7 @@
 
 | المجال | أنماط ذات صلة |
 | --- | --- |
-| المنصة | [P06 منطقة هبوط سحابية بضوابط وقائية](P06-cloud-landing-zone.md)، [P09 حماية تتمحور حول البيانات](P09-data-centric-protection.md)، [P11 سلسلة إمداد برمجيات موثوقة](P11-software-supply-chain.md)، [P16 الضوابط الوقائية لمنصات الحاويات](P16-container-platform-guardrails.md) |
+| المنصة | [P06 منطقة هبوط سحابية بضوابط وقائية](P06-cloud-landing-zone.md)، [P09 حماية تتمحور حول البيانات](P09-data-centric-protection.md)، [P11 سلسلة إمداد برمجيات موثوقة](P11-software-supply-chain.md)، [P16 الضوابط الوقائية لمنصات الحاويات](P16-container-platform-guardrails.md)، [P23 مرونة التشفير والجاهزية لما بعد الحوسبة الكمية](P23-crypto-agility.md) |
 
 ## المشكلة
 

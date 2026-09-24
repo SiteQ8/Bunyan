@@ -1,0 +1,295 @@
+{
+  "id": "P17",
+  "slug": "customer-identity",
+  "domain": "identity",
+  "title": {
+    "en": "Customer identity and account protection",
+    "ar": "هوية العملاء وحماية حساباتهم"
+  },
+  "summary": {
+    "en": "Let customers sign in with passkeys, judge the risk of every sign-in and every sensitive action, and make account recovery as strong as the sign-in itself, so that stolen passwords and intercepted codes stop being enough to take over an account.",
+    "ar": "مكّن العملاء من الدخول بمفاتيح المرور، وقيّم مخاطر كل دخول وكل إجراء حساس، واجعل استعادة الحساب قوية بقدر قوة الدخول نفسه، حتى لا تكفي كلمات المرور المسروقة والرموز المعترضة للاستيلاء على أي حساب."
+  },
+  "problem": {
+    "en": "Customer accounts are attacked at scale with passwords leaked from other sites, with phishing pages that relay one-time codes in real time, and with SIM swaps that redirect text messages. Each successful takeover becomes fraud, a complaint, and a question from the regulator, while controls that frustrate honest customers push them to call centres, where recovery is often the weakest link.",
+    "ar": "تتعرض حسابات العملاء لهجمات واسعة ببيانات دخول مسربة من مواقع أخرى، وبصفحات تصيد تمرر الرموز المؤقتة لحظة إدخالها، وبتبديل شرائح الاتصال لتحويل الرسائل النصية، ثم يتحول كل استيلاء ناجح إلى احتيال وشكوى وسؤال من الجهة الرقابية، بينما تدفع الضوابط التي تزعج العملاء الصادقين إلى مراكز الاتصال، حيث تكون استعادة الحساب في الغالب أضعف حلقة."
+  },
+  "useWhen": [
+    {
+      "en": "Customers sign in to a web or mobile service over the internet.",
+      "ar": "يدخل العملاء إلى خدمة ويب أو تطبيق للهاتف عبر الإنترنت."
+    },
+    {
+      "en": "Accounts hold money, personal data, or anything worth stealing.",
+      "ar": "تحفظ الحسابات أموالًا أو بيانات شخصية أو أي شيء يستحق السرقة."
+    },
+    {
+      "en": "Fraud from account takeover already costs you, or a regulator expects strong customer authentication.",
+      "ar": "يكلفك الاحتيال الناتج عن الاستيلاء على الحسابات بالفعل، أو تتوقع الجهة الرقابية تحققًا قويًا من هوية العملاء."
+    }
+  ],
+  "design": [
+    {
+      "en": "Run customer identity as its own service, separate from the workforce identity provider, and make passkeys the default way to sign in, with a fallback that still resists phishing, such as a push approval bound to the device. Score every sign-in and every sensitive action, such as adding a payee or changing a phone number, with signals like device reputation, location, velocity, and known breached passwords, then allow, step up, or block.",
+      "ar": "شغّل هوية العملاء خدمة مستقلة عن مزود هوية الموظفين، واجعل مفاتيح المرور الطريقة الافتراضية للدخول مع بديل يقاوم التصيد أيضًا مثل موافقة مرتبطة بالجهاز، ثم قيّم كل دخول وكل إجراء حساس مثل إضافة مستفيد أو تغيير رقم الهاتف بمؤشرات مثل سمعة الجهاز والموقع وتكرار المحاولات وكلمات المرور المعروف تسربها، فتسمح أو تطلب إثباتًا أقوى أو تمنع."
+    },
+    {
+      "en": "Treat account recovery and changes to contact details as the riskiest sign-ins of all: require the strongest factor the customer has, notify the old contact details, and hold high-value actions for a cooling-off period. Bind sessions to the device, keep them short for sensitive actions, and send identity events to fraud monitoring and the SIEM, so that a takeover in progress can be stopped rather than refunded.",
+      "ar": "عامل استعادة الحساب وتغيير بيانات التواصل بوصفهما أعلى عمليات الدخول خطورة، فاطلب أقوى عنصر يملكه العميل، وأبلغه عبر بيانات التواصل القديمة، وأوقف الإجراءات عالية القيمة مدة تهدئة، ثم اربط الجلسات بالجهاز واجعلها قصيرة للإجراءات الحساسة، وأرسل أحداث الهوية إلى رقابة الاحتيال ونظام إدارة السجلات، حتى يُوقف الاستيلاء أثناء حدوثه بدلًا من تعويض العميل بعده."
+    }
+  ],
+  "controls": [
+    {
+      "level": "foundation",
+      "name": {
+        "en": "Block known breached passwords",
+        "ar": "امنع كلمات المرور المعروف تسربها"
+      },
+      "detail": {
+        "en": "Check new and changed passwords against lists of breached passwords, and throttle sign-in attempts per account and per source.",
+        "ar": "افحص كلمات المرور الجديدة والمعدلة مقابل قوائم كلمات المرور المسربة، وحدّد عدد محاولات الدخول لكل حساب ولكل مصدر."
+      },
+      "nist": [
+        "IA-5",
+        "AC-7"
+      ],
+      "cis": [],
+      "iso": [
+        "5.17"
+      ]
+    },
+    {
+      "level": "foundation",
+      "name": {
+        "en": "Offer strong authentication to every customer",
+        "ar": "قدّم تحققًا قويًا لكل عميل"
+      },
+      "detail": {
+        "en": "Offer passkeys or an app-based approval to every customer, and require them for sensitive actions such as payments to new payees.",
+        "ar": "قدّم مفاتيح المرور أو الموافقة عبر التطبيق لكل عميل، واشترطها للإجراءات الحساسة مثل الدفع إلى مستفيد جديد."
+      },
+      "nist": [
+        "IA-2(1)",
+        "IA-8"
+      ],
+      "cis": [
+        "6.3"
+      ],
+      "iso": [
+        "8.5"
+      ]
+    },
+    {
+      "level": "foundation",
+      "name": {
+        "en": "Protect account recovery",
+        "ar": "احمِ استعادة الحساب"
+      },
+      "detail": {
+        "en": "Make recovery and changes to contact details require the strongest factor the customer has, and notify the customer through the old channel.",
+        "ar": "اجعل الاستعادة وتغيير بيانات التواصل يتطلبان أقوى عنصر يملكه العميل، وأبلغ العميل عبر القناة القديمة."
+      },
+      "nist": [
+        "IA-5",
+        "IA-8"
+      ],
+      "cis": [],
+      "iso": [
+        "5.17"
+      ]
+    },
+    {
+      "level": "enhanced",
+      "name": {
+        "en": "Score the risk of every sign-in",
+        "ar": "قيّم مخاطر كل دخول"
+      },
+      "detail": {
+        "en": "Evaluate device, location, network, and behaviour signals on every sign-in and sensitive action, and step up or block when the risk is high.",
+        "ar": "قيّم مؤشرات الجهاز والموقع والشبكة والسلوك عند كل دخول وكل إجراء حساس، واطلب إثباتًا أقوى أو امنع حين ترتفع المخاطر."
+      },
+      "nist": [
+        "IA-11",
+        "SI-4"
+      ],
+      "cis": [],
+      "iso": [
+        "8.16"
+      ]
+    },
+    {
+      "level": "enhanced",
+      "name": {
+        "en": "Bind sessions to the device",
+        "ar": "اربط الجلسات بالجهاز"
+      },
+      "detail": {
+        "en": "Issue short sessions bound to the device, and authenticate again before sensitive actions, so that a stolen cookie is not enough.",
+        "ar": "أصدر جلسات قصيرة مرتبطة بالجهاز، وأعد التحقق قبل الإجراءات الحساسة حتى لا يكفي ملف تعريف مسروق."
+      },
+      "nist": [
+        "SC-23",
+        "AC-12"
+      ],
+      "cis": [],
+      "iso": [
+        "8.5"
+      ]
+    },
+    {
+      "level": "enhanced",
+      "name": {
+        "en": "Send identity events to fraud monitoring",
+        "ar": "أرسل أحداث الهوية إلى رقابة الاحتيال"
+      },
+      "detail": {
+        "en": "Stream sign-ins, recoveries, and changes to contact details into fraud monitoring and the SIEM, with rules for takeover patterns.",
+        "ar": "مرّر عمليات الدخول والاستعادة وتغيير بيانات التواصل إلى رقابة الاحتيال ونظام إدارة السجلات، مع قواعد تكشف أنماط الاستيلاء."
+      },
+      "nist": [
+        "AU-2",
+        "SI-4"
+      ],
+      "cis": [
+        "8.2"
+      ],
+      "iso": [
+        "8.15",
+        "8.16"
+      ]
+    },
+    {
+      "level": "advanced",
+      "name": {
+        "en": "Make passkeys the default",
+        "ar": "اجعل مفاتيح المرور هي الأصل"
+      },
+      "detail": {
+        "en": "Enrol customers in passkeys by default, and retire text message codes for sensitive actions once enough customers have a phishing-resistant factor.",
+        "ar": "سجّل العملاء في مفاتيح المرور افتراضيًا، وأوقف الرموز النصية للإجراءات الحساسة حين يملك عدد كافٍ من العملاء عنصرًا مقاومًا للتصيد."
+      },
+      "nist": [
+        "IA-2(1)",
+        "IA-2(2)"
+      ],
+      "cis": [
+        "6.3"
+      ],
+      "iso": [
+        "8.5"
+      ]
+    },
+    {
+      "level": "advanced",
+      "name": {
+        "en": "Hold high-value changes for a cooling-off period",
+        "ar": "أوقف التغييرات عالية القيمة مدة تهدئة"
+      },
+      "detail": {
+        "en": "Delay high-value payments after a recovery or a change of contact details, and let the customer cancel them from a trusted channel.",
+        "ar": "أخّر المدفوعات عالية القيمة بعد الاستعادة أو تغيير بيانات التواصل، ومكّن العميل من إلغائها عبر قناة موثوقة."
+      },
+      "nist": [
+        "AC-3",
+        "SI-4"
+      ],
+      "cis": [],
+      "iso": [
+        "5.15"
+      ]
+    }
+  ],
+  "decisions": [
+    {
+      "en": "Which actions count as sensitive, and which strength of authentication does each one need?",
+      "ar": "ما الإجراءات التي تُعد حساسة، وأي قوة في التحقق يحتاجها كل منها؟"
+    },
+    {
+      "en": "Which fallback do customers without a passkey get, and how will you move them off text message codes?",
+      "ar": "ما البديل المتاح للعملاء الذين لا يملكون مفاتيح مرور، وكيف ستنقلهم بعيدًا عن الرموز النصية؟"
+    },
+    {
+      "en": "Who owns the decision on a risky sign-in: the identity service, the fraud team, or both?",
+      "ar": "من يملك القرار عند دخول عالي المخاطر، أهي خدمة الهوية أم فريق الاحتيال أم كلاهما؟"
+    }
+  ],
+  "tradeoffs": [
+    {
+      "en": "Every extra step at sign-in costs some customers, so friction has to be spent on risky moments, not on every visit.",
+      "ar": "تكلّف كل خطوة إضافية عند الدخول خسارة بعض العملاء، لذا يجب أن تُصرف الصعوبة على اللحظات الخطرة لا على كل زيارة."
+    },
+    {
+      "en": "Risk scoring needs data about devices and behaviour, which brings privacy duties of its own.",
+      "ar": "يحتاج تقييم المخاطر إلى بيانات عن الأجهزة والسلوك، وهذا يجلب واجبات خاصة بالخصوصية."
+    },
+    {
+      "en": "Passkeys depend on the customer's platform, so support for older and shared devices needs a plan.",
+      "ar": "تعتمد مفاتيح المرور على منصة العميل، لذا يحتاج دعم الأجهزة القديمة والمشتركة إلى خطة."
+    }
+  ],
+  "antipatterns": [
+    {
+      "en": "Text message codes as the only second factor for payments.",
+      "ar": "الرموز النصية عنصرًا ثانيًا وحيدًا للمدفوعات."
+    },
+    {
+      "en": "A call centre that resets accounts after a few personal questions.",
+      "ar": "مركز اتصال يعيد تعيين الحسابات بعد بضعة أسئلة شخصية."
+    },
+    {
+      "en": "The same identity provider and administrators for customers and staff.",
+      "ar": "مزود الهوية نفسه والمسؤولون أنفسهم للعملاء والموظفين."
+    }
+  ],
+  "verify": [
+    {
+      "en": "Replay a real phishing kit against a test account, and confirm that the relayed code does not grant a session.",
+      "ar": "أعد تشغيل أداة تصيد حقيقية على حساب اختباري، وتأكد من أن الرمز المُمرَّر لا يمنح جلسة."
+    },
+    {
+      "en": "Change the phone number on a test account, and confirm the notice to the old number and the hold on payments.",
+      "ar": "غيّر رقم الهاتف في حساب اختباري، وتأكد من وصول الإشعار إلى الرقم القديم ومن إيقاف المدفوعات."
+    },
+    {
+      "en": "Run a credential stuffing test at low volume, and confirm that throttling and detection both trigger.",
+      "ar": "نفّذ اختبار حشو بيانات الاعتماد بحجم منخفض، وتأكد من تفعيل الحد من المحاولات والكشف معًا."
+    }
+  ],
+  "attack": [
+    "T1110.004",
+    "T1539",
+    "T1111",
+    "T1621"
+  ],
+  "owasp": [
+    "API2:2023"
+  ],
+  "related": [
+    "P02",
+    "P07",
+    "P10"
+  ],
+  "references": [
+    {
+      "title": {
+        "en": "FIDO Alliance, passkeys",
+        "ar": "تحالف FIDO، مفاتيح المرور"
+      },
+      "url": "https://fidoalliance.org/passkeys/"
+    },
+    {
+      "title": {
+        "en": "NIST SP 800-63B, Digital Identity Guidelines: Authentication",
+        "ar": "إرشادات الهوية الرقمية NIST SP 800-63B للتحقق من الهوية"
+      },
+      "url": "https://csrc.nist.gov/pubs/sp/800/63/b/4/final"
+    },
+    {
+      "title": {
+        "en": "OWASP Authentication Cheat Sheet",
+        "ar": "دليل OWASP المختصر للتحقق من الهوية"
+      },
+      "url": "https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html"
+    }
+  ]
+}

@@ -2,7 +2,10 @@
   "id": "P01",
   "slug": "zero-trust-access",
   "domain": "identity",
-  "title": { "en": "Zero trust access", "ar": "الوصول وفق الثقة الصفرية" },
+  "title": {
+    "en": "Zero trust access",
+    "ar": "الوصول وفق الثقة الصفرية"
+  },
   "summary": {
     "en": "Grant access to each application per request, based on who the user is, the state of their device, and the sensitivity of what they ask for, instead of trusting anyone because of the network they are on.",
     "ar": "امنح الوصول إلى كل تطبيق عند كل طلب بناءً على هوية المستخدم وحالة جهازه وحساسية ما يطلبه، بدلًا من الثقة بأي شخص لمجرد وجوده على شبكة معينة."
@@ -12,9 +15,18 @@
     "ar": "تضع الشبكة الافتراضية الخاصة أو شبكة المكتب المستخدمَ في الداخل، والداخل عادةً مفتوح على مصراعيه، فإذا اتصل حساب مسروق أو حاسوب مصاب وصل إلى أكثر بكثير من التطبيق الوحيد الذي يحتاجه المستخدم، ولذلك تُعد الحسابات الصالحة وخدمات الوصول البعيد الخارجية من أكثر مداخل المهاجمين شيوعًا."
   },
   "useWhen": [
-    { "en": "Staff, contractors, or vendors reach internal applications from outside the office.", "ar": "يصل الموظفون أو المتعاقدون أو الموردون إلى التطبيقات الداخلية من خارج المكتب." },
-    { "en": "You still rely on a VPN that lands users on a broad internal network.", "ar": "ما زلت تعتمد على شبكة افتراضية خاصة تضع المستخدمين في شبكة داخلية واسعة." },
-    { "en": "You need to prove who accessed which application, and from which device.", "ar": "تحتاج إلى إثبات من وصل إلى أي تطبيق ومن أي جهاز." }
+    {
+      "en": "Staff, contractors, or vendors reach internal applications from outside the office.",
+      "ar": "يصل الموظفون أو المتعاقدون أو الموردون إلى التطبيقات الداخلية من خارج المكتب."
+    },
+    {
+      "en": "You still rely on a VPN that lands users on a broad internal network.",
+      "ar": "ما زلت تعتمد على شبكة افتراضية خاصة تضع المستخدمين في شبكة داخلية واسعة."
+    },
+    {
+      "en": "You need to prove who accessed which application, and from which device.",
+      "ar": "تحتاج إلى إثبات من وصل إلى أي تطبيق ومن أي جهاز."
+    }
   ],
   "design": [
     {
@@ -29,81 +41,285 @@
   "controls": [
     {
       "level": "foundation",
-      "name": { "en": "Put applications behind an enforcement point", "ar": "ضع التطبيقات خلف نقطة إنفاذ" },
-      "detail": { "en": "Publish internal applications only through an identity-aware proxy or access broker, and remove direct inbound access from the internet and from the VPN pool.", "ar": "لا تنشر التطبيقات الداخلية إلا عبر وسيط يتحقق من الهوية، وألغِ الوصول الوارد المباشر من الإنترنت ومن نطاق عناوين الشبكة الافتراضية الخاصة." },
-      "nist": ["AC-3", "AC-17", "SC-7"], "cis": ["13.5", "6.7"], "iso": ["5.15", "8.20"]
+      "name": {
+        "en": "Put applications behind an enforcement point",
+        "ar": "ضع التطبيقات خلف نقطة إنفاذ"
+      },
+      "detail": {
+        "en": "Publish internal applications only through an identity-aware proxy or access broker, and remove direct inbound access from the internet and from the VPN pool.",
+        "ar": "لا تنشر التطبيقات الداخلية إلا عبر وسيط يتحقق من الهوية، وألغِ الوصول الوارد المباشر من الإنترنت ومن نطاق عناوين الشبكة الافتراضية الخاصة."
+      },
+      "nist": [
+        "AC-3",
+        "AC-17",
+        "SC-7"
+      ],
+      "cis": [
+        "13.5",
+        "6.7"
+      ],
+      "iso": [
+        "5.15",
+        "8.20"
+      ]
     },
     {
       "level": "foundation",
-      "name": { "en": "Require MFA on every access decision", "ar": "اشترط التحقق متعدد العناصر في كل قرار وصول" },
-      "detail": { "en": "Require multi-factor authentication for every application behind the broker, with phishing-resistant methods for administrators and remote access.", "ar": "اشترط التحقق من الهوية متعدد العناصر في كل تطبيق خلف الوسيط، مع وسائل مقاومة للتصيد للمسؤولين وللوصول البعيد." },
-      "nist": ["IA-2(1)", "IA-2(2)"], "cis": ["6.3", "6.4", "6.5"], "iso": ["8.5"]
+      "name": {
+        "en": "Require MFA on every access decision",
+        "ar": "اشترط التحقق متعدد العناصر في كل قرار وصول"
+      },
+      "detail": {
+        "en": "Require multi-factor authentication for every application behind the broker, with phishing-resistant methods for administrators and remote access.",
+        "ar": "اشترط التحقق من الهوية متعدد العناصر في كل تطبيق خلف الوسيط، مع وسائل مقاومة للتصيد للمسؤولين وللوصول البعيد."
+      },
+      "nist": [
+        "IA-2(1)",
+        "IA-2(2)"
+      ],
+      "cis": [
+        "6.3",
+        "6.4",
+        "6.5"
+      ],
+      "iso": [
+        "8.5"
+      ]
     },
     {
       "level": "foundation",
-      "name": { "en": "Log every decision", "ar": "سجّل كل قرار" },
-      "detail": { "en": "Send every allow and deny decision, with user, device, application, and reason, to the central log platform.", "ar": "أرسل كل قرار سماح أو رفض مع المستخدم والجهاز والتطبيق والسبب إلى منصة السجلات المركزية." },
-      "nist": ["AU-2", "AU-12"], "cis": ["8.2", "8.5"], "iso": ["8.15"]
+      "name": {
+        "en": "Log every decision",
+        "ar": "سجّل كل قرار"
+      },
+      "detail": {
+        "en": "Send every allow and deny decision, with user, device, application, and reason, to the central log platform.",
+        "ar": "أرسل كل قرار سماح أو رفض مع المستخدم والجهاز والتطبيق والسبب إلى منصة السجلات المركزية."
+      },
+      "nist": [
+        "AU-2",
+        "AU-12"
+      ],
+      "cis": [
+        "8.2",
+        "8.5"
+      ],
+      "iso": [
+        "8.15"
+      ]
     },
     {
       "level": "enhanced",
-      "name": { "en": "Make device health a condition", "ar": "اجعل سلامة الجهاز شرطًا للوصول" },
-      "detail": { "en": "Admit only managed devices that meet a health baseline, such as disk encryption, a running endpoint agent, and a supported operating system, and give unmanaged devices browser-only access to low-sensitivity applications.", "ar": "لا تقبل إلا الأجهزة المُدارة التي تستوفي خط أساس للسلامة مثل تشفير القرص ووجود وكيل حماية يعمل ونظام تشغيل مدعوم، وامنح الأجهزة غير المُدارة وصولًا عبر المتصفح فقط إلى التطبيقات منخفضة الحساسية." },
-      "nist": ["IA-3", "CM-6"], "cis": ["13.5"], "iso": ["8.1"]
+      "name": {
+        "en": "Make device health a condition",
+        "ar": "اجعل سلامة الجهاز شرطًا للوصول"
+      },
+      "detail": {
+        "en": "Admit only managed devices that meet a health baseline, such as disk encryption, a running endpoint agent, and a supported operating system, and give unmanaged devices browser-only access to low-sensitivity applications.",
+        "ar": "لا تقبل إلا الأجهزة المُدارة التي تستوفي خط أساس للسلامة مثل تشفير القرص ووجود وكيل حماية يعمل ونظام تشغيل مدعوم، وامنح الأجهزة غير المُدارة وصولًا عبر المتصفح فقط إلى التطبيقات منخفضة الحساسية."
+      },
+      "nist": [
+        "IA-3",
+        "CM-6"
+      ],
+      "cis": [
+        "13.5"
+      ],
+      "iso": [
+        "8.1"
+      ]
     },
     {
       "level": "enhanced",
-      "name": { "en": "Retire network-wide VPN access", "ar": "ألغِ الوصول الشامل عبر الشبكة الافتراضية الخاصة" },
-      "detail": { "en": "Move applications behind the broker one group at a time, starting with the most sensitive, and shrink the VPN to the few protocols that still need it.", "ar": "انقل التطبيقات خلف الوسيط مجموعةً بعد أخرى بدءًا بالأكثر حساسية، وقلّص الشبكة الافتراضية الخاصة إلى البروتوكولات القليلة التي ما زالت تحتاجها." },
-      "nist": ["AC-17", "SC-7"], "cis": ["13.5"], "iso": ["8.20", "8.22"]
+      "name": {
+        "en": "Retire network-wide VPN access",
+        "ar": "ألغِ الوصول الشامل عبر الشبكة الافتراضية الخاصة"
+      },
+      "detail": {
+        "en": "Move applications behind the broker one group at a time, starting with the most sensitive, and shrink the VPN to the few protocols that still need it.",
+        "ar": "انقل التطبيقات خلف الوسيط مجموعةً بعد أخرى بدءًا بالأكثر حساسية، وقلّص الشبكة الافتراضية الخاصة إلى البروتوكولات القليلة التي ما زالت تحتاجها."
+      },
+      "nist": [
+        "AC-17",
+        "SC-7"
+      ],
+      "cis": [
+        "13.5"
+      ],
+      "iso": [
+        "8.20",
+        "8.22"
+      ]
     },
     {
       "level": "enhanced",
-      "name": { "en": "Give vendors brokered, recorded sessions", "ar": "امنح الموردين جلسات عبر الوسيط ومسجلة" },
-      "detail": { "en": "Give third parties access to named systems only, through the broker, with approval per session, a time limit, and session recording.", "ar": "امنح الأطراف الخارجية الوصول إلى أنظمة محددة بالاسم فقط عبر الوسيط، مع موافقة على كل جلسة وحد زمني وتسجيل للجلسة." },
-      "nist": ["MA-4", "AC-17", "AU-14"], "cis": ["13.5"], "iso": ["5.19", "5.20"]
+      "name": {
+        "en": "Give vendors brokered, recorded sessions",
+        "ar": "امنح الموردين جلسات عبر الوسيط ومسجلة"
+      },
+      "detail": {
+        "en": "Give third parties access to named systems only, through the broker, with approval per session, a time limit, and session recording.",
+        "ar": "امنح الأطراف الخارجية الوصول إلى أنظمة محددة بالاسم فقط عبر الوسيط، مع موافقة على كل جلسة وحد زمني وتسجيل للجلسة."
+      },
+      "nist": [
+        "MA-4",
+        "AC-17",
+        "AU-14"
+      ],
+      "cis": [
+        "13.5"
+      ],
+      "iso": [
+        "5.19",
+        "5.20"
+      ]
     },
     {
       "level": "advanced",
-      "name": { "en": "Evaluate risk continuously", "ar": "قيّم المخاطر باستمرار" },
-      "detail": { "en": "Re-evaluate sessions when risk signals change, such as impossible travel, a new device, or a threat intelligence hit, and end the session or ask for stronger proof without waiting for it to expire.", "ar": "أعد تقييم الجلسات عند تغيّر مؤشرات المخاطر، مثل الدخول من موقعين يستحيل التنقل بينهما أو ظهور جهاز جديد أو تطابق مع المعلومات الاستباقية، ثم أنهِ الجلسة أو اطلب إثباتًا أقوى دون انتظار انتهائها." },
-      "nist": ["AC-12", "IA-11", "SI-4"], "cis": [], "iso": ["8.16"]
+      "name": {
+        "en": "Evaluate risk continuously",
+        "ar": "قيّم المخاطر باستمرار"
+      },
+      "detail": {
+        "en": "Re-evaluate sessions when risk signals change, such as impossible travel, a new device, or a threat intelligence hit, and end the session or ask for stronger proof without waiting for it to expire.",
+        "ar": "أعد تقييم الجلسات عند تغيّر مؤشرات المخاطر، مثل الدخول من موقعين يستحيل التنقل بينهما أو ظهور جهاز جديد أو تطابق مع المعلومات الاستباقية، ثم أنهِ الجلسة أو اطلب إثباتًا أقوى دون انتظار انتهائها."
+      },
+      "nist": [
+        "AC-12",
+        "IA-11",
+        "SI-4"
+      ],
+      "cis": [],
+      "iso": [
+        "8.16"
+      ]
     },
     {
       "level": "advanced",
-      "name": { "en": "Carry identity into the application", "ar": "انقل الهوية إلى داخل التطبيق" },
-      "detail": { "en": "Pass verified identity and context to the application so it can authorize each action, and keep authorization data in one place rather than copied into every application.", "ar": "مرّر الهوية الموثقة وسياق الطلب إلى التطبيق ليتحقق من تفويض كل إجراء، واحفظ بيانات التفويض في مكان واحد بدلًا من نسخها في كل تطبيق." },
-      "nist": ["AC-3", "AC-6", "AC-24"], "cis": ["6.8"], "iso": ["5.15", "8.3"]
+      "name": {
+        "en": "Carry identity into the application",
+        "ar": "انقل الهوية إلى داخل التطبيق"
+      },
+      "detail": {
+        "en": "Pass verified identity and context to the application so it can authorize each action, and keep authorization data in one place rather than copied into every application.",
+        "ar": "مرّر الهوية الموثقة وسياق الطلب إلى التطبيق ليتحقق من تفويض كل إجراء، واحفظ بيانات التفويض في مكان واحد بدلًا من نسخها في كل تطبيق."
+      },
+      "nist": [
+        "AC-3",
+        "AC-6",
+        "AC-24"
+      ],
+      "cis": [
+        "6.8"
+      ],
+      "iso": [
+        "5.15",
+        "8.3"
+      ]
     }
   ],
   "decisions": [
-    { "en": "Which applications move behind the broker first, and what is the plan and deadline for retiring network-wide VPN access?", "ar": "ما التطبيقات التي تنتقل أولًا خلف الوسيط، وما خطة إلغاء الوصول الشامل عبر الشبكة الافتراضية الخاصة وما موعدها؟" },
-    { "en": "What happens when the policy decision point is unavailable: which applications fail closed, and is there a controlled emergency path?", "ar": "ماذا يحدث إذا تعذّر الوصول إلى نقطة قرار السياسة، فأي التطبيقات تُغلق بأمان، وهل يوجد مسار طوارئ مضبوط؟" },
-    { "en": "Which device states are allowed, and what can an unmanaged device reach?", "ar": "ما حالات الأجهزة المسموح بها، وإلى ماذا يصل الجهاز غير المُدار؟" }
+    {
+      "en": "Which applications move behind the broker first, and what is the plan and deadline for retiring network-wide VPN access?",
+      "ar": "ما التطبيقات التي تنتقل أولًا خلف الوسيط، وما خطة إلغاء الوصول الشامل عبر الشبكة الافتراضية الخاصة وما موعدها؟"
+    },
+    {
+      "en": "What happens when the policy decision point is unavailable: which applications fail closed, and is there a controlled emergency path?",
+      "ar": "ماذا يحدث إذا تعذّر الوصول إلى نقطة قرار السياسة، فأي التطبيقات تُغلق بأمان، وهل يوجد مسار طوارئ مضبوط؟"
+    },
+    {
+      "en": "Which device states are allowed, and what can an unmanaged device reach?",
+      "ar": "ما حالات الأجهزة المسموح بها، وإلى ماذا يصل الجهاز غير المُدار؟"
+    }
   ],
   "tradeoffs": [
-    { "en": "The policy decision point becomes critical infrastructure, so design it for high availability and decide in advance how each application behaves when it is down.", "ar": "تصبح نقطة قرار السياسة بنية تحتية حرجة، لذا صمّمها لتعمل بتوافرية عالية وحدّد مسبقًا كيف يتصرف كل تطبيق عند تعطّلها." },
-    { "en": "Legacy protocols such as thick clients and file shares are harder to broker than web applications, so migration is uneven.", "ar": "يصعب تمرير البروتوكولات القديمة مثل تطبيقات سطح المكتب ومشاركة الملفات عبر الوسيط مقارنة بتطبيقات الويب، لذلك يكون الانتقال متفاوتًا." },
-    { "en": "Strict device checks can lock out legitimate users during an incident or an outage of the device management service.", "ar": "قد تمنع فحوص الأجهزة الصارمة مستخدمين مشروعين من الوصول أثناء حادثة أو عند تعطّل خدمة إدارة الأجهزة." }
+    {
+      "en": "The policy decision point becomes critical infrastructure, so design it for high availability and decide in advance how each application behaves when it is down.",
+      "ar": "تصبح نقطة قرار السياسة بنية تحتية حرجة، لذا صمّمها لتعمل بتوافرية عالية وحدّد مسبقًا كيف يتصرف كل تطبيق عند تعطّلها."
+    },
+    {
+      "en": "Legacy protocols such as thick clients and file shares are harder to broker than web applications, so migration is uneven.",
+      "ar": "يصعب تمرير البروتوكولات القديمة مثل تطبيقات سطح المكتب ومشاركة الملفات عبر الوسيط مقارنة بتطبيقات الويب، لذلك يكون الانتقال متفاوتًا."
+    },
+    {
+      "en": "Strict device checks can lock out legitimate users during an incident or an outage of the device management service.",
+      "ar": "قد تمنع فحوص الأجهزة الصارمة مستخدمين مشروعين من الوصول أثناء حادثة أو عند تعطّل خدمة إدارة الأجهزة."
+    }
   ],
   "antipatterns": [
-    { "en": "Renaming the VPN to zero trust while users still land on a flat internal network.", "ar": "تسمية الشبكة الافتراضية الخاصة بالثقة الصفرية بينما يصل المستخدمون إلى شبكة داخلية مسطحة كما كانوا." },
-    { "en": "Checking identity once at sign-in and trusting the session for days.", "ar": "التحقق من الهوية مرة واحدة عند الدخول ثم الوثوق بالجلسة لأيام." },
-    { "en": "Exempting executives, vendors, or the service desk from the policy because it is inconvenient.", "ar": "استثناء كبار التنفيذيين أو الموردين أو مكتب الدعم من السياسة لأنها غير مريحة." }
+    {
+      "en": "Renaming the VPN to zero trust while users still land on a flat internal network.",
+      "ar": "تسمية الشبكة الافتراضية الخاصة بالثقة الصفرية بينما يصل المستخدمون إلى شبكة داخلية مسطحة كما كانوا."
+    },
+    {
+      "en": "Checking identity once at sign-in and trusting the session for days.",
+      "ar": "التحقق من الهوية مرة واحدة عند الدخول ثم الوثوق بالجلسة لأيام."
+    },
+    {
+      "en": "Exempting executives, vendors, or the service desk from the policy because it is inconvenient.",
+      "ar": "استثناء كبار التنفيذيين أو الموردين أو مكتب الدعم من السياسة لأنها غير مريحة."
+    }
   ],
   "verify": [
-    { "en": "From an unmanaged device and from the old VPN pool, try to reach an application directly, and confirm the attempt fails.", "ar": "حاول الوصول إلى تطبيق مباشرة من جهاز غير مُدار ومن نطاق عناوين الشبكة الافتراضية القديمة، وتأكد أن المحاولة تفشل." },
-    { "en": "Disable a user in the identity provider and confirm that open sessions end within the target time.", "ar": "عطّل مستخدمًا في مزود الهوية وتأكد أن جلساته المفتوحة تنتهي خلال الوقت المستهدف." },
-    { "en": "Scan your external address space and confirm that no internal application answers on the internet.", "ar": "افحص نطاق عناوينك الخارجية وتأكد أنه لا يستجيب أي تطبيق داخلي على الإنترنت." },
-    { "en": "Sample the decision log and check that each entry names the user, device, application, decision, and reason.", "ar": "خذ عينة من سجل القرارات وتحقق أن كل سجل يذكر المستخدم والجهاز والتطبيق والقرار وسببه." }
+    {
+      "en": "From an unmanaged device and from the old VPN pool, try to reach an application directly, and confirm the attempt fails.",
+      "ar": "حاول الوصول إلى تطبيق مباشرة من جهاز غير مُدار ومن نطاق عناوين الشبكة الافتراضية القديمة، وتأكد أن المحاولة تفشل."
+    },
+    {
+      "en": "Disable a user in the identity provider and confirm that open sessions end within the target time.",
+      "ar": "عطّل مستخدمًا في مزود الهوية وتأكد أن جلساته المفتوحة تنتهي خلال الوقت المستهدف."
+    },
+    {
+      "en": "Scan your external address space and confirm that no internal application answers on the internet.",
+      "ar": "افحص نطاق عناوينك الخارجية وتأكد أنه لا يستجيب أي تطبيق داخلي على الإنترنت."
+    },
+    {
+      "en": "Sample the decision log and check that each entry names the user, device, application, decision, and reason.",
+      "ar": "خذ عينة من سجل القرارات وتحقق أن كل سجل يذكر المستخدم والجهاز والتطبيق والقرار وسببه."
+    }
   ],
-  "attack": ["T1078", "T1133", "T1021", "T1199"],
+  "attack": [
+    "T1078",
+    "T1133",
+    "T1021",
+    "T1199"
+  ],
   "owasp": [],
-  "related": ["P02", "P03", "P04", "P10"],
+  "related": [
+    "P02",
+    "P03",
+    "P04",
+    "P10",
+    "P20"
+  ],
   "references": [
-    { "title": { "en": "NIST SP 800-207, Zero Trust Architecture", "ar": "معمارية الثقة الصفرية NIST SP 800-207" }, "url": "https://csrc.nist.gov/pubs/sp/800/207/final" },
-    { "title": { "en": "CISA Zero Trust Maturity Model, version 2.0", "ar": "نموذج نضج الثقة الصفرية من CISA، الإصدار ٢٫٠" }, "url": "https://www.cisa.gov/zero-trust-maturity-model" },
-    { "title": { "en": "UK NCSC, zero trust architecture design principles", "ar": "مبادئ تصميم معمارية الثقة الصفرية من المركز الوطني للأمن السيبراني في المملكة المتحدة" }, "url": "https://www.ncsc.gov.uk/collection/zero-trust-architecture" },
-    { "title": { "en": "NIST SP 1800-35, Implementing a Zero Trust Architecture", "ar": "تطبيق معمارية الثقة الصفرية NIST SP 1800-35" }, "url": "https://csrc.nist.gov/pubs/sp/1800/35/final" }
+    {
+      "title": {
+        "en": "NIST SP 800-207, Zero Trust Architecture",
+        "ar": "معمارية الثقة الصفرية NIST SP 800-207"
+      },
+      "url": "https://csrc.nist.gov/pubs/sp/800/207/final"
+    },
+    {
+      "title": {
+        "en": "CISA Zero Trust Maturity Model, version 2.0",
+        "ar": "نموذج نضج الثقة الصفرية من CISA، الإصدار ٢٫٠"
+      },
+      "url": "https://www.cisa.gov/zero-trust-maturity-model"
+    },
+    {
+      "title": {
+        "en": "UK NCSC, zero trust architecture design principles",
+        "ar": "مبادئ تصميم معمارية الثقة الصفرية من المركز الوطني للأمن السيبراني في المملكة المتحدة"
+      },
+      "url": "https://www.ncsc.gov.uk/collection/zero-trust-architecture"
+    },
+    {
+      "title": {
+        "en": "NIST SP 1800-35, Implementing a Zero Trust Architecture",
+        "ar": "تطبيق معمارية الثقة الصفرية NIST SP 1800-35"
+      },
+      "url": "https://csrc.nist.gov/pubs/sp/1800/35/final"
+    }
   ]
 }

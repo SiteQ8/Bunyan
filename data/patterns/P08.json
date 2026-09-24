@@ -2,7 +2,10 @@
   "id": "P08",
   "slug": "secrets-keys-workload-identity",
   "domain": "platform",
-  "title": { "en": "Secrets, keys, and workload identity", "ar": "الأسرار والمفاتيح وهوية أعباء العمل" },
+  "title": {
+    "en": "Secrets, keys, and workload identity",
+    "ar": "الأسرار والمفاتيح وهوية أعباء العمل"
+  },
   "summary": {
     "en": "Keep secrets out of code, give every workload its own identity instead of a shared password, and hold encryption keys in a key management service, with the people who manage keys kept apart from the systems that use them.",
     "ar": "أبعد الأسرار عن الشيفرة، وامنح كل عبء عمل هوية خاصة به بدلًا من كلمة مرور مشتركة، واحفظ مفاتيح التشفير في خدمة لإدارة المفاتيح مع الفصل بين من يدير المفاتيح والأنظمة التي تستخدمها."
@@ -12,9 +15,18 @@
     "ar": "تنتهي كلمات المرور ومفاتيح الواجهات والشهادات في الشيفرة المصدرية وملفات الإعداد ومتغيرات مسارات النشر ورسائل المحادثة، حيث تُنسخ وتتسرب ونادرًا ما تُدوَّر، وقد يكفي تسرب مفتاح سحابي واحد أو كلمة مرور واحدة لقاعدة بيانات لوقوع اختراق، كما أن قوة التشفير لا تتجاوز قوة حماية مفاتيحه."
   },
   "useWhen": [
-    { "en": "Applications connect to databases, queues, or APIs with stored credentials.", "ar": "تتصل التطبيقات بقواعد البيانات أو قوائم الرسائل أو الواجهات ببيانات اعتماد مخزنة." },
-    { "en": "You encrypt data and need to decide who controls the keys.", "ar": "تشفّر البيانات وتحتاج إلى تحديد من يتحكم في المفاتيح." },
-    { "en": "Secret scanning finds credentials in your repositories.", "ar": "يكشف فحص الأسرار وجود بيانات اعتماد في مستودعاتك." }
+    {
+      "en": "Applications connect to databases, queues, or APIs with stored credentials.",
+      "ar": "تتصل التطبيقات بقواعد البيانات أو قوائم الرسائل أو الواجهات ببيانات اعتماد مخزنة."
+    },
+    {
+      "en": "You encrypt data and need to decide who controls the keys.",
+      "ar": "تشفّر البيانات وتحتاج إلى تحديد من يتحكم في المفاتيح."
+    },
+    {
+      "en": "Secret scanning finds credentials in your repositories.",
+      "ar": "يكشف فحص الأسرار وجود بيانات اعتماد في مستودعاتك."
+    }
   ],
   "design": [
     {
@@ -29,80 +41,263 @@
   "controls": [
     {
       "level": "foundation",
-      "name": { "en": "Scan for secrets and block them", "ar": "افحص الأسرار وامنعها" },
-      "detail": { "en": "Scan repositories, pipelines, and images for secrets, block commits that contain them, and rotate any secret that was ever exposed.", "ar": "افحص المستودعات ومسارات النشر وصور الحاويات بحثًا عن الأسرار، وامنع الالتزامات التي تحتوي عليها، ودوّر أي سر انكشف ولو مرة واحدة." },
-      "nist": ["IA-5"], "cis": ["16.12"], "iso": ["5.17", "8.28"]
+      "name": {
+        "en": "Scan for secrets and block them",
+        "ar": "افحص الأسرار وامنعها"
+      },
+      "detail": {
+        "en": "Scan repositories, pipelines, and images for secrets, block commits that contain them, and rotate any secret that was ever exposed.",
+        "ar": "افحص المستودعات ومسارات النشر وصور الحاويات بحثًا عن الأسرار، وامنع الالتزامات التي تحتوي عليها، ودوّر أي سر انكشف ولو مرة واحدة."
+      },
+      "nist": [
+        "IA-5"
+      ],
+      "cis": [
+        "16.12"
+      ],
+      "iso": [
+        "5.17",
+        "8.28"
+      ]
     },
     {
       "level": "foundation",
-      "name": { "en": "Use a secrets manager", "ar": "استخدم مديرًا للأسرار" },
-      "detail": { "en": "Store application secrets in a secrets manager with access per workload, audit logging, and automatic rotation where the target system supports it.", "ar": "احفظ أسرار التطبيقات في مدير للأسرار يمنح الوصول لكل عبء عمل على حدة ويسجّل عمليات الوصول ويدوّر الأسرار آليًا حيث يدعم النظام المستهدف ذلك." },
-      "nist": ["IA-5", "SC-28"], "cis": [], "iso": ["5.17", "8.24"]
+      "name": {
+        "en": "Use a secrets manager",
+        "ar": "استخدم مديرًا للأسرار"
+      },
+      "detail": {
+        "en": "Store application secrets in a secrets manager with access per workload, audit logging, and automatic rotation where the target system supports it.",
+        "ar": "احفظ أسرار التطبيقات في مدير للأسرار يمنح الوصول لكل عبء عمل على حدة ويسجّل عمليات الوصول ويدوّر الأسرار آليًا حيث يدعم النظام المستهدف ذلك."
+      },
+      "nist": [
+        "IA-5",
+        "SC-28"
+      ],
+      "cis": [],
+      "iso": [
+        "5.17",
+        "8.24"
+      ]
     },
     {
       "level": "foundation",
-      "name": { "en": "Keep keys in a key management service", "ar": "احفظ المفاتيح في خدمة لإدارة المفاتيح" },
-      "detail": { "en": "Generate and hold encryption keys in a key management service or hardware security module, not in files or application configuration.", "ar": "أنشئ مفاتيح التشفير واحفظها في خدمة لإدارة المفاتيح أو في وحدة أمن الأجهزة، لا في الملفات أو إعدادات التطبيقات." },
-      "nist": ["SC-12", "SC-13"], "cis": ["3.11"], "iso": ["8.24"]
+      "name": {
+        "en": "Keep keys in a key management service",
+        "ar": "احفظ المفاتيح في خدمة لإدارة المفاتيح"
+      },
+      "detail": {
+        "en": "Generate and hold encryption keys in a key management service or hardware security module, not in files or application configuration.",
+        "ar": "أنشئ مفاتيح التشفير واحفظها في خدمة لإدارة المفاتيح أو في وحدة أمن الأجهزة، لا في الملفات أو إعدادات التطبيقات."
+      },
+      "nist": [
+        "SC-12",
+        "SC-13"
+      ],
+      "cis": [
+        "3.11"
+      ],
+      "iso": [
+        "8.24"
+      ]
     },
     {
       "level": "enhanced",
-      "name": { "en": "Replace static secrets with workload identity", "ar": "استبدل الأسرار الثابتة بهوية أعباء العمل" },
-      "detail": { "en": "Authenticate workloads to cloud services and to each other with platform-issued identities and short-lived credentials.", "ar": "تحقق من هوية أعباء العمل أمام الخدمات السحابية وفيما بينها بهويات تصدرها المنصة وبيانات اعتماد قصيرة الأمد." },
-      "nist": ["IA-9", "IA-5"], "cis": [], "iso": ["8.5"]
+      "name": {
+        "en": "Replace static secrets with workload identity",
+        "ar": "استبدل الأسرار الثابتة بهوية أعباء العمل"
+      },
+      "detail": {
+        "en": "Authenticate workloads to cloud services and to each other with platform-issued identities and short-lived credentials.",
+        "ar": "تحقق من هوية أعباء العمل أمام الخدمات السحابية وفيما بينها بهويات تصدرها المنصة وبيانات اعتماد قصيرة الأمد."
+      },
+      "nist": [
+        "IA-9",
+        "IA-5"
+      ],
+      "cis": [],
+      "iso": [
+        "8.5"
+      ]
     },
     {
       "level": "enhanced",
-      "name": { "en": "Separate key administration from key use", "ar": "افصل إدارة المفاتيح عن استخدامها" },
-      "detail": { "en": "Give different roles the right to manage keys and the right to use them for encryption, and require two people for destructive key operations.", "ar": "امنح حق إدارة المفاتيح وحق استخدامها في التشفير لأدوار مختلفة، واشترط وجود شخصين في عمليات المفاتيح التي لا يمكن التراجع عنها." },
-      "nist": ["AC-5", "SC-12"], "cis": [], "iso": ["5.3", "8.24"]
+      "name": {
+        "en": "Separate key administration from key use",
+        "ar": "افصل إدارة المفاتيح عن استخدامها"
+      },
+      "detail": {
+        "en": "Give different roles the right to manage keys and the right to use them for encryption, and require two people for destructive key operations.",
+        "ar": "امنح حق إدارة المفاتيح وحق استخدامها في التشفير لأدوار مختلفة، واشترط وجود شخصين في عمليات المفاتيح التي لا يمكن التراجع عنها."
+      },
+      "nist": [
+        "AC-5",
+        "SC-12"
+      ],
+      "cis": [],
+      "iso": [
+        "5.3",
+        "8.24"
+      ]
     },
     {
       "level": "enhanced",
-      "name": { "en": "Automate the certificate lifecycle", "ar": "أتمت دورة حياة الشهادات" },
-      "detail": { "en": "Issue and renew certificates automatically, keep an inventory with expiry dates, and alert well before expiry.", "ar": "أصدر الشهادات وجدّدها آليًا، واحتفظ بسجل حصر لها مع تواريخ انتهائها، وأطلق تنبيهًا قبل انتهائها بوقت كافٍ." },
-      "nist": ["SC-12", "SC-17"], "cis": [], "iso": ["8.24"]
+      "name": {
+        "en": "Automate the certificate lifecycle",
+        "ar": "أتمت دورة حياة الشهادات"
+      },
+      "detail": {
+        "en": "Issue and renew certificates automatically, keep an inventory with expiry dates, and alert well before expiry.",
+        "ar": "أصدر الشهادات وجدّدها آليًا، واحتفظ بسجل حصر لها مع تواريخ انتهائها، وأطلق تنبيهًا قبل انتهائها بوقت كافٍ."
+      },
+      "nist": [
+        "SC-12",
+        "SC-17"
+      ],
+      "cis": [],
+      "iso": [
+        "8.24"
+      ]
     },
     {
       "level": "advanced",
-      "name": { "en": "Use keys you control for regulated data", "ar": "استخدم مفاتيح تتحكم فيها للبيانات الخاضعة للتنظيم" },
-      "detail": { "en": "Protect regulated data with keys you control in a hardware security module, with an exit plan if the provider relationship ends.", "ar": "احمِ البيانات الخاضعة للتنظيم بمفاتيح تتحكم فيها داخل وحدة أمن الأجهزة، مع خطة خروج إذا انتهت العلاقة مع المزود." },
-      "nist": ["SC-12", "SC-13"], "cis": ["3.11"], "iso": ["8.24", "5.23"]
+      "name": {
+        "en": "Use keys you control for regulated data",
+        "ar": "استخدم مفاتيح تتحكم فيها للبيانات الخاضعة للتنظيم"
+      },
+      "detail": {
+        "en": "Protect regulated data with keys you control in a hardware security module, with an exit plan if the provider relationship ends.",
+        "ar": "احمِ البيانات الخاضعة للتنظيم بمفاتيح تتحكم فيها داخل وحدة أمن الأجهزة، مع خطة خروج إذا انتهت العلاقة مع المزود."
+      },
+      "nist": [
+        "SC-12",
+        "SC-13"
+      ],
+      "cis": [
+        "3.11"
+      ],
+      "iso": [
+        "8.24",
+        "5.23"
+      ]
     },
     {
       "level": "advanced",
-      "name": { "en": "Plan for crypto agility", "ar": "خطّط للمرونة في التشفير" },
-      "detail": { "en": "Keep an inventory of algorithms, key sizes, and where each is used, so that you can move to post-quantum algorithms without a redesign.", "ar": "احتفظ بسجل حصر للخوارزميات وأطوال المفاتيح ومواضع استخدام كل منها، حتى تستطيع الانتقال إلى خوارزميات ما بعد الحوسبة الكمية دون إعادة تصميم." },
-      "nist": ["SC-13", "CM-8"], "cis": [], "iso": ["8.24"]
+      "name": {
+        "en": "Plan for crypto agility",
+        "ar": "خطّط للمرونة في التشفير"
+      },
+      "detail": {
+        "en": "Keep an inventory of algorithms, key sizes, and where each is used, so that you can move to post-quantum algorithms without a redesign.",
+        "ar": "احتفظ بسجل حصر للخوارزميات وأطوال المفاتيح ومواضع استخدام كل منها، حتى تستطيع الانتقال إلى خوارزميات ما بعد الحوسبة الكمية دون إعادة تصميم."
+      },
+      "nist": [
+        "SC-13",
+        "CM-8"
+      ],
+      "cis": [],
+      "iso": [
+        "8.24"
+      ]
     }
   ],
   "decisions": [
-    { "en": "Which secrets manager and key management service are standard, and who operates them?", "ar": "ما مدير الأسرار وخدمة إدارة المفاتيح المعتمدان معيارًا، ومن يشغّلهما؟" },
-    { "en": "Which data needs keys you control, or a hardware security module?", "ar": "ما البيانات التي تحتاج إلى مفاتيح تتحكم فيها أو إلى وحدة أمن الأجهزة؟" },
-    { "en": "What is the rotation period for each type of secret and key, and how is rotation tested?", "ar": "ما فترة التدوير لكل نوع من الأسرار والمفاتيح، وكيف يُختبر التدوير؟" }
+    {
+      "en": "Which secrets manager and key management service are standard, and who operates them?",
+      "ar": "ما مدير الأسرار وخدمة إدارة المفاتيح المعتمدان معيارًا، ومن يشغّلهما؟"
+    },
+    {
+      "en": "Which data needs keys you control, or a hardware security module?",
+      "ar": "ما البيانات التي تحتاج إلى مفاتيح تتحكم فيها أو إلى وحدة أمن الأجهزة؟"
+    },
+    {
+      "en": "What is the rotation period for each type of secret and key, and how is rotation tested?",
+      "ar": "ما فترة التدوير لكل نوع من الأسرار والمفاتيح، وكيف يُختبر التدوير؟"
+    }
   ],
   "tradeoffs": [
-    { "en": "A secrets manager is a high-value target and a dependency at startup, so it must be highly available and tightly administered.", "ar": "يُعد مدير الأسرار هدفًا ثمينًا واعتمادية عند بدء التشغيل، فيجب أن يعمل بتوافرية عالية وأن تُضبط إدارته بإحكام." },
-    { "en": "Hardware security modules add cost and demand operational skill, and a lost key means lost data.", "ar": "تضيف وحدات أمن الأجهزة تكلفة وتتطلب مهارة تشغيلية، وفقدان المفتاح يعني فقدان البيانات." },
-    { "en": "Aggressive rotation breaks systems that cache credentials, so rotate with an overlap.", "ar": "يعطّل التدوير المتسارع الأنظمة التي تخزّن بيانات الاعتماد مؤقتًا، لذا دوّرها مع فترة تداخل." }
+    {
+      "en": "A secrets manager is a high-value target and a dependency at startup, so it must be highly available and tightly administered.",
+      "ar": "يُعد مدير الأسرار هدفًا ثمينًا واعتمادية عند بدء التشغيل، فيجب أن يعمل بتوافرية عالية وأن تُضبط إدارته بإحكام."
+    },
+    {
+      "en": "Hardware security modules add cost and demand operational skill, and a lost key means lost data.",
+      "ar": "تضيف وحدات أمن الأجهزة تكلفة وتتطلب مهارة تشغيلية، وفقدان المفتاح يعني فقدان البيانات."
+    },
+    {
+      "en": "Aggressive rotation breaks systems that cache credentials, so rotate with an overlap.",
+      "ar": "يعطّل التدوير المتسارع الأنظمة التي تخزّن بيانات الاعتماد مؤقتًا، لذا دوّرها مع فترة تداخل."
+    }
   ],
   "antipatterns": [
-    { "en": "Secrets in environment files committed to the repository.", "ar": "أسرار في ملفات البيئة تُرفع إلى المستودع." },
-    { "en": "One service account password shared by many applications and never changed.", "ar": "كلمة مرور واحدة لحساب خدمة تتشاركها تطبيقات كثيرة ولا تتغير أبدًا." },
-    { "en": "Encryption keys stored on the same server as the data they protect.", "ar": "حفظ مفاتيح التشفير على الخادم نفسه الذي يحفظ البيانات التي تحميها." }
+    {
+      "en": "Secrets in environment files committed to the repository.",
+      "ar": "أسرار في ملفات البيئة تُرفع إلى المستودع."
+    },
+    {
+      "en": "One service account password shared by many applications and never changed.",
+      "ar": "كلمة مرور واحدة لحساب خدمة تتشاركها تطبيقات كثيرة ولا تتغير أبدًا."
+    },
+    {
+      "en": "Encryption keys stored on the same server as the data they protect.",
+      "ar": "حفظ مفاتيح التشفير على الخادم نفسه الذي يحفظ البيانات التي تحميها."
+    }
   ],
   "verify": [
-    { "en": "Run a secret scanner across all repositories, including their history, and confirm that findings are zero or already rotated.", "ar": "شغّل أداة لفحص الأسرار على جميع المستودعات بما فيها تاريخها، وتأكد أن النتائج صفر أو أنها دُوّرت بالفعل." },
-    { "en": "Pick a workload and list every credential it can obtain, and confirm that each one is necessary and short-lived.", "ar": "اختر عبء عمل واعرض كل بيانات الاعتماد التي يستطيع الحصول عليها، وتأكد أن كلًا منها ضروري وقصير الأمد." },
-    { "en": "Confirm that a key administrator cannot decrypt data and a key user cannot delete keys.", "ar": "تأكد أن مسؤول المفاتيح لا يستطيع فك تشفير البيانات وأن مستخدم المفاتيح لا يستطيع حذفها." }
+    {
+      "en": "Run a secret scanner across all repositories, including their history, and confirm that findings are zero or already rotated.",
+      "ar": "شغّل أداة لفحص الأسرار على جميع المستودعات بما فيها تاريخها، وتأكد أن النتائج صفر أو أنها دُوّرت بالفعل."
+    },
+    {
+      "en": "Pick a workload and list every credential it can obtain, and confirm that each one is necessary and short-lived.",
+      "ar": "اختر عبء عمل واعرض كل بيانات الاعتماد التي يستطيع الحصول عليها، وتأكد أن كلًا منها ضروري وقصير الأمد."
+    },
+    {
+      "en": "Confirm that a key administrator cannot decrypt data and a key user cannot delete keys.",
+      "ar": "تأكد أن مسؤول المفاتيح لا يستطيع فك تشفير البيانات وأن مستخدم المفاتيح لا يستطيع حذفها."
+    }
   ],
-  "attack": ["T1552.001", "T1528", "T1078.004"],
+  "attack": [
+    "T1552.001",
+    "T1528",
+    "T1078.004"
+  ],
   "owasp": [],
-  "related": ["P06", "P09", "P11", "P16"],
+  "related": [
+    "P06",
+    "P09",
+    "P11",
+    "P16",
+    "P23"
+  ],
   "references": [
-    { "title": { "en": "NIST SP 800-57 Part 1 Rev 5, recommendation for key management", "ar": "توصيات إدارة المفاتيح NIST SP 800-57 Part 1 Rev 5" }, "url": "https://csrc.nist.gov/pubs/sp/800/57/pt1/r5/final" },
-    { "title": { "en": "OWASP Secrets Management Cheat Sheet", "ar": "دليل OWASP المختصر لإدارة الأسرار" }, "url": "https://cheatsheetseries.owasp.org/cheatsheets/Secrets_Management_Cheat_Sheet.html" },
-    { "title": { "en": "SPIFFE, workload identity standard", "ar": "معيار SPIFFE لهويات أعباء العمل" }, "url": "https://spiffe.io/" },
-    { "title": { "en": "Miftah, cryptographic inventory and post-quantum readiness", "ar": "أداة مفتاح لحصر التشفير والجاهزية لما بعد الحوسبة الكمية" }, "url": "https://github.com/SiteQ8/miftah" }
+    {
+      "title": {
+        "en": "NIST SP 800-57 Part 1 Rev 5, recommendation for key management",
+        "ar": "توصيات إدارة المفاتيح NIST SP 800-57 Part 1 Rev 5"
+      },
+      "url": "https://csrc.nist.gov/pubs/sp/800/57/pt1/r5/final"
+    },
+    {
+      "title": {
+        "en": "OWASP Secrets Management Cheat Sheet",
+        "ar": "دليل OWASP المختصر لإدارة الأسرار"
+      },
+      "url": "https://cheatsheetseries.owasp.org/cheatsheets/Secrets_Management_Cheat_Sheet.html"
+    },
+    {
+      "title": {
+        "en": "SPIFFE, workload identity standard",
+        "ar": "معيار SPIFFE لهويات أعباء العمل"
+      },
+      "url": "https://spiffe.io/"
+    },
+    {
+      "title": {
+        "en": "Miftah, cryptographic inventory and post-quantum readiness",
+        "ar": "أداة مفتاح لحصر التشفير والجاهزية لما بعد الحوسبة الكمية"
+      },
+      "url": "https://github.com/SiteQ8/miftah"
+    }
   ]
 }

@@ -33,7 +33,7 @@
 | الجزء | ما يقدمه لك |
 | --- | --- |
 | [الدليل](handbook/ar/01-what-security-architecture-is.md) | سبعة فصول من تعريف التخصص حتى مسار التعلم |
-| [الأنماط](patterns/ar/README.md) | ستة عشر نمطًا بضوابط على ثلاثة مستويات، مرتبطة بمعايير NIST SP 800-53 Rev 5 وCIS Controls v8.1 وISO/IEC 27001:2022 |
+| [الأنماط](patterns/ar/README.md) | أربعة وعشرون نمطًا بضوابط على ثلاثة مستويات، مرتبطة بمعايير NIST SP 800-53 Rev 5 وCIS Controls v8.1 وISO/IEC 27001:2022 |
 | [تمارين التصميم](katas/ar/K01-mobile-banking.md) | ثلاثة سيناريوهات واقعية مع إجابات نموذجية |
 | [القوالب](templates/ar/security-architecture-document.md) | وثيقة للمعمارية وورقة عمل لنمذجة التهديدات وسجل للقرار وقائمة تحقق للمراجعة |
 | [المصطلحات](glossary/ar.md) | تعريفات قصيرة للمصطلحات المستخدمة في المشروع |
@@ -68,6 +68,14 @@
 | P14 | [حواجز الحماية لتطبيقات النماذج اللغوية والوكلاء الذكيين](patterns/ar/P14-llm-application-guardrails.md) | الذكاء الاصطناعي |
 | P15 | [النطاق المعزول الخاضع للتنظيم](patterns/ar/P15-regulated-enclave.md) | البيانات |
 | P16 | [الضوابط الوقائية لمنصات الحاويات](patterns/ar/P16-container-platform-guardrails.md) | المنصة |
+| P17 | [هوية العملاء وحماية حساباتهم](patterns/ar/P17-customer-identity.md) | الهوية |
+| P18 | [حماية البريد الإلكتروني وأدوات التعاون](patterns/ar/P18-email-and-collaboration.md) | بيئة العمل |
+| P19 | [أجهزة طرفية مُدارة ومحصّنة](patterns/ar/P19-managed-endpoints.md) | بيئة العمل |
+| P20 | [حافة الخدمات الأمنية للمستخدمين أينما كانوا](patterns/ar/P20-security-service-edge.md) | بيئة العمل |
+| P21 | [إدارة مستمرة للانكشاف](patterns/ar/P21-exposure-management.md) | العمليات |
+| P22 | [توافرية صامدة عبر مواقع متعددة](patterns/ar/P22-resilient-availability.md) | العمليات |
+| P23 | [مرونة التشفير والجاهزية لما بعد الحوسبة الكمية](patterns/ar/P23-crypto-agility.md) | البيانات |
+| P24 | [الجاهزية الجنائية والاستجابة للحوادث](patterns/ar/P24-forensic-readiness.md) | العمليات |
 
 <!-- patterns:end -->
 

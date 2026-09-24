@@ -1,0 +1,306 @@
+{
+  "id": "P24",
+  "slug": "forensic-readiness",
+  "domain": "operations",
+  "title": {
+    "en": "Forensic readiness and incident response",
+    "ar": "الجاهزية الجنائية والاستجابة للحوادث"
+  },
+  "summary": {
+    "en": "Decide before an incident what evidence you will need, collect and protect it from the start with synchronised clocks and storage that resists tampering, prepare the tools and the out-of-band channels for responders, and rehearse, so that you can contain, investigate, and report within the hours a regulator allows.",
+    "ar": "قرّر قبل وقوع الحادثة ما الأدلة التي ستحتاجها، واجمعها واحمها منذ البداية بساعات متزامنة وتخزين يقاوم العبث، وجهّز الأدوات وقنوات التواصل البديلة للمستجيبين، ثم تدرّب، حتى تستطيع الاحتواء والتحقيق والإبلاغ خلال الساعات التي تسمح بها الجهة الرقابية."
+  },
+  "problem": {
+    "en": "When an intrusion is found, the evidence that would explain it is often missing: logs were never enabled, were kept for days rather than months, or were deleted by the attacker with the same privileges that ran the systems. Responders lose the first hours arranging access, tools, and contracts, while the intruder may be reading email and chat, and reporting deadlines of a few hours pass without facts.",
+    "ar": "حين يُكتشف اختراق تغيب في الغالب الأدلة التي تفسره، فالسجلات لم تُفعَّل أبدًا، أو حُفظت أيامًا بدلًا من شهور، أو حذفها المهاجم بالصلاحيات نفسها التي تدير الأنظمة، بينما يضيع المستجيبون الساعات الأولى في ترتيب الوصول والأدوات والعقود، وقد يقرأ المتسلل البريد والمحادثات، فتمر مهل الإبلاغ التي لا تتجاوز بضع ساعات دون حقائق."
+  },
+  "useWhen": [
+    {
+      "en": "A regulator requires incidents to be reported within hours or days.",
+      "ar": "تشترط جهة رقابية الإبلاغ عن الحوادث خلال ساعات أو أيام."
+    },
+    {
+      "en": "You may need to prove what happened to customers, courts, or insurers.",
+      "ar": "قد تحتاج إلى إثبات ما حدث أمام العملاء أو المحاكم أو شركات التأمين."
+    },
+    {
+      "en": "An outside firm would lead the response, and nothing is agreed with it yet.",
+      "ar": "ستقود جهة خارجية الاستجابة، ولم يُتفق معها على شيء بعد."
+    }
+  ],
+  "design": [
+    {
+      "en": "List the questions an investigation will ask, such as who signed in, what ran, and what left, and make sure the logs that answer them exist, carry synchronised timestamps, and are kept for at least a year. Store evidence where the people who run the systems cannot change it, in a separate account or tenant with write-once retention, and prepare a way to capture memory and disk images from endpoints and cloud workloads.",
+      "ar": "اكتب الأسئلة التي سيطرحها التحقيق مثل من دخل وما الذي عمل وما الذي خرج، وتأكد من وجود السجلات التي تجيب عنها، ومن أنها تحمل طوابع زمنية متزامنة وتُحفظ سنة على الأقل، ثم احفظ الأدلة حيث لا يستطيع من يديرون الأنظمة تعديلها، أي في حساب أو مستأجر منفصل بحفظ يُكتب مرة واحدة، وجهّز طريقة لالتقاط صور الذاكرة والأقراص من الأجهزة الطرفية وأعباء العمل السحابية."
+    },
+    {
+      "en": "Prepare the response itself: a plan with roles and decision rights, retainers with forensic and legal firms, pre-approved access for responders, and an out-of-band channel for when email and chat cannot be trusted. Rehearse with tabletop and technical exercises, keep reporting templates ready for each regulator, and feed the lessons back into the design after every incident.",
+      "ar": "جهّز الاستجابة نفسها، أي خطة تحدد الأدوار وصلاحيات القرار، وعقودًا مسبقة مع جهات التحقيق الجنائي والاستشارات القانونية، ووصولًا معتمدًا مسبقًا للمستجيبين، وقناة تواصل بديلة حين لا يمكن الوثوق بالبريد والمحادثات، ثم تدرّب بتمارين الطاولة والتمارين التقنية، واحتفظ بنماذج إبلاغ جاهزة لكل جهة رقابية، وأعد الدروس المستفادة إلى التصميم بعد كل حادثة."
+    }
+  ],
+  "controls": [
+    {
+      "level": "foundation",
+      "name": {
+        "en": "Log what an investigation needs",
+        "ar": "سجّل ما يحتاجه التحقيق"
+      },
+      "detail": {
+        "en": "Enable the logs that show sign-ins, process execution, network flows, and data access, with synchronised clocks.",
+        "ar": "فعّل السجلات التي تُظهر عمليات الدخول وتشغيل العمليات وتدفقات الشبكة والوصول إلى البيانات، مع ساعات متزامنة."
+      },
+      "nist": [
+        "AU-2",
+        "AU-8"
+      ],
+      "cis": [
+        "8.2",
+        "8.4"
+      ],
+      "iso": [
+        "8.15",
+        "8.17"
+      ]
+    },
+    {
+      "level": "foundation",
+      "name": {
+        "en": "Keep evidence long enough",
+        "ar": "احفظ الأدلة مدة كافية"
+      },
+      "detail": {
+        "en": "Keep security logs for at least a year, and longer where regulation requires it.",
+        "ar": "احفظ السجلات الأمنية سنة على الأقل، وأطول من ذلك حيث تشترط التشريعات."
+      },
+      "nist": [
+        "AU-11"
+      ],
+      "cis": [
+        "8.10"
+      ],
+      "iso": [
+        "8.15"
+      ]
+    },
+    {
+      "level": "foundation",
+      "name": {
+        "en": "Write and own an incident response plan",
+        "ar": "اكتب خطة للاستجابة للحوادث وحدّد مالكها"
+      },
+      "detail": {
+        "en": "Define roles, decision rights, severity levels, and reporting duties, with contact details that are kept current.",
+        "ar": "حدّد الأدوار وصلاحيات القرار ومستويات الخطورة وواجبات الإبلاغ، مع بيانات تواصل محدّثة باستمرار."
+      },
+      "nist": [
+        "IR-8",
+        "IR-6"
+      ],
+      "cis": [
+        "17.2",
+        "17.4"
+      ],
+      "iso": [
+        "5.24"
+      ]
+    },
+    {
+      "level": "enhanced",
+      "name": {
+        "en": "Protect evidence from administrators",
+        "ar": "احمِ الأدلة من المسؤولين"
+      },
+      "detail": {
+        "en": "Store logs and evidence in a separate account or tenant with write-once retention that system administrators cannot change.",
+        "ar": "احفظ السجلات والأدلة في حساب أو مستأجر منفصل بحفظ يُكتب مرة واحدة لا يستطيع مسؤولو الأنظمة تغييره."
+      },
+      "nist": [
+        "AU-9",
+        "AU-9(2)"
+      ],
+      "cis": [
+        "8.9"
+      ],
+      "iso": [
+        "5.28",
+        "8.15"
+      ]
+    },
+    {
+      "level": "enhanced",
+      "name": {
+        "en": "Prepare collection before you need it",
+        "ar": "جهّز جمع الأدلة قبل أن تحتاجه"
+      },
+      "detail": {
+        "en": "Have the tools and permissions ready to capture memory, disks, and cloud snapshots, with a documented chain of custody.",
+        "ar": "جهّز الأدوات والصلاحيات لالتقاط الذاكرة والأقراص واللقطات السحابية، مع سلسلة حفظ موثقة."
+      },
+      "nist": [
+        "IR-4",
+        "AU-10"
+      ],
+      "cis": [
+        "17.4"
+      ],
+      "iso": [
+        "5.28"
+      ]
+    },
+    {
+      "level": "enhanced",
+      "name": {
+        "en": "Agree outside help in advance",
+        "ar": "اتفق على المساعدة الخارجية مسبقًا"
+      },
+      "detail": {
+        "en": "Keep retainers with forensic and legal firms, and pre-approve their access so that they can start within hours.",
+        "ar": "احتفظ بعقود مسبقة مع جهات التحقيق الجنائي والاستشارات القانونية، واعتمد وصولها مسبقًا حتى تبدأ خلال ساعات."
+      },
+      "nist": [
+        "IR-7",
+        "IR-4"
+      ],
+      "cis": [
+        "17.2"
+      ],
+      "iso": [
+        "5.24",
+        "5.26"
+      ]
+    },
+    {
+      "level": "advanced",
+      "name": {
+        "en": "Keep an out-of-band channel",
+        "ar": "احتفظ بقناة تواصل بديلة"
+      },
+      "detail": {
+        "en": "Keep a communication channel and responder accounts that do not depend on the compromised environment.",
+        "ar": "احتفظ بقناة تواصل وحسابات للمستجيبين لا تعتمد على البيئة المخترقة."
+      },
+      "nist": [
+        "IR-4",
+        "CP-8"
+      ],
+      "cis": [
+        "17.6"
+      ],
+      "iso": [
+        "5.26"
+      ]
+    },
+    {
+      "level": "advanced",
+      "name": {
+        "en": "Rehearse and learn",
+        "ar": "تدرّب وتعلّم"
+      },
+      "detail": {
+        "en": "Run tabletop and technical exercises every year, and track the lessons from exercises and incidents until they are closed.",
+        "ar": "نفّذ تمارين طاولة وتمارين تقنية كل عام، وتابع الدروس المستفادة من التمارين والحوادث حتى إغلاقها."
+      },
+      "nist": [
+        "IR-3",
+        "IR-4"
+      ],
+      "cis": [
+        "17.7",
+        "17.8"
+      ],
+      "iso": [
+        "5.27"
+      ]
+    }
+  ],
+  "decisions": [
+    {
+      "en": "Which regulators must be told of which incidents, and within how many hours?",
+      "ar": "ما الجهات الرقابية التي يجب إبلاغها بأي حوادث، وخلال كم ساعة؟"
+    },
+    {
+      "en": "How long will each kind of log be kept, and where is it out of the administrators' reach?",
+      "ar": "ما مدة حفظ كل نوع من السجلات، وأين تُحفظ بعيدًا عن متناول المسؤولين؟"
+    },
+    {
+      "en": "Who can decide to isolate a critical system during an incident, even if it stops the business?",
+      "ar": "من يملك قرار عزل نظام حرج أثناء الحادثة حتى لو أوقف ذلك الأعمال؟"
+    }
+  ],
+  "tradeoffs": [
+    {
+      "en": "Long retention of detailed logs costs storage and raises privacy duties, so collect what investigations really use.",
+      "ar": "يكلّف الحفظ الطويل للسجلات التفصيلية تخزينًا ويرفع واجبات الخصوصية، لذا اجمع ما تستخدمه التحقيقات فعلًا."
+    },
+    {
+      "en": "Isolating systems quickly limits the damage but can destroy volatile evidence, so capture it first when it is safe to.",
+      "ar": "يحد العزل السريع للأنظمة من الضرر لكنه قد يدمر الأدلة المتطايرة، لذا التقطها أولًا حين يكون ذلك آمنًا."
+    },
+    {
+      "en": "Retainers cost money in the years without incidents.",
+      "ar": "تكلّف العقود المسبقة مالًا في السنوات التي تخلو من الحوادث."
+    }
+  ],
+  "antipatterns": [
+    {
+      "en": "Logs kept on the systems they describe, where an attacker can delete them.",
+      "ar": "سجلات محفوظة على الأنظمة التي تصفها، حيث يستطيع المهاجم حذفها."
+    },
+    {
+      "en": "An incident plan that nobody has rehearsed.",
+      "ar": "خطة للحوادث لم يتدرب عليها أحد."
+    },
+    {
+      "en": "Coordinating the response over the email system that the attacker is reading.",
+      "ar": "تنسيق الاستجابة عبر نظام البريد الذي يقرؤه المهاجم."
+    }
+  ],
+  "verify": [
+    {
+      "en": "Pick a past event and try to answer who, what, when, and from where from the logs alone, and note what is missing.",
+      "ar": "اختر حدثًا سابقًا وحاول الإجابة عن من وماذا ومتى ومن أين من السجلات وحدها، ودوّن ما ينقص."
+    },
+    {
+      "en": "As a system administrator, try to delete or change stored evidence, and confirm that you cannot.",
+      "ar": "حاول بصفتك مسؤولًا عن نظام حذف الأدلة المحفوظة أو تعديلها، وتأكد من أنك لا تستطيع."
+    },
+    {
+      "en": "Run a tabletop exercise that reaches the step of notifying the regulator, and time each decision.",
+      "ar": "نفّذ تمرين طاولة يصل إلى خطوة إبلاغ الجهة الرقابية، وقِس زمن كل قرار."
+    }
+  ],
+  "attack": [
+    "T1685.005",
+    "T1070",
+    "T1685.002"
+  ],
+  "owasp": [],
+  "related": [
+    "P10",
+    "P12",
+    "P03"
+  ],
+  "references": [
+    {
+      "title": {
+        "en": "NIST SP 800-61 Rev 3, Incident Response Recommendations and Considerations for Cybersecurity Risk Management",
+        "ar": "توصيات NIST SP 800-61 Rev 3 للاستجابة للحوادث ضمن إدارة مخاطر الأمن السيبراني"
+      },
+      "url": "https://csrc.nist.gov/pubs/sp/800/61/r3/final"
+    },
+    {
+      "title": {
+        "en": "NIST SP 800-86, Guide to Integrating Forensic Techniques into Incident Response",
+        "ar": "دليل NIST SP 800-86 لدمج أساليب التحقيق الجنائي في الاستجابة للحوادث"
+      },
+      "url": "https://csrc.nist.gov/pubs/sp/800/86/final"
+    },
+    {
+      "title": {
+        "en": "ISO/IEC 27037, Guidelines for identification, collection, acquisition, and preservation of digital evidence",
+        "ar": "المعيار ISO/IEC 27037 لإرشادات التعامل مع الأدلة الرقمية"
+      },
+      "url": "https://www.iso.org/standard/44381.html"
+    }
+  ]
+}

@@ -10,7 +10,7 @@
 
 | المجال | أنماط ذات صلة |
 | --- | --- |
-| العمليات | [P03 الصلاحيات الهامة والحساسة في طبقات](P03-tiered-privileged-access.md)، [P04 العزل والتقسيم الدقيق](P04-segmentation.md)، [P10 بيانات الرصد ومسار الكشف](P10-detection-telemetry.md) |
+| العمليات | [P03 الصلاحيات الهامة والحساسة في طبقات](P03-tiered-privileged-access.md)، [P04 العزل والتقسيم الدقيق](P04-segmentation.md)، [P10 بيانات الرصد ومسار الكشف](P10-detection-telemetry.md)، [P22 توافرية صامدة عبر مواقع متعددة](P22-resilient-availability.md) |
 
 ## المشكلة
 

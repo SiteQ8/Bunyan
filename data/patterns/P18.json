@@ -1,0 +1,303 @@
+{
+  "id": "P18",
+  "slug": "email-and-collaboration",
+  "domain": "workplace",
+  "title": {
+    "en": "Email and collaboration protection",
+    "ar": "حماية البريد الإلكتروني وأدوات التعاون"
+  },
+  "summary": {
+    "en": "Authenticate your domains with SPF, DKIM, and DMARC at reject, filter every message and link before and after delivery, and control who from outside can join your chats and shared files, because email and collaboration tools are where most intrusions start.",
+    "ar": "وثّق نطاقاتك عبر SPF وDKIM وسياسة DMARC بالرفض، وافحص كل رسالة وكل رابط قبل التسليم وبعده، وتحكّم في من يستطيع من الخارج الانضمام إلى محادثاتك وملفاتك المشتركة، لأن البريد وأدوات التعاون هي حيث يبدأ معظم الاختراقات."
+  },
+  "problem": {
+    "en": "Phishing and business email compromise remain the most common first step of an intrusion and the most expensive kind of fraud. Attackers spoof your domain to your customers, send links that pass filters and turn malicious hours later, and move from a compromised partner mailbox into real conversations about invoices. Collaboration tools add guests, shared links, and chat messages from outside, which often bypass the controls built for email.",
+    "ar": "يظل التصيد واختراق البريد التجاري أكثر الخطوات الأولى للاختراق شيوعًا وأغلى أنواع الاحتيال، إذ ينتحل المهاجمون نطاقك أمام عملائك، ويرسلون روابط تجتاز الفلاتر ثم تصبح ضارة بعد ساعات، وينتقلون من صندوق بريد مخترق لدى شريك إلى محادثات حقيقية عن الفواتير، بينما تضيف أدوات التعاون ضيوفًا وروابط مشاركة ورسائل محادثة من الخارج كثيرًا ما تتجاوز الضوابط المبنية للبريد."
+  },
+  "useWhen": [
+    {
+      "en": "People in the organisation use email and chat to work with customers, partners, and suppliers.",
+      "ar": "يستخدم العاملون في المؤسسة البريد والمحادثات للعمل مع العملاء والشركاء والموردين."
+    },
+    {
+      "en": "Payments or sensitive data are ever requested or approved by email.",
+      "ar": "تُطلب المدفوعات أو البيانات الحساسة أو تُعتمد عبر البريد في أي وقت."
+    },
+    {
+      "en": "Your domain is a brand that criminals could impersonate to your customers.",
+      "ar": "نطاقك علامة يستطيع المجرمون انتحالها أمام عملائك."
+    }
+  ],
+  "design": [
+    {
+      "en": "Publish SPF and DKIM for every domain that sends mail, including the services that send on your behalf, then move DMARC from monitoring to reject and protect parked domains that never send. Route inbound mail through filtering that checks sender authentication, runs attachments in a sandbox, rewrites links and checks them again at the moment they are clicked, and labels messages from outside.",
+      "ar": "انشر SPF وDKIM لكل نطاق يرسل بريدًا بما فيها الخدمات التي ترسل نيابة عنك، ثم انقل DMARC من المراقبة إلى الرفض، واحمِ النطاقات غير المستخدمة التي لا ترسل أبدًا، ومرّر البريد الوارد عبر فلترة تتحقق من هوية المرسل، وتشغّل المرفقات في بيئة معزولة لفحص سلوكها، وتعيد كتابة الروابط وتفحصها مجددًا لحظة النقر عليها، وتُعلِّم الرسائل الواردة من الخارج."
+    },
+    {
+      "en": "Make payment and bank detail changes requested by email subject to a call back on a known number, whatever the message looks like. In collaboration tools, allow external access only from approved domains, require guests to sign in, expire shared links, and apply the same malware and data loss checks to files and messages as to email. Give people one button to report a suspicious message, and send reports and mail telemetry to the SOC.",
+      "ar": "أخضع طلبات الدفع وتغيير البيانات المصرفية الواردة بالبريد لاتصال تأكيد على رقم معروف مهما بدت الرسالة، واسمح في أدوات التعاون بالوصول الخارجي من النطاقات المعتمدة فقط، واشترط دخول الضيوف، واجعل لروابط المشاركة مدة انتهاء، وطبّق على الملفات والرسائل فحوص البرمجيات الضارة ومنع تسرب البيانات نفسها المطبقة على البريد، ثم امنح الناس زرًا واحدًا للإبلاغ عن أي رسالة مريبة، وأرسل البلاغات وبيانات رصد البريد إلى مركز العمليات الأمنية."
+    }
+  ],
+  "controls": [
+    {
+      "level": "foundation",
+      "name": {
+        "en": "Authenticate your sending domains",
+        "ar": "وثّق نطاقات الإرسال"
+      },
+      "detail": {
+        "en": "Publish SPF and DKIM for every sending domain and service, and a DMARC record with reporting.",
+        "ar": "انشر SPF وDKIM لكل نطاق وخدمة ترسل البريد، وسجل DMARC مع التقارير."
+      },
+      "nist": [
+        "SI-8"
+      ],
+      "cis": [
+        "9.5"
+      ],
+      "iso": [
+        "8.21"
+      ]
+    },
+    {
+      "level": "foundation",
+      "name": {
+        "en": "Filter inbound mail and attachments",
+        "ar": "افحص البريد الوارد ومرفقاته"
+      },
+      "detail": {
+        "en": "Scan inbound mail for malware and spoofing, block file types you never need, and label messages from outside.",
+        "ar": "افحص البريد الوارد بحثًا عن البرمجيات الضارة والانتحال، وامنع أنواع الملفات التي لا تحتاجها أبدًا، وعلّم الرسائل الواردة من الخارج."
+      },
+      "nist": [
+        "SI-3",
+        "SI-8"
+      ],
+      "cis": [
+        "9.6",
+        "9.7"
+      ],
+      "iso": [
+        "8.7"
+      ]
+    },
+    {
+      "level": "foundation",
+      "name": {
+        "en": "Verify payment changes outside email",
+        "ar": "تحقق من تغييرات الدفع خارج البريد"
+      },
+      "detail": {
+        "en": "Confirm new or changed bank details and urgent payment requests by calling a known number, never one given in the message, and train staff to do so.",
+        "ar": "أكّد البيانات المصرفية الجديدة أو المعدلة وطلبات الدفع العاجلة بالاتصال على رقم معروف لا برقم ورد في الرسالة، ودرّب الموظفين على ذلك."
+      },
+      "nist": [
+        "AT-2"
+      ],
+      "cis": [
+        "14.2"
+      ],
+      "iso": [
+        "6.3"
+      ]
+    },
+    {
+      "level": "enhanced",
+      "name": {
+        "en": "Move DMARC to reject",
+        "ar": "انقل DMARC إلى الرفض"
+      },
+      "detail": {
+        "en": "Move DMARC from monitoring to quarantine and then to reject, and publish a reject policy for domains that never send mail.",
+        "ar": "انقل DMARC من المراقبة إلى العزل ثم إلى الرفض، وانشر سياسة الرفض للنطاقات التي لا ترسل بريدًا أبدًا."
+      },
+      "nist": [
+        "SI-8"
+      ],
+      "cis": [
+        "9.5"
+      ],
+      "iso": [
+        "8.21"
+      ]
+    },
+    {
+      "level": "enhanced",
+      "name": {
+        "en": "Run attachments in a sandbox and check links at click time",
+        "ar": "شغّل المرفقات في بيئة معزولة وافحص الروابط عند النقر"
+      },
+      "detail": {
+        "en": "Open attachments in a sandbox before delivery, and rewrite links so that they are checked again when someone clicks them.",
+        "ar": "شغّل المرفقات في بيئة معزولة قبل التسليم، وأعد كتابة الروابط حتى تُفحص مجددًا حين ينقر عليها أحد."
+      },
+      "nist": [
+        "SC-44",
+        "SI-3"
+      ],
+      "cis": [
+        "9.3",
+        "10.7"
+      ],
+      "iso": [
+        "8.7",
+        "8.23"
+      ]
+    },
+    {
+      "level": "enhanced",
+      "name": {
+        "en": "Control guests and sharing in collaboration tools",
+        "ar": "تحكّم في الضيوف والمشاركة في أدوات التعاون"
+      },
+      "detail": {
+        "en": "Allow external chat and guests only from approved domains, require guests to sign in, and expire shared links.",
+        "ar": "اسمح بالمحادثات الخارجية والضيوف من النطاقات المعتمدة فقط، واشترط دخول الضيوف، واجعل لروابط المشاركة مدة انتهاء."
+      },
+      "nist": [
+        "AC-3",
+        "AC-4"
+      ],
+      "cis": [
+        "3.3"
+      ],
+      "iso": [
+        "5.14",
+        "8.12"
+      ]
+    },
+    {
+      "level": "advanced",
+      "name": {
+        "en": "Make reporting one click and close the loop",
+        "ar": "اجعل الإبلاغ بنقرة واحدة وأغلق الحلقة"
+      },
+      "detail": {
+        "en": "Give everyone a report button, remove reported messages from every mailbox automatically, and tell the reporter what happened.",
+        "ar": "امنح الجميع زرًا للإبلاغ، واحذف الرسائل المبلّغ عنها من كل الصناديق آليًا، وأخبر المبلّغ بما حدث."
+      },
+      "nist": [
+        "IR-6",
+        "SI-8"
+      ],
+      "cis": [],
+      "iso": [
+        "6.8"
+      ]
+    },
+    {
+      "level": "advanced",
+      "name": {
+        "en": "Hunt across mail and chat telemetry",
+        "ar": "ابحث عن التهديدات في بيانات البريد والمحادثات"
+      },
+      "detail": {
+        "en": "Send mail, chat, and sharing events to the SOC, and hunt for mailbox rules, unusual forwarding, and consent to risky applications.",
+        "ar": "أرسل أحداث البريد والمحادثات والمشاركة إلى مركز العمليات الأمنية، وابحث عن قواعد صناديق البريد والتحويل غير المعتاد والموافقة على تطبيقات خطرة."
+      },
+      "nist": [
+        "SI-4",
+        "AU-6"
+      ],
+      "cis": [
+        "8.2",
+        "13.1"
+      ],
+      "iso": [
+        "8.16"
+      ]
+    }
+  ],
+  "decisions": [
+    {
+      "en": "Which services send mail as your domains, and who owns the SPF and DKIM set-up of each one?",
+      "ar": "ما الخدمات التي ترسل البريد باسم نطاقاتك، ومن يملك إعدادات SPF وDKIM لكل منها؟"
+    },
+    {
+      "en": "How fast can DMARC move to reject without blocking legitimate mail?",
+      "ar": "ما السرعة التي يمكن بها نقل DMARC إلى الرفض دون حجب بريد مشروع؟"
+    },
+    {
+      "en": "Which outside organisations may chat and share with your people, and who approves new ones?",
+      "ar": "ما الجهات الخارجية التي يجوز لها التحادث والمشاركة مع موظفيك، ومن يعتمد الجهات الجديدة؟"
+    }
+  ],
+  "tradeoffs": [
+    {
+      "en": "A strict DMARC policy can drop mail from services that were never set up correctly, so it needs an inventory first.",
+      "ar": "قد تُسقط سياسة DMARC الصارمة بريدًا من خدمات لم تُضبط بطريقة صحيحة أبدًا، لذا تحتاج أولًا إلى حصر لها."
+    },
+    {
+      "en": "Sandboxing and link checks add seconds of delay that some users notice.",
+      "ar": "تضيف البيئة المعزولة وفحص الروابط ثواني من التأخير يلاحظها بعض المستخدمين."
+    },
+    {
+      "en": "Tight limits on outside collaboration slow down work with partners, so the approved list must be easy to update.",
+      "ar": "تبطئ القيود المشددة على التعاون الخارجي العمل مع الشركاء، لذا يجب أن يسهل تحديث القائمة المعتمدة."
+    }
+  ],
+  "antipatterns": [
+    {
+      "en": "DMARC left at monitoring for years.",
+      "ar": "ترك DMARC في وضع المراقبة لسنوات."
+    },
+    {
+      "en": "Payment details changed on the strength of an email alone.",
+      "ar": "تغيير بيانات الدفع اعتمادًا على رسالة بريد وحدها."
+    },
+    {
+      "en": "Chat open to any outside organisation, with no one reviewing who joins.",
+      "ar": "محادثات مفتوحة لأي جهة خارجية دون أن يراجع أحد من ينضم إليها."
+    }
+  ],
+  "verify": [
+    {
+      "en": "Send a message that spoofs your own domain from outside, and confirm that it is rejected.",
+      "ar": "أرسل من الخارج رسالة تنتحل نطاقك نفسه، وتأكد من رفضها."
+    },
+    {
+      "en": "Send a test attachment that runs a harmless script, and confirm that the sandbox catches it.",
+      "ar": "أرسل مرفقًا اختباريًا يشغّل نصًا برمجيًا غير ضار، وتأكد من أن البيئة المعزولة تكتشفه."
+    },
+    {
+      "en": "Report a test phishing message, and confirm that it disappears from every mailbox that received it.",
+      "ar": "أبلغ عن رسالة تصيد اختبارية، وتأكد من اختفائها من كل صندوق تلقّاها."
+    }
+  ],
+  "attack": [
+    "T1566.001",
+    "T1566.002",
+    "T1534",
+    "T1684.001",
+    "T1114"
+  ],
+  "owasp": [],
+  "related": [
+    "P02",
+    "P19",
+    "P10"
+  ],
+  "references": [
+    {
+      "title": {
+        "en": "DMARC.org",
+        "ar": "موقع DMARC.org"
+      },
+      "url": "https://dmarc.org/"
+    },
+    {
+      "title": {
+        "en": "RFC 7489, Domain-based Message Authentication, Reporting, and Conformance",
+        "ar": "المعيار RFC 7489 لسياسة DMARC"
+      },
+      "url": "https://datatracker.ietf.org/doc/html/rfc7489"
+    },
+    {
+      "title": {
+        "en": "CIS Controls v8.1, Control 9: Email and Web Browser Protections",
+        "ar": "الضابط ٩ في CIS Controls v8.1 لحماية البريد ومتصفحات الويب"
+      },
+      "url": "https://www.cisecurity.org/controls/email-and-web-browser-protections"
+    }
+  ]
+}

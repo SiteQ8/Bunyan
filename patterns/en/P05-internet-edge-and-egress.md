@@ -8,7 +8,7 @@
 
 | Domain | Related patterns |
 | --- | --- |
-| Network | [P07 API gateway and object level authorization](P07-api-security.md), [P04 Segmentation and micro-segmentation](P04-segmentation.md), [P10 Security telemetry and detection pipeline](P10-detection-telemetry.md), [P09 Data-centric protection](P09-data-centric-protection.md) |
+| Network | [P07 API gateway and object level authorization](P07-api-security.md), [P04 Segmentation and micro-segmentation](P04-segmentation.md), [P10 Security telemetry and detection pipeline](P10-detection-telemetry.md), [P09 Data-centric protection](P09-data-centric-protection.md), [P21 Continuous exposure management](P21-exposure-management.md) |
 
 ## The problem
 

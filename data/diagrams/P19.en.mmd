@@ -1,0 +1,9 @@
+flowchart LR
+  DEV["Company device<br/>encrypted and patched"] --> MDM["Device management<br/>baseline and inventory"]
+  DEV --> EDR["EDR agent<br/>tamper protected"]
+  EDR --> SOC["SOC<br/>isolates in minutes"]
+  MDM -- "compliance signal" --> IDP["Identity provider"]
+  IDP -- "managed and healthy" --> APPS["Sensitive applications"]
+  BYOD["Personal device"] -- "browser only" --> IDP
+  ALLOW["Application allowlisting<br/>on sensitive devices"] --> DEV
+  PAW["Privileged workstations<br/>for administrators"] --> APPS

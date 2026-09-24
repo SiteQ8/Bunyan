@@ -8,7 +8,7 @@
 
 | Domain | Related patterns |
 | --- | --- |
-| Identity | [P02 Identity as the control plane](P02-identity-control-plane.md), [P03 Tiered privileged access](P03-tiered-privileged-access.md), [P04 Segmentation and micro-segmentation](P04-segmentation.md), [P10 Security telemetry and detection pipeline](P10-detection-telemetry.md) |
+| Identity | [P02 Identity as the control plane](P02-identity-control-plane.md), [P03 Tiered privileged access](P03-tiered-privileged-access.md), [P04 Segmentation and micro-segmentation](P04-segmentation.md), [P10 Security telemetry and detection pipeline](P10-detection-telemetry.md), [P20 Security service edge for users anywhere](P20-security-service-edge.md) |
 
 ## The problem
 

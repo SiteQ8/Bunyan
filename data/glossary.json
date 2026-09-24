@@ -139,6 +139,18 @@
       "pattern": "P11"
     },
     {
+      "id": "business-email-compromise",
+      "term": {
+        "en": "Business email compromise",
+        "ar": "اختراق البريد التجاري"
+      },
+      "definition": {
+        "en": "Fraud in which an attacker uses a spoofed or compromised mailbox to trick staff into paying money or sending data.",
+        "ar": "احتيال يستخدم فيه المهاجم صندوق بريد منتحلًا أو مخترقًا لخداع الموظفين كي يدفعوا مالًا أو يرسلوا بيانات."
+      },
+      "pattern": "P18"
+    },
+    {
       "id": "certificate-authority",
       "term": {
         "en": "Certificate authority",
@@ -149,6 +161,30 @@
         "ar": "الخدمة التي تُصدر الشهادات الرقمية وتوقّعها، ويجب أن تكون مفاتيحها من أكثر ما يُحمى في المؤسسة."
       },
       "pattern": "P08"
+    },
+    {
+      "id": "chain-of-custody",
+      "term": {
+        "en": "Chain of custody",
+        "ar": "سلسلة الحفظ"
+      },
+      "definition": {
+        "en": "The record of who collected, handled, and stored a piece of evidence, and when, which lets it be trusted later.",
+        "ar": "سجل من جمع الدليل وتعامل معه وحفظه ومتى، وهو ما يسمح بالوثوق به لاحقًا."
+      },
+      "pattern": "P24"
+    },
+    {
+      "id": "casb",
+      "term": {
+        "en": "Cloud access security broker",
+        "ar": "وسيط أمن الوصول إلى السحابة"
+      },
+      "definition": {
+        "en": "A service that discovers which SaaS services people use, and governs and protects that use.",
+        "ar": "خدمة تكتشف الخدمات السحابية الجاهزة التي يستخدمها الناس، وتحكم ذلك الاستخدام وتحميه."
+      },
+      "pattern": "P20"
     },
     {
       "id": "compensating-control",
@@ -207,6 +243,18 @@
         "ar": "القدرة على تغيير الخوارزميات والمفاتيح دون إعادة تصميم الأنظمة، وهي ضرورية للانتقال إلى تشفير ما بعد الحوسبة الكمية."
       },
       "pattern": "P08"
+    },
+    {
+      "id": "cbom",
+      "term": {
+        "en": "Cryptography bill of materials",
+        "ar": "قائمة مكونات التشفير"
+      },
+      "definition": {
+        "en": "An inventory of the algorithms, keys, certificates, and protocols that a system uses, often shortened to CBOM.",
+        "ar": "حصر للخوارزميات والمفاتيح والشهادات والبروتوكولات التي يستخدمها النظام، ويُختصر إلى CBOM في الغالب."
+      },
+      "pattern": "P23"
     },
     {
       "id": "data-classification",
@@ -280,6 +328,18 @@
       "pattern": "P13"
     },
     {
+      "id": "dmarc",
+      "term": {
+        "en": "DMARC",
+        "ar": "سياسة DMARC"
+      },
+      "definition": {
+        "en": "A DNS record that tells receiving mail servers what to do with messages that fail the SPF and DKIM checks for your domain, and where to send reports.",
+        "ar": "سجل في نظام أسماء النطاقات يخبر خوادم البريد المستقبِلة بما تفعله بالرسائل التي تخفق في فحص SPF وDKIM لنطاقك، وإلى أين ترسل التقارير."
+      },
+      "pattern": "P18"
+    },
+    {
       "id": "egress-filtering",
       "term": {
         "en": "Egress filtering",
@@ -290,6 +350,18 @@
         "ar": "التحكم في الوجهات التي يُسمح للأنظمة بالاتصال بها عند الخروج."
       },
       "pattern": "P05"
+    },
+    {
+      "id": "edr",
+      "term": {
+        "en": "Endpoint detection and response",
+        "ar": "الكشف والاستجابة على الأجهزة الطرفية"
+      },
+      "definition": {
+        "en": "Software on each device that records activity, detects attacks, and lets responders investigate and isolate the device remotely.",
+        "ar": "برمجية على كل جهاز تسجل النشاط وتكشف الهجمات، وتمكّن المستجيبين من التحقيق وعزل الجهاز عن بعد."
+      },
+      "pattern": "P19"
     },
     {
       "id": "envelope-encryption",
@@ -304,6 +376,18 @@
       "pattern": "P08"
     },
     {
+      "id": "epss",
+      "term": {
+        "en": "EPSS",
+        "ar": "نظام EPSS"
+      },
+      "definition": {
+        "en": "The Exploit Prediction Scoring System, which estimates the probability that a vulnerability will be exploited in the next thirty days.",
+        "ar": "نظام للتنبؤ باستغلال الثغرات، يقدّر احتمال استغلال الثغرة خلال الأيام الثلاثين القادمة."
+      },
+      "pattern": "P21"
+    },
+    {
       "id": "fail-secure",
       "term": {
         "en": "Fail secure",
@@ -313,6 +397,18 @@
         "en": "Designing a control so that when it breaks it denies access rather than allowing it.",
         "ar": "تصميم الضابط بحيث يرفض الوصول عند تعطله بدلًا من أن يسمح به."
       }
+    },
+    {
+      "id": "failover",
+      "term": {
+        "en": "Failover",
+        "ar": "التحويل التلقائي"
+      },
+      "definition": {
+        "en": "Moving a service from a failed site or component to a standby that takes over.",
+        "ar": "نقل الخدمة من موقع أو مكوّن أخفق إلى بديل احتياطي يتولى العمل."
+      },
+      "pattern": "P22"
     },
     {
       "id": "hsm",
@@ -373,6 +469,18 @@
         "ar": "وصول بصلاحيات هامة يُمنح لمهمة محددة ولوقت محدود ثم يُسحب آليًا."
       },
       "pattern": "P03"
+    },
+    {
+      "id": "kev",
+      "term": {
+        "en": "Known exploited vulnerabilities",
+        "ar": "الثغرات المستغلة المعروفة"
+      },
+      "definition": {
+        "en": "Vulnerabilities with evidence of exploitation in the wild, listed in catalogues such as the one CISA maintains.",
+        "ar": "ثغرات يوجد دليل على استغلالها فعليًا، وتُدرج في فهارس مثل الفهرس الذي تحتفظ به CISA."
+      },
+      "pattern": "P21"
     },
     {
       "id": "landing-zone",
@@ -506,6 +614,18 @@
       "pattern": "P01"
     },
     {
+      "id": "post-quantum-cryptography",
+      "term": {
+        "en": "Post-quantum cryptography",
+        "ar": "التشفير لما بعد الحوسبة الكمية"
+      },
+      "definition": {
+        "en": "Public key algorithms designed to resist attack by quantum computers, such as ML-KEM and ML-DSA.",
+        "ar": "خوارزميات للمفتاح العام صُممت لمقاومة هجمات الحواسيب الكمية، مثل ML-KEM وML-DSA."
+      },
+      "pattern": "P23"
+    },
+    {
       "id": "guardrail",
       "term": {
         "en": "Preventive guardrail",
@@ -609,6 +729,18 @@
         "en": "The structure of controls, trust boundaries, and decisions that makes a system secure by design and keeps it that way.",
         "ar": "بنية الضوابط وحدود الثقة والقرارات التي تجعل النظام آمنًا من التصميم وتحافظ على أمنه."
       }
+    },
+    {
+      "id": "sse",
+      "term": {
+        "en": "Security service edge",
+        "ar": "حافة الخدمات الأمنية"
+      },
+      "definition": {
+        "en": "A cloud service that applies web filtering, SaaS controls, data loss prevention, and private application access to users wherever they are.",
+        "ar": "خدمة سحابية تطبق فلترة الويب وضوابط الخدمات السحابية الجاهزة ومنع تسرب البيانات والوصول إلى التطبيقات الخاصة على المستخدمين أينما كانوا."
+      },
+      "pattern": "P20"
     },
     {
       "id": "security-zone",
