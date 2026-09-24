@@ -1640,6 +1640,403 @@ html[lang="ar"] .tb-mark [lang="en"] {
   font-size: 0.92rem;
 }
 
+
+/* Interaction: the plan answers back */
+
+.pl-item {
+  cursor: pointer;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .pl-item {
+    transition: opacity 0.18s ease;
+  }
+}
+
+.plan-frame.focusing .pl-item:not(.hl) {
+  opacity: 0.22;
+}
+
+.plan-frame.markup .pl-item:not(.hl) {
+  opacity: 0.14;
+}
+
+.pl-item.hl :is(.pl-fixture, .pl-vault, .pl-tag),
+.pl-item.is-new :is(.pl-fixture, .pl-vault, .pl-tag) {
+  stroke: var(--red);
+  stroke-width: 2.5;
+}
+
+.pl-item.hl .pl-fixture.pl-essential,
+.pl-item.is-new .pl-fixture.pl-essential {
+  fill: var(--red);
+}
+
+.pl-item.hl :is(.pl-leaf, .pl-swing, .pl-flow, .pl-corridor, .pl-service, .pl-oneway, .pl-person-body) {
+  stroke: var(--red);
+}
+
+.pl-item.hl .pl-person {
+  fill: var(--red);
+}
+
+@keyframes arrive {
+  0% {
+    opacity: 0;
+  }
+
+  40% {
+    opacity: 1;
+  }
+
+  60% {
+    opacity: 0.45;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .pl-item.is-new {
+    animation: arrive 0.9s ease-out;
+  }
+}
+
+.plan-note {
+  display: grid;
+  gap: 0.3rem;
+  min-height: 2.9rem;
+  margin: 0 0.5rem 0.75rem;
+  padding: 0.55rem 0.85rem;
+  border: 1px solid var(--ink);
+  border-inline-start: 4px solid var(--red);
+  background: var(--sheet);
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+
+.plan-note .hint,
+.note-label {
+  color: var(--graphite);
+}
+
+.note-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.2rem 0.5rem;
+}
+
+.note-key {
+  margin-inline-end: 0.3rem;
+  color: var(--graphite);
+  font-weight: 650;
+}
+
+.note-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 1.1rem;
+  margin-top: 0.15rem;
+}
+
+.note-actions button,
+.chips button {
+  padding: 0.3rem 0.7rem;
+  border: 1px solid var(--ink);
+  border-radius: 2px;
+  background: transparent;
+  color: var(--ink);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.note-actions button:hover,
+.chips button:hover {
+  background: var(--wash);
+}
+
+.changes {
+  display: grid;
+  gap: 0.25rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.chg::before {
+  content: "";
+  display: inline-block;
+  width: 0.6rem;
+  height: 0.6rem;
+  margin-inline-end: 0.5rem;
+  border: 1.5px solid var(--ink);
+  vertical-align: 0.05em;
+}
+
+.chg-added::before {
+  border-color: var(--red);
+  background: var(--red);
+}
+
+.chg-removed {
+  color: var(--graphite);
+}
+
+.chg-removed::before {
+  border-style: dashed;
+}
+
+.examples {
+  display: grid;
+  gap: 0.45rem;
+  margin: -0.5rem 0 1.9rem;
+}
+
+.examples > p {
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.chips button {
+  border-radius: 999px;
+  background: var(--sheet);
+}
+
+.mark-btn {
+  display: inline-flex;
+  justify-self: start;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 0.35rem;
+  padding: 0.25rem 0.6rem;
+  border: 1px solid var(--red);
+  border-radius: 2px;
+  background: transparent;
+  color: var(--red);
+  font-size: 0.82rem;
+  font-weight: 650;
+  cursor: pointer;
+}
+
+.mark-btn:hover,
+.mark-btn[aria-pressed="true"] {
+  background: var(--red);
+  color: var(--sheet);
+}
+
+.plist > li.hl .ptitle {
+  color: var(--red);
+}
+
+@keyframes rowflash {
+  from {
+    background: var(--wash);
+  }
+
+  to {
+    background: transparent;
+  }
+}
+
+.plist > li.flash {
+  animation: rowflash 1.8s ease-out;
+}
+
+/* The quiz, with a scale bar for progress */
+
+.quiz.page {
+  max-width: 48rem;
+}
+
+.quiz-link a {
+  font-size: 1.05rem;
+}
+
+.quiz-card {
+  display: grid;
+  gap: 0.9rem;
+  margin-top: 0.5rem;
+  padding: 1.3rem 1.3rem 1.5rem;
+  border: 2px solid var(--ink);
+  background: var(--sheet);
+  box-shadow: inset 0 0 0 5px var(--sheet), inset 0 0 0 6px var(--ink);
+}
+
+.scale {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  height: 0.75rem;
+  border: 1.5px solid var(--ink);
+}
+
+.scale span + span {
+  border-inline-start: 1px solid var(--ink);
+}
+
+.scale .ok {
+  background: var(--ink);
+}
+
+.scale .miss {
+  background: var(--red);
+}
+
+.scale .now {
+  background: repeating-linear-gradient(45deg, var(--rule) 0 2px, transparent 2px 5px);
+}
+
+.quiz-progress {
+  color: var(--graphite);
+  font-size: 0.9rem;
+}
+
+.page .quiz-ask {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 1.2rem;
+}
+
+.quiz-prompt {
+  margin: 0;
+  padding: 0.8rem 1rem;
+  border-inline-start: 3px solid var(--ink);
+  background: var(--paper);
+  font-size: 1.02rem;
+}
+
+.quiz-options {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.quiz-option {
+  display: grid;
+  grid-template-columns: 1.8rem 1fr;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.6rem 0.8rem;
+  border: 1px solid var(--ink);
+  border-radius: 2px;
+  background: var(--sheet);
+  color: var(--ink);
+  font-weight: 600;
+  text-align: start;
+  cursor: pointer;
+}
+
+.quiz-option:hover:not(:disabled) {
+  background: var(--wash);
+}
+
+.quiz-option .key {
+  display: grid;
+  place-items: center;
+  width: 1.65rem;
+  height: 1.65rem;
+  border: 1.5px solid var(--ink);
+  border-radius: 50%;
+  font-size: 0.8rem;
+}
+
+.quiz-option:disabled {
+  cursor: default;
+}
+
+.quiz-option:disabled:not(.right, .wrong) {
+  opacity: 0.5;
+}
+
+.quiz-option.right {
+  background: var(--wash);
+  box-shadow: inset 0 0 0 1.5px var(--ink);
+}
+
+.quiz-option.right .key {
+  background: var(--ink);
+  color: var(--sheet);
+}
+
+.quiz-option.wrong {
+  border-color: var(--red);
+  color: var(--red);
+}
+
+.quiz-option.wrong .key {
+  border-color: var(--red);
+  background: var(--red);
+  color: var(--sheet);
+}
+
+.verdict {
+  font-weight: 700;
+}
+
+.verdict.miss {
+  color: var(--red);
+}
+
+.quiz-feedback {
+  display: grid;
+  gap: 0.6rem;
+}
+
+.quiz-feedback:empty {
+  display: none;
+}
+
+.quiz-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1.25rem;
+}
+
+.quiz-go {
+  padding: 0.5rem 1.05rem;
+  border: 1.5px solid var(--ink);
+  border-radius: 2px;
+  background: var(--ink);
+  color: var(--sheet);
+  font-weight: 650;
+  cursor: pointer;
+}
+
+.quiz-go:hover {
+  border-color: var(--blue);
+  background: var(--blue);
+}
+
+.page .quiz-score {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 1.5rem;
+}
+
+.quiz-keys {
+  margin-top: 0.75rem;
+  color: var(--graphite);
+  font-size: 0.85rem;
+}
+
+@media (hover: none) {
+  .quiz-keys {
+    display: none;
+  }
+}
+
 /* Print: the drawing sheet on one landscape page, then the pattern list. */
 
 @media print {
@@ -1676,6 +2073,9 @@ html[lang="ar"] .tb-mark [lang="en"] {
   .questions,
   .threats > p,
   .swipe,
+  .plan-note,
+  .examples,
+  .mark-btn,
   .more {
     display: none !important;
   }

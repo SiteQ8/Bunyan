@@ -3,7 +3,8 @@
 // page makes is for its own data file, and the only things it stores are the
 // chosen language and theme.
 
-import { advise, decodeState, encodeState, defaultAnswers, normalizeAnswers, LEVELS, PRIORITIES } from './engine.js';
+import { advise, decodeState, encodeState, defaultAnswers, normalizeAnswers, diffPatterns, LEVELS, PRIORITIES } from './engine.js';
+import { buildQuiz } from './quiz.js';
 import { renderPlan } from './plan.js';
 import { renderBrief, eastern } from './brief.js';
 
@@ -18,6 +19,11 @@ const S = {
   project: '',
   advice: null,
   notice: '',
+  // A pinned highlight on the plan: a pattern the reader tapped, or a threat marked up in red.
+  focus: null,
+  // What the note under the plan says when nothing is pinned or pointed at.
+  rest: '',
+  quiz: null,
 };
 
 // Helpers
@@ -48,7 +54,11 @@ const ICONS = {
   download: '<path d="M8 2.5v7.5"/><path d="M4.8 7l3.2 3.2L11.2 7"/><path d="M3 13.2h10"/>',
   print: '<path d="M4.5 6V2.5h7V6"/><path d="M4.5 11.5H3.2a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h9.6a1 1 0 0 1 1 1v3.5a1 1 0 0 1-1 1h-1.3"/><path d="M4.5 9.2h7v4.3h-7z"/>',
   reset: '<path d="M3.2 8.2a4.8 4.8 0 1 0 1.5-3.6"/><path d="M3.2 2.6v3h3"/>',
+  pen: '<path d="M3 13l.9-3.4 6.9-6.9a1.4 1.4 0 0 1 2 2L5.9 11.6z"/><path d="M9.6 3.9l2.5 2.5"/>',
 };
+const reduced = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
+// Fill a template such as "Question {n} of {total}" with ready-made HTML.
+const fmt = (template, values) => esc(template).replace(/\{(\w+)\}/g, (all, key) => (key in values ? values[key] : all));
 const icon = (name) => `<svg class="icon" viewBox="0 0 16 16" aria-hidden="true">${ICONS[name]}</svg>`;
 const store = (key, value) => {
   try {
@@ -77,6 +87,7 @@ const NAV = [
   ['patterns', 'navPatterns'],
   ['learn', 'navLearn'],
   ['glossary', 'navGlossary'],
+  ['quiz', 'navQuiz'],
 ];
 
 function renderChrome() {
@@ -120,7 +131,7 @@ function syncLinks() {
 function setTitle() {
   const name = t(meta().project.name);
   const r = route();
-  const titles = { design: ui('navDesign'), patterns: ui('navPatterns'), learn: ui('navLearn'), glossary: ui('navGlossary') };
+  const titles = { design: ui('navDesign'), patterns: ui('navPatterns'), learn: ui('navLearn'), glossary: ui('navGlossary'), quiz: ui('navQuiz') };
   let title = titles[S.view] || name;
   const p = S.view === 'patterns' && r.id ? patternById(r.id) : null;
   if (p) title = `${p.id} ${t(p.title)}`;
@@ -221,6 +232,7 @@ function viewDesign(query) {
     <p class="toast" id="toast" role="status" aria-live="polite"></p>
   </div>
   <div class="plan-frame" id="plan" role="region" aria-label="${esc(ui('planLabel'))}" tabindex="0"></div>
+  <div class="plan-note" id="plan-note" aria-live="polite"></div>
   <p class="swipe">${esc(ui('swipeHint'))}</p>
   <div class="sheet-foot">
     <section class="legend" aria-labelledby="legend-title">
@@ -239,6 +251,10 @@ function viewDesign(query) {
     <label class="project" for="project"><span>${esc(ui('projectLabel'))}</span>
       <input type="text" id="project" maxlength="80" autocomplete="off" spellcheck="false" placeholder="${esc(ui('projectPlaceholder'))}" value="${esc(S.project)}">
     </label>
+    <div class="examples">
+      <p>${esc(ui('examplesTitle'))}</p>
+      <div class="chips">${meta().katas.map((k) => `<button type="button" data-example="${k.slug}">${esc(t(k.title))}</button>`).join('')}</div>
+    </div>
     <ol class="qlist" id="qlist">${advisor.questions.map(questionHtml).join('')}</ol>
   </section>
   <section class="results" aria-labelledby="r-title">
@@ -281,9 +297,167 @@ function bindDesign() {
     const act = { copy: copyLink, download: downloadBrief, print: () => window.print(), reset: resetDesign };
     act[button.dataset.act]();
   });
+
+  // The plan answers back: point at a piece to see where it comes from, tap to pin it.
+  const frame = document.getElementById('plan');
+  frame.addEventListener('pointerover', (event) => {
+    if (S.focus) return;
+    const item = event.target.closest('.pl-item');
+    if (!item) return settle();
+    light([item.dataset.pattern]);
+    note(patternNote(item.dataset.pattern, item.dataset.label));
+  });
+  frame.addEventListener('pointerleave', () => {
+    if (!S.focus) settle();
+  });
+  frame.addEventListener('click', (event) => {
+    const item = event.target.closest('.pl-item');
+    const id = item && item.dataset.pattern;
+    if (!id || (S.focus && S.focus.kind === 'pattern' && S.focus.id === id)) return unpin();
+    pin({ kind: 'pattern', id, ids: [id], html: patternNote(id, item.dataset.label) });
+  });
+
+  // The list lights up the plan in return.
+  const groups = document.getElementById('groups');
+  const fromRow = (event) => {
+    const row = event.target.closest('li[data-id]');
+    if (row && !S.focus) light([row.dataset.id]);
+  };
+  groups.addEventListener('pointerover', fromRow);
+  groups.addEventListener('focusin', fromRow);
+  groups.addEventListener('pointerleave', () => !S.focus && settle());
+  groups.addEventListener('focusout', () => !S.focus && settle());
+
+  // Mark up a threat in red: the controls that stop it stand out on the plan.
+  document.getElementById('threats').addEventListener('click', (event) => {
+    const button = event.target.closest('button[data-threat]');
+    if (!button) return;
+    const threat = S.advice.threats.find((th) => th.id === button.dataset.threat);
+    if (S.focus && S.focus.kind === 'threat' && S.focus.id === threat.id) return unpin();
+    pin({ kind: 'threat', id: threat.id, ids: threat.addressedBy, html: threatNote(threat) });
+    button.setAttribute('aria-pressed', 'true');
+    document.querySelector('.sheet').scrollIntoView({ behavior: reduced() ? 'auto' : 'smooth', block: 'start' });
+  });
+
+  document.getElementById('plan-note').addEventListener('click', (event) => {
+    const show = event.target.closest('button[data-show]');
+    if (show) return showInList(show.dataset.show);
+    if (event.target.closest('button[data-clear]')) unpin();
+  });
+
+  // Examples load a whole scenario at once, and the note says what it changed.
+  main.querySelector('.examples').addEventListener('click', (event) => {
+    const button = event.target.closest('button[data-example]');
+    if (!button) return;
+    const kata = meta().katas.find((k) => k.slug === button.dataset.example);
+    S.answers = decodeState(S.data.advisor, kata.advisor).answers;
+    S.project = t(kata.title);
+    syncInputs();
+    refresh(true);
+    document.querySelector('.sheet').scrollIntoView({ behavior: reduced() ? 'auto' : 'smooth', block: 'start' });
+  });
+}
+
+function syncInputs() {
+  for (const q of S.data.advisor.questions) {
+    const value = S.answers[q.id];
+    for (const input of main.querySelectorAll(`input[name="${q.id}"]`)) {
+      input.checked = Array.isArray(value) ? value.includes(input.value) : value === input.value;
+    }
+  }
+  document.getElementById('project').value = S.project;
+}
+
+function light(ids, mode = '') {
+  const frame = document.getElementById('plan');
+  if (!frame) return;
+  const on = new Set(ids);
+  frame.classList.toggle('focusing', on.size > 0);
+  frame.classList.toggle('markup', mode === 'threat');
+  for (const item of frame.querySelectorAll('.pl-item')) item.classList.toggle('hl', on.has(item.dataset.pattern));
+  for (const row of document.querySelectorAll('#groups li[data-id]')) row.classList.toggle('hl', on.has(row.dataset.id));
+}
+
+function note(html) {
+  const el = document.getElementById('plan-note');
+  if (el) el.innerHTML = html;
+}
+
+// Back to the pinned state, or to the resting note when nothing is pinned.
+function settle() {
+  light(S.focus ? S.focus.ids : [], S.focus ? S.focus.kind : '');
+  note(S.focus ? S.focus.html : S.rest);
+}
+
+function pin(focus) {
+  for (const b of document.querySelectorAll('button[data-threat]')) b.setAttribute('aria-pressed', 'false');
+  S.focus = focus;
+  settle();
+}
+
+function unpin() {
+  S.focus = null;
+  for (const b of document.querySelectorAll('button[data-threat]')) b.setAttribute('aria-pressed', 'false');
+  settle();
+}
+
+const markOf = (priority) => (priority ? `<span class="mark mark-${priority}" aria-hidden="true"></span>` : '');
+const levelTag = (priority) => `<span class="level">${esc(t(meta().priorities[priority]))}</span>`;
+
+function hintNote() {
+  return `<p class="hint">${esc(ui('planHint'))}</p>`;
+}
+
+function patternNote(id, label) {
+  const p = patternById(id);
+  if (!p) return S.rest;
+  const rec = S.advice.patterns.find((r) => r.id === id);
+  const reason = rec && rec.reasons[0] ? `<p><span class="note-key">${esc(ui('why'))}</span> ${esc(t(rec.reasons[0]))}</p>` : '';
+  return `<p class="note-head">${markOf(rec && rec.priority)}<strong>${ltr(id)} ${esc(t(p.title))}</strong>${rec ? ` ${levelTag(rec.priority)}` : ''}</p>
+${label ? `<p class="note-label">${esc(label)}</p>` : ''}${reason}
+<p class="note-actions"><button type="button" data-show="${id}">${esc(ui('showInList'))}</button><a href="#patterns/${id}">${esc(ui('readPattern'))}</a></p>`;
+}
+
+function threatNote(threat) {
+  const by = threat.addressedBy.map((id) => patternLink(id)).join(sep());
+  return `<p class="note-head">${markOf('essential')}<strong>${esc(t(threat.title))}</strong></p>
+<p><span class="note-key">${esc(ui('stoppedBy'))}</span> ${by}</p>
+<p class="note-actions"><button type="button" data-clear>${esc(ui('clearMarks'))}</button></p>`;
+}
+
+function changesNote(changes) {
+  const head = `<p class="note-head"><strong>${esc(ui('changesTitle'))}</strong></p>`;
+  if (!changes.length) return `${head}<p class="note-label">${esc(ui('changeNone'))}</p>`;
+  const key = { added: 'changeAdded', moved: 'changeMoved', removed: 'changeRemoved' };
+  const items = changes.map((c) => {
+    const text = fmt(ui(key[c.kind]), { pattern: patternLink(c.id), priority: levelTag(c.priority) });
+    return `<li class="chg chg-${c.kind}">${text}</li>`;
+  });
+  return `${head}<ul class="changes">${items.join('')}</ul>`;
+}
+
+// New and promoted pieces flash on the plan for a moment, like fresh ink.
+function flashNew(changes) {
+  const ids = new Set(changes.filter((c) => c.kind !== 'removed').map((c) => c.id));
+  const items = [...document.querySelectorAll('#plan .pl-item')].filter((item) => ids.has(item.dataset.pattern));
+  for (const item of items) item.classList.add('is-new');
+  clearTimeout(flashNew.timer);
+  flashNew.timer = setTimeout(() => items.forEach((item) => item.classList.remove('is-new')), 2600);
+}
+
+function showInList(id) {
+  const row = document.querySelector(`#groups li[data-id="${id}"]`);
+  if (!row) return;
+  row.querySelector('details').open = true;
+  row.scrollIntoView({ behavior: reduced() ? 'auto' : 'smooth', block: 'center' });
+  row.classList.remove('flash');
+  row.getBoundingClientRect();
+  row.classList.add('flash');
+  row.querySelector('summary').focus({ preventScroll: true });
 }
 
 function refresh(write) {
+  const before = S.advice;
   S.advice = advise(S.data, S.answers);
   const frame = document.getElementById('plan');
   frame.innerHTML = renderPlan(S.advice.plan, S.lang, meta().ui);
@@ -292,6 +466,15 @@ function refresh(write) {
   refreshTitleBlock();
   document.getElementById('groups').innerHTML = groupsHtml(S.advice);
   document.getElementById('threats').innerHTML = S.advice.threats.map(threatHtml).join('');
+  S.focus = null;
+  if (write && before) {
+    const changes = diffPatterns(before.patterns, S.advice.patterns);
+    S.rest = changesNote(changes);
+    flashNew(changes);
+  } else {
+    S.rest = hintNote();
+  }
+  settle();
   if (write) writeUrl();
   else syncLinks();
 }
@@ -327,7 +510,7 @@ function recommendationHtml(rec) {
   const next = rec.nextControls.length
     ? `<h4>${esc(ui('nextLevel'))}</h4><ul>${rec.nextControls.map((c) => `<li>${esc(t(c.name))}</li>`).join('')}</ul>`
     : '';
-  return `<li><details><summary><span class="pid">${ltr(p.id)}</span><span class="ptitle">${esc(t(p.title))}</span><span class="pdomain">${esc(t(meta().domains[p.domain]))}</span></summary>
+  return `<li data-id="${p.id}"><details><summary><span class="pid">${ltr(p.id)}</span><span class="ptitle">${esc(t(p.title))}</span><span class="pdomain">${esc(t(meta().domains[p.domain]))}</span></summary>
 <div class="pbody">
   <h4>${esc(ui('why'))}</h4>${listOf(rec.reasons)}
   <h4>${esc(ui('controlsAtLevel'))}</h4><ul class="controls">${rec.controls.map((c) => controlHtml(c, true)).join('')}</ul>
@@ -341,7 +524,7 @@ function recommendationHtml(rec) {
 function threatHtml(threat) {
   const refs = threat.refs.map(refLink).join(sep());
   const by = threat.addressedBy.map((id) => `<a href="#patterns/${id}">${ltr(id)}</a>`).join(sep());
-  return `<li><p class="ttitle">${esc(t(threat.title))}</p><p class="trefs">${refs}</p><p class="tby">${esc(ui('threatsMitigated'))} ${by}</p></li>`;
+  return `<li><p class="ttitle">${esc(t(threat.title))}</p><p class="trefs">${refs}</p><p class="tby">${esc(ui('threatsMitigated'))} ${by}</p><button type="button" class="mark-btn" data-threat="${threat.id}" aria-pressed="false">${icon('pen')}<span>${esc(ui('showOnPlan'))}</span></button></li>`;
 }
 
 function writeUrl() {
@@ -511,6 +694,7 @@ function viewLearn() {
   main.innerHTML = `<section class="page learn">
   <h1>${esc(ui('learnTitle'))}</h1>
   <p class="lede">${esc(ui('learnIntro'))}</p>
+  <p class="more quiz-link"><a href="#quiz">${esc(ui('quizTitle'))}</a></p>
   <div class="learn-grid">
     <section><h2>${esc(ui('handbookTitle'))}</h2><ol class="steps">${m.handbook.map((c) => item(gh('handbook', c.slug), c.title, c.summary)).join('')}</ol></section>
     <div class="learn-side">
@@ -563,6 +747,99 @@ function viewGlossary() {
   });
 }
 
+// The quiz
+
+function viewQuiz() {
+  if (!S.quiz) S.quiz = { questions: buildQuiz(S.data), index: 0, results: [] };
+  main.innerHTML = `<section class="page quiz">
+  <h1>${esc(ui('quizTitle'))}</h1>
+  <p class="lede">${esc(ui('quizIntro'))}</p>
+  <div class="quiz-card" id="quiz"></div>
+  <p class="quiz-keys">${esc(ui('quizKeys'))}</p>
+</section>`;
+  document.getElementById('quiz').addEventListener('click', (event) => {
+    const option = event.target.closest('.quiz-option');
+    if (option) return answerQuiz(option.dataset.id);
+    if (event.target.closest('[data-next]')) {
+      S.quiz.index += 1;
+      drawQuiz();
+      const first = document.querySelector('.quiz-option, [data-again]');
+      if (first) first.focus();
+      return;
+    }
+    if (event.target.closest('[data-again]')) {
+      S.quiz = { questions: buildQuiz(S.data), index: 0, results: [] };
+      drawQuiz();
+      document.querySelector('.quiz-option').focus();
+    }
+  });
+  drawQuiz();
+}
+
+function drawQuiz() {
+  const box = document.getElementById('quiz');
+  const Q = S.quiz;
+  const total = Q.questions.length;
+  const scale = `<div class="scale" aria-hidden="true">${Q.questions
+    .map((q, i) => `<span class="${i < Q.results.length ? (Q.results[i] ? 'ok' : 'miss') : i === Q.index ? 'now' : ''}"></span>`)
+    .join('')}</div>`;
+  if (Q.index >= total) {
+    const right = Q.results.filter(Boolean).length;
+    const missed = [...new Set(Q.questions.filter((q, i) => !Q.results[i]).map((q) => q.answer))];
+    const review = missed.length
+      ? `<h3>${esc(ui('quizReview'))}</h3><ul class="plain">${missed.map((id) => `<li>${patternLink(id)}</li>`).join('')}</ul>`
+      : '';
+    box.innerHTML = `${scale}<h2 class="quiz-score">${fmt(ui('quizScore'), { n: esc(num(right)), total: esc(num(total)) })}</h2>${review}
+<p class="quiz-actions"><button type="button" class="quiz-go" data-again>${esc(ui('quizAgain'))}</button></p>`;
+    return;
+  }
+  const q = Q.questions[Q.index];
+  const options = q.options
+    .map(
+      (id, i) =>
+        `<button type="button" class="quiz-option" data-id="${id}"><span class="key">${esc(num(i + 1))}</span><span>${ltr(id)} ${esc(t(patternById(id).title))}</span></button>`
+    )
+    .join('');
+  box.innerHTML = `${scale}
+<p class="quiz-progress">${fmt(ui('quizProgress'), { n: esc(num(Q.index + 1)), total: esc(num(total)) })}</p>
+<h2 class="quiz-ask">${esc(ui(q.kind === 'threat' ? 'quizThreat' : 'quizProblem'))}</h2>
+<blockquote class="quiz-prompt">${esc(t(q.prompt))}</blockquote>
+<div class="quiz-options">${options}</div>
+<div class="quiz-feedback" id="quiz-feedback" aria-live="polite"></div>`;
+}
+
+function answerQuiz(id) {
+  const Q = S.quiz;
+  if (Q.results.length > Q.index || Q.index >= Q.questions.length) return;
+  const q = Q.questions[Q.index];
+  const ok = id === q.answer;
+  Q.results.push(ok);
+  for (const button of document.querySelectorAll('.quiz-option')) {
+    button.disabled = true;
+    if (button.dataset.id === q.answer) button.classList.add('right');
+    else if (button.dataset.id === id) button.classList.add('wrong');
+  }
+  const segment = document.querySelectorAll('.scale span')[Q.index];
+  if (segment) segment.className = ok ? 'ok' : 'miss';
+  const last = Q.index + 1 >= Q.questions.length;
+  const verdict = ok ? esc(ui('quizRight')) : `${esc(ui('quizWrong'))} ${patternLink(q.answer)}`;
+  document.getElementById('quiz-feedback').innerHTML = `<p class="verdict ${ok ? 'ok' : 'miss'}">${verdict}</p>
+<p>${esc(t(patternById(q.answer).summary))}</p>
+<p class="quiz-actions"><button type="button" class="quiz-go" data-next>${esc(ui(last ? 'quizFinish' : 'quizNext'))}</button><a href="#patterns/${q.answer}">${esc(ui('readPattern'))}</a></p>`;
+  document.querySelector('[data-next]').focus();
+}
+
+// Keys: Escape clears the red marks, and 1 to 4 answer the quiz, in either set of numerals.
+function onKey(event) {
+  if (event.key === 'Escape' && S.view === 'design' && S.focus) return unpin();
+  if (S.view !== 'quiz' || event.altKey || event.ctrlKey || event.metaKey) return;
+  if (event.target.closest && event.target.closest('input, textarea')) return;
+  const digit = '1234'.indexOf(event.key) >= 0 ? '1234'.indexOf(event.key) : '١٢٣٤'.indexOf(event.key);
+  if (digit < 0) return;
+  const option = document.querySelectorAll('.quiz-option')[digit];
+  if (option && !option.disabled) option.click();
+}
+
 // Routing
 
 function notFound() {
@@ -580,6 +857,7 @@ function render(moved) {
   else if (r.view === 'patterns') viewIndex();
   else if (r.view === 'learn') viewLearn();
   else if (r.view === 'glossary') viewGlossary();
+  else if (r.view === 'quiz') viewQuiz();
   else notFound();
   setTitle();
   syncLinks();
@@ -600,6 +878,7 @@ async function init() {
     return;
   }
   renderChrome();
+  document.addEventListener('keydown', onKey);
   window.addEventListener('hashchange', () => render(true));
   render(false);
 }
