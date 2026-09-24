@@ -18,7 +18,7 @@
       "en": "Ali AlEnezi",
       "ar": "علي العنزي"
     },
-    "version": "0.1.0"
+    "version": "0.2.0"
   },
   "domains": {
     "identity": {
@@ -364,6 +364,10 @@
       "en": "Plan of the proposed architecture",
       "ar": "مخطط المعمارية المقترحة"
     },
+    "swipeHint": {
+      "en": "Swipe sideways to see the whole plan.",
+      "ar": "اسحب جانبيًا لترى المخطط كاملًا."
+    },
     "planOutside": {
       "en": "Outside",
       "ar": "الخارج"
@@ -467,6 +471,18 @@
     "backToIndex": {
       "en": "Back to the index",
       "ar": "العودة إلى الفهرس"
+    },
+    "diagramCaption": {
+      "en": "How the parts fit together",
+      "ar": "كيف تترابط الأجزاء"
+    },
+    "atAGlance": {
+      "en": "At a glance",
+      "ar": "نظرة سريعة"
+    },
+    "mappedTo": {
+      "en": "Framework mappings",
+      "ar": "الربط بالأطر"
     },
     "problem": {
       "en": "The problem",
