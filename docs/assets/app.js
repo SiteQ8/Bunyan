@@ -38,6 +38,18 @@ const other = () => (S.lang === 'ar' ? 'en' : 'ar');
 const gh = (folder, slug) => `${meta().project.repo}/blob/main/${folder}/${S.lang}/${slug}.md`;
 const patternById = (id) => S.data.patterns.find((p) => p.id === id);
 const today = () => new Date().toISOString().slice(0, 10);
+
+// The brand mark: a room with its door, drawn like the plan.
+const MARK =
+  '<svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><path class="bm-wall" d="M7 7h18v18H16M7 7v11M7 25h2"/><path class="bm-door" d="M16 25a7 7 0 0 0-7-7M16 25V18"/></svg>';
+
+const ICONS = {
+  copy: '<path d="M6.8 9.2l2.4-2.4"/><path d="M7.6 4.9l1.1-1.1a2.5 2.5 0 0 1 3.5 3.5l-1.1 1.1"/><path d="M8.4 11.1l-1.1 1.1a2.5 2.5 0 0 1-3.5-3.5l1.1-1.1"/>',
+  download: '<path d="M8 2.5v7.5"/><path d="M4.8 7l3.2 3.2L11.2 7"/><path d="M3 13.2h10"/>',
+  print: '<path d="M4.5 6V2.5h7V6"/><path d="M4.5 11.5H3.2a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h9.6a1 1 0 0 1 1 1v3.5a1 1 0 0 1-1 1h-1.3"/><path d="M4.5 9.2h7v4.3h-7z"/>',
+  reset: '<path d="M3.2 8.2a4.8 4.8 0 1 0 1.5-3.6"/><path d="M3.2 2.6v3h3"/>',
+};
+const icon = (name) => `<svg class="icon" viewBox="0 0 16 16" aria-hidden="true">${ICONS[name]}</svg>`;
 const store = (key, value) => {
   try {
     localStorage.setItem(key, value);
@@ -78,6 +90,7 @@ function renderChrome() {
     '<svg viewBox="0 0 20 20" aria-hidden="true" class="theme-icon"><circle cx="10" cy="10" r="7.25" class="ti-ring"/><path d="M10 2.75a7.25 7.25 0 0 1 0 14.5z" class="ti-half"/></svg></button>';
   const p = meta().project;
   document.getElementById('colophon').innerHTML =
+    `<p class="colophon-brand">${MARK}<span>${esc(t(p.tagline))}</span></p>` +
     `<p>${esc(ui('footerLicense'))} ${esc(ui('footerMaintainer'))}</p>` +
     `<p>${esc(ui('footerPrivacy'))}</p>` +
     `<p><a href="${esc(p.repo)}">${esc(ui('footerSource'))}</a> <span class="version">${ltr(`v${p.version}`)}</span></p>`;
@@ -200,14 +213,15 @@ function viewDesign(query) {
   <div class="sheet-head">
     <h2 id="sheet-title">${esc(ui('sheetTitle'))}</h2>
     <div class="actions">
-      <button type="button" data-act="copy">${esc(ui('copyLink'))}</button>
-      <button type="button" data-act="download">${esc(ui('download'))}</button>
-      <button type="button" data-act="print">${esc(ui('print'))}</button>
-      <button type="button" data-act="reset" class="quiet">${esc(ui('reset'))}</button>
+      <button type="button" data-act="copy">${icon('copy')}<span>${esc(ui('copyLink'))}</span></button>
+      <button type="button" data-act="download">${icon('download')}<span>${esc(ui('download'))}</span></button>
+      <button type="button" data-act="print">${icon('print')}<span>${esc(ui('print'))}</span></button>
+      <button type="button" data-act="reset" class="quiet">${icon('reset')}<span>${esc(ui('reset'))}</span></button>
     </div>
     <p class="toast" id="toast" role="status" aria-live="polite"></p>
   </div>
   <div class="plan-frame" id="plan" role="region" aria-label="${esc(ui('planLabel'))}" tabindex="0"></div>
+  <p class="swipe">${esc(ui('swipeHint'))}</p>
   <div class="sheet-foot">
     <section class="legend" aria-labelledby="legend-title">
       <h3 id="legend-title">${esc(ui('legendTitle'))}</h3>
@@ -215,7 +229,7 @@ function viewDesign(query) {
     </section>
     <div class="titleblock">
       <dl id="titleblock"></dl>
-      <p class="tb-mark"><span lang="en">Bunyan</span> <span lang="ar">بُنيان</span></p>
+      <p class="tb-mark">${MARK}<span lang="en">Bunyan</span> <span lang="ar">بُنيان</span></p>
     </div>
   </div>
 </section>
@@ -271,7 +285,10 @@ function bindDesign() {
 
 function refresh(write) {
   S.advice = advise(S.data, S.answers);
-  document.getElementById('plan').innerHTML = renderPlan(S.advice.plan, S.lang, meta().ui);
+  const frame = document.getElementById('plan');
+  frame.innerHTML = renderPlan(S.advice.plan, S.lang, meta().ui);
+  // After a change of answer, each new drawing fades in, so the eye catches what changed.
+  if (write) frame.classList.add('redraw');
   refreshTitleBlock();
   document.getElementById('groups').innerHTML = groupsHtml(S.advice);
   document.getElementById('threats').innerHTML = S.advice.threats.map(threatHtml).join('');
@@ -413,33 +430,73 @@ function viewIndex() {
 function viewPattern(id) {
   const p = patternById(id);
   if (!p) return notFound();
+  const m = meta();
   const controls = LEVELS.map((level) => {
     const list = p.controls.filter((c) => c.level === level);
     if (!list.length) return '';
-    return `<h3>${esc(t(meta().levels[level]))}</h3><ul class="controls">${list.map((c) => controlHtml(c)).join('')}</ul>`;
+    return `<h3>${esc(t(m.levels[level]))}</h3><ul class="controls">${list.map((c) => controlHtml(c)).join('')}</ul>`;
   }).join('');
   const refs = [...p.attack, ...p.owasp];
   const threats = refs.length
     ? `<h2>${esc(ui('threats'))}</h2><ul>${refs.map((r) => `<li>${refLink(r)}</li>`).join('')}</ul>`
     : '';
+  const row = (label, value) => `<span class="row"><span>${label}</span><span class="n">${esc(num(value))}</span></span>`;
+  const distinct = (key) => new Set(p.controls.flatMap((c) => c[key])).size;
+  const refRows = [
+    [p.attack.length, 'MITRE ATT&CK'],
+    [p.owasp.length, 'OWASP'],
+  ]
+    .filter(([n]) => n)
+    .map(([n, name]) => row(ltr(name), n))
+    .join('');
   main.innerHTML = `<article class="page pattern">
   <p class="back"><a href="#patterns">${esc(ui('backToIndex'))}</a></p>
   <h1><span class="pid">${ltr(p.id)}</span> ${esc(t(p.title))}</h1>
-  <p class="domain">${esc(t(meta().domains[p.domain]))}</p>
+  <p class="domain">${esc(t(m.domains[p.domain]))}</p>
   <p class="lede">${esc(t(p.summary))}</p>
-  <h2>${esc(ui('problem'))}</h2><p>${esc(t(p.problem))}</p>
-  <h2>${esc(ui('useWhen'))}</h2>${listOf(p.useWhen)}
-  <h2>${esc(ui('design'))}</h2>${p.design.map((d) => `<p>${esc(t(d))}</p>`).join('')}
-  <p class="more"><a href="${gh('patterns', `${p.id}-${p.slug}`)}">${esc(ui('openOnGitHub'))}</a></p>
-  <h2>${esc(ui('controls'))}</h2>${controls}
-  <h2>${esc(ui('decisions'))}</h2>${listOf(p.decisions)}
-  <h2>${esc(ui('tradeoffs'))}</h2>${listOf(p.tradeoffs)}
-  <h2>${esc(ui('antipatterns'))}</h2>${listOf(p.antipatterns)}
-  <h2>${esc(ui('verify'))}</h2>${listOf(p.verify)}
-  ${threats}
-  <h2>${esc(ui('related'))}</h2><ul>${p.related.map((r) => `<li>${patternLink(r)}</li>`).join('')}</ul>
-  <h2>${esc(ui('references'))}</h2><ul>${p.references.map((r) => `<li><a href="${esc(r.url)}">${esc(t(r.title))}</a></li>`).join('')}</ul>
+  <figure class="diagram" id="diagram" hidden>
+    <figcaption>${esc(ui('diagramCaption'))}</figcaption>
+    <div class="diagram-canvas" id="diagram-canvas" tabindex="0" role="region" aria-label="${esc(ui('diagramCaption'))}"></div>
+  </figure>
+  <div class="pattern-body">
+    <div class="pattern-main">
+      <h2>${esc(ui('problem'))}</h2><p>${esc(t(p.problem))}</p>
+      <h2>${esc(ui('useWhen'))}</h2>${listOf(p.useWhen)}
+      <h2>${esc(ui('design'))}</h2>${p.design.map((d) => `<p>${esc(t(d))}</p>`).join('')}
+      <h2>${esc(ui('controls'))}</h2>${controls}
+      <h2>${esc(ui('decisions'))}</h2>${listOf(p.decisions)}
+      <h2>${esc(ui('tradeoffs'))}</h2>${listOf(p.tradeoffs)}
+      <h2>${esc(ui('antipatterns'))}</h2>${listOf(p.antipatterns)}
+      <h2>${esc(ui('verify'))}</h2>${listOf(p.verify)}
+      ${threats}
+      <h2>${esc(ui('references'))}</h2><ul>${p.references.map((r) => `<li><a href="${esc(r.url)}">${esc(t(r.title))}</a></li>`).join('')}</ul>
+    </div>
+    <aside class="glance" aria-labelledby="glance-title">
+      <h2 id="glance-title">${esc(ui('atAGlance'))}</h2>
+      <dl>
+        <div><dt>${esc(ui('colDomain'))}</dt><dd>${esc(t(m.domains[p.domain]))}</dd></div>
+        <div><dt>${esc(ui('controls'))}</dt><dd>${LEVELS.map((l) => row(esc(t(m.levels[l])), p.controls.filter((c) => c.level === l).length)).join('')}</dd></div>
+        <div><dt>${esc(ui('mappedTo'))}</dt><dd>${['nist', 'cis', 'iso'].map((k) => row(ltr(t(m.frameworks[k])), distinct(k))).join('')}</dd></div>
+        ${refRows ? `<div><dt>${esc(ui('threats'))}</dt><dd>${refRows}</dd></div>` : ''}
+      </dl>
+      <h3>${esc(ui('related'))}</h3>
+      <ul class="plain">${p.related.map((r) => `<li>${patternLink(r)}</li>`).join('')}</ul>
+      <p class="more"><a href="${gh('patterns', `${p.id}-${p.slug}`)}">${esc(ui('openOnGitHub'))}</a></p>
+    </aside>
+  </div>
 </article>`;
+  // The diagram is drawn ahead of time by scripts/render-diagrams.mjs and styled by this page.
+  fetch(`diagrams/${p.id}.${S.lang}.svg`)
+    .then((res) => (res.ok ? res.text() : ''))
+    .then((svg) => {
+      const canvas = document.getElementById('diagram-canvas');
+      if (!svg || !canvas || route().id !== p.id) return;
+      canvas.innerHTML = svg;
+      const drawing = canvas.querySelector('svg');
+      if (drawing) drawing.setAttribute('aria-label', `${p.id} ${t(p.title)}`);
+      document.getElementById('diagram').hidden = false;
+    })
+    .catch(() => {});
 }
 
 // Learning
