@@ -1,0 +1,23 @@
+{
+  "name": "bunyan",
+  "version": "0.1.0",
+  "description": "Learn security architecture, then design it well. An open handbook, pattern catalogue, and design advisor in English and Arabic.",
+  "license": "MIT",
+  "author": "Ali AlEnezi",
+  "type": "module",
+  "private": true,
+  "homepage": "https://siteq8.github.io/Bunyan/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SiteQ8/Bunyan.git"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "check": "node scripts/build.mjs --check",
+    "test": "node --test tests/*.test.mjs",
+    "links": "node scripts/check-links.mjs"
+  }
+}
