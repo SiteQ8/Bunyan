@@ -26,7 +26,7 @@
 
 ## جرّبه في المستشار
 
-افتح [مستشار التصميم وقد مُلئ بهذا السيناريو](https://siteq8.github.io/Bunyan/?lang=ar#design?s=ot&h=onprem&x=vendors&d=internal&o=national&a=critical&m=outsourced&b=&l=foundation)، ثم قارن مخططه برسمك.
+افتح [مستشار التصميم وقد مُلئ بهذا السيناريو](https://bunyan.3li.info/?lang=ar#design?s=ot&h=onprem&x=vendors&d=internal&o=national&a=critical&m=outsourced&b=&l=foundation)، ثم قارن مخططه برسمك.
 
 ## إجابة نموذجية
 

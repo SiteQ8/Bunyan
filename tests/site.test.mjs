@@ -39,7 +39,7 @@ test('the page has no inline scripts, styles, or style attributes', () => {
 test('every asset the page loads is local and exists', () => {
   const refs = [...html.matchAll(/\s(?:src|href)="([^"]+)"/g)].map((m) => m[1]);
   for (const ref of refs) {
-    if (/^https:\/\/(siteq8\.github\.io\/Bunyan\/|github\.com\/SiteQ8\/Bunyan)/.test(ref) || ref.startsWith('#')) continue;
+    if (/^https:\/\/(bunyan\.3li\.info\/|github\.com\/SiteQ8\/Bunyan)/.test(ref) || ref.startsWith('#')) continue;
     assert.ok(!/^[a-z]+:/i.test(ref), `${ref} is local`);
     assert.ok(fs.existsSync(path.join(docs, ref)), `${ref} exists`);
   }

@@ -24,7 +24,7 @@ A company wants an assistant that answers employees' questions from internal doc
 
 ## Try it in the advisor
 
-Open the [design advisor with this scenario already filled in](https://siteq8.github.io/Bunyan/?lang=en#design?s=ai&h=cloud&x=remote&d=confidential&o=privacy&a=standard&m=small&b=inhouse&l=foundation), then compare its plan with your own drawing.
+Open the [design advisor with this scenario already filled in](https://bunyan.3li.info/?lang=en#design?s=ai&h=cloud&x=remote&d=confidential&o=privacy&a=standard&m=small&b=inhouse&l=foundation), then compare its plan with your own drawing.
 
 ## A worked answer
 

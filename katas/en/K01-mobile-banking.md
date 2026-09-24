@@ -24,7 +24,7 @@ A retail bank in the Gulf is launching a new mobile banking app. Customers will 
 
 ## Try it in the advisor
 
-Open the [design advisor with this scenario already filled in](https://siteq8.github.io/Bunyan/?lang=en#design?s=digital&h=hybrid&x=public.partners&d=regulated&o=pci.bank.national&a=critical&m=outsourced&b=inhouse.containers&l=enhanced), then compare its plan with your own drawing.
+Open the [design advisor with this scenario already filled in](https://bunyan.3li.info/?lang=en#design?s=digital&h=hybrid&x=public.partners&d=regulated&o=pci.bank.national&a=critical&m=outsourced&b=inhouse.containers&l=enhanced), then compare its plan with your own drawing.
 
 ## A worked answer
 

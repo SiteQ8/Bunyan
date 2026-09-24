@@ -24,7 +24,7 @@ A water utility runs treatment plants and pumping stations that a SCADA system c
 
 ## Try it in the advisor
 
-Open the [design advisor with this scenario already filled in](https://siteq8.github.io/Bunyan/?lang=en#design?s=ot&h=onprem&x=vendors&d=internal&o=national&a=critical&m=outsourced&b=&l=foundation), then compare its plan with your own drawing.
+Open the [design advisor with this scenario already filled in](https://bunyan.3li.info/?lang=en#design?s=ot&h=onprem&x=vendors&d=internal&o=national&a=critical&m=outsourced&b=&l=foundation), then compare its plan with your own drawing.
 
 ## A worked answer
 

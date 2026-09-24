@@ -75,4 +75,4 @@ Certifications do not make an architect, but they give structure to study and a 
 
 ## Practise every week
 
-Skills fade without practice. Once a week, run a system you know through the [design advisor](https://siteq8.github.io/Bunyan/?lang=en), or read one incident report and ask which pattern would have stopped it, or write one decision record. Small, regular practice builds judgement faster than occasional courses.
+Skills fade without practice. Once a week, run a system you know through the [design advisor](https://bunyan.3li.info/?lang=en), or read one incident report and ask which pattern would have stopped it, or write one decision record. Small, regular practice builds judgement faster than occasional courses.

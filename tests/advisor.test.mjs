@@ -235,7 +235,7 @@ test('the downloadable brief follows the language rules', () => {
   for (const [name, scenario] of Object.entries(SCENARIOS)) {
     const advice = advise(bundle, scenario);
     for (const lang of ['en', 'ar']) {
-      const md = renderBrief(bundle, advice, { lang, project: 'Test', date: '2026-09-24', link: 'https://siteq8.github.io/Bunyan/#design' });
+      const md = renderBrief(bundle, advice, { lang, project: 'Test', date: '2026-09-24', link: 'https://bunyan.3li.info/#design' });
       assert.deepEqual(markdownProblems(md, lang), [], `${name} ${lang}`);
       assert.deepEqual(universalProblems(md), [], `${name} ${lang}`);
       assert.ok(!/undefined|\[object/.test(md), `${name} ${lang} has no missing values`);
