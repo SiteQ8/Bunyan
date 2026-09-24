@@ -131,7 +131,7 @@ export function buildPlan(advisor, answers, recommended) {
     });
   }
   const doors = spec.doors.slice(0, rooms.length - 1).map((d) => pick(d, answers, recommended));
-  return {
+  const plan = {
     system: answers.system,
     corridor: pick(spec.corridor || common.corridor, answers, recommended),
     management: {
@@ -145,6 +145,27 @@ export function buildPlan(advisor, answers, recommended) {
     vault: pickFixture(common.vault, answers, recommended),
     egress: pickFixture(common.egress, answers, recommended),
   };
+  // A recommended pattern with no place of its own on this system's plan stands in
+  // the foundations band, with the controls that apply across every zone, so the
+  // drawing shows every pattern the design needs and each one can be pointed at.
+  const drawn = new Set(
+    [
+      plan.corridor && plan.corridor.pattern,
+      plan.vault && plan.vault.pattern,
+      plan.egress && plan.egress.pattern,
+      ...plan.management.fixtures.map((f) => f.pattern),
+      ...plan.entrances.map((e) => e.pattern),
+      ...rooms.flatMap((r) => r.fixtures.map((f) => f.pattern)),
+      ...doors.filter(Boolean).map((d) => d.pattern),
+      ...plan.foundations.map((f) => f.pattern),
+    ].filter(Boolean)
+  );
+  for (const rec of sortRecommended([...recommended.values()])) {
+    if (drawn.has(rec.id)) continue;
+    plan.foundations.push({ label: advisor.plan.short[rec.id], pattern: rec.id, priority: rec.priority, across: true });
+    drawn.add(rec.id);
+  }
+  return plan;
 }
 
 // Everything the interface and the brief need, from one call.
@@ -195,4 +216,18 @@ export function decodeState(advisor, query) {
     raw[q.id] = q.type === 'multi' ? (v ? v.split('.') : []) : v;
   }
   return { answers: normalizeAnswers(advisor, raw), project: (params.get('n') || '').slice(0, 80) };
+}
+
+// What an answer changed: patterns added, removed, or moved to another priority.
+export function diffPatterns(before, after) {
+  const was = new Map(before.map((p) => [p.id, p.priority]));
+  const now = new Map(after.map((p) => [p.id, p.priority]));
+  const changes = [];
+  for (const [id, priority] of now) {
+    if (!was.has(id)) changes.push({ id, kind: 'added', priority });
+    else if (was.get(id) !== priority) changes.push({ id, kind: 'moved', from: was.get(id), priority });
+  }
+  for (const [id, priority] of was) if (!now.has(id)) changes.push({ id, kind: 'removed', priority });
+  const order = { added: 0, moved: 1, removed: 2 };
+  return changes.sort((a, b) => order[a.kind] - order[b.kind] || a.id.localeCompare(b.id));
 }

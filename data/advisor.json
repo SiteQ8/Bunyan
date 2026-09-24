@@ -2735,6 +2735,72 @@
           }
         ]
       }
+    },
+    "short": {
+      "P01": {
+        "en": "Zero trust access broker",
+        "ar": "وسيط الوصول وفق الثقة الصفرية"
+      },
+      "P02": {
+        "en": "Identity provider and MFA",
+        "ar": "مزود الهوية والتحقق متعدد العناصر"
+      },
+      "P03": {
+        "en": "Tiered admin access",
+        "ar": "وصول إداري في طبقات"
+      },
+      "P04": {
+        "en": "Segmented zones",
+        "ar": "مناطق مقسمة ومعزولة"
+      },
+      "P05": {
+        "en": "Protected edge and egress",
+        "ar": "حافة محمية وحركة صادرة مضبوطة"
+      },
+      "P06": {
+        "en": "Cloud guardrails",
+        "ar": "ضوابط وقائية سحابية"
+      },
+      "P07": {
+        "en": "API gateway and authorization",
+        "ar": "بوابة الواجهات والتفويض"
+      },
+      "P08": {
+        "en": "Keys, secrets, and workload identity",
+        "ar": "المفاتيح والأسرار وهوية أعباء العمل"
+      },
+      "P09": {
+        "en": "Data classified and encrypted",
+        "ar": "بيانات مصنفة ومشفرة"
+      },
+      "P10": {
+        "en": "Telemetry and detection",
+        "ar": "بيانات الرصد والكشف"
+      },
+      "P11": {
+        "en": "Signed builds",
+        "ar": "بناء موقّع"
+      },
+      "P12": {
+        "en": "Immutable recovery copies",
+        "ar": "نسخ استعادة غير قابلة للتعديل"
+      },
+      "P13": {
+        "en": "OT zones and conduits",
+        "ar": "مناطق التقنيات التشغيلية وقنواتها"
+      },
+      "P14": {
+        "en": "Guardrails for the model",
+        "ar": "حواجز حماية للنموذج"
+      },
+      "P15": {
+        "en": "Regulated data enclave",
+        "ar": "نطاق معزول للبيانات المنظمة"
+      },
+      "P16": {
+        "en": "Container platform guardrails",
+        "ar": "ضوابط منصة الحاويات"
+      }
     }
   }
 }

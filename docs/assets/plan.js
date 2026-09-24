@@ -65,6 +65,15 @@ export function renderPlan(plan, lang, ui) {
     rect(cx - size / 2, y - 5, size, 10, 'pl-gap');
   };
   const priorityClass = (p) => `pl-${p || 'structural'}`;
+  // Each piece of the plan is a group that names the pattern it comes from, so
+  // the page can point at it, light it up, and explain it.
+  const open = (item, kind) =>
+    out.push(
+      item.pattern
+        ? `<g class="pl-item" data-pattern="${item.pattern}" data-kind="${kind}" data-label="${esc(t(item.label))}">`
+        : '<g>'
+    );
+  const close = () => out.push('</g>');
 
   out.push(
     `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" class="plan" role="img" aria-labelledby="plan-title plan-desc" lang="${lang}">`
@@ -92,6 +101,7 @@ export function renderPlan(plan, lang, ui) {
     const inset = i === 0 ? 40 : 18;
     lines(r.x + inset, ROOM_TOP + 26, wrap(t(r.label), r.w - inset - 14, 13), 'pl-room-label', 13);
     r.fixtures.forEach((f, j) => {
+      open(f, 'fixture');
       const fx = r.x + inset;
       const fw = r.w - inset - 18;
       const fy = ROOM_TOP + 50 + j * 46;
@@ -99,17 +109,20 @@ export function renderPlan(plan, lang, ui) {
       const l = wrap(t(f.label), fw - 12, 11).slice(0, 2);
       const baseY = l.length === 1 ? fy + 22 : fy + 15;
       lines(fx + fw / 2, baseY, l, `pl-fixture-label ${priorityClass(f.priority)}`, 11, 'middle');
+      close();
     });
   });
 
   // Doors between rooms: the enforcement points.
   plan.doors.forEach((d, i) => {
     const x = rooms[i + 1].x;
+    open(d, 'door');
     doorV(x, 372, 36, priorityClass(d.priority));
     const l = wrap(t(d.label), Math.min(roomW - 20, 190), 11).slice(0, 2);
     const w = Math.max(...l.map((s) => s.length)) * 6.2 + 12;
     rect(x - w / 2, 420, w, l.length * 14 + 8, 'pl-tag');
     lines(x, 433, l, 'pl-door-label', 11, 'middle');
+    close();
   });
 
   // Entrances in the outer wall, with the people who use them outside.
@@ -118,6 +131,7 @@ export function renderPlan(plan, lang, ui) {
   const span = ROOM_BOTTOM - ROOM_TOP - 40;
   openings.forEach((o, i) => {
     const yc = ROOM_TOP + 20 + (i + 0.5) * (span / openings.length);
+    open(o, o.kind === 'in' ? 'entrance' : 'exit');
     doorV(B0, yc - 15, 30, priorityClass(o.priority));
     if (o.kind === 'in') {
       out.push(`<circle cx="${X(28)}" cy="${yc - 20}" r="5" class="pl-person"/>`);
@@ -129,6 +143,7 @@ export function renderPlan(plan, lang, ui) {
       lines(44, yc - 6, wrap(t(o.label), 172, 10.5).slice(0, 3), 'pl-entrance-label', 10.5);
       line(B0 - 8, yc + 14, 226, yc + 14, 'pl-flow', ' marker-end="url(#pl-arrow)"');
     }
+    close();
   });
 
   // Management room and the service corridor for administration.
@@ -136,11 +151,14 @@ export function renderPlan(plan, lang, ui) {
   rect(B0, 20, mgmtW, 104, 'pl-room w3');
   text(B0 + 12, 40, t(plan.management.label), 'pl-room-label');
   plan.management.fixtures.forEach((f, j) => {
+    open(f, 'fixture');
     rect(B0 + 10, 50 + j * 34, mgmtW - 20, 28, `pl-fixture ${priorityClass(f.priority)}`);
     const l = wrap(t(f.label), mgmtW - 30, 10).slice(0, 2);
     lines(B0 + mgmtW / 2, 50 + j * 34 + (l.length === 1 ? 18 : 12), l, `pl-fixture-label ${priorityClass(f.priority)}`, 10, 'middle');
+    close();
   });
   if (plan.corridor) {
+    open(plan.corridor, 'corridor');
     const c0 = B0 + mgmtW;
     line(c0, 46, B1, 46, 'pl-corridor');
     line(c0, 104, B1, 104, 'pl-corridor');
@@ -154,6 +172,7 @@ export function renderPlan(plan, lang, ui) {
       doorH(cx, ROOM_TOP, 22);
       line(cx, from, cx, ROOM_TOP - 4, 'pl-service', ' marker-end="url(#pl-arrow)"');
     });
+    close();
   }
 
   // Foundations under every zone.
@@ -161,22 +180,28 @@ export function renderPlan(plan, lang, ui) {
   text(B0 + 14, 514, t(ui.planFoundations), 'pl-zone-label');
   const fn = plan.foundations.length;
   if (fn) {
-    const gap = 12;
+    const gap = fn > 6 ? 8 : 12;
     const bw = (B1 - B0 - 28 - gap * (fn - 1)) / fn;
     plan.foundations.forEach((f, i) => {
       const x = B0 + 14 + i * (bw + gap);
+      open(f, f.across ? 'across' : 'foundation');
       rect(x, 526, bw, 58, `pl-fixture ${priorityClass(f.priority)}`);
-      const l = wrap(t(f.label), bw - 12, 11).slice(0, 3);
-      lines(x + bw / 2, 546 + (3 - l.length) * 6, l, `pl-fixture-label ${priorityClass(f.priority)}`, 11, 'middle');
+      // A crowded band uses slightly smaller type, so every label keeps its words.
+      const size = fn > 6 ? 10 : 11;
+      const l = wrap(t(f.label), bw - 10, size).slice(0, 3);
+      lines(x + bw / 2, 546 + (3 - l.length) * 6, l, `pl-fixture-label ${priorityClass(f.priority)}`, size, 'middle');
+      close();
     });
   }
 
   // The recovery vault stands apart and only receives.
   if (plan.vault) {
+    open(plan.vault, 'vault');
     rect(1100, 250, 168, 140, `pl-vault ${priorityClass(plan.vault.priority)}`);
     const l = wrap(t(plan.vault.label), 140, 11.5).slice(0, 4);
     lines(1184, 300, l, 'pl-vault-label', 11.5, 'middle');
     line(B1 + 6, 320, 1094, 320, 'pl-oneway', ' marker-end="url(#pl-arrow)"');
+    close();
   }
 
   out.push('</svg>');
