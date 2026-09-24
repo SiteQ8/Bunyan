@@ -1,0 +1,103 @@
+{
+  "name": "OWASP Top 10 lists",
+  "risks": {
+    "API1:2023": {
+      "name": {
+        "en": "Broken Object Level Authorization",
+        "ar": "كسر التفويض على مستوى الكائن"
+      },
+      "url": "https://owasp.org/API-Security/editions/2023/en/0xa1-broken-object-level-authorization/"
+    },
+    "API2:2023": {
+      "name": {
+        "en": "Broken Authentication",
+        "ar": "كسر التحقق من الهوية"
+      },
+      "url": "https://owasp.org/API-Security/editions/2023/en/0xa2-broken-authentication/"
+    },
+    "API3:2023": {
+      "name": {
+        "en": "Broken Object Property Level Authorization",
+        "ar": "كسر التفويض على مستوى خصائص الكائن"
+      },
+      "url": "https://owasp.org/API-Security/editions/2023/en/0xa3-broken-object-property-level-authorization/"
+    },
+    "API4:2023": {
+      "name": {
+        "en": "Unrestricted Resource Consumption",
+        "ar": "استهلاك الموارد دون قيود"
+      },
+      "url": "https://owasp.org/API-Security/editions/2023/en/0xa4-unrestricted-resource-consumption/"
+    },
+    "API5:2023": {
+      "name": {
+        "en": "Broken Function Level Authorization",
+        "ar": "كسر التفويض على مستوى الوظيفة"
+      },
+      "url": "https://owasp.org/API-Security/editions/2023/en/0xa5-broken-function-level-authorization/"
+    },
+    "API6:2023": {
+      "name": {
+        "en": "Unrestricted Access to Sensitive Business Flows",
+        "ar": "الوصول غير المقيد إلى مسارات الأعمال الحساسة"
+      },
+      "url": "https://owasp.org/API-Security/editions/2023/en/0xa6-unrestricted-access-to-sensitive-business-flows/"
+    },
+    "API9:2023": {
+      "name": {
+        "en": "Improper Inventory Management",
+        "ar": "قصور حصر الواجهات البرمجية"
+      },
+      "url": "https://owasp.org/API-Security/editions/2023/en/0xa9-improper-inventory-management/"
+    },
+    "LLM01:2025": {
+      "name": {
+        "en": "Prompt Injection",
+        "ar": "حقن التعليمات"
+      },
+      "url": "https://genai.owasp.org/llmrisk/llm01-prompt-injection/"
+    },
+    "LLM02:2025": {
+      "name": {
+        "en": "Sensitive Information Disclosure",
+        "ar": "كشف المعلومات الحساسة"
+      },
+      "url": "https://genai.owasp.org/llmrisk/llm022025-sensitive-information-disclosure/"
+    },
+    "LLM05:2025": {
+      "name": {
+        "en": "Improper Output Handling",
+        "ar": "المعالجة غير السليمة للمخرجات"
+      },
+      "url": "https://genai.owasp.org/llmrisk/llm052025-improper-output-handling/"
+    },
+    "LLM06:2025": {
+      "name": {
+        "en": "Excessive Agency",
+        "ar": "الصلاحيات المفرطة للوكيل"
+      },
+      "url": "https://genai.owasp.org/llmrisk/llm062025-excessive-agency/"
+    },
+    "LLM07:2025": {
+      "name": {
+        "en": "System Prompt Leakage",
+        "ar": "تسرب تعليمات النظام"
+      },
+      "url": "https://genai.owasp.org/llmrisk/llm072025-system-prompt-leakage/"
+    },
+    "LLM08:2025": {
+      "name": {
+        "en": "Vector and Embedding Weaknesses",
+        "ar": "ضعف المتجهات والتضمينات"
+      },
+      "url": "https://genai.owasp.org/llmrisk/llm082025-vector-and-embedding-weaknesses/"
+    },
+    "LLM10:2025": {
+      "name": {
+        "en": "Unbounded Consumption",
+        "ar": "الاستهلاك غير المحدود"
+      },
+      "url": "https://genai.owasp.org/llmrisk/llm102025-unbounded-consumption/"
+    }
+  }
+}

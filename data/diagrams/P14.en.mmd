@@ -1,0 +1,10 @@
+flowchart LR
+  U["User"] --> ORC["Orchestrator<br/>input guardrails"]
+  ORC -- "user identity" --> RET["Retrieval<br/>the user's permissions only"]
+  RET --> KB["Knowledge store"]
+  ORC <--> LLM["Model"]
+  ORC -- "typed, authorised calls" --> TOOLS["Tools<br/>allowed functions only"]
+  TOOLS -- "risky action" --> HIL["Human approval"]
+  ORC --> OUT["Output checks<br/>encoding and filtering"]
+  OUT --> U
+  ORC --> LOG["Prompt, source,<br/>and tool call logs"]

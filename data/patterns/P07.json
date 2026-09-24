@@ -1,0 +1,113 @@
+{
+  "id": "P07",
+  "slug": "api-security",
+  "domain": "application",
+  "title": { "en": "API gateway and object level authorization", "ar": "بوابة الواجهات البرمجية والتفويض على مستوى الكائن" },
+  "summary": {
+    "en": "Expose APIs only through a gateway that authenticates every caller and enforces limits, and make the API itself check, for every object, that the caller is allowed to touch it.",
+    "ar": "لا تكشف الواجهات البرمجية إلا عبر بوابة تتحقق من هوية كل مستدعٍ وتفرض الحدود، واجعل الواجهة نفسها تتحقق عند كل كائن من أن المستدعي مخوّل بالتعامل معه."
+  },
+  "problem": {
+    "en": "APIs expose business logic directly, and the most damaging API flaws are authorization flaws, such as changing an account number in a request and receiving someone else's data. Gateways catch unauthenticated and abusive traffic, but only the service knows who owns each object.",
+    "ar": "تكشف الواجهات البرمجية منطق الأعمال مباشرة، وأخطر ثغراتها ثغرات التفويض، كأن يغيّر المستدعي رقم حساب في الطلب فيحصل على بيانات شخص آخر، وتلتقط البوابات الحركة غير الموثقة والمسيئة، لكن الخدمة وحدها تعرف مالك كل كائن."
+  },
+  "useWhen": [
+    { "en": "Mobile apps, partners, or other systems consume your APIs.", "ar": "تستهلك تطبيقات الأجهزة المحمولة أو الشركاء أو أنظمة أخرى واجهاتك البرمجية." },
+    { "en": "Your APIs return or change customer, account, or payment data.", "ar": "تعيد واجهاتك البرمجية بيانات العملاء أو الحسابات أو المدفوعات أو تعدّلها." },
+    { "en": "You do not have a complete inventory of your APIs and their versions.", "ar": "لا تملك سجل حصر كاملًا لواجهاتك البرمجية وإصداراتها." }
+  ],
+  "design": [
+    {
+      "en": "Publish APIs through a gateway that validates OAuth 2.0 access tokens or mutual TLS client certificates, rejects requests that do not match the API schema, and applies rate and quota limits per client. Issue tokens from an authorization server with short lifetimes, narrow scopes, and audience restrictions, and bind them to the client where you can.",
+      "ar": "انشر الواجهات البرمجية عبر بوابة تتحقق من رموز الوصول وفق OAuth 2.0 أو من شهادات العملاء في TLS المتبادل، وترفض الطلبات غير المطابقة لمخطط الواجهة، وتفرض حدودًا للمعدل والحصص لكل عميل، ثم أصدر الرموز من خادم تفويض بأعمار قصيرة ونطاقات ضيقة وقيود على الجهة المستهدفة، واربطها بالعميل كلما أمكن."
+    },
+    {
+      "en": "Inside the service, authorize every request at the object and function level against the caller's identity, using one shared authorization component rather than checks scattered through the code. Keep an inventory of every API, version, and environment, and retire old versions on a schedule.",
+      "ar": "تحقق داخل الخدمة من تفويض كل طلب على مستوى الكائن والوظيفة استنادًا إلى هوية المستدعي، مستخدمًا مكوّن تفويض مشتركًا بدلًا من عمليات تحقق متناثرة في الشيفرة، واحتفظ بسجل حصر لكل واجهة وإصدارها وبيئتها، ثم أوقف الإصدارات القديمة وفق جدول زمني."
+    }
+  ],
+  "controls": [
+    {
+      "level": "foundation",
+      "name": { "en": "Authenticate every call at the gateway", "ar": "تحقق من هوية كل استدعاء عند البوابة" },
+      "detail": { "en": "Reject any API request without a valid token or client certificate, and never rely on API keys alone for sensitive data.", "ar": "ارفض أي طلب لا يحمل رمزًا صالحًا أو شهادة عميل صالحة، ولا تعتمد أبدًا على مفاتيح الواجهات وحدها لحماية البيانات الحساسة." },
+      "nist": ["IA-2", "IA-9", "AC-3"], "cis": ["16.11"], "iso": ["8.5", "8.26"]
+    },
+    {
+      "level": "foundation",
+      "name": { "en": "Authorize every object and function", "ar": "تحقق من تفويض كل كائن وكل وظيفة" },
+      "detail": { "en": "Check in the service, for every request, that the caller may access the specific object and perform the specific function, and cover this with automated tests.", "ar": "تحقق داخل الخدمة في كل طلب من أن المستدعي يحق له الوصول إلى الكائن المحدد وتنفيذ الوظيفة المحددة، وغطِّ ذلك باختبارات آلية." },
+      "nist": ["AC-3", "AC-6"], "cis": ["16.10", "16.12"], "iso": ["8.26", "8.28"]
+    },
+    {
+      "level": "foundation",
+      "name": { "en": "Validate input against the schema", "ar": "تحقق من المدخلات وفق المخطط" },
+      "detail": { "en": "Validate requests against the API specification at the gateway and in the service, and reject unknown fields and oversized payloads.", "ar": "تحقق من الطلبات وفق مواصفات الواجهة عند البوابة وداخل الخدمة، وارفض الحقول غير المعروفة والحمولات المفرطة الحجم." },
+      "nist": ["SI-10"], "cis": ["16.12"], "iso": ["8.26", "8.28"]
+    },
+    {
+      "level": "foundation",
+      "name": { "en": "Keep an API inventory", "ar": "احتفظ بسجل حصر للواجهات البرمجية" },
+      "detail": { "en": "Record every API with its owner, version, environment, data classification, and consumers, and generate the record from the gateway where you can.", "ar": "سجّل كل واجهة برمجية مع مالكها وإصدارها وبيئتها وتصنيف بياناتها والجهات التي تستهلكها، وأنشئ هذا السجل من البوابة كلما أمكن." },
+      "nist": ["CM-8"], "cis": [], "iso": ["5.9"]
+    },
+    {
+      "level": "enhanced",
+      "name": { "en": "Limit rate and consumption", "ar": "قيّد المعدل والاستهلاك" },
+      "detail": { "en": "Apply rate limits, quotas, and payload size limits per client and per endpoint, with tighter limits on expensive or sensitive operations.", "ar": "طبّق حدودًا للمعدل والحصص وحجم الحمولة لكل عميل ولكل نقطة نهاية، مع حدود أشد للعمليات المكلفة أو الحساسة." },
+      "nist": ["SC-5"], "cis": [], "iso": ["8.6"]
+    },
+    {
+      "level": "enhanced",
+      "name": { "en": "Issue short-lived, scoped tokens", "ar": "أصدر رموزًا قصيرة الأمد ومحددة النطاق" },
+      "detail": { "en": "Use access tokens that expire in minutes, carry only the scopes needed, and are restricted to the intended API audience.", "ar": "استخدم رموز وصول تنتهي صلاحيتها خلال دقائق، ولا تحمل إلا النطاقات اللازمة، وتقتصر على الواجهة المستهدفة." },
+      "nist": ["IA-5", "SC-23"], "cis": ["16.11"], "iso": ["8.5"]
+    },
+    {
+      "level": "enhanced",
+      "name": { "en": "Use mutual TLS for partners", "ar": "استخدم TLS المتبادل مع الشركاء" },
+      "detail": { "en": "Authenticate partner and system-to-system calls with mutual TLS or certificate-bound tokens, with certificates issued and rotated automatically.", "ar": "تحقق من استدعاءات الشركاء والاستدعاءات بين الأنظمة عبر TLS المتبادل أو رموز مرتبطة بالشهادات، مع إصدار الشهادات وتدويرها آليًا." },
+      "nist": ["IA-9", "SC-8"], "cis": ["3.10"], "iso": ["8.24", "5.14"]
+    },
+    {
+      "level": "advanced",
+      "name": { "en": "Protect sensitive business flows", "ar": "احمِ مسارات الأعمال الحساسة" },
+      "detail": { "en": "Detect and limit automated abuse of flows such as account opening, payments, or one-time password requests, with per-flow limits, behavioural signals, and stronger authentication when risk rises.", "ar": "اكشف إساءة الاستخدام الآلية وقيّدها في مسارات مثل فتح الحسابات والمدفوعات وطلبات كلمات المرور لمرة واحدة، عبر حدود لكل مسار ومؤشرات سلوكية وتحقق أقوى كلما ارتفعت المخاطر." },
+      "nist": ["SI-4", "AC-3"], "cis": [], "iso": ["8.16", "8.26"]
+    },
+    {
+      "level": "advanced",
+      "name": { "en": "Test authorization continuously", "ar": "اختبر التفويض باستمرار" },
+      "detail": { "en": "Run automated tests in the pipeline that call every endpoint as other users and roles, and fail the build when one of those calls succeeds.", "ar": "شغّل في مسار النشر اختبارات آلية تستدعي كل نقطة نهاية بهويات مستخدمين وأدوار أخرى، وأفشل البناء إذا نجح أي من هذه الاستدعاءات." },
+      "nist": ["SA-11", "CA-8"], "cis": ["16.12", "16.13"], "iso": ["8.29"]
+    }
+  ],
+  "decisions": [
+    { "en": "Which authorization server issues tokens, and what are the token lifetimes and scopes for each API?", "ar": "ما خادم التفويض الذي يُصدر الرموز، وما أعمار الرموز ونطاقاتها لكل واجهة؟" },
+    { "en": "Where does object level authorization live: in each service, in a shared library, or in a central policy engine?", "ar": "أين يقع التفويض على مستوى الكائن، في كل خدمة أم في مكتبة مشتركة أم في محرك سياسات مركزي؟" },
+    { "en": "How are partner clients onboarded, given credentials, and offboarded?", "ar": "كيف يُضاف العملاء من الشركاء وتُصدر بيانات اعتمادهم ثم تُسحب عند انتهاء العلاقة؟" }
+  ],
+  "tradeoffs": [
+    { "en": "A central policy engine makes authorization consistent and auditable, but adds latency and a dependency to every request.", "ar": "يجعل محرك السياسات المركزي التفويض متسقًا وقابلًا للتدقيق، لكنه يضيف زمن تأخير واعتمادية إلى كل طلب." },
+    { "en": "Short token lifetimes improve safety, but increase load on the authorization server and complexity for clients.", "ar": "تحسّن الأعمار القصيرة للرموز الأمان، لكنها تزيد الحمل على خادم التفويض والتعقيد على العملاء." },
+    { "en": "Strict schema validation catches attacks and also breaks clients that send unexpected fields, so version your APIs.", "ar": "يلتقط التحقق الصارم من المخطط الهجمات، لكنه يعطّل أيضًا العملاء الذين يرسلون حقولًا غير متوقعة، لذا اعتمد إصدارات واضحة لواجهاتك." }
+  ],
+  "antipatterns": [
+    { "en": "Trusting an object identifier because the caller is authenticated.", "ar": "الوثوق بمعرّف الكائن لمجرد أن هوية المستدعي موثقة." },
+    { "en": "Long-lived API keys sent to partners by email.", "ar": "مفاتيح واجهات طويلة الأمد تُرسل إلى الشركاء عبر البريد الإلكتروني." },
+    { "en": "Old API versions left running without the controls added to newer ones.", "ar": "ترك إصدارات قديمة من الواجهات تعمل دون الضوابط التي أُضيفت إلى الإصدارات الأحدث." }
+  ],
+  "verify": [
+    { "en": "Call each endpoint with a second user's token and the first user's object identifiers, and confirm every call is denied.", "ar": "استدعِ كل نقطة نهاية برمز مستخدم ثانٍ ومعرّفات كائنات المستخدم الأول، وتأكد أن كل استدعاء يُرفض." },
+    { "en": "Compare the gateway's route list with the inventory, and investigate anything missing from either.", "ar": "قارن قائمة المسارات في البوابة بسجل الحصر، وتحقق من أي عنصر ناقص في أي منهما." },
+    { "en": "Send requests above the rate limit and with unknown fields, and confirm they are rejected.", "ar": "أرسل طلبات تتجاوز حد المعدل وأخرى بحقول غير معروفة، وتأكد أنها تُرفض." }
+  ],
+  "attack": ["T1190", "T1528"],
+  "owasp": ["API1:2023", "API2:2023", "API3:2023", "API4:2023", "API5:2023", "API6:2023", "API9:2023"],
+  "related": ["P05", "P02", "P08", "P11"],
+  "references": [
+    { "title": { "en": "OWASP API Security Top 10 2023", "ar": "قائمة OWASP لأهم ١٠ مخاطر في أمن الواجهات البرمجية لعام ٢٠٢٣" }, "url": "https://owasp.org/API-Security/editions/2023/en/0x11-t10/" },
+    { "title": { "en": "OWASP Application Security Verification Standard 5.0", "ar": "معيار OWASP للتحقق من أمن التطبيقات ASVS، الإصدار ٥٫٠" }, "url": "https://github.com/OWASP/ASVS" },
+    { "title": { "en": "RFC 9700, Best Current Practice for OAuth 2.0 Security", "ar": "أفضل الممارسات الحالية لأمن OAuth 2.0 في الوثيقة RFC 9700" }, "url": "https://datatracker.ietf.org/doc/rfc9700/" }
+  ]
+}

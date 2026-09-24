@@ -1,0 +1,10 @@
+flowchart LR
+  U["User and device"] --> PEP["Policy enforcement point<br/>identity-aware proxy"]
+  PEP -- "request and context" --> PDP["Policy decision point"]
+  PDP -- "allow, deny, or step up" --> PEP
+  IDP["Identity provider<br/>MFA"] --> PDP
+  DEV["Device health<br/>and ownership"] --> PDP
+  SIG["Risk signals and<br/>threat intelligence"] --> PDP
+  PEP --> A1["Application A"]
+  PEP --> A2["Application B"]
+  PDP --> LOG["Decision log<br/>to the SIEM"]

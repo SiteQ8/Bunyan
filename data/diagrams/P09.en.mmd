@@ -1,0 +1,8 @@
+flowchart LR
+  CLS["Classification scheme<br/>four levels"] --> INV["Data inventory<br/>where each class lives"]
+  INV --> RULES["Handling rules for each level"]
+  RULES --> ENC["Encryption in transit and at rest"]
+  RULES --> MASK["Masking and tokenization<br/>before data leaves production"]
+  RULES --> DLP["Data loss prevention<br/>email, web, endpoint, cloud services"]
+  RULES --> RET["Retention and deletion"]
+  RULES --> MON["Access monitoring<br/>on restricted stores"]

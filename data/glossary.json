@@ -1,0 +1,801 @@
+{
+  "terms": [
+    {
+      "id": "access-broker",
+      "term": {
+        "en": "Access broker",
+        "ar": "وسيط الوصول"
+      },
+      "definition": {
+        "en": "A service that sits in front of applications and lets each request through only after checking the user, the device, and the policy.",
+        "ar": "خدمة تقع أمام التطبيقات ولا تمرر أي طلب إلا بعد التحقق من المستخدم والجهاز والسياسة."
+      },
+      "pattern": "P01"
+    },
+    {
+      "id": "admission-control",
+      "term": {
+        "en": "Admission control",
+        "ar": "التحكم في القبول"
+      },
+      "definition": {
+        "en": "A check that a container platform runs before accepting a workload, used to reject unsigned images or unsafe settings.",
+        "ar": "فحص تجريه منصة الحاويات قبل قبول عبء العمل، ويُستخدم لرفض الصور غير الموقّعة أو الإعدادات غير الآمنة."
+      },
+      "pattern": "P16"
+    },
+    {
+      "id": "allow-list",
+      "term": {
+        "en": "Allow list",
+        "ar": "قائمة السماح"
+      },
+      "definition": {
+        "en": "A list of what is permitted, such as destinations, software, or senders, where everything else is refused.",
+        "ar": "قائمة بما يُسمح به من وجهات أو برمجيات أو مرسلين، ويُرفض كل ما سواها."
+      }
+    },
+    {
+      "id": "adr",
+      "term": {
+        "en": "Architecture decision record",
+        "ar": "سجل القرار المعماري"
+      },
+      "definition": {
+        "en": "A short document that records one design decision, the options considered, and the reasons for the choice.",
+        "ar": "وثيقة قصيرة تسجّل قرارًا تصميميًا واحدًا والخيارات التي دُرست وأسباب الاختيار."
+      }
+    },
+    {
+      "id": "assume-breach",
+      "term": {
+        "en": "Assume breach",
+        "ar": "افتراض الاختراق"
+      },
+      "definition": {
+        "en": "A design stance that plans for an attacker already being inside, and limits what they could reach and how quickly they would be seen.",
+        "ar": "موقف تصميمي يخطط لوجود مهاجم في الداخل بالفعل، فيحدّ مما يستطيع الوصول إليه ويسرّع اكتشافه."
+      }
+    },
+    {
+      "id": "attack-surface",
+      "term": {
+        "en": "Attack surface",
+        "ar": "سطح الهجوم"
+      },
+      "definition": {
+        "en": "Every point where an attacker could try to enter or extract data, including interfaces, accounts, and suppliers.",
+        "ar": "كل نقطة يستطيع المهاجم محاولة الدخول منها أو استخراج البيانات عبرها، بما في ذلك الواجهات والحسابات والموردون."
+      }
+    },
+    {
+      "id": "attack-tree",
+      "term": {
+        "en": "Attack tree",
+        "ar": "شجرة الهجوم"
+      },
+      "definition": {
+        "en": "A diagram that breaks an attacker's goal into the different ways of reaching it, so that defences can be placed where paths meet.",
+        "ar": "مخطط يقسّم هدف المهاجم إلى الطرق المختلفة لبلوغه، حتى توضع الدفاعات حيث تلتقي المسارات."
+      }
+    },
+    {
+      "id": "authentication",
+      "term": {
+        "en": "Authentication",
+        "ar": "التحقق من الهوية"
+      },
+      "definition": {
+        "en": "Proving that a person, device, or service is who it claims to be.",
+        "ar": "إثبات أن الشخص أو الجهاز أو الخدمة هو فعلًا من يدّعي أنه هو."
+      },
+      "pattern": "P02"
+    },
+    {
+      "id": "authorization",
+      "term": {
+        "en": "Authorization",
+        "ar": "التفويض"
+      },
+      "definition": {
+        "en": "Deciding whether an authenticated identity may perform a specific action on a specific resource.",
+        "ar": "تحديد ما إذا كان يحق لهوية موثقة تنفيذ إجراء محدد على مورد محدد."
+      },
+      "pattern": "P07"
+    },
+    {
+      "id": "blast-radius",
+      "term": {
+        "en": "Blast radius",
+        "ar": "نطاق الضرر"
+      },
+      "definition": {
+        "en": "How much an attacker could reach or damage from a single compromised account, system, or key.",
+        "ar": "مقدار ما يستطيع المهاجم الوصول إليه أو الإضرار به انطلاقًا من حساب أو نظام أو مفتاح واحد مخترق."
+      }
+    },
+    {
+      "id": "break-glass",
+      "term": {
+        "en": "Break-glass account",
+        "ar": "حساب الطوارئ"
+      },
+      "definition": {
+        "en": "An emergency account kept sealed for when normal administration fails, whose every use raises an alert.",
+        "ar": "حساب للطوارئ يبقى مغلقًا لحين تعطل الإدارة المعتادة، ويُطلق كل استخدام له تنبيهًا."
+      },
+      "pattern": "P03"
+    },
+    {
+      "id": "provenance",
+      "term": {
+        "en": "Build provenance",
+        "ar": "إثبات مصدر البناء"
+      },
+      "definition": {
+        "en": "Signed evidence of how, where, and from what source an artifact was built.",
+        "ar": "دليل موقّع يبيّن كيف بُني المُخرَج وأين بُني ومن أي مصدر."
+      },
+      "pattern": "P11"
+    },
+    {
+      "id": "certificate-authority",
+      "term": {
+        "en": "Certificate authority",
+        "ar": "جهة إصدار الشهادات"
+      },
+      "definition": {
+        "en": "The service that issues and signs digital certificates, whose keys must be among the best protected in the organisation.",
+        "ar": "الخدمة التي تُصدر الشهادات الرقمية وتوقّعها، ويجب أن تكون مفاتيحها من أكثر ما يُحمى في المؤسسة."
+      },
+      "pattern": "P08"
+    },
+    {
+      "id": "compensating-control",
+      "term": {
+        "en": "Compensating control",
+        "ar": "الضابط البديل"
+      },
+      "definition": {
+        "en": "A control put in place because the preferred control is not possible, which reduces the same risk another way.",
+        "ar": "ضابط يُطبَّق لتعذّر تطبيق الضابط المفضل، ويقلل الخطر نفسه بطريقة أخرى."
+      }
+    },
+    {
+      "id": "conditional-access",
+      "term": {
+        "en": "Conditional access",
+        "ar": "الوصول المشروط"
+      },
+      "definition": {
+        "en": "Policies in the identity provider that decide sign-in based on the user, device, location, and risk.",
+        "ar": "سياسات في مزود الهوية تحدد قبول الدخول بناءً على المستخدم والجهاز والموقع ودرجة المخاطر."
+      },
+      "pattern": "P02"
+    },
+    {
+      "id": "conduit",
+      "term": {
+        "en": "Conduit",
+        "ar": "القناة"
+      },
+      "definition": {
+        "en": "In IEC 62443, a defined communication path between zones, with its own protocols and controls.",
+        "ar": "مسار اتصال محدد بين المناطق وفق IEC 62443، له بروتوكولاته وضوابطه الخاصة."
+      },
+      "pattern": "P13"
+    },
+    {
+      "id": "control-plane",
+      "term": {
+        "en": "Control plane",
+        "ar": "مستوى التحكم"
+      },
+      "definition": {
+        "en": "The management layer of a platform, such as a cloud console or a cluster API, from which everything else is configured.",
+        "ar": "طبقة الإدارة في المنصة مثل لوحة تحكم السحابة أو الواجهة البرمجية للعنقود، ومنها يُضبط كل ما سواها."
+      }
+    },
+    {
+      "id": "crypto-agility",
+      "term": {
+        "en": "Crypto agility",
+        "ar": "المرونة في التشفير"
+      },
+      "definition": {
+        "en": "The ability to change algorithms and keys without redesigning systems, needed for the move to post-quantum cryptography.",
+        "ar": "القدرة على تغيير الخوارزميات والمفاتيح دون إعادة تصميم الأنظمة، وهي ضرورية للانتقال إلى تشفير ما بعد الحوسبة الكمية."
+      },
+      "pattern": "P08"
+    },
+    {
+      "id": "data-classification",
+      "term": {
+        "en": "Data classification",
+        "ar": "تصنيف البيانات"
+      },
+      "definition": {
+        "en": "Sorting data into levels of sensitivity, each with its own handling rules.",
+        "ar": "فرز البيانات في مستويات حساسية لكل منها قواعد تعامل خاصة."
+      },
+      "pattern": "P09"
+    },
+    {
+      "id": "dlp",
+      "term": {
+        "en": "Data loss prevention",
+        "ar": "منع تسرب البيانات"
+      },
+      "definition": {
+        "en": "Tools and rules that detect sensitive data leaving through email, web, devices, or cloud services, and alert or block it.",
+        "ar": "أدوات وقواعد تكشف خروج البيانات الحساسة عبر البريد أو الويب أو الأجهزة أو الخدمات السحابية، فتنبّه إليه أو تمنعه."
+      },
+      "pattern": "P09"
+    },
+    {
+      "id": "data-owner",
+      "term": {
+        "en": "Data owner",
+        "ar": "مالك البيانات"
+      },
+      "definition": {
+        "en": "The person accountable for a data set, who decides its classification and who may access it.",
+        "ar": "الشخص المسؤول عن مجموعة بيانات، ويحدد تصنيفها ومن يحق له الوصول إليها."
+      },
+      "pattern": "P09"
+    },
+    {
+      "id": "default-deny",
+      "term": {
+        "en": "Default deny",
+        "ar": "المنع الافتراضي"
+      },
+      "definition": {
+        "en": "A rule set in which nothing is allowed unless a rule explicitly permits it.",
+        "ar": "مجموعة قواعد لا يُسمح فيها بأي شيء ما لم تسمح به قاعدة صراحةً."
+      },
+      "pattern": "P04"
+    },
+    {
+      "id": "defense-in-depth",
+      "term": {
+        "en": "Defense in depth",
+        "ar": "مبدأ الدفاع الأمني متعدد المراحل"
+      },
+      "definition": {
+        "en": "Layering independent controls so that the failure of one does not expose the asset.",
+        "ar": "ترتيب ضوابط مستقلة في طبقات، حتى لا يكشف إخفاق إحداها الأصل المحمي."
+      }
+    },
+    {
+      "id": "dmz",
+      "term": {
+        "en": "Demilitarized zone",
+        "ar": "المنطقة المعزولة"
+      },
+      "definition": {
+        "en": "A network zone between an untrusted network and a trusted one, where connections from each side end.",
+        "ar": "منطقة شبكية بين شبكة غير موثوقة وأخرى موثوقة، تنتهي فيها الاتصالات القادمة من كل جانب."
+      },
+      "pattern": "P13"
+    },
+    {
+      "id": "egress-filtering",
+      "term": {
+        "en": "Egress filtering",
+        "ar": "تصفية الحركة الصادرة"
+      },
+      "definition": {
+        "en": "Controlling which destinations systems may connect to on the way out.",
+        "ar": "التحكم في الوجهات التي يُسمح للأنظمة بالاتصال بها عند الخروج."
+      },
+      "pattern": "P05"
+    },
+    {
+      "id": "envelope-encryption",
+      "term": {
+        "en": "Envelope encryption",
+        "ar": "التشفير المغلف"
+      },
+      "definition": {
+        "en": "Encrypting data with a data key, then encrypting that key with a master key held in a key management service.",
+        "ar": "تشفير البيانات بمفتاح بيانات، ثم تشفير هذا المفتاح بمفتاح رئيسي محفوظ في خدمة لإدارة المفاتيح."
+      },
+      "pattern": "P08"
+    },
+    {
+      "id": "fail-secure",
+      "term": {
+        "en": "Fail secure",
+        "ar": "الإخفاق الآمن"
+      },
+      "definition": {
+        "en": "Designing a control so that when it breaks it denies access rather than allowing it.",
+        "ar": "تصميم الضابط بحيث يرفض الوصول عند تعطله بدلًا من أن يسمح به."
+      }
+    },
+    {
+      "id": "hsm",
+      "term": {
+        "en": "Hardware security module",
+        "ar": "وحدة أمن الأجهزة"
+      },
+      "definition": {
+        "en": "A tamper-resistant device that generates and holds keys and performs cryptographic operations without exposing them.",
+        "ar": "جهاز مقاوم للعبث يُنشئ المفاتيح ويحفظها وينفّذ عمليات التشفير دون كشفها."
+      },
+      "pattern": "P08"
+    },
+    {
+      "id": "idp",
+      "term": {
+        "en": "Identity provider",
+        "ar": "مزود الهوية"
+      },
+      "definition": {
+        "en": "The service that authenticates people and issues the tokens that applications trust.",
+        "ar": "الخدمة التي تتحقق من هوية الأشخاص وتُصدر الرموز التي تثق بها التطبيقات."
+      },
+      "pattern": "P02"
+    },
+    {
+      "id": "immutable-backup",
+      "term": {
+        "en": "Immutable backup",
+        "ar": "النسخة الاحتياطية غير القابلة للتعديل"
+      },
+      "definition": {
+        "en": "A backup copy that nobody, including administrators, can change or delete before its retention ends.",
+        "ar": "نسخة احتياطية لا يستطيع أحد، ولا المسؤولون أنفسهم، تعديلها أو حذفها قبل انتهاء مدة الاحتفاظ بها."
+      },
+      "pattern": "P12"
+    },
+    {
+      "id": "iac",
+      "term": {
+        "en": "Infrastructure as code",
+        "ar": "البنية التحتية بوصفها شيفرة"
+      },
+      "definition": {
+        "en": "Defining infrastructure in version-controlled files that a pipeline applies, instead of configuring it by hand.",
+        "ar": "تعريف البنية التحتية في ملفات تُدار إصداراتها ويطبّقها مسار نشر، بدلًا من إعدادها يدويًا."
+      },
+      "pattern": "P06"
+    },
+    {
+      "id": "jit",
+      "term": {
+        "en": "Just-in-time access",
+        "ar": "الوصول عند الحاجة"
+      },
+      "definition": {
+        "en": "Privileged access granted for a specific task and a limited time, then removed automatically.",
+        "ar": "وصول بصلاحيات هامة يُمنح لمهمة محددة ولوقت محدود ثم يُسحب آليًا."
+      },
+      "pattern": "P03"
+    },
+    {
+      "id": "landing-zone",
+      "term": {
+        "en": "Landing zone",
+        "ar": "منطقة الإطلاق السحابية"
+      },
+      "definition": {
+        "en": "A prepared cloud foundation of accounts, identity, network, logging, and guardrails that new workloads are deployed into.",
+        "ar": "أساس سحابي مُعدّ مسبقًا من الحسابات والهوية والشبكة والسجلات والضوابط الوقائية، تُنشر فيه أعباء العمل الجديدة."
+      },
+      "pattern": "P06"
+    },
+    {
+      "id": "lateral-movement",
+      "term": {
+        "en": "Lateral movement",
+        "ar": "التنقل الجانبي"
+      },
+      "definition": {
+        "en": "An attacker moving from the first compromised system to others inside the network.",
+        "ar": "انتقال المهاجم من أول نظام اخترقه إلى أنظمة أخرى داخل الشبكة."
+      },
+      "pattern": "P04"
+    },
+    {
+      "id": "least-privilege",
+      "term": {
+        "en": "Least privilege",
+        "ar": "مبدأ الحد الأدنى من الصلاحيات"
+      },
+      "definition": {
+        "en": "Giving each identity only the access it needs, for only as long as it needs it.",
+        "ar": "منح كل هوية الصلاحيات التي تحتاجها فقط وللمدة التي تحتاجها فقط."
+      }
+    },
+    {
+      "id": "microsegmentation",
+      "term": {
+        "en": "Microsegmentation",
+        "ar": "التقسيم الدقيق"
+      },
+      "definition": {
+        "en": "Segmentation applied to individual workloads, so that each one can reach only its named dependencies.",
+        "ar": "تقسيم يُطبَّق على كل عبء عمل على حدة، فلا يصل كل منها إلا إلى اعتمادياته المسماة."
+      },
+      "pattern": "P04"
+    },
+    {
+      "id": "mfa",
+      "term": {
+        "en": "Multi-factor authentication",
+        "ar": "التحقق متعدد العناصر"
+      },
+      "definition": {
+        "en": "Authentication that requires two or more different kinds of evidence, such as something you have and something you know.",
+        "ar": "تحقق من الهوية يتطلب نوعين مختلفين أو أكثر من الأدلة، مثل شيء تملكه وشيء تعرفه."
+      },
+      "pattern": "P02"
+    },
+    {
+      "id": "mtls",
+      "term": {
+        "en": "Mutual TLS",
+        "ar": "TLS المتبادل"
+      },
+      "definition": {
+        "en": "A TLS connection in which both sides present certificates, so each authenticates the other.",
+        "ar": "اتصال TLS يقدم فيه الطرفان شهاداتهما، فيتحقق كل منهما من هوية الآخر."
+      },
+      "pattern": "P07"
+    },
+    {
+      "id": "bola",
+      "term": {
+        "en": "Object level authorization",
+        "ar": "التفويض على مستوى الكائن"
+      },
+      "definition": {
+        "en": "Checking, for every request, that the caller may access the specific record it names.",
+        "ar": "التحقق في كل طلب من أن المستدعي يحق له الوصول إلى السجل المحدد الذي يطلبه."
+      },
+      "pattern": "P07"
+    },
+    {
+      "id": "passkey",
+      "term": {
+        "en": "Passkey",
+        "ar": "مفتاح المرور"
+      },
+      "definition": {
+        "en": "A FIDO2 credential bound to a device and a website, which cannot be phished or reused on another site.",
+        "ar": "بيانات اعتماد وفق FIDO2 مرتبطة بجهاز وموقع، لا يمكن اصطيادها أو إعادة استخدامها في موقع آخر."
+      },
+      "pattern": "P02"
+    },
+    {
+      "id": "phishing-resistant-mfa",
+      "term": {
+        "en": "Phishing-resistant MFA",
+        "ar": "التحقق متعدد العناصر المقاوم للتصيد"
+      },
+      "definition": {
+        "en": "MFA that an attacker cannot relay through a fake site, such as passkeys, security keys, or smart cards.",
+        "ar": "تحقق متعدد العناصر لا يستطيع المهاجم تمريره عبر موقع مزيف، مثل مفاتيح المرور ومفاتيح الأمان والبطاقات الذكية."
+      },
+      "pattern": "P02"
+    },
+    {
+      "id": "pdp",
+      "term": {
+        "en": "Policy decision point",
+        "ar": "نقطة قرار السياسة"
+      },
+      "definition": {
+        "en": "The component that evaluates a request against policy and signals and returns allow or deny.",
+        "ar": "المكوّن الذي يقيّم الطلب في ضوء السياسة والمؤشرات، ثم يعيد قرار السماح أو الرفض."
+      },
+      "pattern": "P01"
+    },
+    {
+      "id": "pep",
+      "term": {
+        "en": "Policy enforcement point",
+        "ar": "نقطة إنفاذ السياسة"
+      },
+      "definition": {
+        "en": "The component that sits in the path of a request and carries out the decision of the policy decision point.",
+        "ar": "المكوّن الذي يقع في مسار الطلب وينفّذ قرار نقطة قرار السياسة."
+      },
+      "pattern": "P01"
+    },
+    {
+      "id": "guardrail",
+      "term": {
+        "en": "Preventive guardrail",
+        "ar": "الضابط الوقائي المانع"
+      },
+      "definition": {
+        "en": "A policy set above workloads that makes certain actions impossible, such as disabling logs or creating public storage.",
+        "ar": "سياسة تُطبَّق فوق أعباء العمل فتجعل بعض الإجراءات مستحيلة، مثل تعطيل السجلات أو إنشاء تخزين عام."
+      },
+      "pattern": "P06"
+    },
+    {
+      "id": "pam",
+      "term": {
+        "en": "Privileged access management",
+        "ar": "إدارة الصلاحيات الهامة والحساسة"
+      },
+      "definition": {
+        "en": "Tools and processes that broker, time-limit, approve, and record privileged access.",
+        "ar": "أدوات وعمليات تجعل الوصول بالصلاحيات الهامة يمر عبر وسيط ومحدد المدة ومعتمدًا ومسجلًا."
+      },
+      "pattern": "P03"
+    },
+    {
+      "id": "paw",
+      "term": {
+        "en": "Privileged access workstation",
+        "ar": "محطة العمل المخصصة للصلاحيات الهامة"
+      },
+      "definition": {
+        "en": "A hardened device used only for administration, with no email or general web browsing.",
+        "ar": "جهاز محصّن لا يُستخدم إلا للإدارة، دون بريد إلكتروني ودون تصفح عام للويب."
+      },
+      "pattern": "P03"
+    },
+    {
+      "id": "prompt-injection",
+      "term": {
+        "en": "Prompt injection",
+        "ar": "حقن التعليمات"
+      },
+      "definition": {
+        "en": "Instructions hidden in input or retrieved content that make a language model ignore its intended behaviour.",
+        "ar": "تعليمات مخفية في المدخلات أو المحتوى المسترجع تجعل النموذج اللغوي يتجاهل السلوك المقصود منه."
+      },
+      "pattern": "P14"
+    },
+    {
+      "id": "rpo",
+      "term": {
+        "en": "Recovery point objective",
+        "ar": "نقطة الاستعادة المستهدفة"
+      },
+      "definition": {
+        "en": "The maximum amount of data, measured in time, that the business accepts to lose.",
+        "ar": "أقصى مقدار من البيانات، مقيسًا بالوقت، تقبل الأعمال فقدانه."
+      },
+      "pattern": "P12"
+    },
+    {
+      "id": "rto",
+      "term": {
+        "en": "Recovery time objective",
+        "ar": "وقت الاستعادة المستهدف"
+      },
+      "definition": {
+        "en": "The maximum time the business accepts for a service to be restored after a disruption.",
+        "ar": "أقصى وقت تقبله الأعمال لاستعادة الخدمة بعد تعطلها."
+      },
+      "pattern": "P12"
+    },
+    {
+      "id": "residual-risk",
+      "term": {
+        "en": "Residual risk",
+        "ar": "المخاطر المتبقية"
+      },
+      "definition": {
+        "en": "The risk that remains after controls are applied, which someone with authority must accept.",
+        "ar": "المخاطر التي تبقى بعد تطبيق الضوابط، ويجب أن يقبلها صاحب صلاحية."
+      }
+    },
+    {
+      "id": "risk-appetite",
+      "term": {
+        "en": "Risk appetite",
+        "ar": "مستوى تقبل المخاطر"
+      },
+      "definition": {
+        "en": "The amount and kind of risk an organisation is willing to accept in pursuit of its goals.",
+        "ar": "مقدار المخاطر ونوعها الذي تقبله المؤسسة في سعيها إلى تحقيق أهدافها."
+      }
+    },
+    {
+      "id": "security-architecture",
+      "term": {
+        "en": "Security architecture",
+        "ar": "معمارية الأمن السيبراني"
+      },
+      "definition": {
+        "en": "The structure of controls, trust boundaries, and decisions that makes a system secure by design and keeps it that way.",
+        "ar": "بنية الضوابط وحدود الثقة والقرارات التي تجعل النظام آمنًا من التصميم وتحافظ على أمنه."
+      }
+    },
+    {
+      "id": "security-zone",
+      "term": {
+        "en": "Security zone",
+        "ar": "المنطقة الأمنية"
+      },
+      "definition": {
+        "en": "A group of systems that share a trust level and security requirements, separated from others by enforced boundaries.",
+        "ar": "مجموعة أنظمة تتشارك مستوى الثقة والمتطلبات الأمنية، وتفصلها عن غيرها حدود مفروضة."
+      },
+      "pattern": "P04"
+    },
+    {
+      "id": "segmentation",
+      "term": {
+        "en": "Segmentation",
+        "ar": "العزل والتقسيم"
+      },
+      "definition": {
+        "en": "Dividing a network into zones and controlling the traffic between them.",
+        "ar": "تقسيم الشبكة إلى مناطق والتحكم في الحركة بينها."
+      },
+      "pattern": "P04"
+    },
+    {
+      "id": "separation-of-duties",
+      "term": {
+        "en": "Separation of duties",
+        "ar": "الفصل بين المهام"
+      },
+      "definition": {
+        "en": "Splitting sensitive tasks so that no single person can complete them alone.",
+        "ar": "تقسيم المهام الحساسة بحيث لا يستطيع شخص واحد إتمامها بمفرده."
+      }
+    },
+    {
+      "id": "siem",
+      "term": {
+        "en": "SIEM",
+        "ar": "نظام إدارة سجلات الأحداث ومراقبة الأمن السيبراني"
+      },
+      "definition": {
+        "en": "A platform that collects security events from many sources, correlates them, and raises alerts.",
+        "ar": "منصة تجمع الأحداث الأمنية من مصادر كثيرة وتربط بينها وتُطلق التنبيهات."
+      },
+      "pattern": "P10"
+    },
+    {
+      "id": "sso",
+      "term": {
+        "en": "Single sign-on",
+        "ar": "الدخول الموحد"
+      },
+      "definition": {
+        "en": "Signing in once through the identity provider to reach many applications.",
+        "ar": "الدخول مرة واحدة عبر مزود الهوية للوصول إلى تطبيقات كثيرة."
+      },
+      "pattern": "P02"
+    },
+    {
+      "id": "sbom",
+      "term": {
+        "en": "Software bill of materials",
+        "ar": "قائمة مكونات البرمجيات"
+      },
+      "definition": {
+        "en": "A list of the components and versions inside a piece of software, used to find affected systems when a flaw is announced.",
+        "ar": "قائمة بالمكونات وإصداراتها داخل البرمجية، تُستخدم لتحديد الأنظمة المتأثرة عند الإعلان عن ثغرة."
+      },
+      "pattern": "P11"
+    },
+    {
+      "id": "supply-chain",
+      "term": {
+        "en": "Software supply chain",
+        "ar": "سلسلة إمداد البرمجيات"
+      },
+      "definition": {
+        "en": "Everything that goes into building and delivering software, including code, dependencies, tools, and pipelines.",
+        "ar": "كل ما يدخل في بناء البرمجيات وتسليمها، بما في ذلك الشيفرة والاعتماديات والأدوات ومسارات النشر."
+      },
+      "pattern": "P11"
+    },
+    {
+      "id": "stride",
+      "term": {
+        "en": "STRIDE",
+        "ar": "نموذج STRIDE"
+      },
+      "definition": {
+        "en": "A threat modeling mnemonic for spoofing, tampering, repudiation, information disclosure, denial of service, and elevation of privilege.",
+        "ar": "أداة لتذكّر فئات التهديد في نمذجة التهديدات، وهي انتحال الهوية والعبث والإنكار وكشف المعلومات وتعطيل الخدمة ورفع الصلاحيات."
+      }
+    },
+    {
+      "id": "threat-intelligence",
+      "term": {
+        "en": "Threat intelligence",
+        "ar": "المعلومات الاستباقية"
+      },
+      "definition": {
+        "en": "Information about attackers, their methods, and their targets, used to set priorities for defence.",
+        "ar": "معلومات عن المهاجمين وأساليبهم وأهدافهم، تُستخدم لترتيب أولويات الدفاع."
+      }
+    },
+    {
+      "id": "threat-model",
+      "term": {
+        "en": "Threat model",
+        "ar": "نموذج التهديدات"
+      },
+      "definition": {
+        "en": "A structured description of what can go wrong with a system and what is being done about it.",
+        "ar": "وصف منظم لما قد يسوء في النظام ولما يُتخذ حياله."
+      }
+    },
+    {
+      "id": "tiering",
+      "term": {
+        "en": "Tiered administration",
+        "ar": "نموذج الطبقات في الإدارة"
+      },
+      "definition": {
+        "en": "Separating administrative accounts and devices by the value of what they manage, so that credentials never flow downward.",
+        "ar": "فصل حسابات الإدارة وأجهزتها بحسب قيمة ما تديره، حتى لا تنتقل بيانات الاعتماد أبدًا إلى طبقة أدنى."
+      },
+      "pattern": "P03"
+    },
+    {
+      "id": "tokenization",
+      "term": {
+        "en": "Tokenization",
+        "ar": "الاستبدال الرمزي"
+      },
+      "definition": {
+        "en": "Replacing a sensitive value, such as a card number, with a token that is useless to an attacker.",
+        "ar": "استبدال قيمة حساسة مثل رقم البطاقة برمز لا قيمة له لدى المهاجم."
+      },
+      "pattern": "P15"
+    },
+    {
+      "id": "trust-boundary",
+      "term": {
+        "en": "Trust boundary",
+        "ar": "حد الثقة"
+      },
+      "definition": {
+        "en": "A point where data or control passes between parts of a system that trust each other differently.",
+        "ar": "نقطة تنتقل عندها البيانات أو السيطرة بين أجزاء من النظام تختلف درجة ثقة كل منها بالآخر."
+      }
+    },
+    {
+      "id": "unidirectional-gateway",
+      "term": {
+        "en": "Unidirectional gateway",
+        "ar": "البوابة أحادية الاتجاه"
+      },
+      "definition": {
+        "en": "A device that physically allows data to flow in one direction only.",
+        "ar": "جهاز يسمح ماديًا بتدفق البيانات في اتجاه واحد فقط."
+      },
+      "pattern": "P13"
+    },
+    {
+      "id": "workload-identity",
+      "term": {
+        "en": "Workload identity",
+        "ar": "هوية عبء العمل"
+      },
+      "definition": {
+        "en": "An identity issued by a platform to a service, used to obtain short-lived credentials instead of stored secrets.",
+        "ar": "هوية تصدرها المنصة لخدمة ما، وتُستخدم للحصول على بيانات اعتماد قصيرة الأمد بدلًا من الأسرار المخزنة."
+      },
+      "pattern": "P08"
+    },
+    {
+      "id": "zero-trust",
+      "term": {
+        "en": "Zero trust",
+        "ar": "الثقة الصفرية"
+      },
+      "definition": {
+        "en": "An approach in which no user, device, or network location is trusted by default, and every request is verified.",
+        "ar": "نهج لا يُمنح فيه أي مستخدم أو جهاز أو موقع شبكي ثقة افتراضية، ويُتحقق فيه من كل طلب."
+      },
+      "pattern": "P01"
+    }
+  ]
+}

@@ -1,0 +1,107 @@
+{
+  "id": "P03",
+  "slug": "tiered-privileged-access",
+  "domain": "identity",
+  "title": { "en": "Tiered privileged access", "ar": "الصلاحيات الهامة والحساسة في طبقات" },
+  "summary": {
+    "en": "Separate the accounts, devices, and paths used for administration from those used for daily work, and grant privilege only when it is needed, so that one compromised laptop or mailbox cannot become control of everything.",
+    "ar": "افصل الحسابات والأجهزة والمسارات المستخدمة في الإدارة عن تلك المستخدمة في العمل اليومي، وامنح الصلاحيات الهامة عند الحاجة فقط، حتى لا يتحول حاسوب محمول أو صندوق بريد مخترق إلى سيطرة على كل شيء."
+  },
+  "problem": {
+    "en": "Most breaches reach their worst when the attacker reaches an administrator. Administrators who read email and browse the web with the same account and laptop they use to manage servers hand their credentials to the first phishing email or malicious site, and standing privilege means those credentials work at any hour.",
+    "ar": "تبلغ معظم الاختراقات أقصى خطورتها عندما يصل المهاجم إلى أحد المسؤولين، فالمسؤول الذي يقرأ بريده ويتصفح الإنترنت بالحساب والحاسوب نفسيهما اللذين يدير بهما الخوادم يسلّم بيانات اعتماده لأول رسالة تصيد أو موقع ضار، كما أن الصلاحيات الدائمة تجعل بيانات الاعتماد هذه صالحة في أي ساعة."
+  },
+  "useWhen": [
+    { "en": "Administrators use the same account for daily work and for administration.", "ar": "يستخدم المسؤولون الحساب نفسه في العمل اليومي وفي الإدارة." },
+    { "en": "Admin rights are permanent rather than granted for a task.", "ar": "تكون صلاحيات الإدارة دائمة بدلًا من منحها لمهمة محددة." },
+    { "en": "Vendors or outsourced teams administer your systems.", "ar": "يدير موردون أو فرق خارجية أنظمتك." }
+  ],
+  "design": [
+    {
+      "en": "Group systems into tiers by what they control. Tier zero holds identity and security infrastructure such as the identity provider, the directory, the certificate authority, and the backup and management consoles; tier one holds servers and applications; tier two holds user devices. An account administers one tier only and never signs in to a lower one, which stops credentials from flowing up the chain.",
+      "ar": "صنّف الأنظمة في طبقات بحسب ما تتحكم فيه، فتضم الطبقة الصفرية البنية التحتية للهوية والأمن مثل مزود الهوية والدليل وجهة إصدار الشهادات ولوحات تحكم النسخ الاحتياطي والإدارة، وتضم الطبقة الأولى الخوادم والتطبيقات، بينما تضم الطبقة الثانية أجهزة المستخدمين، ثم اجعل كل حساب إداري يدير طبقة واحدة فقط ولا يدخل أبدًا إلى طبقة أدنى منها، فيتوقف انتقال بيانات الاعتماد صعودًا عبر السلسلة."
+    },
+    {
+      "en": "Administrators work from privileged access workstations that cannot browse the web or read email, reach systems through a privileged access management gateway that brokers and records sessions, and receive privilege just in time, for a task, with approval for tier zero. Break-glass accounts exist for emergencies, are sealed offline, and alert when used.",
+      "ar": "يعمل المسؤولون من محطات عمل مخصصة للصلاحيات الهامة لا تتصفح الإنترنت ولا تقرأ البريد، ويصلون إلى الأنظمة عبر بوابة لإدارة الصلاحيات الهامة تتوسط الجلسات وتسجلها، ويحصلون على الصلاحية عند الحاجة ولمهمة محددة مع اشتراط الموافقة في الطبقة الصفرية، أما حسابات الطوارئ فتُحفظ مغلقة بعيدًا عن الشبكة ولا تُستخدم إلا في الطوارئ، ويُطلق استخدامها تنبيهًا فوريًا."
+    }
+  ],
+  "controls": [
+    {
+      "level": "foundation",
+      "name": { "en": "Separate admin accounts", "ar": "افصل حسابات الإدارة" },
+      "detail": { "en": "Give each administrator a dedicated admin account, separate from their daily account, and never give admin accounts a mailbox or web access.", "ar": "امنح كل مسؤول حسابًا إداريًا مخصصًا منفصلًا عن حسابه اليومي، ولا تمنح الحسابات الإدارية صندوق بريد أو وصولًا إلى الإنترنت أبدًا." },
+      "nist": ["AC-6(2)", "AC-6(5)"], "cis": ["5.4"], "iso": ["8.2"]
+    },
+    {
+      "level": "foundation",
+      "name": { "en": "Require phishing-resistant MFA for all admin access", "ar": "اشترط تحققًا مقاومًا للتصيد في كل وصول إداري" },
+      "detail": { "en": "Require phishing-resistant multi-factor authentication for every administrative sign-in, including cloud consoles and network devices.", "ar": "اشترط تحققًا متعدد العناصر مقاومًا للتصيد في كل دخول إداري، بما في ذلك لوحات التحكم السحابية وأجهزة الشبكة." },
+      "nist": ["IA-2(1)"], "cis": ["6.5"], "iso": ["8.5"]
+    },
+    {
+      "level": "foundation",
+      "name": { "en": "Inventory privileged accounts", "ar": "احصر حسابات الصلاحيات الهامة" },
+      "detail": { "en": "Keep an inventory of every privileged account, human and service, with an owner, and remove the ones nobody can justify.", "ar": "احتفظ بسجل حصر لكل حساب ذي صلاحيات هامة، بشريًا كان أو حساب خدمة، مع مالك لكل منها، وأزل الحسابات التي لا يستطيع أحد تبريرها." },
+      "nist": ["AC-2"], "cis": ["5.1", "5.5"], "iso": ["8.2", "5.16"]
+    },
+    {
+      "level": "enhanced",
+      "name": { "en": "Use privileged access workstations", "ar": "استخدم محطات عمل مخصصة للصلاحيات الهامة" },
+      "detail": { "en": "Perform administration only from hardened workstations with no email or web browsing, and restrict admin sign-in to those devices.", "ar": "لا تنفّذ أعمال الإدارة إلا من محطات عمل محصّنة لا تستخدم البريد ولا تتصفح الإنترنت، واقصر الدخول الإداري على هذه الأجهزة." },
+      "nist": ["AC-6", "CM-6"], "cis": ["12.8"], "iso": ["8.2", "8.1"]
+    },
+    {
+      "level": "enhanced",
+      "name": { "en": "Broker and record sessions", "ar": "مرّر الجلسات عبر وسيط وسجّلها" },
+      "detail": { "en": "Route privileged sessions through a privileged access management gateway that injects credentials, so administrators never see them, and records what was done.", "ar": "مرّر جلسات الصلاحيات الهامة عبر بوابة لإدارة هذه الصلاحيات تُدخل بيانات الاعتماد نيابةً عن المسؤولين فلا يرونها أبدًا، وتسجّل كل ما جرى في الجلسة." },
+      "nist": ["AC-6(9)", "AU-14"], "cis": ["8.5"], "iso": ["8.2", "8.15"]
+    },
+    {
+      "level": "enhanced",
+      "name": { "en": "Grant privilege just in time", "ar": "امنح الصلاحية عند الحاجة" },
+      "detail": { "en": "Remove standing admin rights and grant them for a task and a time window, with approval for tier zero.", "ar": "ألغِ صلاحيات الإدارة الدائمة وامنحها لمهمة محددة ولفترة زمنية محددة، مع اشتراط الموافقة في الطبقة الصفرية." },
+      "nist": ["AC-2", "AC-6"], "cis": ["6.1"], "iso": ["8.2", "5.18"]
+    },
+    {
+      "level": "advanced",
+      "name": { "en": "Enforce tier separation technically", "ar": "افرض الفصل بين الطبقات تقنيًا" },
+      "detail": { "en": "Block tier zero and tier one accounts from signing in to lower tiers with sign-in restrictions, and alert on any attempt.", "ar": "امنع حسابات الطبقتين الصفرية والأولى من الدخول إلى الطبقات الأدنى بقيود على الدخول، وأطلق تنبيهًا عند أي محاولة." },
+      "nist": ["AC-3", "AC-6"], "cis": ["5.4"], "iso": ["8.2", "8.3"]
+    },
+    {
+      "level": "advanced",
+      "name": { "en": "Seal and test break-glass accounts", "ar": "أحكم حسابات الطوارئ واختبرها" },
+      "detail": { "en": "Keep two emergency accounts with credentials sealed offline under dual control, alert on any use, and test them on a schedule.", "ar": "احتفظ بحسابين للطوارئ تُحفظ بيانات اعتمادهما مغلقة بعيدًا عن الشبكة تحت رقابة شخصين، وأطلق تنبيهًا عند أي استخدام لهما، واختبرهما وفق جدول زمني." },
+      "nist": ["AC-2", "AU-6"], "cis": [], "iso": ["8.2"]
+    }
+  ],
+  "decisions": [
+    { "en": "Which systems are tier zero in your environment, and who may administer them?", "ar": "ما الأنظمة التي تُعد من الطبقة الصفرية في بيئتك، ومن يحق له إدارتها؟" },
+    { "en": "How are vendors and outsourced administrators given access, and how is their work reviewed?", "ar": "كيف يُمنح الموردون والمسؤولون الخارجيون حق الوصول، وكيف يُراجع عملهم؟" },
+    { "en": "Where are break-glass credentials kept, and who can open them?", "ar": "أين تُحفظ بيانات اعتماد حسابات الطوارئ، ومن يملك صلاحية فتحها؟" }
+  ],
+  "tradeoffs": [
+    { "en": "Workstations, gateways, and approvals slow administrators down, so keep common tasks quick or people will find workarounds.", "ar": "تُبطئ محطات العمل والبوابات والموافقات عمل المسؤولين، لذا احرص على أن تبقى المهام الشائعة سريعة، وإلا بحث الناس عن طرق التفاف." },
+    { "en": "The privileged access management gateway becomes a tier zero system itself, and must be protected and made resilient like one.", "ar": "تصبح بوابة إدارة الصلاحيات الهامة نفسها نظامًا من الطبقة الصفرية، فيجب حمايتها وضمان صمودها على هذا الأساس." },
+    { "en": "Just-in-time access needs a fast emergency route for incidents, or it will be bypassed when it matters most.", "ar": "يحتاج الوصول عند الحاجة إلى مسار طوارئ سريع للحوادث، وإلا تجاوزه الناس في أشد الأوقات حاجة إليه." }
+  ],
+  "antipatterns": [
+    { "en": "Domain or global admin rights used for routine work such as installing software on laptops.", "ar": "استخدام صلاحيات مسؤول النطاق أو المسؤول العام في أعمال روتينية مثل تثبيت البرامج على الحواسيب المحمولة." },
+    { "en": "Admin passwords in spreadsheets, scripts, or a shared folder in a password manager.", "ar": "حفظ كلمات مرور المسؤولين في جداول بيانات أو نصوص برمجية أو في مجلد مشترك داخل مدير كلمات المرور." },
+    { "en": "A backup console administered with the same accounts as the servers it protects.", "ar": "إدارة لوحة تحكم النسخ الاحتياطي بالحسابات نفسها التي تُدار بها الخوادم التي تحميها." }
+  ],
+  "verify": [
+    { "en": "List everyone with standing privileged access and compare it with the list of people who should have it.", "ar": "اعرض قائمة كل من يملك صلاحيات هامة دائمة وقارنها بقائمة من يجب أن يملكها." },
+    { "en": "Try to sign in with a tier zero account on an ordinary workstation, and confirm it is blocked and alerted.", "ar": "جرّب الدخول بحساب من الطبقة الصفرية على محطة عمل عادية، وتأكد أنه يُمنع ويُطلق تنبيهًا." },
+    { "en": "Pick a recorded privileged session and confirm you can see who did what, on which system, and when.", "ar": "اختر جلسة مسجلة لصلاحية هامة وتأكد أنك تستطيع معرفة من فعل ماذا وعلى أي نظام ومتى." }
+  ],
+  "attack": ["T1078", "T1003", "T1550", "T1021", "T1098"],
+  "owasp": [],
+  "related": ["P02", "P04", "P12", "P10"],
+  "references": [
+    { "title": { "en": "Microsoft, the enterprise access model", "ar": "نموذج الوصول المؤسسي من Microsoft" }, "url": "https://learn.microsoft.com/en-us/security/privileged-access-workstations/privileged-access-access-model" },
+    { "title": { "en": "NIST SP 800-53 Rev 5, security and privacy controls", "ar": "الضوابط الأمنية وضوابط الخصوصية NIST SP 800-53 Rev 5" }, "url": "https://csrc.nist.gov/pubs/sp/800/53/r5/upd1/final" },
+    { "title": { "en": "UK NCSC, secure system administration", "ar": "الإدارة الآمنة للأنظمة من المركز الوطني للأمن السيبراني في المملكة المتحدة" }, "url": "https://www.ncsc.gov.uk/collection/secure-system-administration" }
+  ]
+}

@@ -1,0 +1,107 @@
+{
+  "id": "P16",
+  "slug": "container-platform-guardrails",
+  "domain": "platform",
+  "title": { "en": "Container platform guardrails", "ar": "الضوابط الوقائية لمنصات الحاويات" },
+  "summary": {
+    "en": "Run containers on a platform that decides what may run, isolates workloads from each other and from the host, and watches them at runtime, so that one vulnerable container does not become the whole cluster.",
+    "ar": "شغّل الحاويات على منصة تحدد ما يُسمح بتشغيله، وتعزل أعباء العمل عن بعضها وعن المضيف، وتراقبها أثناء التشغيل، حتى لا تتحول حاوية واحدة ضعيفة إلى سيطرة على العنقود كله."
+  },
+  "problem": {
+    "en": "A cluster left at its defaults lets any workload run as root, talk to any other pod, mount the host, and use a service account that can read secrets across namespaces. One exploited container or one stolen pipeline credential can then take over the nodes, the cluster, and often the cloud account behind it.",
+    "ar": "يسمح العنقود بإعداداته الافتراضية لأي عبء عمل بالعمل بصلاحيات الجذر والاتصال بأي حاوية أخرى وربط نظام ملفات المضيف واستخدام حساب خدمة يقرأ الأسرار عبر مساحات الأسماء، فتستطيع حاوية واحدة مستغَلة أو بيانات اعتماد مسروقة من مسار النشر السيطرة على العُقد والعنقود، وغالبًا على الحساب السحابي الذي يقف خلفه."
+  },
+  "useWhen": [
+    { "en": "You run workloads on Kubernetes or another container platform.", "ar": "تشغّل أعباء عمل على Kubernetes أو على منصة حاويات أخرى." },
+    { "en": "Several teams or applications share a cluster.", "ar": "تتشارك فرق أو تطبيقات عدة في عنقود واحد." },
+    { "en": "Images come from public registries without review.", "ar": "تأتي صور الحاويات من سجلات عامة دون مراجعة." }
+  ],
+  "design": [
+    {
+      "en": "Keep the control plane private and administered through the identity provider with short-lived credentials, and separate clusters or node pools by trust level instead of mixing internet-facing and sensitive workloads. Enforce the restricted level of the Pod Security Standards, and admission policies that allow only signed images from approved registries, no privileged containers, no host mounts, and resource limits on every workload.",
+      "ar": "أبقِ مستوى التحكم خاصًا وأدره عبر مزود الهوية ببيانات اعتماد قصيرة الأمد، وافصل العناقيد أو مجموعات العُقد بحسب مستوى الثقة بدلًا من خلط أعباء العمل المكشوفة على الإنترنت بالحساسة، ثم افرض المستوى المقيد من معايير Pod Security Standards وسياسات قبول لا تسمح إلا بصور موقّعة من سجلات معتمدة، ولا تسمح بالحاويات ذات الصلاحيات الكاملة ولا بربط نظام ملفات المضيف، وتفرض حدودًا للموارد على كل عبء عمل."
+    },
+    {
+      "en": "Default-deny network policies limit each workload to its dependencies, each workload gets its own service account with no token mounted unless it needs one, and secrets come from an external secrets manager. Runtime detection watches for shells in containers, unexpected processes, and escape attempts, and nodes are rebuilt from hardened images rather than patched by hand.",
+      "ar": "تقيّد سياسات الشبكة القائمة على المنع الافتراضي كل عبء عمل باعتمادياته، ويحصل كل عبء عمل على حساب خدمة خاص به لا يُربط به رمز إلا عند الحاجة، وتأتي الأسرار من مدير أسرار خارجي، بينما يراقب الكشف أثناء التشغيل ظهور واجهات أوامر داخل الحاويات والعمليات غير المتوقعة ومحاولات الهروب، وتُعاد بناء العُقد من صور محصّنة بدلًا من تحديثها يدويًا."
+    }
+  ],
+  "controls": [
+    {
+      "level": "foundation",
+      "name": { "en": "Keep the control plane private", "ar": "أبقِ مستوى التحكم خاصًا" },
+      "detail": { "en": "Restrict access to the API server to private networks or approved addresses, and authenticate administrators through the identity provider with MFA.", "ar": "اقصر الوصول إلى خادم الواجهة البرمجية للعنقود على الشبكات الخاصة أو العناوين المعتمدة، وتحقق من هوية المسؤولين عبر مزود الهوية بتحقق متعدد العناصر." },
+      "nist": ["AC-17", "SC-7", "IA-2(1)"], "cis": ["6.5"], "iso": ["8.20", "8.5"]
+    },
+    {
+      "level": "foundation",
+      "name": { "en": "Enforce the restricted Pod Security level", "ar": "افرض المستوى المقيد لأمن الحاويات" },
+      "detail": { "en": "Apply the restricted level of the Pod Security Standards to application namespaces, with exceptions documented for each workload.", "ar": "طبّق المستوى المقيد من معايير Pod Security Standards على مساحات أسماء التطبيقات، مع توثيق الاستثناءات لكل عبء عمل." },
+      "nist": ["CM-6", "CM-7", "AC-6"], "cis": ["4.1", "16.7"], "iso": ["8.9"]
+    },
+    {
+      "level": "foundation",
+      "name": { "en": "Use approved, scanned images", "ar": "استخدم صورًا معتمدة ومفحوصة" },
+      "detail": { "en": "Pull images only from approved registries, scan them for vulnerabilities, and rebuild them regularly on patched base images.", "ar": "لا تسحب الصور إلا من سجلات معتمدة، وافحصها بحثًا عن الثغرات، وأعد بناءها بانتظام على صور أساسية محدّثة." },
+      "nist": ["RA-5", "SI-2"], "cis": ["16.5"], "iso": ["8.8"]
+    },
+    {
+      "level": "enhanced",
+      "name": { "en": "Deny network traffic by default", "ar": "اجعل المنع هو الأصل في حركة الشبكة" },
+      "detail": { "en": "Deny all traffic in each namespace by default, and allow only the flows each workload needs.", "ar": "امنع كل الحركة في كل مساحة أسماء افتراضيًا، ولا تسمح إلا بالتدفقات التي يحتاجها كل عبء عمل." },
+      "nist": ["AC-4", "SC-7(5)"], "cis": ["13.4"], "iso": ["8.22"]
+    },
+    {
+      "level": "enhanced",
+      "name": { "en": "Give each workload its own identity", "ar": "امنح كل عبء عمل هوية خاصة به" },
+      "detail": { "en": "Create a service account for each workload with least-privilege access rules, turn off automatic token mounting, and use workload identity for cloud access.", "ar": "أنشئ حساب خدمة لكل عبء عمل بقواعد وصول بأقل الصلاحيات، وأوقف الربط التلقائي للرموز، واستخدم هوية أعباء العمل للوصول إلى الخدمات السحابية." },
+      "nist": ["AC-6", "IA-9"], "cis": ["5.5", "6.8"], "iso": ["5.16"]
+    },
+    {
+      "level": "enhanced",
+      "name": { "en": "Admit only signed images", "ar": "لا تقبل إلا الصور الموقّعة" },
+      "detail": { "en": "Verify image signatures and provenance at admission, and reject images that fail policy.", "ar": "تحقق من تواقيع الصور وإثبات مصدرها عند القبول، وارفض الصور التي لا تستوفي السياسة." },
+      "nist": ["CM-14", "SI-7"], "cis": ["2.5"], "iso": ["8.19"]
+    },
+    {
+      "level": "advanced",
+      "name": { "en": "Detect threats at runtime", "ar": "اكشف التهديدات أثناء التشغيل" },
+      "detail": { "en": "Watch containers for shells, unexpected processes, privilege escalation, and escape attempts, and send alerts to the security team.", "ar": "راقب الحاويات لرصد واجهات الأوامر والعمليات غير المتوقعة ورفع الصلاحيات ومحاولات الهروب، وأرسل التنبيهات إلى الفريق الأمني." },
+      "nist": ["SI-4"], "cis": ["13.2"], "iso": ["8.16"]
+    },
+    {
+      "level": "advanced",
+      "name": { "en": "Separate clusters by trust", "ar": "افصل العناقيد بحسب الثقة" },
+      "detail": { "en": "Run internet-facing, internal, and regulated workloads on separate clusters or dedicated node pools with their own policies.", "ar": "شغّل أعباء العمل المكشوفة على الإنترنت والداخلية والخاضعة للتنظيم على عناقيد منفصلة أو مجموعات عُقد مخصصة لكل منها سياساتها." },
+      "nist": ["SC-32", "SC-7(21)"], "cis": ["12.2", "3.12"], "iso": ["8.22"]
+    }
+  ],
+  "decisions": [
+    { "en": "How many clusters are there, and how are workloads of different trust separated?", "ar": "كم عدد العناقيد، وكيف تُفصل أعباء العمل ذات مستويات الثقة المختلفة؟" },
+    { "en": "Which registries and signatures are trusted, and who can grant an exception?", "ar": "ما السجلات والتواقيع الموثوقة، ومن يستطيع منح استثناء؟" },
+    { "en": "Who is a cluster administrator, and how is that access granted?", "ar": "من يعمل مسؤولًا عن العنقود، وكيف يُمنح هذا الوصول؟" }
+  ],
+  "tradeoffs": [
+    { "en": "Strict admission policies break third-party packages that expect high privileges, so plan exceptions and replacements.", "ar": "تعطّل سياسات القبول الصارمة حزم التثبيت الجاهزة من أطراف خارجية التي تتوقع صلاحيات مرتفعة، لذا خطّط للاستثناءات والبدائل." },
+    { "en": "Separate clusters improve isolation, but multiply operational work and cost.", "ar": "يحسّن فصل العناقيد العزل، لكنه يضاعف العمل التشغيلي والتكلفة." },
+    { "en": "Runtime agents need deep access to the host, so they must be trusted and kept up to date themselves.", "ar": "يحتاج وكلاء المراقبة أثناء التشغيل إلى وصول عميق إلى المضيف، فيجب أن يكونوا موثوقين وأن يُحدَّثوا باستمرار." }
+  ],
+  "antipatterns": [
+    { "en": "A public API server protected only by a static token.", "ar": "خادم واجهة برمجية عام لا يحميه إلا رمز ثابت." },
+    { "en": "Every workload using the default service account with read access across the whole cluster.", "ar": "استخدام جميع أعباء العمل لحساب الخدمة الافتراضي بصلاحية قراءة على مستوى العنقود كله." },
+    { "en": "Secrets stored as plain Kubernetes secrets and copied between namespaces.", "ar": "حفظ الأسرار بوصفها أسرار Kubernetes عادية ونسخها بين مساحات الأسماء." }
+  ],
+  "verify": [
+    { "en": "Try to deploy a privileged pod and an unsigned image, and confirm that both are rejected.", "ar": "حاول نشر حاوية بصلاحيات كاملة وصورة غير موقّعة، وتأكد أن كلتيهما تُرفض." },
+    { "en": "From a test pod, try to reach pods in another namespace and the cloud metadata service, and confirm that both are blocked.", "ar": "حاول من حاوية تجريبية الوصول إلى حاويات في مساحة أسماء أخرى وإلى خدمة البيانات الوصفية السحابية، وتأكد أن كليهما محجوب." },
+    { "en": "Open a shell in a test container, and confirm runtime detection raises an alert.", "ar": "افتح واجهة أوامر في حاوية تجريبية، وتأكد أن الكشف أثناء التشغيل يُطلق تنبيهًا." }
+  ],
+  "attack": ["T1610", "T1611", "T1613", "T1078.004"],
+  "owasp": [],
+  "related": ["P06", "P08", "P11", "P04"],
+  "references": [
+    { "title": { "en": "Kubernetes, Pod Security Standards", "ar": "معايير Pod Security Standards في Kubernetes" }, "url": "https://kubernetes.io/docs/concepts/security/pod-security-standards/" },
+    { "title": { "en": "NIST SP 800-190, application container security guide", "ar": "دليل أمن حاويات التطبيقات NIST SP 800-190" }, "url": "https://csrc.nist.gov/pubs/sp/800/190/final" },
+    { "title": { "en": "CIS Kubernetes Benchmark", "ar": "معيار CIS Kubernetes Benchmark" }, "url": "https://www.cisecurity.org/benchmark/kubernetes" }
+  ]
+}

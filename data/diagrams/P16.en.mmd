@@ -1,0 +1,10 @@
+flowchart LR
+  CI["Pipeline<br/>signed images"] --> REG["Approved registry"]
+  REG --> ADM["Admission control<br/>signatures, restricted level"]
+  ADM --> NS1["Namespace A<br/>own service account"]
+  ADM --> NS2["Namespace B<br/>own service account"]
+  NS1 -- "network policy allows the named flow only" --> NS2
+  SM["External secrets manager"] --> NS1
+  RT["Runtime detection"] -. "watches" .-> NS1
+  RT -. "watches" .-> NS2
+  CP["Private control plane<br/>single sign-on, short-lived access"] --- ADM

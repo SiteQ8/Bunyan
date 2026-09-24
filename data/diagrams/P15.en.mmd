@@ -1,0 +1,16 @@
+flowchart LR
+  subgraph OUTSIDE["Out of scope"]
+    CORP["Corporate systems"]
+    APPS["Applications that use tokens"]
+  end
+  subgraph ENC["Regulated enclave"]
+    FW["Enclave firewall<br/>deny by default"]
+    TOK["Tokenization or<br/>payment processing"]
+    JH["Enclave jump host<br/>dedicated administration"]
+    FIM["Logging and file<br/>integrity monitoring"]
+  end
+  APPS -- "token requests only" --> FW
+  FW --> TOK
+  ADM["Enclave administrators<br/>with MFA"] --> JH
+  JH --> TOK
+  TOK --> FIM
