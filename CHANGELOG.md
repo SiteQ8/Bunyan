@@ -2,6 +2,13 @@
 
 All notable changes to Bunyan are listed here. The project follows semantic versioning.
 
+## 0.2.0, 2026-09-24
+
+- Every pattern page on the website shows its diagram, drawn to match the site in the light and dark themes, beside an at a glance panel of its controls, framework mappings, and related patterns.
+- A more refined interface: drafting paper behind the pages, a brand mark, answers drawn in ink, icons on the sheet actions, a gentle redraw when an answer changes, and a hint on phones that the plan scrolls sideways.
+- Screenshots of the website in both READMEs.
+- The link check reports sites that refuse automated clients for a manual look instead of failing.
+
 ## 0.1.0, 2026-09-24
 
 The first public release.
