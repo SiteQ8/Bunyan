@@ -7,7 +7,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { loadBundle } from '../scripts/lib/load.mjs';
 import { advise, diffPatterns } from '../docs/assets/engine.js';
-import { renderPlan } from '../docs/assets/plan.js';
+import { renderPlan, layoutFoundations, wrap } from '../docs/assets/plan.js';
 import { buildQuiz, QUIZ_LENGTH } from '../docs/assets/quiz.js';
 
 const bundle = loadBundle();
@@ -103,4 +103,22 @@ test('every quiz question offers four different patterns and exactly one right a
       assert.ok(q.prompt.en && q.prompt.ar, 'the prompt exists in both languages');
     }
   }
+});
+
+test('no foundation label is cut or overflows, however crowded the band', () => {
+  const random = seeded(24);
+  let most = 0;
+  for (let i = 0; i < 600; i += 1) {
+    const { plan } = advise(bundle, randomAnswers(random));
+    const band = layoutFoundations(plan.foundations.length);
+    most = Math.max(most, plan.foundations.length);
+    for (const f of plan.foundations) {
+      for (const lang of ['en', 'ar']) {
+        const label = typeof f.label === 'object' ? f.label[lang] : f.label;
+        const used = wrap(label, band.bw - 10, band.size).length;
+        assert.ok(used <= band.maxLines, `"${label}" needs ${used} lines in a band of ${plan.foundations.length}`);
+      }
+    }
+  }
+  assert.ok(most > 8, `the sample includes a band crowded enough to wrap (largest was ${most})`);
 });

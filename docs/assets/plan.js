@@ -15,6 +15,21 @@ const B0 = 270; // building start
 const B1 = 1060; // building end
 const ROOM_TOP = 150;
 const ROOM_BOTTOM = 470;
+const BAND_MAX = 8; // foundation pieces per row before the band wraps
+const ROW_STEP = 66;
+
+// One layout for the foundations band, shared by the drawing and the tests:
+// a crowded band wraps onto more rows and uses slightly smaller type, so every
+// piece stays readable and no label ever loses words.
+export function layoutFoundations(n) {
+  const rows = Math.max(1, Math.ceil(n / BAND_MAX));
+  const perRow = Math.max(1, Math.ceil(n / rows));
+  const gap = perRow > 6 ? 8 : 12;
+  const bw = (B1 - B0 - 28 - gap * (perRow - 1)) / perRow;
+  const size = perRow > 5 ? 10 : 11;
+  return { rows, perRow, gap, bw, size, maxLines: size < 11 ? 4 : 3 };
+}
+export const planHeight = (plan) => H + (layoutFoundations(plan.foundations.length).rows - 1) * ROW_STEP;
 const WALL = { 1: 'w1', 2: 'w2', 3: 'w3', 4: 'w4' };
 
 const esc = (s) =>
@@ -24,13 +39,18 @@ export function wrap(text, width, size) {
   const max = Math.max(6, Math.floor(width / (size * 0.56)));
   const lines = [];
   let line = '';
-  for (const word of String(text).split(/\s+/)) {
-    if (!line) line = word;
-    else if ((line + ' ' + word).length <= max) line += ' ' + word;
+  const put = (piece, glued) => {
+    const joined = line ? line + (glued ? '' : ' ') + piece : piece;
+    if (!line || joined.length <= max) line = joined;
     else {
       lines.push(line);
-      line = word;
+      line = piece;
     }
+  };
+  for (const word of String(text).split(/\s+/)) {
+    // A word too long for the line breaks after its hyphens, as in print.
+    const pieces = word.length > max && word.includes('-') ? word.split(/(?<=-)/) : [word];
+    pieces.forEach((piece, i) => put(piece, i > 0));
   }
   if (line) lines.push(line);
   return lines;
@@ -76,7 +96,7 @@ export function renderPlan(plan, lang, ui) {
   const close = () => out.push('</g>');
 
   out.push(
-    `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" class="plan" role="img" aria-labelledby="plan-title plan-desc" lang="${lang}">`
+    `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${planHeight(plan)}" class="plan" role="img" aria-labelledby="plan-title plan-desc" lang="${lang}">`
   );
   const roomNames = plan.rooms.map((r) => t(r.label)).join(rtl ? '، ' : ', ');
   out.push(`<title id="plan-title">${esc(t(ui.planLabel))}</title>`);
@@ -87,7 +107,7 @@ export function renderPlan(plan, lang, ui) {
   );
 
   // Outside: the ground the building stands on.
-  rect(0, 0, B0 - 24, H, 'pl-outside');
+  rect(0, 0, B0 - 24, planHeight(plan), 'pl-outside');
   text(24, 36, t(ui.planOutside), 'pl-zone-label');
 
   // Rooms, drawn from the least to the most restricted so thicker walls land on top.
@@ -176,23 +196,20 @@ export function renderPlan(plan, lang, ui) {
   }
 
   // Foundations under every zone.
-  rect(B0, 494, B1 - B0, 104, 'pl-foundation');
-  text(B0 + 14, 514, t(ui.planFoundations), 'pl-zone-label');
   const fn = plan.foundations.length;
-  if (fn) {
-    const gap = fn > 6 ? 8 : 12;
-    const bw = (B1 - B0 - 28 - gap * (fn - 1)) / fn;
-    plan.foundations.forEach((f, i) => {
-      const x = B0 + 14 + i * (bw + gap);
-      open(f, f.across ? 'across' : 'foundation');
-      rect(x, 526, bw, 58, `pl-fixture ${priorityClass(f.priority)}`);
-      // A crowded band uses slightly smaller type, so every label keeps its words.
-      const size = fn > 6 ? 10 : 11;
-      const l = wrap(t(f.label), bw - 10, size).slice(0, 3);
-      lines(x + bw / 2, 546 + (3 - l.length) * 6, l, `pl-fixture-label ${priorityClass(f.priority)}`, size, 'middle');
-      close();
-    });
-  }
+  const band = layoutFoundations(fn);
+  rect(B0, 494, B1 - B0, 104 + (band.rows - 1) * ROW_STEP, 'pl-foundation');
+  text(B0 + 14, 514, t(ui.planFoundations), 'pl-zone-label');
+  plan.foundations.forEach((f, i) => {
+    const x = B0 + 14 + (i % band.perRow) * (band.bw + band.gap);
+    const y = 526 + Math.floor(i / band.perRow) * ROW_STEP;
+    open(f, f.across ? 'across' : 'foundation');
+    rect(x, y, band.bw, 58, `pl-fixture ${priorityClass(f.priority)}`);
+    const l = wrap(t(f.label), band.bw - 10, band.size);
+    const y0 = y + 29 - ((l.length - 1) * (band.size + 3)) / 2 + band.size * 0.35;
+    lines(x + band.bw / 2, Math.round(y0 * 10) / 10, l, `pl-fixture-label ${priorityClass(f.priority)}`, band.size, 'middle');
+    close();
+  });
 
   // The recovery vault stands apart and only receives.
   if (plan.vault) {
