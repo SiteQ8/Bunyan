@@ -12,7 +12,7 @@ Bunyan is an open handbook, a catalogue of design patterns, and a design advisor
 
 ## Open the design advisor
 
-Answer nine questions about your system at [siteq8.github.io/Bunyan](https://siteq8.github.io/Bunyan/?lang=en). The advisor suggests the patterns your design needs and explains why each one is there, draws the result as a floor plan of zones, doors, and foundations, and lists the threats to model first. You can share the design as a link, download a brief in Markdown, or print the sheet. Nothing you enter leaves your browser.
+Answer nine questions about your system at [siteq8.github.io/Bunyan](https://siteq8.github.io/Bunyan/?lang=en). The advisor suggests the patterns your design needs and explains why each one is there, draws the result as a floor plan of zones, doors, and foundations, and lists the threats to model first. Point at anything on the plan to see which pattern put it there, mark up a threat in red to see what stops it, or load an example and watch the plan change. You can share the design as a link, download a brief in Markdown, or print the sheet. Nothing you enter leaves your browser.
 
 | In Arabic, the plan reads right to left | Blueprint mode for dark screens |
 | --- | --- |
@@ -21,6 +21,10 @@ Answer nine questions about your system at [siteq8.github.io/Bunyan](https://sit
 | Every pattern with its drawing | On a phone, in both languages |
 | --- | --- |
 | ![The zero trust access pattern with its diagram](media/pattern-en.png) | ![The design advisor on two phones, in English and in Arabic](media/phones.png) |
+
+| Point at the plan, or mark up a threat in red | Test yourself |
+| --- | --- |
+| ![The API authorization threat marked up in red on the plan](media/markup-en.png) | ![A quiz question with its explanation](media/quiz-en.png) |
 
 ## What is inside
 
@@ -31,6 +35,7 @@ Answer nine questions about your system at [siteq8.github.io/Bunyan](https://sit
 | [Design exercises](katas/en/K01-mobile-banking.md) | Three realistic briefs with worked answers |
 | [Templates](templates/en/security-architecture-document.md) | An architecture document, a threat model worksheet, a decision record, and a review checklist |
 | [Glossary](glossary/en.md) | Short definitions of the terms used across the project |
+| [Quiz](https://siteq8.github.io/Bunyan/?lang=en#quiz) | Ten questions at a time, drawn from the patterns and the threats |
 
 ## Where to start
 
