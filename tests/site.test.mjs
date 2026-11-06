@@ -52,7 +52,7 @@ test('every asset the page loads is local and exists', () => {
     assert.ok(!/^[a-z]+:/i.test(m[1]), `${m[1]} is local`);
     assert.ok(fs.existsSync(path.join(docs, 'assets', m[1])), `${m[1]} exists`);
   }
-  for (const license of ['OFL-Archivo.txt', 'OFL-NotoKufiArabic.txt']) {
+  for (const license of ['OFL-AlbertSans.txt', 'OFL-NotoKufiArabic.txt']) {
     assert.ok(fs.existsSync(path.join(docs, 'assets', 'fonts', license)), `${license} ships with the fonts`);
   }
   assert.ok(fs.existsSync(path.join(docs, '.nojekyll')), 'Pages serves the folder as is');
@@ -107,17 +107,29 @@ test('each exercise opens the advisor on the scenario its text describes', () =>
 });
 
 test('every diagram is drawn for the site from its current source and is safe to place in the page', async () => {
-  const { sourceHash, OUT } = await import('../scripts/render-diagrams.mjs');
+  const { sourceHash, OUT, VARIANTS } = await import('../scripts/render-diagrams.mjs');
   const dir = path.join(root, 'data', 'diagrams');
   const sources = fs.readdirSync(dir).filter((f) => f.endsWith('.mmd'));
   const drawings = fs.readdirSync(OUT).filter((f) => f.endsWith('.svg'));
-  assert.equal(drawings.length, sources.length, 'one drawing for each source');
+  assert.equal(drawings.length, sources.length * VARIANTS.length, 'a wide and a tall drawing for each source');
   for (const f of sources) {
-    const file = path.join(OUT, f.replace(/\.mmd$/, '.svg'));
-    assert.ok(fs.existsSync(file), `${f} is drawn`);
-    const svg = fs.readFileSync(file, 'utf8');
-    const hash = sourceHash(fs.readFileSync(path.join(dir, f), 'utf8'));
-    assert.ok(svg.includes(`data-source="${hash}"`), `${f} was redrawn after its last change, run node scripts/render-diagrams.mjs`);
-    assert.ok(!/<style|\sstyle=|<script|<foreignObject|\son[a-z]+=|href=/i.test(svg), `${f} holds nothing that could run or be blocked in the page`);
+    for (const variant of VARIANTS) {
+      const name = `${f.replace(/\.mmd$/, '')}${variant.suffix}.svg`;
+      const file = path.join(OUT, name);
+      assert.ok(fs.existsSync(file), `${name} is drawn`);
+      const svg = fs.readFileSync(file, 'utf8');
+      const hash = sourceHash(variant.source(fs.readFileSync(path.join(dir, f), 'utf8')));
+      assert.ok(svg.includes(`data-source="${hash}"`), `${name} was redrawn after its last change, run node scripts/render-diagrams.mjs`);
+      assert.ok(!/<style|\sstyle=|<script|<foreignObject|\son[a-z]+=|href=/i.test(svg), `${name} holds nothing that could run or be blocked in the page`);
+    }
+  }
+});
+
+test('the site data knows the size of every drawing, so the page can hold its place', async () => {
+  const { OUT } = await import('../scripts/render-diagrams.mjs');
+  const { diagrams } = JSON.parse(read('data/bunyan.json'));
+  for (const f of fs.readdirSync(OUT).filter((x) => x.endsWith('.svg'))) {
+    const box = fs.readFileSync(path.join(OUT, f), 'utf8').match(/viewBox="([^"]+)"/)[1];
+    assert.equal(diagrams[f.replace(/\.svg$/, '')], box, `${f} is listed with its viewBox`);
   }
 });

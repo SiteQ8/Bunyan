@@ -18,7 +18,7 @@
       "en": "Ali AlEnezi",
       "ar": "علي العنزي"
     },
-    "version": "0.7.0"
+    "version": "0.8.0"
   },
   "domains": {
     "identity": {
@@ -337,12 +337,8 @@
       "ar": "صِف نظامك واحصل على تصميم"
     },
     "designIntro": {
-      "en": "Answer nine questions. Bunyan suggests the patterns your design needs, explains why each one is there, and draws the result as a plan. Everything runs in your browser.",
-      "ar": "أجب عن تسعة أسئلة، فيقترح بُنيان الأنماط التي يحتاجها تصميمك ويشرح سبب وجود كل منها، ثم يرسم النتيجة مخططًا، ويعمل كل ذلك داخل متصفحك."
-    },
-    "projectLabel": {
-      "en": "Project name",
-      "ar": "اسم المشروع"
+      "en": "Answer nine questions, and Bunyan suggests the patterns your design needs, says why each one is there, and draws the result as a floor plan, all inside your browser.",
+      "ar": "أجب عن تسعة أسئلة، فيقترح بُنيان الأنماط التي يحتاجها تصميمك ويبيّن سبب وجود كل منها، ثم يرسم النتيجة مخططًا معماريًا، وكل ذلك داخل متصفحك."
     },
     "projectPlaceholder": {
       "en": "Untitled system",
@@ -404,10 +400,6 @@
       "en": "Plan of the proposed architecture",
       "ar": "مخطط المعمارية المقترحة"
     },
-    "swipeHint": {
-      "en": "Swipe sideways to see the whole plan.",
-      "ar": "اسحب جانبيًا لترى المخطط كاملًا."
-    },
     "planOutside": {
       "en": "Outside",
       "ar": "الخارج"
@@ -439,6 +431,14 @@
     "legendConsider": {
       "en": "Dashed: worth considering",
       "ar": "متقطع: يستحق النظر"
+    },
+    "legendStructural": {
+      "en": "Grey: a part of the system itself, drawn for context.",
+      "ar": "رمادي: جزء من النظام نفسه يظهر للسياق."
+    },
+    "legendFresh": {
+      "en": "Green edge: changed by your last answer.",
+      "ar": "حافة خضراء: غيّرها جوابك الأخير."
     },
     "legendFoundations": {
       "en": "The band below holds the foundations every zone stands on.",
@@ -496,21 +496,9 @@
       "en": "Thirty-two patterns, each with the problem it solves, the design, controls at three levels, and how to verify it.",
       "ar": "اثنان وثلاثون نمطًا، يضم كل منها المشكلة التي يحلها والتصميم والضوابط على ثلاثة مستويات وطريقة التحقق منه."
     },
-    "colNumber": {
-      "en": "No.",
-      "ar": "الرقم"
-    },
-    "colPattern": {
-      "en": "Pattern",
-      "ar": "النمط"
-    },
     "colDomain": {
       "en": "Domain",
       "ar": "المجال"
-    },
-    "backToIndex": {
-      "en": "Back to the index",
-      "ar": "العودة إلى الفهرس"
     },
     "diagramCaption": {
       "en": "How the parts fit together",
@@ -596,6 +584,10 @@
       "en": "Glossary",
       "ar": "المصطلحات"
     },
+    "glossaryIntro": {
+      "en": "The terms used across Bunyan, in English and Arabic, each with the pattern where it matters most.",
+      "ar": "المصطلحات المستخدمة في بُنيان بالإنجليزية والعربية، ولكل منها النمط الذي يرتبط به أكثر من غيره."
+    },
     "glossarySearch": {
       "en": "Search terms",
       "ar": "ابحث في المصطلحات"
@@ -629,8 +621,16 @@
       "ar": "اختبار"
     },
     "planHint": {
-      "en": "Point at anything on the plan, or tap it, to see which pattern put it there and why.",
-      "ar": "أشر إلى أي عنصر في المخطط أو انقر عليه لترى النمط الذي وضعه هناك وسبب وجوده."
+      "en": "Point at any piece of the plan, or tap it, to see which pattern put it there and why. From the keyboard, focus the plan and move through it with the arrow keys.",
+      "ar": "أشر إلى أي عنصر في المخطط أو انقر عليه لترى النمط الذي وضعه هناك وسبب وضعه، ومن لوحة المفاتيح انتقل إلى المخطط وتنقّل بين عناصره بمفاتيح الأسهم."
+    },
+    "planHintTouch": {
+      "en": "Tap any piece of the plan to see which pattern put it there and why.",
+      "ar": "انقر على أي عنصر في المخطط لترى النمط الذي وضعه هناك وسبب وضعه."
+    },
+    "notePin": {
+      "en": "Click or tap the piece, or press Enter, to keep this note and reach its links.",
+      "ar": "انقر على العنصر أو اضغط Enter لتثبيت هذه الملاحظة والوصول إلى روابطها."
     },
     "showInList": {
       "en": "Show it in the list",
@@ -667,6 +667,22 @@
     "changeNone": {
       "en": "The patterns stay the same.",
       "ar": "بقيت الأنماط كما هي."
+    },
+    "changesAdded": {
+      "en": "{n} added",
+      "ar": "أُضيف {n}"
+    },
+    "changesMoved": {
+      "en": "{n} changed priority",
+      "ar": "تغيّرت أولوية {n}"
+    },
+    "changesRemoved": {
+      "en": "{n} removed",
+      "ar": "أُزيل {n}"
+    },
+    "changeShow": {
+      "en": "Show each change",
+      "ar": "اعرض كل تغيير"
     },
     "examplesTitle": {
       "en": "Try an example",
@@ -723,6 +739,70 @@
     "quizKeys": {
       "en": "Press 1 to 4 to answer, and Enter to go on.",
       "ar": "اضغط من ١ إلى ٤ للإجابة، ثم Enter للمتابعة."
+    },
+    "examplesTab": {
+      "en": "Examples",
+      "ar": "أمثلة"
+    },
+    "askPrev": {
+      "en": "Previous",
+      "ar": "السابق"
+    },
+    "askNext": {
+      "en": "Next",
+      "ar": "التالي"
+    },
+    "undo": {
+      "en": "Undo",
+      "ar": "تراجع"
+    },
+    "resetDone": {
+      "en": "Every answer is back to its default.",
+      "ar": "عادت كل الأجوبة إلى قيمها الافتراضية."
+    },
+    "crumbs": {
+      "en": "Breadcrumb",
+      "ar": "مسار التنقل"
+    },
+    "aboutTitle": {
+      "en": "About Bunyan",
+      "ar": "عن بُنيان"
+    },
+    "aboutLead": {
+      "en": "Bunyan is an open handbook, pattern catalogue and design advisor for security architecture, written in English and Arabic side by side, so that a team can design to one plan in either language.",
+      "ar": "بُنيان دليل مفتوح وفهرس للأنماط ومستشار للتصميم في معمارية الأمن السيبراني، كُتب باللغتين العربية والإنجليزية جنبًا إلى جنب، لذا يستطيع الفريق أن يصمم وفق مخطط واحد بأي من اللغتين."
+    },
+    "aboutWhoHead": {
+      "en": "Who it is for.",
+      "ar": "لمن صُمّم"
+    },
+    "aboutWho": {
+      "en": "Security architects, the engineers who design and run systems, and students learning the craft. Reviewers use it to ask sharper questions of a design.",
+      "ar": "لمعماريي الأمن والمهندسين الذين يصممون الأنظمة ويشغّلونها والطلاب الذين يتعلمون هذه الصنعة، بينما يستخدمه المراجعون لطرح أسئلة أدق على أي تصميم."
+    },
+    "aboutWhatHead": {
+      "en": "What it holds.",
+      "ar": "ما الذي يضمه"
+    },
+    "aboutWhat": {
+      "en": "Patterns with controls at three levels, each mapped to NIST SP 800-53, CIS Controls and ISO/IEC 27001, alongside a handbook, design exercises, templates, a glossary and a quiz.",
+      "ar": "أنماط بضوابط على ثلاثة مستويات، يرتبط كل منها بمعايير NIST SP 800-53 وCIS Controls وISO/IEC 27001، إلى جانب دليل وتمارين تصميم وقوالب ومعجم مصطلحات واختبار."
+    },
+    "aboutHowHead": {
+      "en": "How it works.",
+      "ar": "كيف يعمل"
+    },
+    "aboutHow": {
+      "en": "The advisor runs entirely in your browser. Nothing you type is sent anywhere, and a design travels as a link you can share, print or download as a brief.",
+      "ar": "يعمل المستشار داخل متصفحك بالكامل، فلا يُرسل أي شيء تكتبه إلى أي مكان، وينتقل التصميم رابطًا يمكنك مشاركته أو طباعته أو تنزيله ملخصًا."
+    },
+    "aboutJoinHead": {
+      "en": "How to take part.",
+      "ar": "كيف تشارك"
+    },
+    "aboutJoin": {
+      "en": "Bunyan is open source under the MIT license. Suggest a pattern, correct a control or improve a translation on GitHub.",
+      "ar": "بُنيان مفتوح المصدر بموجب رخصة MIT، ويمكنك اقتراح نمط أو تصحيح ضابط أو تحسين ترجمة على GitHub."
     }
   },
   "practice": [

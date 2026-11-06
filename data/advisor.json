@@ -9,6 +9,10 @@
         "en": "What are you designing?",
         "ar": "ما الذي تصممه؟"
       },
+      "short": {
+        "en": "System",
+        "ar": "النظام"
+      },
       "options": [
         {
           "id": "digital",
@@ -63,6 +67,10 @@
         "en": "Where does it run?",
         "ar": "أين يعمل؟"
       },
+      "short": {
+        "en": "Hosting",
+        "ar": "الاستضافة"
+      },
       "options": [
         {
           "id": "onprem",
@@ -104,6 +112,10 @@
       "label": {
         "en": "Who reaches it, and from where?",
         "ar": "من يصل إليه، ومن أين؟"
+      },
+      "short": {
+        "en": "Access",
+        "ar": "الوصول"
       },
       "help": {
         "en": "Choose all that apply.",
@@ -149,6 +161,10 @@
         "en": "What is the most sensitive data it handles?",
         "ar": "ما أكثر البيانات حساسية التي يتعامل معها؟"
       },
+      "short": {
+        "en": "Data",
+        "ar": "البيانات"
+      },
       "options": [
         {
           "id": "public",
@@ -188,6 +204,10 @@
       "label": {
         "en": "Which obligations apply?",
         "ar": "ما الالتزامات التي تنطبق؟"
+      },
+      "short": {
+        "en": "Obligations",
+        "ar": "الالتزامات"
       },
       "help": {
         "en": "Choose all that apply, or none.",
@@ -247,6 +267,10 @@
         "en": "How much downtime can it take?",
         "ar": "ما مقدار التوقف الذي يحتمله؟"
       },
+      "short": {
+        "en": "Downtime",
+        "ar": "التوقف"
+      },
       "options": [
         {
           "id": "standard",
@@ -279,6 +303,10 @@
       "label": {
         "en": "Who administers it?",
         "ar": "من يديره؟"
+      },
+      "short": {
+        "en": "Admins",
+        "ar": "الإدارة"
       },
       "options": [
         {
@@ -314,6 +342,10 @@
       "label": {
         "en": "How is it built and run?",
         "ar": "كيف يُبنى ويُشغَّل؟"
+      },
+      "short": {
+        "en": "Delivery",
+        "ar": "البناء والتشغيل"
       },
       "help": {
         "en": "Choose all that apply.",
@@ -351,6 +383,10 @@
       "label": {
         "en": "Where is your security programme today?",
         "ar": "أين يقف برنامج الأمن لديك اليوم؟"
+      },
+      "short": {
+        "en": "Maturity",
+        "ar": "النضج"
       },
       "options": [
         {
