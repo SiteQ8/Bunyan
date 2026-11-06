@@ -243,8 +243,20 @@ export function withReadmeTable(current, bundle, lang, file) {
   return `${current.slice(0, a + START.length)}\n\n${readmeTable(bundle, lang)}\n\n${current.slice(b)}`;
 }
 
+// The site places each diagram before it loads, so it needs the size of every drawing.
+function diagramBoxes() {
+  const dir = path.join(root, 'docs', 'diagrams');
+  if (!fs.existsSync(dir)) return {};
+  const boxes = {};
+  for (const f of fs.readdirSync(dir).filter((x) => x.endsWith('.svg')).sort()) {
+    const box = fs.readFileSync(path.join(dir, f), 'utf8').match(/viewBox="([^"]+)"/);
+    if (box) boxes[f.replace(/\.svg$/, '')] = box[1];
+  }
+  return boxes;
+}
+
 export function siteBundle(bundle) {
-  return `${JSON.stringify(bundle)}\n`;
+  return `${JSON.stringify({ ...bundle, diagrams: diagramBoxes() })}\n`;
 }
 
 export function outputs(bundle) {

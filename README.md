@@ -12,11 +12,11 @@ Bunyan is an open handbook, a catalogue of design patterns, and a design advisor
 
 ## Open the design advisor
 
-Answer nine questions about your system at [bunyan.3li.info](https://bunyan.3li.info/?lang=en). The advisor suggests the patterns your design needs and explains why each one is there, draws the result as a floor plan of zones, doors, and foundations, and lists the threats to model first. Point at anything on the plan to see which pattern put it there, mark up a threat in red to see what stops it, or load an example and watch the plan change. You can share the design as a link, download a brief in Markdown, or print the sheet. Nothing you enter leaves your browser.
+Answer nine questions about your system at [bunyan.3li.info](https://bunyan.3li.info/?lang=en). The advisor suggests the patterns your design needs and explains why each one is there, draws the result as a floor plan of zones, doors, and foundations, and lists the threats to model first. Point at anything on the plan to see which pattern put it there, mark up a threat in red to see what stops it, or load an example and watch the plan change. You can share the design as a link, download a brief in Markdown, or print the sheet. On a phone the plan is drawn as a portrait sheet so that every label stays readable, and from the keyboard you can move through it with the arrow keys. Nothing you enter leaves your browser.
 
-| In Arabic, the plan reads right to left | Blueprint mode for dark screens |
+| In Arabic, the plan reads right to left | The patterns for a design, set as a board |
 | --- | --- |
-| ![The design advisor in Arabic](media/advisor-ar.png) | ![The questions and the recommended patterns in dark mode](media/dark-en.png) |
+| ![The design advisor in Arabic](media/advisor-ar.png) | ![The recommended patterns in dark mode, with one of them open](media/dark-en.png) |
 
 | Every pattern with its drawing | On a phone, in both languages |
 | --- | --- |

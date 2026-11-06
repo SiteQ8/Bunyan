@@ -2,6 +2,18 @@
 
 All notable changes to Bunyan are listed here. The project follows semantic versioning.
 
+## 0.8.0, 2026-11-06
+
+- A new look for the whole site: Albert Sans with Noto Kufi Arabic, five type sizes, forest ink on plain paper, a lime fill for the action in hand, and red kept for marking up threats. The grid paper, outlined boxes, pills and thin rules are gone, and every colour, size and space comes from one set of tokens.
+- The plan is laid out for the width of the screen it is shown on, one unit to one pixel, so its labels print at 14px and never shrink below 13px. A wide screen gets the landscape sheet. A tablet or a phone gets a new portrait sheet, with the rooms stacked from the entrance down, the doors in the walls between them, and the service corridor down the side. Printing always draws the landscape sheet, with the legend and the title block in a strip beside it.
+- The questions sit above the plan, one at a time, in a strip of tabs with Previous and Next, and the examples as the last tab. The note on what an answer changed rides along the bottom of the screen while the plan is in view, folds a long list into a count, and the pieces an answer added or promoted are edged in green until the next answer, so red is kept for threats.
+- The plan can be used from the keyboard: focus it, move between its pieces with the arrow keys, press Enter to pin a piece and Escape to let it go. Each piece now has a name for screen readers. Pointing at a piece previews its note, and pinning it adds the links to the list and the pattern. When one piece is in focus the rest fade by colour, so the doors still cut the walls.
+- The patterns for a design are set as a board, essential first, and open one at a time. On first sight its rows turn over like a departure board, and after each answer the rows that changed turn again. Each threat lists the patterns that address it, and its button names the threat it marks.
+- Start over can be undone for eight seconds. The skip link no longer leaves the page. A link that cannot be copied stays on screen.
+- The pattern index is grouped by domain. Each pattern page opens with its facts beside the summary and sets each section beside its heading. Every diagram is drawn twice, wide and tall, the page takes the one that keeps its labels readable, and an empty drawing of the same size holds its place while it loads.
+- The glossary has an introduction and sets its terms in two columns, the Learn page sets its four parts side by side, and the quiz sits in the middle of the page. The advisor page ends with a short account of who Bunyan is for, what it holds, how it works and how to take part.
+- New tests hold both plan layouts to their promises at nine widths: no label loses a word or leaves its box, no piece covers another, every recommended pattern is drawn, and every piece can be reached from the keyboard.
+
 ## 0.7.0, 2026-09-24
 
 - Three new design exercises in English and Arabic, each with a brief, constraints, a task, an advisor link that opens the scenario, a worked answer, and discussion questions: K04 An AI agent for customer service, K05 A ministry moves to a sovereign cloud, and K06 A bank's payment hub.

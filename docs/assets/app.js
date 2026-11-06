@@ -1,11 +1,11 @@
 // The Bunyan website: the design advisor, the pattern catalogue, the learning
 // index, and the glossary. Plain modules, no framework. The only request the
-// page makes is for its own data file, and the only things it stores are the
-// chosen language and theme.
+// page makes is for its own data file and drawings, and the only things it
+// stores are the chosen language and theme.
 
 import { advise, decodeState, encodeState, defaultAnswers, normalizeAnswers, diffPatterns, LEVELS, PRIORITIES } from './engine.js';
 import { buildQuiz } from './quiz.js';
-import { renderPlan } from './plan.js';
+import { renderPlan, PRINT_WIDTH } from './plan.js';
 import { renderBrief, eastern } from './brief.js';
 
 const doc = document.documentElement;
@@ -19,10 +19,22 @@ const S = {
   project: '',
   advice: null,
   notice: '',
+  // The question shown in the strip above the plan.
+  tab: 0,
   // A pinned highlight on the plan: a pattern the reader tapped, or a threat marked up in red.
   focus: null,
   // What the note under the plan says when nothing is pinned or pointed at.
   rest: '',
+  // The patterns the last answer added or promoted, marked in red until the next answer.
+  fresh: new Set(),
+  // The width the plan was last drawn for, and whether it is being drawn for paper.
+  planWidth: 0,
+  printing: false,
+  // The piece under the pointer, a timer that lets the pointer cross a gap, and
+  // where the pointer stood when the page jumped under it.
+  hover: null,
+  leaving: 0,
+  still: null,
   quiz: null,
 };
 
@@ -49,17 +61,9 @@ const today = () => new Date().toISOString().slice(0, 10);
 const MARK =
   '<svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><path class="bm-wall" d="M7 7h18v18H16M7 7v11M7 25h2"/><path class="bm-door" d="M16 25a7 7 0 0 0-7-7M16 25V18"/></svg>';
 
-const ICONS = {
-  copy: '<path d="M6.8 9.2l2.4-2.4"/><path d="M7.6 4.9l1.1-1.1a2.5 2.5 0 0 1 3.5 3.5l-1.1 1.1"/><path d="M8.4 11.1l-1.1 1.1a2.5 2.5 0 0 1-3.5-3.5l1.1-1.1"/>',
-  download: '<path d="M8 2.5v7.5"/><path d="M4.8 7l3.2 3.2L11.2 7"/><path d="M3 13.2h10"/>',
-  print: '<path d="M4.5 6V2.5h7V6"/><path d="M4.5 11.5H3.2a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h9.6a1 1 0 0 1 1 1v3.5a1 1 0 0 1-1 1h-1.3"/><path d="M4.5 9.2h7v4.3h-7z"/>',
-  reset: '<path d="M3.2 8.2a4.8 4.8 0 1 0 1.5-3.6"/><path d="M3.2 2.6v3h3"/>',
-  pen: '<path d="M3 13l.9-3.4 6.9-6.9a1.4 1.4 0 0 1 2 2L5.9 11.6z"/><path d="M9.6 3.9l2.5 2.5"/>',
-};
 const reduced = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
 // Fill a template such as "Question {n} of {total}" with ready-made HTML.
 const fmt = (template, values) => esc(template).replace(/\{(\w+)\}/g, (all, key) => (key in values ? values[key] : all));
-const icon = (name) => `<svg class="icon" viewBox="0 0 16 16" aria-hidden="true">${ICONS[name]}</svg>`;
 const store = (key, value) => {
   try {
     localStorage.setItem(key, value);
@@ -67,6 +71,42 @@ const store = (key, value) => {
     // Private browsing can refuse storage. The choice then lasts for this visit only.
   }
 };
+// The inner width of an element, which is the width the plan is drawn for.
+const contentWidth = (el) => {
+  const cs = getComputedStyle(el);
+  return Math.floor(el.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight));
+};
+
+// The board turns its rows over once, as it first comes into view. A board
+// that is already on screen is never hidden, and a reader who asks for less
+// motion sees no movement at all.
+const revealer =
+  typeof IntersectionObserver === 'function'
+    ? new IntersectionObserver(
+        (entries) => {
+          for (const entry of entries) {
+            if (!entry.isIntersecting) continue;
+            entry.target.classList.add('in');
+            revealer.unobserve(entry.target);
+            // After its first turn, the board only turns the rows an answer changes.
+            setTimeout(() => entry.target.classList.add('shown'), 1200);
+          }
+        },
+        { rootMargin: '0px 0px -12% 0px' }
+      )
+    : null;
+
+function reveal(...sections) {
+  for (const el of sections) {
+    if (!el) continue;
+    if (!revealer || reduced() || el.getBoundingClientRect().top < innerHeight) {
+      el.classList.add('in', 'shown');
+      continue;
+    }
+    el.classList.add('reveal');
+    revealer.observe(el);
+  }
+}
 
 // Routes live in the hash: #design?<answers>, #patterns, #patterns/P01, #learn, #glossary.
 function route() {
@@ -91,26 +131,30 @@ const NAV = [
 ];
 
 function renderChrome() {
-  document.querySelector('.skip').textContent = ui('skip');
+  const skip = document.querySelector('.skip');
+  skip.textContent = ui('skip');
+  // The skip link moves focus without touching the route.
+  skip.addEventListener('click', (event) => {
+    event.preventDefault();
+    main.focus();
+  });
   document.getElementById('nav').innerHTML = NAV.map(
     ([view, key]) => `<a href="#${view}" data-nav="${view}">${esc(ui(key))}</a>`
   ).join('');
   document.getElementById('tools').innerHTML =
-    `<a class="lang" id="lang" href="?lang=${other()}" lang="${other()}" hreflang="${other()}" aria-label="${esc(ui('switchLanguageLabel'))}">${esc(ui('switchLanguage'))}</a>` +
+    `<a class="lang" id="lang" href="?lang=${other()}" hreflang="${other()}"><span lang="${other()}">${esc(ui('switchLanguage'))}</span><span class="sr-only">, ${esc(ui('switchLanguageLabel'))}</span></a>` +
     `<button type="button" class="theme" id="theme" aria-label="${esc(ui('themeLabel'))}" title="${esc(ui('themeLabel'))}">` +
     '<svg viewBox="0 0 20 20" aria-hidden="true" class="theme-icon"><circle cx="10" cy="10" r="7.25" class="ti-ring"/><path d="M10 2.75a7.25 7.25 0 0 1 0 14.5z" class="ti-half"/></svg></button>';
   const p = meta().project;
   document.getElementById('colophon').innerHTML =
-    `<p class="colophon-brand">${MARK}<span>${esc(t(p.tagline))}</span></p>` +
+    `<p>${esc(t(p.tagline))}</p>` +
     `<p>${esc(ui('footerLicense'))} ${esc(ui('footerMaintainer'))}</p>` +
     `<p>${esc(ui('footerPrivacy'))}</p>` +
-    `<p><a href="${esc(p.repo)}">${esc(ui('footerSource'))}</a> <span class="version">${ltr(`v${p.version}`)}</span></p>`;
+    `<p><a href="${esc(p.repo)}">${esc(ui('footerSource'))}</a></p>`;
 
   document.getElementById('lang').addEventListener('click', () => store('bunyan-lang', other()));
   document.getElementById('theme').addEventListener('click', () => {
-    const current =
-      doc.getAttribute('data-theme') || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-    const next = current === 'dark' ? 'light' : 'dark';
+    const next = doc.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
     doc.setAttribute('data-theme', next);
     store('bunyan-theme', next);
   });
@@ -166,7 +210,7 @@ const listOf = (items) => `<ul>${items.map((x) => `<li>${esc(t(x))}</li>`).join(
 
 // The design advisor
 
-function questionHtml(q) {
+function questionHtml(q, i) {
   const type = q.type === 'multi' ? 'checkbox' : 'radio';
   const value = S.answers[q.id];
   const on = (id) => (Array.isArray(value) ? value.includes(id) : value === id);
@@ -177,7 +221,16 @@ function questionHtml(q) {
         `<label class="opt"><input type="${type}" name="${q.id}" value="${o.id}"${on(o.id) ? ' checked' : ''}><span>${esc(t(o.label))}</span></label>`
     )
     .join('');
-  return `<li><fieldset><legend>${esc(t(q.label))}</legend>${help}<div class="opts">${options}</div></fieldset></li>`;
+  return `<div role="tabpanel" id="q-${q.id}" aria-labelledby="tab-${q.id}"${i === S.tab ? '' : ' hidden'}><fieldset><legend>${esc(t(q.label))}</legend>${help}<div class="opts">${options}</div></fieldset></div>`;
+}
+
+function tabsHtml(questions) {
+  const tab = (id, i, label) =>
+    `<button type="button" class="tab" role="tab" id="tab-${id}" aria-controls="q-${id}" aria-selected="${i === S.tab}" tabindex="${i === S.tab ? 0 : -1}">${esc(label)}</button>`;
+  return [
+    ...questions.map((q, i) => tab(q.id, i, t(q.short))),
+    tab('examples', questions.length, ui('examplesTab')),
+  ].join('');
 }
 
 function legendHtml() {
@@ -194,6 +247,8 @@ function legendHtml() {
     ['<rect x="4" y="7" width="40" height="14" class="pl-fixture pl-essential"/>', 'legendEssential'],
     ['<rect x="4" y="7" width="40" height="14" class="pl-fixture pl-recommended"/>', 'legendRecommended'],
     ['<rect x="4" y="7" width="40" height="14" class="pl-fixture pl-consider"/>', 'legendConsider'],
+    ['<rect x="4" y="7" width="40" height="14" class="pl-fixture pl-structural"/>', 'legendStructural'],
+    ['<rect x="4" y="7" width="40" height="14" class="pl-fixture pl-recommended lg-fresh"/>', 'legendFresh'],
     ['<rect x="3" y="6" width="42" height="16" class="pl-foundation"/>', 'legendFoundations'],
     [
       '<line x1="3" y1="14" x2="22" y2="14" class="pl-oneway"/><path d="M26 14 l-7 -4 v8 z" class="pl-arrowhead"/><rect x="29" y="5" width="16" height="18" class="pl-vault"/>',
@@ -201,6 +256,20 @@ function legendHtml() {
     ],
   ];
   return `<ul>${items.map(([svg, key]) => `<li>${swatch(svg)}<span>${esc(ui(key))}</span></li>`).join('')}</ul>`;
+}
+
+function aboutHtml() {
+  const col = (head, body) => `<p><strong>${esc(ui(head))}</strong> ${esc(ui(body))}</p>`;
+  return `<section class="about" aria-labelledby="about-title">
+  <h2 id="about-title" class="sr-only">${esc(ui('aboutTitle'))}</h2>
+  <p class="about-lead">${esc(ui('aboutLead'))}</p>
+  <div class="about-cols">
+    ${col('aboutWhoHead', 'aboutWho')}
+    ${col('aboutWhatHead', 'aboutWhat')}
+    ${col('aboutHowHead', 'aboutHow')}
+    ${col('aboutJoinHead', 'aboutJoin')}
+  </div>
+</section>`;
 }
 
 function viewDesign(query) {
@@ -214,61 +283,79 @@ function viewDesign(query) {
   }
   const notice = S.notice;
   S.notice = '';
+  S.advice = null;
+  const katas = meta().katas.map((k) => `<button type="button" data-example="${k.slug}">${esc(t(k.title))}</button>`).join('');
   main.innerHTML = `
 <section class="intro">
   <h1>${esc(ui('designTitle'))}</h1>
-  <p>${esc(ui('designIntro'))}</p>
+  <p class="lede">${esc(ui('designIntro'))}</p>
   ${notice ? `<p class="notice" role="status">${esc(notice)}</p>` : ''}
 </section>
 <section class="sheet" aria-labelledby="sheet-title">
-  <div class="sheet-head">
-    <h2 id="sheet-title">${esc(ui('sheetTitle'))}</h2>
-    <div class="actions">
-      <button type="button" data-act="copy">${icon('copy')}<span>${esc(ui('copyLink'))}</span></button>
-      <button type="button" data-act="download">${icon('download')}<span>${esc(ui('download'))}</span></button>
-      <button type="button" data-act="print">${icon('print')}<span>${esc(ui('print'))}</span></button>
-      <button type="button" data-act="reset" class="quiet">${icon('reset')}<span>${esc(ui('reset'))}</span></button>
+  <h2 id="sheet-title" class="sr-only">${esc(ui('sheetTitle'))}</h2>
+  <div class="ask" data-ui>
+    <div class="tabs" role="tablist" aria-label="${esc(ui('questionsTitle'))}">${tabsHtml(advisor.questions)}</div>
+    <div class="panels" id="qlist">
+      ${advisor.questions.map(questionHtml).join('')}
+      <div role="tabpanel" id="q-examples" aria-labelledby="tab-examples" class="examples"${S.tab === advisor.questions.length ? '' : ' hidden'}>
+        <p class="examples-intro">${esc(ui('examplesTitle'))}</p>
+        <div class="chips">${katas}</div>
+      </div>
     </div>
-    <p class="toast" id="toast" role="status" aria-live="polite"></p>
+    <div class="ask-nav">
+      <p class="ask-count" id="ask-count"></p>
+      <button type="button" data-step="-1">${esc(ui('askPrev'))}</button>
+      <button type="button" data-step="1">${esc(ui('askNext'))}</button>
+    </div>
   </div>
-  <div class="plan-frame" id="plan" role="region" aria-label="${esc(ui('planLabel'))}" tabindex="0"></div>
-  <div class="plan-note" id="plan-note" aria-live="polite"></div>
-  <p class="swipe">${esc(ui('swipeHint'))}</p>
+  <div class="plan-wrap">
+    <div class="plan-frame" id="plan" role="region" aria-label="${esc(ui('planLabel'))}" tabindex="0"></div>
+    <div class="plan-note" id="plan-note" aria-live="polite"></div>
+  </div>
   <div class="sheet-foot">
     <section class="legend" aria-labelledby="legend-title">
       <h3 id="legend-title">${esc(ui('legendTitle'))}</h3>
       ${legendHtml()}
     </section>
-    <div class="titleblock">
-      <dl id="titleblock"></dl>
+    <div class="titleblock" data-ui>
+      <p class="tb-title" aria-hidden="true">${esc(ui('sheetTitle'))}</p>
+      <dl>
+        <div class="tb-project"><dt><label for="project">${esc(ui('sheetProject'))}</label></dt><dd><input type="text" id="project" maxlength="80" autocomplete="off" spellcheck="false" placeholder="${esc(ui('projectPlaceholder'))}" value="${esc(S.project)}"></dd></div>
+        <div><dt>${esc(ui('sheetDrawing'))}</dt><dd id="tb-drawing"></dd></div>
+        <div><dt>${esc(ui('sheetLevel'))}</dt><dd id="tb-level"></dd></div>
+        <div><dt>${esc(ui('sheetScale'))}</dt><dd>${esc(ui('sheetNotToScale'))}</dd></div>
+        <div><dt>${esc(ui('sheetDate'))}</dt><dd id="tb-date"></dd></div>
+      </dl>
       <p class="tb-mark">${MARK}<span lang="en">Bunyan</span> <span lang="ar">بُنيان</span></p>
+    </div>
+    <div class="sheet-end">
+      <div class="actions">
+        <button type="button" data-act="download">${esc(ui('download'))}</button>
+        <button type="button" data-act="copy">${esc(ui('copyLink'))}</button>
+        <button type="button" data-act="print">${esc(ui('print'))}</button>
+        <button type="button" data-act="reset">${esc(ui('reset'))}</button>
+      </div>
+      <p class="toast" id="toast" role="status" aria-live="polite"></p>
     </div>
   </div>
 </section>
-<div class="workspace">
-  <section class="questions" aria-labelledby="q-title">
-    <h2 id="q-title">${esc(ui('questionsTitle'))}</h2>
-    <label class="project" for="project"><span>${esc(ui('projectLabel'))}</span>
-      <input type="text" id="project" maxlength="80" autocomplete="off" spellcheck="false" placeholder="${esc(ui('projectPlaceholder'))}" value="${esc(S.project)}">
-    </label>
-    <div class="examples">
-      <p>${esc(ui('examplesTitle'))}</p>
-      <div class="chips">${meta().katas.map((k) => `<button type="button" data-example="${k.slug}">${esc(t(k.title))}</button>`).join('')}</div>
-    </div>
-    <ol class="qlist" id="qlist">${advisor.questions.map(questionHtml).join('')}</ol>
-  </section>
-  <section class="results" aria-labelledby="r-title">
+<section class="board" aria-labelledby="r-title">
+  <div class="board-head">
     <h2 id="r-title">${esc(ui('resultsTitle'))}</h2>
-    <div id="groups"></div>
-    <section class="threats" aria-labelledby="t-title">
-      <h2 id="t-title">${esc(ui('threatsTitle'))}</h2>
-      <p>${esc(ui('threatsIntro'))}</p>
-      <ol class="tlist" id="threats"></ol>
-    </section>
-  </section>
-</div>`;
+    <p class="board-count" id="board-count"></p>
+  </div>
+  <ul class="plist" id="groups"></ul>
+</section>
+<section class="threats" aria-labelledby="t-title">
+  <h2 id="t-title">${esc(ui('threatsTitle'))}</h2>
+  <p>${esc(ui('threatsIntro'))}</p>
+  <ol class="tlist" id="threats"></ol>
+</section>
+${aboutHtml()}`;
   bindDesign();
+  showTab(S.tab, false);
   refresh(false);
+  reveal(main.querySelector('.board'));
 }
 
 function readAnswers() {
@@ -280,15 +367,61 @@ function readAnswers() {
   return normalizeAnswers(S.data.advisor, raw);
 }
 
+// One question at a time in the strip, with the examples as the last tab.
+function showTab(index, focus) {
+  const tabs = [...main.querySelectorAll('.tab')];
+  const last = tabs.length - 1;
+  S.tab = Math.max(0, Math.min(last, index));
+  tabs.forEach((tab, i) => {
+    const on = i === S.tab;
+    tab.setAttribute('aria-selected', String(on));
+    tab.tabIndex = on ? 0 : -1;
+    document.getElementById(tab.getAttribute('aria-controls')).hidden = !on;
+  });
+  if (focus) tabs[S.tab].focus();
+  const total = S.data.advisor.questions.length;
+  document.getElementById('ask-count').textContent =
+    S.tab < total ? ui('quizProgress').replace('{n}', num(S.tab + 1)).replace('{total}', num(total)) : ui('examplesTitle');
+  main.querySelector('[data-step="-1"]').disabled = S.tab === 0;
+  main.querySelector('[data-step="1"]').disabled = S.tab === last;
+}
+
+// The page jumps to the plan at once, and a mouse that has not moved since
+// is not taken to be pointing at whatever landed under it.
+function revealPlan(event, target) {
+  if (event && event.clientX !== undefined) S.still = [event.clientX, event.clientY];
+  const el = target || document.getElementById('plan');
+  const box = el.getBoundingClientRect();
+  if (box.top < 0 || box.top > innerHeight * 0.6) el.scrollIntoView({ block: target ? 'center' : 'start' });
+}
+const still = (e) => S.still && e.clientX === S.still[0] && e.clientY === S.still[1];
+
 function bindDesign() {
-  document.getElementById('qlist').addEventListener('change', () => {
+  document.getElementById('qlist').addEventListener('change', (event) => {
+    if (!event.target.matches('input')) return;
     S.answers = readAnswers();
     refresh(true);
+  });
+  const tablist = main.querySelector('.tabs');
+  tablist.addEventListener('click', (event) => {
+    const tab = event.target.closest('.tab');
+    if (tab) showTab([...tablist.children].indexOf(tab), false);
+  });
+  tablist.addEventListener('keydown', (event) => {
+    const forward = S.lang === 'ar' ? 'ArrowLeft' : 'ArrowRight';
+    const back = S.lang === 'ar' ? 'ArrowRight' : 'ArrowLeft';
+    const move = { [forward]: S.tab + 1, [back]: S.tab - 1, Home: 0, End: tablist.children.length - 1 }[event.key];
+    if (move === undefined) return;
+    event.preventDefault();
+    showTab((move + tablist.children.length) % tablist.children.length, true);
+  });
+  main.querySelector('.ask-nav').addEventListener('click', (event) => {
+    const step = event.target.closest('button[data-step]');
+    if (step) showTab(S.tab + Number(step.dataset.step), false);
   });
   const project = document.getElementById('project');
   project.addEventListener('input', () => {
     S.project = project.value.slice(0, 80);
-    refreshTitleBlock();
     writeUrl();
   });
   main.querySelector('.actions').addEventListener('click', (event) => {
@@ -298,23 +431,61 @@ function bindDesign() {
     act[button.dataset.act]();
   });
 
-  // The plan answers back: point at a piece to see where it comes from, tap to pin it.
+  // The plan answers back: point at a piece to see where it comes from, tap or
+  // press Enter to pin it, and Escape to let it go.
   const frame = document.getElementById('plan');
   frame.addEventListener('pointerover', (event) => {
-    if (S.focus) return;
+    if (event.pointerType === 'touch') return;
+    clearTimeout(S.leaving);
+    if (S.focus || still(event)) return;
+    S.still = null;
     const item = event.target.closest('.pl-item');
-    if (!item) return settle();
+    if (!item) {
+      S.leaving = setTimeout(rest, 120);
+      return;
+    }
+    if (item === S.hover) return;
+    S.hover = item;
     light([item.dataset.pattern]);
-    note(patternNote(item.dataset.pattern, item.dataset.label));
+    note(patternNote(item.dataset.pattern, item.dataset.label, false));
   });
   frame.addEventListener('pointerleave', () => {
-    if (!S.focus) settle();
+    clearTimeout(S.leaving);
+    if (!S.focus) S.leaving = setTimeout(rest, 120);
   });
   frame.addEventListener('click', (event) => {
     const item = event.target.closest('.pl-item');
-    const id = item && item.dataset.pattern;
-    if (!id || (S.focus && S.focus.kind === 'pattern' && S.focus.id === id)) return unpin();
-    pin({ kind: 'pattern', id, ids: [id], html: patternNote(id, item.dataset.label) });
+    if (item) togglePin(item);
+    else if (S.focus) unpin();
+  });
+  frame.addEventListener('keydown', (event) => {
+    const items = [...frame.querySelectorAll('.pl-item')];
+    if (!items.length) return;
+    const i = items.indexOf(document.activeElement);
+    const flip = S.lang === 'ar' ? -1 : 1;
+    const step = { ArrowDown: 1, ArrowUp: -1, ArrowRight: flip, ArrowLeft: -flip }[event.key];
+    if (step) {
+      event.preventDefault();
+      items[i < 0 ? 0 : (i + step + items.length) % items.length].focus();
+    } else if (event.key === 'Home' || event.key === 'End') {
+      event.preventDefault();
+      items[event.key === 'Home' ? 0 : items.length - 1].focus();
+    } else if ((event.key === 'Enter' || event.key === ' ') && i >= 0) {
+      event.preventDefault();
+      togglePin(items[i]);
+    }
+  });
+  frame.addEventListener('focusin', (event) => {
+    const item = event.target.closest('.pl-item');
+    if (!item || S.focus) return;
+    light([item.dataset.pattern]);
+    note(patternNote(item.dataset.pattern, item.dataset.label, false));
+  });
+  // Leaving the plan for its note keeps the note; leaving for anywhere else lets it rest.
+  frame.addEventListener('focusout', (event) => {
+    const to = event.relatedTarget;
+    if (S.focus || frame.contains(to) || (to && to.closest && to.closest('#plan-note'))) return;
+    rest();
   });
 
   // The list lights up the plan in return.
@@ -327,6 +498,17 @@ function bindDesign() {
   groups.addEventListener('focusin', fromRow);
   groups.addEventListener('pointerleave', () => !S.focus && settle());
   groups.addEventListener('focusout', () => !S.focus && settle());
+  // Opening a row closes the one that was open; the page then moves so that the
+  // row the reader opened stays where they clicked it.
+  groups.addEventListener('click', (event) => {
+    const summary = event.target.closest('summary');
+    if (!summary) return;
+    const before = summary.getBoundingClientRect().top;
+    requestAnimationFrame(() => {
+      const moved = summary.getBoundingClientRect().top - before;
+      if (Math.abs(moved) > 1) window.scrollBy(0, moved);
+    });
+  });
 
   // Mark up a threat in red: the controls that stop it stand out on the plan.
   document.getElementById('threats').addEventListener('click', (event) => {
@@ -336,7 +518,7 @@ function bindDesign() {
     if (S.focus && S.focus.kind === 'threat' && S.focus.id === threat.id) return unpin();
     pin({ kind: 'threat', id: threat.id, ids: threat.addressedBy, html: threatNote(threat) });
     button.setAttribute('aria-pressed', 'true');
-    document.querySelector('.sheet').scrollIntoView({ behavior: reduced() ? 'auto' : 'smooth', block: 'start' });
+    revealPlan(event, document.querySelector('#plan .pl-item.hl'));
   });
 
   document.getElementById('plan-note').addEventListener('click', (event) => {
@@ -354,8 +536,10 @@ function bindDesign() {
     S.project = t(kata.title);
     syncInputs();
     refresh(true);
-    document.querySelector('.sheet').scrollIntoView({ behavior: reduced() ? 'auto' : 'smooth', block: 'start' });
+    revealPlan(event);
   });
+
+  watchPlan(frame);
 }
 
 function syncInputs() {
@@ -368,6 +552,32 @@ function syncInputs() {
   document.getElementById('project').value = S.project;
 }
 
+// The plan is drawn for the width of its frame, and drawn again when that width changes.
+const sizer = typeof ResizeObserver === 'function' ? new ResizeObserver(() => requestAnimationFrame(redrawIfResized)) : null;
+
+function watchPlan(frame) {
+  if (!sizer) return;
+  sizer.disconnect();
+  sizer.observe(frame);
+}
+
+function redrawIfResized() {
+  const frame = document.getElementById('plan');
+  if (!frame || !S.advice || S.printing) return;
+  if (Math.abs(contentWidth(frame) - S.planWidth) >= 16) drawPlan();
+}
+
+function drawPlan() {
+  const frame = document.getElementById('plan');
+  if (!frame || !S.advice) return;
+  const width = S.printing ? PRINT_WIDTH : contentWidth(frame);
+  S.planWidth = width;
+  S.hover = null;
+  frame.innerHTML = renderPlan(S.advice.plan, S.lang, meta().ui, width);
+  for (const item of frame.querySelectorAll('.pl-item')) item.classList.toggle('is-new', S.fresh.has(item.dataset.pattern));
+  settle();
+}
+
 function light(ids, mode = '') {
   const frame = document.getElementById('plan');
   if (!frame) return;
@@ -378,15 +588,23 @@ function light(ids, mode = '') {
   for (const row of document.querySelectorAll('#groups li[data-id]')) row.classList.toggle('hl', on.has(row.dataset.id));
 }
 
+// The note is only written when what it says changes, so a reader's focus inside it survives.
 function note(html) {
   const el = document.getElementById('plan-note');
-  if (el) el.innerHTML = html;
+  if (!el || el.dataset.html === html) return;
+  el.dataset.html = html;
+  el.innerHTML = html;
 }
 
 // Back to the pinned state, or to the resting note when nothing is pinned.
 function settle() {
   light(S.focus ? S.focus.ids : [], S.focus ? S.focus.kind : '');
   note(S.focus ? S.focus.html : S.rest);
+}
+
+function rest() {
+  S.hover = null;
+  settle();
 }
 
 function pin(focus) {
@@ -401,55 +619,68 @@ function unpin() {
   settle();
 }
 
+function togglePin(item) {
+  const id = item.dataset.pattern;
+  if (S.focus && S.focus.kind === 'pattern' && S.focus.id === id) return unpin();
+  pin({ kind: 'pattern', id, ids: [id], html: patternNote(id, item.dataset.label, true) });
+}
+
 const markOf = (priority) => (priority ? `<span class="mark mark-${priority}" aria-hidden="true"></span>` : '');
 const levelTag = (priority) => `<span class="level">${esc(t(meta().priorities[priority]))}</span>`;
 
+// A touch screen has no pointer to hover with and no arrow keys, so it gets the short hint.
 function hintNote() {
-  return `<p class="hint">${esc(ui('planHint'))}</p>`;
+  return `<p class="hint hint-pointer">${esc(ui('planHint'))}</p><p class="hint hint-touch">${esc(ui('planHintTouch'))}</p>`;
 }
 
-function patternNote(id, label) {
+// Pointing at a piece previews its note; pinning it adds the way to the list and the pattern.
+function patternNote(id, label, pinned) {
   const p = patternById(id);
   if (!p) return S.rest;
   const rec = S.advice.patterns.find((r) => r.id === id);
   const reason = rec && rec.reasons[0] ? `<p><span class="note-key">${esc(ui('why'))}</span> ${esc(t(rec.reasons[0]))}</p>` : '';
+  const end = pinned
+    ? `<p class="note-actions"><button type="button" data-show="${id}">${esc(ui('showInList'))}</button><a href="#patterns/${id}">${esc(ui('readPattern'))}</a></p>`
+    : `<p class="hint">${esc(ui('notePin'))}</p>`;
   return `<p class="note-head">${markOf(rec && rec.priority)}<strong>${ltr(id)} ${esc(t(p.title))}</strong>${rec ? ` ${levelTag(rec.priority)}` : ''}</p>
-${label ? `<p class="note-label">${esc(label)}</p>` : ''}${reason}
-<p class="note-actions"><button type="button" data-show="${id}">${esc(ui('showInList'))}</button><a href="#patterns/${id}">${esc(ui('readPattern'))}</a></p>`;
+${label ? `<p class="note-label">${esc(label)}</p>` : ''}${reason}${end}`;
 }
 
 function threatNote(threat) {
   const by = threat.addressedBy.map((id) => patternLink(id)).join(sep());
-  return `<p class="note-head">${markOf('essential')}<strong>${esc(t(threat.title))}</strong></p>
+  return `<p class="note-head"><span class="mark mark-threat" aria-hidden="true"></span><strong>${esc(t(threat.title))}</strong></p>
 <p><span class="note-key">${esc(ui('stoppedBy'))}</span> ${by}</p>
 <p class="note-actions"><button type="button" data-clear>${esc(ui('clearMarks'))}</button></p>`;
 }
 
 function changesNote(changes) {
-  const head = `<p class="note-head"><strong>${esc(ui('changesTitle'))}</strong></p>`;
-  if (!changes.length) return `${head}<p class="note-label">${esc(ui('changeNone'))}</p>`;
+  const title = `<strong>${esc(ui('changesTitle'))}</strong>`;
+  if (!changes.length) return `<p class="note-head">${title}</p><p class="note-label">${esc(ui('changeNone'))}</p>`;
   const key = { added: 'changeAdded', moved: 'changeMoved', removed: 'changeRemoved' };
   const items = changes.map((c) => {
     const text = fmt(ui(key[c.kind]), { pattern: patternLink(c.id), priority: levelTag(c.priority) });
     return `<li class="chg chg-${c.kind}">${text}</li>`;
   });
-  return `${head}<ul class="changes">${items.join('')}</ul>`;
-}
-
-// New and promoted pieces flash on the plan for a moment, like fresh ink.
-function flashNew(changes) {
-  const ids = new Set(changes.filter((c) => c.kind !== 'removed').map((c) => c.id));
-  const items = [...document.querySelectorAll('#plan .pl-item')].filter((item) => ids.has(item.dataset.pattern));
-  for (const item of items) item.classList.add('is-new');
-  clearTimeout(flashNew.timer);
-  flashNew.timer = setTimeout(() => items.forEach((item) => item.classList.remove('is-new')), 2600);
+  const list = `<ul class="changes">${items.join('')}</ul>`;
+  if (changes.length <= 3) return `<p class="note-head">${title}</p>${list}`;
+  const counts = [
+    ['added', 'changesAdded'],
+    ['moved', 'changesMoved'],
+    ['removed', 'changesRemoved'],
+  ];
+  const summary = counts
+    .map(([kind, k]) => [k, changes.filter((c) => c.kind === kind).length])
+    .filter(([, n]) => n)
+    .map(([k, n]) => esc(ui(k).replace('{n}', num(n))))
+    .join(sep());
+  return `<p class="note-head">${title} <span class="note-label">${summary}</span></p><details class="chg-more"><summary>${esc(ui('changeShow'))}</summary>${list}</details>`;
 }
 
 function showInList(id) {
   const row = document.querySelector(`#groups li[data-id="${id}"]`);
   if (!row) return;
   row.querySelector('details').open = true;
-  row.scrollIntoView({ behavior: reduced() ? 'auto' : 'smooth', block: 'center' });
+  row.scrollIntoView({ block: 'center' });
   row.classList.remove('flash');
   row.getBoundingClientRect();
   row.classList.add('flash');
@@ -459,72 +690,69 @@ function showInList(id) {
 function refresh(write) {
   const before = S.advice;
   S.advice = advise(S.data, S.answers);
-  const frame = document.getElementById('plan');
-  frame.innerHTML = renderPlan(S.advice.plan, S.lang, meta().ui);
-  // After a change of answer, each new drawing fades in, so the eye catches what changed.
-  if (write) frame.classList.add('redraw');
-  refreshTitleBlock();
-  document.getElementById('groups').innerHTML = groupsHtml(S.advice);
-  document.getElementById('threats').innerHTML = S.advice.threats.map(threatHtml).join('');
   S.focus = null;
   if (write && before) {
     const changes = diffPatterns(before.patterns, S.advice.patterns);
     S.rest = changesNote(changes);
-    flashNew(changes);
+    S.fresh = new Set(changes.filter((c) => c.kind !== 'removed').map((c) => c.id));
   } else {
     S.rest = hintNote();
+    S.fresh = new Set();
   }
-  settle();
+  refreshTitleBlock();
+  document.getElementById('groups').innerHTML = boardHtml(S.advice);
+  document.getElementById('board-count').innerHTML = countHtml(S.advice);
+  document.getElementById('threats').innerHTML = S.advice.threats.map(threatHtml).join('');
+  drawPlan();
   if (write) writeUrl();
   else syncLinks();
 }
 
 function refreshTitleBlock() {
   const system = S.data.advisor.questions.find((q) => q.id === 'system');
-  const drawing = t(system.options.find((o) => o.id === S.answers.system).label);
-  const cells = [
-    ['sheetProject', S.project ? esc(S.project) : `<span class="muted">${esc(ui('projectPlaceholder'))}</span>`],
-    ['sheetDrawing', esc(drawing)],
-    ['sheetLevel', esc(t(meta().levels[S.answers.maturity]))],
-    ['sheetScale', esc(ui('sheetNotToScale'))],
-    ['sheetDate', esc(num(today()))],
-  ];
-  document.getElementById('titleblock').innerHTML = cells
-    .map(([key, value]) => `<div><dt>${esc(ui(key))}</dt><dd>${value}</dd></div>`)
+  document.getElementById('tb-drawing').textContent = t(system.options.find((o) => o.id === S.answers.system).label);
+  document.getElementById('tb-level').textContent = t(meta().levels[S.answers.maturity]);
+  document.getElementById('tb-date').textContent = num(today());
+}
+
+// The patterns for this design, essential first, each row opening onto its detail.
+function boardHtml(advice) {
+  return PRIORITIES.flatMap((priority) => advice.patterns.filter((p) => p.priority === priority))
+    .map(recommendationHtml)
     .join('');
 }
 
-function groupsHtml(advice) {
+function countHtml(advice) {
   return PRIORITIES.map((priority) => {
-    const list = advice.patterns.filter((p) => p.priority === priority);
-    if (!list.length) return '';
-    return `<section class="group">
-  <h3><span class="mark mark-${priority}" aria-hidden="true"></span>${esc(t(meta().priorities[priority]))} <span class="count">${num(list.length)}</span></h3>
-  <ul class="plist">${list.map(recommendationHtml).join('')}</ul>
-</section>`;
+    const n = advice.patterns.filter((p) => p.priority === priority).length;
+    return n ? `<span>${esc(t(meta().priorities[priority]))} <b>${esc(num(n))}</b></span>` : '';
   }).join('');
 }
 
 function recommendationHtml(rec) {
   const p = rec.pattern;
   const next = rec.nextControls.length
-    ? `<h4>${esc(ui('nextLevel'))}</h4><ul>${rec.nextControls.map((c) => `<li>${esc(t(c.name))}</li>`).join('')}</ul>`
+    ? `<h3>${esc(ui('nextLevel'))}</h3><ul>${rec.nextControls.map((c) => `<li>${esc(t(c.name))}</li>`).join('')}</ul>`
     : '';
-  return `<li data-id="${p.id}"><details><summary><span class="pid">${ltr(p.id)}</span><span class="ptitle">${esc(t(p.title))}</span><span class="pdomain">${esc(t(meta().domains[p.domain]))}</span></summary>
+  return `<li data-id="${p.id}"${S.fresh.has(p.id) ? ' class="flap"' : ''}><details name="plist"><summary><span class="ptitle">${esc(t(p.title))}</span><span class="pdomain">${esc(t(meta().domains[p.domain]))}</span><span class="pid">${ltr(p.id)}</span><span class="pstatus pst-${rec.priority}">${esc(t(meta().priorities[rec.priority]))}</span></summary>
 <div class="pbody">
-  <h4>${esc(ui('why'))}</h4>${listOf(rec.reasons)}
-  <h4>${esc(ui('controlsAtLevel'))}</h4><ul class="controls">${rec.controls.map((c) => controlHtml(c, true)).join('')}</ul>
-  ${next}
-  <h4>${esc(ui('decisions'))}</h4>${listOf(p.decisions)}
-  <h4>${esc(ui('verify'))}</h4>${listOf(p.verify)}
-  <p class="more"><a href="#patterns/${p.id}">${esc(ui('readPattern'))}</a></p>
+  <div class="pcol">
+    <h3>${esc(ui('why'))}</h3>${listOf(rec.reasons)}
+    <h3>${esc(ui('decisions'))}</h3>${listOf(p.decisions)}
+    <h3>${esc(ui('verify'))}</h3>${listOf(p.verify)}
+  </div>
+  <div class="pcol">
+    <h3>${esc(ui('controlsAtLevel'))}</h3><ul class="controls">${rec.controls.map((c) => controlHtml(c, true)).join('')}</ul>
+    ${next}
+    <p class="more"><a href="#patterns/${p.id}">${esc(ui('readPattern'))}</a></p>
+  </div>
 </div></details></li>`;
 }
 
 function threatHtml(threat) {
   const refs = threat.refs.map(refLink).join(sep());
   const by = threat.addressedBy.map((id) => `<a href="#patterns/${id}">${ltr(id)}</a>`).join(sep());
-  return `<li><p class="ttitle">${esc(t(threat.title))}</p><p class="trefs">${refs}</p><p class="tby">${esc(ui('threatsMitigated'))} ${by}</p><button type="button" class="mark-btn" data-threat="${threat.id}" aria-pressed="false">${icon('pen')}<span>${esc(ui('showOnPlan'))}</span></button></li>`;
+  return `<li><span class="tdot" aria-hidden="true"></span><p class="ttitle" id="th-${threat.id}">${esc(t(threat.title))}</p><p class="tby">${esc(ui('threatsMitigated'))} ${by}</p><p class="tline">${refs}</p><p class="tline"><button type="button" class="mark-btn" data-threat="${threat.id}" aria-pressed="false" aria-describedby="th-${threat.id}">${esc(ui('showOnPlan'))}</button></p></li>`;
 }
 
 function writeUrl() {
@@ -532,13 +760,26 @@ function writeUrl() {
   syncLinks();
 }
 
-function toast(message) {
+// A short message beside the sheet's actions, with an optional action of its own.
+function toast(message, { sticky = false, action = null, ms = 3000 } = {}) {
   const el = document.getElementById('toast');
-  el.textContent = message;
+  if (!el) return;
   clearTimeout(toast.timer);
-  toast.timer = setTimeout(() => {
+  if (!message) {
+    el.removeAttribute('data-on');
     el.textContent = '';
-  }, 3000);
+    return;
+  }
+  el.innerHTML = `<span>${esc(message)}</span>${action ? `<button type="button">${esc(action.label)}</button>` : ''}`;
+  if (action) el.querySelector('button').addEventListener('click', action.run, { once: true });
+  el.setAttribute('data-on', '');
+  if (sticky) return;
+  toast.timer = setTimeout(() => {
+    el.removeAttribute('data-on');
+    toast.timer = setTimeout(() => {
+      el.textContent = '';
+    }, 200);
+  }, ms);
 }
 
 function fallbackCopy(text) {
@@ -567,7 +808,9 @@ async function copyLink() {
   } catch {
     ok = fallbackCopy(url);
   }
-  toast(ok ? ui('linkCopied') : url);
+  // A link that could not be copied stays on screen until the reader takes it.
+  if (ok) toast(ui('linkCopied'));
+  else toast(url, { sticky: true });
 }
 
 function downloadBrief() {
@@ -583,30 +826,47 @@ function downloadBrief() {
   setTimeout(() => URL.revokeObjectURL(a.href), 2000);
 }
 
+// Starting over keeps what it replaced for a few seconds, so one click cannot lose a design.
 function resetDesign() {
+  const before = { answers: S.answers, project: S.project, tab: S.tab };
   S.answers = defaultAnswers(S.data.advisor);
   S.project = '';
+  S.tab = 0;
   viewDesign('');
   writeUrl();
-  document.getElementById('project').focus();
+  document.getElementById('project').focus({ preventScroll: true });
+  toast(ui('resetDone'), {
+    ms: 8000,
+    action: {
+      label: ui('undo'),
+      run: () => {
+        Object.assign(S, before);
+        viewDesign('');
+        writeUrl();
+        main.querySelector('[data-act="reset"]').focus({ preventScroll: true });
+      },
+    },
+  });
 }
 
 // The pattern catalogue
 
 function viewIndex() {
-  const rows = S.data.patterns
-    .map(
-      (p) =>
-        `<tr><td class="pid">${ltr(p.id)}</td><td><a href="#patterns/${p.id}">${esc(t(p.title))}</a><p>${esc(t(p.summary))}</p></td><td>${esc(t(meta().domains[p.domain]))}</td></tr>`
-    )
+  const m = meta();
+  const groups = Object.keys(m.domains)
+    .map((d) => {
+      const list = S.data.patterns.filter((p) => p.domain === d);
+      if (!list.length) return '';
+      const rows = list
+        .map((p) => `<li><a href="#patterns/${p.id}">${esc(t(p.title))}</a><span class="inum">${ltr(p.id)}</span><p class="isum">${esc(t(p.summary))}</p></li>`)
+        .join('');
+      return `<section class="igroup" aria-labelledby="d-${d}"><h2 id="d-${d}">${esc(t(m.domains[d]))}</h2><ul class="irows">${rows}</ul></section>`;
+    })
     .join('');
-  main.innerHTML = `<section class="page wide">
+  main.innerHTML = `<section class="page">
   <h1>${esc(ui('patternsTitle'))}</h1>
   <p class="lede">${esc(ui('patternsIntro'))}</p>
-  <div class="table-wrap"><table class="index">
-    <thead><tr><th scope="col">${esc(ui('colNumber'))}</th><th scope="col">${esc(ui('colPattern'))}</th><th scope="col">${esc(ui('colDomain'))}</th></tr></thead>
-    <tbody>${rows}</tbody>
-  </table></div>
+  <div class="index">${groups}</div>
 </section>`;
 }
 
@@ -614,16 +874,14 @@ function viewPattern(id) {
   const p = patternById(id);
   if (!p) return notFound();
   const m = meta();
+  const sec = (key, body) => `<section class="psec"><h2>${esc(ui(key))}</h2><div>${body}</div></section>`;
   const controls = LEVELS.map((level) => {
     const list = p.controls.filter((c) => c.level === level);
     if (!list.length) return '';
     return `<h3>${esc(t(m.levels[level]))}</h3><ul class="controls">${list.map((c) => controlHtml(c)).join('')}</ul>`;
   }).join('');
   const refs = [...p.attack, ...p.owasp];
-  const threats = refs.length
-    ? `<h2>${esc(ui('threats'))}</h2><ul>${refs.map((r) => `<li>${refLink(r)}</li>`).join('')}</ul>`
-    : '';
-  const row = (label, value) => `<span class="row"><span>${label}</span><span class="n">${esc(num(value))}</span></span>`;
+  const row = (label, value) => `<span class="row">${label} <b>${esc(num(value))}</b></span>`;
   const distinct = (key) => new Set(p.controls.flatMap((c) => c[key])).size;
   const refRows = [
     [p.attack.length, 'MITRE ATT&CK'],
@@ -633,53 +891,87 @@ function viewPattern(id) {
     .map(([n, name]) => row(ltr(name), n))
     .join('');
   main.innerHTML = `<article class="page pattern">
-  <p class="back"><a href="#patterns">${esc(ui('backToIndex'))}</a></p>
-  <h1><span class="pid">${ltr(p.id)}</span> ${esc(t(p.title))}</h1>
-  <p class="domain">${esc(t(m.domains[p.domain]))}</p>
+  <nav class="crumbs" aria-label="${esc(ui('crumbs'))}"><a href="#patterns">${esc(ui('navPatterns'))}</a><span aria-hidden="true">/</span><span aria-current="page">${ltr(p.id)}</span></nav>
+  <h1>${esc(t(p.title))}</h1>
+  <div class="phead-body">
   <p class="lede">${esc(t(p.summary))}</p>
-  <figure class="diagram" id="diagram" hidden>
+  <dl class="facts" aria-label="${esc(ui('atAGlance'))}">
+    <div><dt>${esc(ui('colDomain'))}</dt><dd>${esc(t(m.domains[p.domain]))}</dd></div>
+    <div><dt>${esc(ui('controls'))}</dt><dd>${LEVELS.map((l) => row(esc(t(m.levels[l])), p.controls.filter((c) => c.level === l).length)).join('')}</dd></div>
+    <div><dt>${esc(ui('mappedTo'))}</dt><dd>${['nist', 'cis', 'iso'].map((k) => row(ltr(t(m.frameworks[k])), distinct(k))).join('')}</dd></div>
+    ${refRows ? `<div><dt>${esc(ui('threats'))}</dt><dd>${refRows}</dd></div>` : ''}
+  </dl>
+  </div>
+  <figure class="diagram" id="diagram">
     <figcaption>${esc(ui('diagramCaption'))}</figcaption>
-    <div class="diagram-canvas" id="diagram-canvas" tabindex="0" role="region" aria-label="${esc(ui('diagramCaption'))}"></div>
+    <div class="diagram-canvas" id="diagram-canvas" data-ui tabindex="0" role="region" aria-label="${esc(ui('diagramCaption'))}"></div>
   </figure>
   <div class="pattern-body">
-    <div class="pattern-main">
-      <h2>${esc(ui('problem'))}</h2><p>${esc(t(p.problem))}</p>
-      <h2>${esc(ui('useWhen'))}</h2>${listOf(p.useWhen)}
-      <h2>${esc(ui('design'))}</h2>${p.design.map((d) => `<p>${esc(t(d))}</p>`).join('')}
-      <h2>${esc(ui('controls'))}</h2>${controls}
-      <h2>${esc(ui('decisions'))}</h2>${listOf(p.decisions)}
-      <h2>${esc(ui('tradeoffs'))}</h2>${listOf(p.tradeoffs)}
-      <h2>${esc(ui('antipatterns'))}</h2>${listOf(p.antipatterns)}
-      <h2>${esc(ui('verify'))}</h2>${listOf(p.verify)}
-      ${threats}
-      <h2>${esc(ui('references'))}</h2><ul>${p.references.map((r) => `<li><a href="${esc(r.url)}">${esc(t(r.title))}</a></li>`).join('')}</ul>
-    </div>
-    <aside class="glance" aria-labelledby="glance-title">
-      <h2 id="glance-title">${esc(ui('atAGlance'))}</h2>
-      <dl>
-        <div><dt>${esc(ui('colDomain'))}</dt><dd>${esc(t(m.domains[p.domain]))}</dd></div>
-        <div><dt>${esc(ui('controls'))}</dt><dd>${LEVELS.map((l) => row(esc(t(m.levels[l])), p.controls.filter((c) => c.level === l).length)).join('')}</dd></div>
-        <div><dt>${esc(ui('mappedTo'))}</dt><dd>${['nist', 'cis', 'iso'].map((k) => row(ltr(t(m.frameworks[k])), distinct(k))).join('')}</dd></div>
-        ${refRows ? `<div><dt>${esc(ui('threats'))}</dt><dd>${refRows}</dd></div>` : ''}
-      </dl>
-      <h3>${esc(ui('related'))}</h3>
-      <ul class="plain">${p.related.map((r) => `<li>${patternLink(r)}</li>`).join('')}</ul>
-      <p class="more"><a href="${gh('patterns', `${p.id}-${p.slug}`)}">${esc(ui('openOnGitHub'))}</a></p>
-    </aside>
+    ${sec('problem', `<p>${esc(t(p.problem))}</p>`)}
+    ${sec('useWhen', listOf(p.useWhen))}
+    ${sec('design', p.design.map((d) => `<p>${esc(t(d))}</p>`).join(''))}
+    ${sec('controls', controls)}
+    ${sec('decisions', listOf(p.decisions))}
+    ${sec('tradeoffs', listOf(p.tradeoffs))}
+    ${sec('antipatterns', listOf(p.antipatterns))}
+    ${sec('verify', listOf(p.verify))}
+    ${refs.length ? sec('threats', `<ul>${refs.map((r) => `<li>${refLink(r)}</li>`).join('')}</ul>`) : ''}
+    ${sec('references', `<ul>${p.references.map((r) => `<li><a href="${esc(r.url)}">${esc(t(r.title))}</a></li>`).join('')}</ul>`)}
+    ${sec('related', `<ul class="plain">${p.related.map((r) => `<li>${patternLink(r)}</li>`).join('')}</ul><p class="more"><a href="${gh('patterns', `${p.id}-${p.slug}`)}">${esc(ui('openOnGitHub'))}</a></p>`)}
   </div>
 </article>`;
-  // The diagram is drawn ahead of time by scripts/render-diagrams.mjs and styled by this page.
-  fetch(`diagrams/${p.id}.${S.lang}.svg`)
+  drawDiagram(p);
+}
+
+// The diagram is drawn ahead of time by scripts/render-diagrams.mjs, in a wide
+// and a tall version, and styled by this page. The page takes the version that
+// sets its labels nearest their true size, and a narrow screen pans a drawing
+// it cannot fit rather than shrinking it past reading. An empty drawing of the
+// same size holds its place while it loads, so the text below never jumps.
+const LEGIBLE = 0.87; // the smallest scale at which 15px diagram labels stay at 13px
+function diagramChoice(p, width) {
+  const boxes = S.data.diagrams || {};
+  const size = (name) => (boxes[name] ? boxes[name].split(' ').map(Number) : null);
+  const wide = `${p.id}.${S.lang}`;
+  const tall = `${wide}.tall`;
+  if (!size(wide)) return null;
+  const fit = (name) => Math.min(1.1, width / size(name)[2]);
+  let name = wide;
+  if (fit(wide) < LEGIBLE && size(tall)) {
+    const tallHeight = size(tall)[3] * fit(tall);
+    if (width < 900 || tallHeight <= 900) name = tall;
+  }
+  const [, , w, h] = size(name);
+  const scale = fit(name) < LEGIBLE ? Math.max(fit(name), width < 900 ? 0.93 : fit(name)) : fit(name);
+  return { name, box: boxes[name], w: Math.round(w * scale), h: Math.round(h * scale), pan: w * scale > width + 1 };
+}
+
+function drawDiagram(p) {
+  const figure = document.getElementById('diagram');
+  const canvas = document.getElementById('diagram-canvas');
+  const choice = diagramChoice(p, contentWidth(canvas));
+  if (!choice) return void (figure.hidden = true);
+  const sized = (svg) => {
+    svg.setAttribute('width', choice.w);
+    svg.setAttribute('height', choice.h);
+  };
+  canvas.classList.toggle('pan', choice.pan);
+  canvas.innerHTML = `<svg class="diagram-svg" viewBox="${choice.box}" aria-hidden="true"></svg>`;
+  sized(canvas.firstElementChild);
+  fetch(`diagrams/${choice.name}.svg`)
     .then((res) => (res.ok ? res.text() : ''))
     .then((svg) => {
-      const canvas = document.getElementById('diagram-canvas');
-      if (!svg || !canvas || route().id !== p.id) return;
+      if (route().id !== p.id || !document.getElementById('diagram-canvas')) return;
+      if (!svg) return void (figure.hidden = true);
       canvas.innerHTML = svg;
       const drawing = canvas.querySelector('svg');
-      if (drawing) drawing.setAttribute('aria-label', `${p.id} ${t(p.title)}`);
-      document.getElementById('diagram').hidden = false;
+      if (!drawing) return;
+      sized(drawing);
+      drawing.setAttribute('aria-label', `${p.id} ${t(p.title)}`);
     })
-    .catch(() => {});
+    .catch(() => {
+      if (document.getElementById('diagram')) figure.hidden = true;
+    });
 }
 
 // Learning
@@ -695,13 +987,11 @@ function viewLearn() {
   <h1>${esc(ui('learnTitle'))}</h1>
   <p class="lede">${esc(ui('learnIntro'))}</p>
   <p class="more quiz-link"><a href="#quiz">${esc(ui('quizTitle'))}</a></p>
-  <div class="learn-grid">
+  <div class="learn-cols">
     <section><h2>${esc(ui('handbookTitle'))}</h2><ol class="steps">${m.handbook.map((c) => item(gh('handbook', c.slug), c.title, c.summary)).join('')}</ol></section>
-    <div class="learn-side">
-      <section><h2>${esc(ui('katasTitle'))}</h2><ul class="items">${katas}</ul></section>
-      <section><h2>${esc(ui('templatesTitle'))}</h2><ul class="items">${m.templates.map((x) => item(gh('templates', x.slug), x.title, x.summary)).join('')}</ul></section>
-      <section><h2>${esc(ui('practiceTitle'))}</h2><ul class="items">${m.practice.map((x) => item(x.url, x.name, x.summary)).join('')}</ul></section>
-    </div>
+    <section><h2>${esc(ui('katasTitle'))}</h2><ul class="items">${katas}</ul></section>
+    <section><h2>${esc(ui('templatesTitle'))}</h2><ul class="items">${m.templates.map((x) => item(gh('templates', x.slug), x.title, x.summary)).join('')}</ul></section>
+    <section><h2>${esc(ui('practiceTitle'))}</h2><ul class="items">${m.practice.map((x) => item(x.url, x.name, x.summary)).join('')}</ul></section>
   </div>
 </section>`;
 }
@@ -713,10 +1003,10 @@ const fold = (s) =>
   String(s)
     .toLowerCase()
     .normalize('NFKD')
-    .replace(/[\u064B-\u065F\u0670\u0640]/g, '')
-    .replace(/[\u0622\u0623\u0625\u0671]/g, '\u0627')
-    .replace(/\u0649/g, '\u064A')
-    .replace(/\u0629/g, '\u0647');
+    .replace(/[ً-ٰٟـ]/g, '')
+    .replace(/[آأإٱ]/g, 'ا')
+    .replace(/ى/g, 'ي')
+    .replace(/ة/g, 'ه');
 
 function viewGlossary() {
   const twin = other();
@@ -730,6 +1020,7 @@ function viewGlossary() {
     .join('');
   main.innerHTML = `<section class="page glossary">
   <h1>${esc(ui('glossaryTitle'))}</h1>
+  <p class="lede">${esc(ui('glossaryIntro'))}</p>
   <label class="search" for="gq"><span>${esc(ui('glossarySearch'))}</span><input type="search" id="gq" autocomplete="off" spellcheck="false"></label>
   <dl class="terms">${rows}</dl>
   <p class="empty" id="gempty" hidden>${esc(ui('glossaryEmpty'))}</p>
@@ -829,15 +1120,27 @@ function answerQuiz(id) {
   document.querySelector('[data-next]').focus();
 }
 
-// Keys: Escape clears the red marks, and 1 to 4 answer the quiz, in either set of numerals.
+// Keys: Escape clears the marks, and 1 to 4 answer the quiz, in either set of numerals.
 function onKey(event) {
-  if (event.key === 'Escape' && S.view === 'design' && S.focus) return unpin();
+  if (event.key === 'Escape' && S.view === 'design' && S.focus) {
+    const inPlan = document.activeElement && document.activeElement.closest && document.activeElement.closest('#plan');
+    unpin();
+    if (inPlan) document.getElementById('plan').focus();
+    return;
+  }
   if (S.view !== 'quiz' || event.altKey || event.ctrlKey || event.metaKey) return;
   if (event.target.closest && event.target.closest('input, textarea')) return;
   const digit = '1234'.indexOf(event.key) >= 0 ? '1234'.indexOf(event.key) : '١٢٣٤'.indexOf(event.key);
   if (digit < 0) return;
   const option = document.querySelectorAll('.quiz-option')[digit];
   if (option && !option.disabled) option.click();
+}
+
+// Printing draws the landscape sheet, whatever the screen, and puts the screen's drawing back after.
+function onPrint(printing) {
+  if (S.view !== 'design') return;
+  S.printing = printing;
+  drawPlan();
 }
 
 // Routing
@@ -852,6 +1155,7 @@ function notFound() {
 function render(moved) {
   const r = route();
   S.view = r.view;
+  if (sizer) sizer.disconnect();
   if (r.view === 'design') viewDesign(r.query);
   else if (r.view === 'patterns' && r.id) viewPattern(r.id);
   else if (r.view === 'patterns') viewIndex();
@@ -880,6 +1184,8 @@ async function init() {
   renderChrome();
   document.addEventListener('keydown', onKey);
   window.addEventListener('hashchange', () => render(true));
+  window.addEventListener('beforeprint', () => onPrint(true));
+  window.addEventListener('afterprint', () => onPrint(false));
   render(false);
 }
 

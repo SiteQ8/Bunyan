@@ -172,6 +172,7 @@ test('advisor questions are well formed', () => {
     assert.notEqual(q.key, 'n', 'the key n is kept for the project name');
     assert.ok(['single', 'multi'].includes(q.type), `${q.id} type`);
     assert.ok(isPair(q.label), `${q.id} label`);
+    assert.ok(isPair(q.short), `${q.id} has a short label for the question strip`);
     const options = q.options.map((o) => o.id);
     assert.equal(new Set(options).size, options.length, `${q.id} options are unique`);
     q.options.forEach((o) => assert.ok(isPair(o.label), `${q.id}.${o.id} label`));
