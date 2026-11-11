@@ -719,7 +719,7 @@ html[lang="ar"] .page .lede {
   overflow-y: auto;
   padding: var(--s3) var(--s5);
   background: var(--sheet);
-  box-shadow: 0 calc(-1 * var(--rule)) 0 var(--ink); /* taste-skill-ignore: a sticky bar over the plan, not a resting surface */
+  box-shadow: 0 calc(-1 * var(--rule)) 0 var(--ink); /* a sticky bar over the plan, not a resting surface */
   font-size: var(--step-ui);
   line-height: 1.45;
 }
